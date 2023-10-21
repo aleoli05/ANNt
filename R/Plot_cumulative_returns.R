@@ -11,6 +11,7 @@ Plot_Cumulative_Returns <- function(Until_Date) {
 
 ##############################################################################
 
+library(stringr)
 load('~/Comparativo.rda')
   load('~/N_Assets.rda')
   load('~/Final_Date_Testing.rda')
