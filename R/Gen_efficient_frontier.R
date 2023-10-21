@@ -38,11 +38,25 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   }
 
   if(class(Initial_Analysis_Date)!=('numeric')){
+
+    if(length(which(rownames(Comparativo_RETORNOS)==Initial_Analysis_Date))==0){
+      while(length(which(rownames(Comparativo_RETORNOS)==Initial_Analysis_Date))==0){
+        dia=as.Date(Initial_Analysis_Date)
+        new_day=dia+1
+        Initial_Analysis_Date = as.character(new_day)
+      }}
+      if(length(which(rownames(Comparativo_RETORNOS)==Final_Analysis_Date))==0){
+        while(length(which(rownames(Comparativo_RETORNOS)==Final_Analysis_Date))==0){
+          dia=as.Date(Final_Analysis_Date)
+          new_day=dia-1
+          Final_Analysis_Date = as.character(new_day)
+        }}
+
     Datas1Predict = rownames(scenario.set)[
       (which(rownames(scenario.set)==Initial_Analysis_Date)):
         (which(rownames(scenario.set)==Final_Analysis_Date))]
   }else{
-    Datas1Predict = rownames(scenario.set)[(Initial_Analysis_Date+6):(
+      Datas1Predict = rownames(scenario.set)[(Initial_Analysis_Date+6):(
       which(rownames(scenario.set)==Final_Analysis_Date))]
   }
 

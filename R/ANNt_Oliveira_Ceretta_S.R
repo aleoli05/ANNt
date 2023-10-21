@@ -158,6 +158,9 @@ options(warn=-1)
 
 
 all.returns <- TodosAtivosPredict
+if (nrow(all.returns)<ncol(all.returns)){
+  message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
+}
 while (nrow(all.returns)<ncol(all.returns)){
   Inicio=as.character(as.Date(rownames(all.returns)[1])-(ncol(all.returns)-nrow(all.returns)))
   Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
@@ -169,7 +172,7 @@ while (nrow(all.returns)<ncol(all.returns)){
 
     while(length(which(rownames(scenario.set)==Fim))==0){
       dia=as.Date(Fim)
-      new_day=dia+1
+      new_day=dia-1
       Fim = as.character(new_day)}
 
 
