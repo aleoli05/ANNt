@@ -118,7 +118,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   C_MFractal = as.data.frame(scenario.set) %>%
     dplyr::select(which((colnames(scenario.set) %in% Carteira_MFractal)))
   C_MFractal = C_MFractal[Datas1Predict,]
-  Pesos_MFractal = c(rep(1/n_assets,n_assets))
+  Pesos_MFractal = c(rep(1/N_Assets,N_Assets))
   Ret_C_MFractal_EQ = as.matrix(C_MFractal) %*% Pesos_MFractal_2[1,]
   print(Pesos_MFractal)
   ###############################################################################
