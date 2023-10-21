@@ -33,6 +33,8 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   load('~/Weight_Sharpe_1.rda')
   load('~/Weight_Sharpe_MF.rda')
   load('~/Weight_ANNt_Sharpe.rda')
+  load('~/Pesos_MFractal_2.rda')
+  load("~/N_Assets.rda")
 
   scenario.set = data.frame(scenario.set)
   if(Initial_Date_Out==('')){
@@ -330,7 +332,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   save(pesos_todosPredict,file='~/pesos_todosPredict.rda')
   save(weight_Sharpe,file='~/weight_Sharpe.rda')
   save(Weights_All,file='~/Weights_All.rda')
-  save(N_Assets,file='~/N_Assets.rda')
+  #save(N_Assets,file='~/N_Assets.rda')
   save(Final_Date_Testing,file='~/Final_Date_Testing.rda')
   save(GMV_Return,file='~/GMV_Return.rda')
   save(GMV_sd,file='~/GMV_sd.rda')
