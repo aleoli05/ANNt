@@ -286,7 +286,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   rownames(Comparativo) = rownames(as.data.frame(PosCovidSP500))
 
   save(Comparativo,file='~/Comparativo.rda')
-  save(Rf,file='~/Rf.rda')
+  #save(Rf,file='~/Rf.rda')
 
   Comparativo_Df = mutate(as.data.frame(Datas_Comparativo_RETORNOS),
                           as.data.frame(Comparativo))
