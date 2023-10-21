@@ -54,7 +54,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
 
   if(length(which(rownames(scenario.set)==Final_Date_Out))==0){
     while(length(which(rownames(scenario.set)==Final_Date_Out))==0){
-      dia=as.Date(Initial_Date_Out)
+      dia=as.Date(Final_Date_Out)
       new_day=dia-1
       Final_Date_Out = as.character(new_day)
     }
