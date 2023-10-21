@@ -211,6 +211,11 @@ if(ncol(all.returns)>10){
   }
 }
 
+if(ncol(all.returns)>480){
+  I=(nrow(scenario.set)-499)
+  all.returns=scenario.set[I:nrow(scenario.set),]
+}
+
 ####### set up portfolio with objetive and constraints
 n.assets <- length(colnames(all.returns))
 port.sec <- portfolio.spec(assets = colnames(all.returns))
