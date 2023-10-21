@@ -24,7 +24,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   load("~/Initial_Date_Testing.rda")
   load("~/Final_Date_Testing.rda")
   load("~/Final_Date_Training.rda")
-  load("~/x1.rda")
+  #load("~/x1.rda")
   load('~/Pesos_MFractal_2.rda')
   load('~/Pesos_MFractal_Mkv2.rda')
   load('~/Pesos_C_Markov2.rda')
