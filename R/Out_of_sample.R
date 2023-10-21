@@ -113,33 +113,6 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   library(IntroCompFinR)
   options(warn=-1)
 
-
-  # Carteira Multifractal
-
-  Carteira_MFractal = colnames(Pesos_MFractal_2)
-  C_MFractal = as.data.frame(scenario.set) %>%
-    dplyr::select(which((colnames(scenario.set) %in% Carteira_MFractal)))
-  C_MFractal = C_MFractal[Datas1Predict,]
-  Pesos_MFractal = c(rep(1/N_Assets,N_Assets))
-  Ret_C_MFractal_EQ = as.matrix(C_MFractal) %*% Pesos_MFractal_2[1,]
-  print(Pesos_MFractal)
-  ###############################################################################
-  # Carteira de Markovitz de Minima Variância M_Fractal
-
-  Ret_C_MFractal = as.matrix(C_MFractal)%*% Pesos_MFractal_Mkv2[1,]
-  print(Pesos_MFractal_Mkv2)
-  ###############################################################################
-  # GMV - Global Minimum Variance
-  EPR=colMeans(TodosAtivosPredict)
-  COV=var(TodosAtivosPredict)
-  GMV=globalMin.portfolio(EPR,COV)
-  GMV_Return = GMV$er
-  GMV_sd = GMV$sd
-  weight_GMV = GMV$weights
-
-
-  scenario.set = data.frame(scenario.set)
-
   ##############################################################################
   # Carteira de Markovitz de Minima Variância obtida a partir de todos ativos
   Carteira_Markowitz = colnames(Pesos_C_Markov2)
@@ -147,7 +120,43 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     dplyr::select(which((colnames(scenario.set) %in% Carteira_Markowitz )))
   C_Markowitz = C_Markowitz[Datas1Predict,]
   RetornoMedioMArkovitz= as.matrix(C_Markowitz) %*% Pesos_C_Markov2[1,]
+  print(paste('[1] weights of the MARKOWITZ Portfolio:'))
   print(Pesos_C_Markov2)
+
+  # Carteira Multifractal  ####################################################
+
+  Carteira_MFractal = colnames(Pesos_MFractal_2)
+  C_MFractal = as.data.frame(scenario.set) %>%
+    dplyr::select(which((colnames(scenario.set) %in% Carteira_MFractal)))
+  C_MFractal = C_MFractal[Datas1Predict,]
+  Pesos_MFractal = c(rep(1/N_Assets,N_Assets))
+  Ret_C_MFractal_EQ = as.matrix(C_MFractal) %*% Pesos_MFractal_2[1,]
+
+  Pesos_MF_Eq2<- round(t(matrix(Pesos_MFractal)),4)
+  colnames(Pesos_MF_Eq2) <- Carteira_MFractal
+  rownames(Pesos_MF_Eq2)<-'Weight'
+  print(paste('[2] weights of the MF_EQ Portfolio:'))
+  print(Pesos_MF_Eq2)
+  ###############################################################################
+  # Carteira de Markovitz de Minima Variância M_Fractal
+
+  Ret_C_MFractal = as.matrix(C_MFractal)%*% Pesos_MFractal_Mkv2[1,]
+  print(paste('[3] weights of the MF_MKW Portfolio:'))
+  print(Pesos_MFractal_Mkv2)
+  ###############################################################################
+  # GMV - Global Minimum Variance
+  if(nrow(TodosAtivosPredict)>ncol(TodosAtivosPredict)){
+  EPR=colMeans(TodosAtivosPredict)
+  COV=var(TodosAtivosPredict)
+  GMV=globalMin.portfolio(EPR,COV)
+  GMV_Return = GMV$er
+  GMV_sd = GMV$sd
+  weight_GMV = GMV$weights
+  }
+
+  scenario.set = data.frame(scenario.set)
+
+
   ##############################################################################
   # Carteira Pesos Iguais ANNt
   Carteira_ANNt_EQ = colnames(Pesos_ANNt_Eq2)
@@ -155,6 +164,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     dplyr::select(which((colnames(scenario.set) %in% Carteira_ANNt_EQ)))
   C_ANNt_EQ = C_ANNt_EQ[Datas1Predict,]
   Media_C_Net_T_Comparativa = as.matrix(C_ANNt_EQ) %*% Pesos_ANNt_Eq2[1,]
+  print(paste('[4] weights of the ANNt_EQ Portfolio:'))
   print(Pesos_ANNt_Eq2)
   ##############################################################################
 
@@ -165,7 +175,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     dplyr::select(which((colnames(scenario.set) %in% Carteira_ANNt_MKW)))
   C_ANNt_MKW = C_ANNt_MKW[Datas1Predict,]
   Ret_Medio_RNA_T_Mkv = as.matrix(C_ANNt_MKW) %*% Pesos_ANNt_Mkv2[1,]
-
+  print(paste('[5] weights of the ANNt_MKW Portfolio:'))
   print(Pesos_ANNt_Mkv2)
 
   ################################cARTEIRAS SHARPE ###############################
@@ -179,6 +189,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     dplyr::select(which((colnames(scenario.set) %in% Carteira_Sharpe)))
   C_Sharpe = C_Sharpe[Datas1Predict,]
   RetornoMedioMaxIS = as.matrix(C_Sharpe)%*% Weight_Sharpe_1[1,]
+  print(paste('[6] weights of the SHARPE Portfolio:'))
   print(Weight_Sharpe_1)
   ##############################################################################
   ### Carteira Sharpe MF_DFA
@@ -192,6 +203,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     dplyr::select(which((colnames(scenario.set) %in% Carteira_MF_Sharpe)))
   C_MF_Sharpe = C_MF_Sharpe[Datas1Predict,]
   RetornoMedioMaxIS_MFractal = as.matrix(C_MF_Sharpe)%*% Weight_Sharpe_MF[1,]
+  print(paste('[7] weights of the MF_SHARPE Portfolio:'))
   print(Weight_Sharpe_MF)
 ################################################################################
   ### Carteira Sharpe RNAt
@@ -203,6 +215,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     dplyr::select(which((colnames(scenario.set) %in% Carteira_ANNt_Sharpe)))
   C_ANNt_Sharpe = C_ANNt_Sharpe[Datas1Predict,]
   RetornoMedioMaxIS_RNAt = as.matrix(C_ANNt_Sharpe)%*% Weight_ANNt_Sharpe[1,]
+  print(paste('[8] weights of the ANNt_SHARPE Portfolio:'))
   print(Weight_ANNt_Sharpe)
 
   #####
