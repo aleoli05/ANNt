@@ -141,6 +141,14 @@ if(Final_Date_Testing==('')){
 Rf=Rf/100
 
 if(class(Initial_Date_Testing)!=('numeric')){
+
+  if(length(which(rownames(Comparativo_RETORNOS)==Initial_Analysis_Date))==0){
+    while(length(which(rownames(Comparativo_RETORNOS)==Initial_Analysis_Date))==0){
+      dia=as.Date(Initial_Analysis_Date)
+      new_day=dia+1
+      Initial_Analysis_Date = as.character(new_day)
+    }}
+
   Datas1Predict = rownames(scenario.set)[
   (which(rownames(scenario.set)==Initial_Date_Testing)):(which(rownames(scenario.set)==Final_Date_Testing))]
 
