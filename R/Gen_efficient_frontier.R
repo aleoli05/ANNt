@@ -108,7 +108,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   Mkw = Base_Palomar_frame%>%dplyr::select(which((colnames(Base_Palomar_frame) %in% colnames(Mkw_ativos))))
 
   #### Fronteira Eficiente###################################################################################################
-
+##Adjust necessary length series
   if (nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
     message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
   }
@@ -135,7 +135,25 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
     TodosAtivosPredict=scenario.set[(which(rownames(scenario.set)==Inicio)-10):which(rownames(scenario.set)==Fim),-1]
   }
 
+  all.returns=TodosAtivosPredict
+  Contador=round(nrow(all.returns),-1)
+  #if(nrow(all.returns)-Contador<0){
+  Contador=Contador-10
+  #}
+  Remover= nrow(all.returns)-Contador
+  if(ncol(all.returns)>10){
+    all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
 
+    if (nrow(all.returns)-ncol(all.returns)<10){
+      Inicio=as.Date(rownames(all.returns)[1])
+      Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
+      all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
+    }
+  }
+
+  TodosAtivosPredict=all.returns
+
+  ##############################################################################
    # Cria um n?mero de carteiras aleatorias
   num_cart <- 150000
   acoes = colnames(as.data.frame(scenario.set)[-1])
