@@ -220,6 +220,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
 
   #####
   #############################################################################
+  #############################################################################
 
   # Geração da Matriz de comparação dos Retornos
   RM <- colnames(scenario.set[1])
@@ -268,15 +269,15 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
       (as.matrix(RetornoMedioMaxIS[i,])+1)-1
     Comparativo[i,4] = (as.matrix(Comparativo[i-1,4])+1)*
       (as.matrix(Ret_C_MFractal_EQ[i,])+1)-1
-    Comparativo[i,5] = (as.matrix(Comparativo[i-1,4])+1)*
+    Comparativo[i,5] = (as.matrix(Comparativo[i-1,5])+1)*
       (as.matrix(Ret_C_MFractal[i,])+1)-1
-    Comparativo[i,6] = (as.matrix(Comparativo[i-1,5])+1)*
+    Comparativo[i,6] = (as.matrix(Comparativo[i-1,6])+1)*
       (as.matrix(RetornoMedioMaxIS_MFractal[i,])+1)-1
-    Comparativo[i,7] = (as.matrix(Comparativo[i-1,6])+1)*
+    Comparativo[i,7] = (as.matrix(Comparativo[i-1,7])+1)*
       (as.matrix(Media_C_Net_T_Comparativa[i,])+1)-1
-    Comparativo[i,8] = (as.matrix(Comparativo[i-1,7])+1)*
+    Comparativo[i,8] = (as.matrix(Comparativo[i-1,8])+1)*
       (as.matrix(Ret_Medio_RNA_T_Mkv[i,])+1)-1
-    Comparativo[i,9] = (as.matrix(Comparativo[i-1,8])+1)*
+    Comparativo[i,9] = (as.matrix(Comparativo[i-1,9])+1)*
       (as.matrix(RetornoMedioMaxIS_RNAt[i,])+1)-1
   }
 
@@ -341,7 +342,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   save(weight_test,file="~/weight_test.rda")
   save(Initial_Date_Testing,file='~/Initial_Date_Testing.rda')
   save(Classificacao_MFractal, file='~/Classificacao_MFractal.rda')
-  save(Rf,file='~/Rf.rda')
+  #save(Rf,file='~/Rf.rda')
   save(pesos_todosPredict,file='~/pesos_todosPredict.rda')
   save(weight_Sharpe,file='~/weight_Sharpe.rda')
   save(Weights_All,file='~/Weights_All.rda')
