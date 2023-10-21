@@ -279,7 +279,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
     pesos
   }
 
-  retornosAtivos = PosCovid_set.returns[,-1]
+  retornosAtivos = TodosAtivosPredict
   pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=200)
   mu = Medias_set.returns
   retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
