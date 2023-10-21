@@ -337,6 +337,9 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     Weights_All[16,k+1]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
     Weights_All[17,k+1]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
   }
+  sd_sharpe = sd(as.data.frame(Comparativo_RETORNOS)$SHARPE)
+  mean_sharpe = mean(as.data.frame(Comparativo_RETORNOS)$SHARPE)
+
   save(mean_sharpe,file="~/mean_sharpe.rda")
   save(sd_sharpe,file="~/sd_sharpe.rda")
   save(weight_test,file="~/weight_test.rda")
@@ -348,8 +351,9 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   save(Weights_All,file='~/Weights_All.rda')
   #save(N_Assets,file='~/N_Assets.rda')
   save(Final_Date_Testing,file='~/Final_Date_Testing.rda')
+  if(exists(GMV_Return) & exists(GMV_sd)){
   save(GMV_Return,file='~/GMV_Return.rda')
-  save(GMV_sd,file='~/GMV_sd.rda')
+  save(GMV_sd,file='~/GMV_sd.rda')}
 
   #### Weights
   save(Pesos_MFractal_2,file='~/Pesos_MFractal_2.rda')
