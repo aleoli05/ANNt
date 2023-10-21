@@ -129,9 +129,18 @@ ____________________________________________________________________
 
 n_assets=N_Assets
 
+
+if(length(which(rownames(dados2)==Final_Date_Training))==0){
+  while(length(which(rownames(dados2)==Final_Date_Training))==0){
+    dia=as.Date(Final_Date_Training)
+    new_day=dia-1
+    Final_Date_Training = as.character(new_day)
+  }}
+
+
 if(Initial_Date_Testing==('')){
   D = which(rownames(scenario.set)==Final_Date_Training)
-  Initial_Date_Testing=Initial_Date_Testing = rownames(as.data.frame(scenario.set)[D+1,])
+  Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
 }
 if(Final_Date_Testing==('')){
   Final_Date_Testing=rownames(dados2[nrow(dados2),])
@@ -142,11 +151,11 @@ Rf=Rf/100
 
 if(class(Initial_Date_Testing)!=('numeric')){
 
-  if(length(which(rownames(dados2)==Initial_Analysis_Date))==0){
-    while(length(which(rownames(dados2)==Initial_Analysis_Date))==0){
-      dia=as.Date(Initial_Analysis_Date)
+  if(length(which(rownames(dados2)==Initial_Date_Testing))==0){
+    while(length(which(rownames(dados2)==Initial_Date_Testing))==0){
+      dia=as.Date(Initial_Date_Testing)
       new_day=dia+1
-      Initial_Analysis_Date = as.character(new_day)
+      Initial_Date_Testing = as.character(new_day)
     }}
 
   Datas1Predict = rownames(scenario.set)[
