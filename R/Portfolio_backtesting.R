@@ -20,15 +20,15 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   Comparativo_RETORNOS=data.frame(Comparativo_RETORNOS)
 
 
-  if(Date_Initial_Bactesting==''){
+  if(Date_Initial_Backtesting==''){
     Corte1=1
   } else{
 
-    if(length(which(rownames(Comparativo_RETORNOS)==Date_Initial_Bactesting))==0){
-      while(length(which(rownames(Comparativo_RETORNOS)==Date_Initial_Bactesting))==0){
-        dia=as.Date(Date_Initial_Bactesting)
+    if(length(which(rownames(Comparativo_RETORNOS)==Date_Initial_Backtesting))==0){
+      while(length(which(rownames(Comparativo_RETORNOS)==Date_Initial_Backtesting))==0){
+        dia=as.Date(Date_Initial_Backtesting)
         new_day=dia+1
-        Date_Initial_Bactesting = as.character(new_day)
+        Date_Initial_Backtesting = as.character(new_day)
       }
     }
 
@@ -42,11 +42,11 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   } else{
 
 
-    if(length(which(rownames(Comparativo_RETORNOS)==Date_Final_Bactesting))==0){
-      while(length(which(rownames(Comparativo_RETORNOS)==Date_Final_Bactesting))==0){
-        dia=as.Date(Date_Final_Bactesting)
+    if(length(which(rownames(Comparativo_RETORNOS)==Date_Final_Backtesting))==0){
+      while(length(which(rownames(Comparativo_RETORNOS)==Date_Final_Backtesting))==0){
+        dia=as.Date(Date_Final_Backtesting)
         new_day=dia-1
-        Date_Final_Bactesting = as.character(new_day)
+        Date_Final_Backtesting = as.character(new_day)
       }
     }
 
