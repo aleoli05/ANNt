@@ -108,7 +108,18 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   Mkw = Base_Palomar_frame%>%dplyr::select(which((colnames(Base_Palomar_frame) %in% colnames(Mkw_ativos))))
 
   #### Fronteira Eficiente###################################################################################################
-  # Cria um n?mero de carteiras aleatorias
+
+  if (nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
+    message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
+  }
+  while (nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
+    Inicio=as.Date(rownames(TodosAtivosPredict)[1])-(ncol(TodosAtivosPredict)-nrow(TodosAtivosPredict))
+    Fim=as.Date(rownames(TodosAtivosPredict)[nrow(TodosAtivosPredict)])
+    TodosAtivosPredict=scenario.set[(which(rownames(scenario.set)==Inicio)-10):which(rownames(scenario.set)==Fim),-1]
+  }
+
+
+   # Cria um n?mero de carteiras aleatorias
   num_cart <- 150000
   acoes = colnames(as.data.frame(scenario.set)[-1])
   # Cria uma matriz para armazenar os pesos
