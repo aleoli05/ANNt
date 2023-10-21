@@ -346,7 +346,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   save(Initial_Date_Testing,file='~/Initial_Date_Testing.rda')
   #save(Classificacao_MFractal, file='~/Classificacao_MFractal.rda')
   #save(Rf,file='~/Rf.rda')
-  save(pesos_todosPredict,file='~/pesos_todosPredict.rda')
+  #save(pesos_todosPredict,file='~/pesos_todosPredict.rda')
   #save(weight_Sharpe,file='~/weight_Sharpe.rda')
   save(Weights_All,file='~/Weights_All.rda')
   #save(N_Assets,file='~/N_Assets.rda')
