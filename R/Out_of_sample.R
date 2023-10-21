@@ -342,7 +342,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
 
   save(mean_sharpe,file="~/mean_sharpe.rda")
   save(sd_sharpe,file="~/sd_sharpe.rda")
-  save(weight_test,file="~/weight_test.rda")
+  #save(weight_test,file="~/weight_test.rda")
   save(Initial_Date_Testing,file='~/Initial_Date_Testing.rda')
   save(Classificacao_MFractal, file='~/Classificacao_MFractal.rda')
   #save(Rf,file='~/Rf.rda')
