@@ -152,6 +152,9 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   GMV_Return = GMV$er
   GMV_sd = GMV$sd
   weight_GMV = GMV$weights
+
+    save(GMV_Return,file='~/GMV_Return.rda')
+    save(GMV_sd,file='~/GMV_sd.rda')
   }
 
   scenario.set = data.frame(scenario.set)
@@ -351,9 +354,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   save(Weights_All,file='~/Weights_All.rda')
   #save(N_Assets,file='~/N_Assets.rda')
   save(Final_Date_Testing,file='~/Final_Date_Testing.rda')
-  if(exists(GMV_Return) & exists(GMV_sd)){
-  save(GMV_Return,file='~/GMV_Return.rda')
-  save(GMV_sd,file='~/GMV_sd.rda')}
+
 
   #### Weights
   save(Pesos_MFractal_2,file='~/Pesos_MFractal_2.rda')
