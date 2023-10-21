@@ -115,6 +115,23 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   while (nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
     Inicio=as.Date(rownames(TodosAtivosPredict)[1])-(ncol(TodosAtivosPredict)-nrow(TodosAtivosPredict))
     Fim=as.Date(rownames(TodosAtivosPredict)[nrow(TodosAtivosPredict)])
+
+    if(length(which(rownames(scenario.set)==Inicio))==0){
+      while(length(which(rownames(scenario.set)==Inicio))==0){
+        dia=as.Date(Inicio)
+        new_day=dia+1
+        Inicio = as.character(new_day)
+      }
+    }
+
+    if(length(which(rownames(scenario.set)==Fim))==0){
+      while(length(which(rownames(scenario.set)==Fim))==0){
+        dia=as.Date(Fim)
+        new_day=dia-1
+        Fim = as.character(new_day)
+      }
+    }
+
     TodosAtivosPredict=scenario.set[(which(rownames(scenario.set)==Inicio)-10):which(rownames(scenario.set)==Fim),-1]
   }
 
