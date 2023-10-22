@@ -211,9 +211,9 @@ if(ncol(all.returns)>10){
   }
 }
 
-if(ncol(all.returns)>480){
+if(Tickers=='Current_SP500_Tickers'){
   I=(nrow(scenario.set)-499)
-  all.returns=scenario.set[I:nrow(scenario.set),]
+  all.returns=scenario.set[I:nrow(scenario.set),-1]
 }
 
 ####### set up portfolio with objetive and constraints
