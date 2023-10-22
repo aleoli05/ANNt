@@ -211,7 +211,7 @@ if(ncol(all.returns)>10){
   }
 }
 
-if(Tickers=='Current_SP500_Tickers'){
+if(ncol(scenario.set)>480 & ncol(scenario.set)<500){
   I=(nrow(scenario.set)-499)
   all.returns=scenario.set[I:nrow(scenario.set),-1]
 }
