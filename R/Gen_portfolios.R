@@ -324,6 +324,7 @@ ___________________________________________________________________
   print(paste('[1] weights of the MARKOWITZ Portfolio:'))
   print(Pesos_C_Markov2)
 
+
   print(paste('[2] Weights of the MF_MKW Portfolio:'))
   print(Pesos_MFractal_Mkv2)
 
@@ -344,6 +345,25 @@ ___________________________________________________________________
   rownames(Pesos_ANNt_Eq2)<-'Weight'
   print(paste('[3] Weights of the ANNt_EQ Portfolio:'))
   print(Pesos_ANNt_Eq2)
+
+
+  ###############################################################################
+  # GMV - Global Minimum Variance
+  if(nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
+    #EPR=colMeans(all.returns)
+    #COV=var(all.returns)
+    #GMV=globalMin.portfolio(EPR,COV)
+    GMV_Return = mean(RetornoMedioMArkovitz)
+    GMV_sd = sd(RetornoMedioMArkovitz)
+    weight_GMV = pesos_todosPredict
+  }else{
+    EPR=colMeans(TodosAtivosPredict)
+    COV=var(TodosAtivosPredict)
+    GMV=globalMin.portfolio(EPR,COV)
+    GMV_Return = GMV$er
+    GMV_sd = GMV$sd
+    weight_GMV = GMV$weights}
+
 
   ##############################################################################
 
@@ -397,23 +417,6 @@ ___________________________________________________________________
       all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
     }
   }
-
-  ###############################################################################
-  # GMV - Global Minimum Variance
-  if(nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
-  EPR=colMeans(all.returns)
-  COV=var(all.returns)
-  GMV=globalMin.portfolio(EPR,COV)
-  GMV_Return = GMV$er
-  GMV_sd = GMV$sd
-  weight_GMV = GMV$weights
-  }else{
-    EPR=colMeans(TodosAtivosPredict)
-    COV=var(TodosAtivosPredict)
-    GMV=globalMin.portfolio(EPR,COV)
-    GMV_Return = GMV$er
-    GMV_sd = GMV$sd
-    weight_GMV = GMV$weights}
 
 ################################cARTEIRAS SHARPE ###############################
 ### Carteira Sharpe todos os ativos
