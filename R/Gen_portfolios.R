@@ -299,14 +299,7 @@ ___________________________________________________________________
   #print(paste('Weights of the MF-MKW Portfolio:'))
     #   print(Pesos_MFractal_Mkv2)
 
-  ###############################################################################
-  # GMV - Global Minimum Variance
-  EPR=colMeans(TodosAtivosPredict)
-  COV=var(TodosAtivosPredict)
-  GMV=globalMin.portfolio(EPR,COV)
-  GMV_Return = GMV$er
-  GMV_sd = GMV$sd
-  weight_GMV = GMV$weights
+
 
 
   ################################################################################
@@ -369,37 +362,7 @@ ___________________________________________________________________
   print(paste('[4] Weights of the ANNt_MKW Portfolio:'))
   print(Pesos_ANNt_Mkv2)
 
-  ################################cARTEIRAS SHARPE ###############################
-  ### Carteira Sharpe todos os ativos
-  ## Optmization
-  symbols = colnames(TodosAtivosPredict)
-  #####
-
-  #init.portf <- portfolio.spec(assets = symbols)
-  #init.portf <- add.constraint(portfolio = init.portf, type = "full_investment")
-  #init.portf <- add.constraint(portfolio = init.portf, type = "long_only")
-  #init.portf <- add.objective(portfolio = init.portf, type = "return", name = "mean")
-  #init.portf
-
-  #init.portf <- add.constraint(portfolio = init.portf, type = "risk",
-  #                             name = "StdDev", multiplier = 0)
-  #port1 <- add.constraint(portfolio = init.portf,
-  #                        type = "diversification", min=0, max=1,
-  #                        indexnum=2)
-  #port1 <- add.constraint(portfolio = init.portf, type = "risk", name = "StdDev")
-
-
-  ### Carteira Sharpe todos os ativos
-  #maxSRport.rp <- optimize.portfolio(R=TodosAtivosPredict,
-  #                                  portfolio = port1,
-  #                                   optimize_method = "random",
-  #                                  search_size = 20000,
-  #                                 maxSR=TRUE, trace = TRUE)
-  #maxSRport.rp
-
-  #maxSR.weight.rp <- extractWeights(maxSRport.rp)
-
-
+ ######################## Adjust of nrow series for GMV and Sharpe #############
   all.returns <- TodosAtivosPredict
   if (nrow(all.returns)<ncol(all.returns)){
     message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
@@ -434,6 +397,54 @@ ___________________________________________________________________
       all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
     }
   }
+
+  ###############################################################################
+  # GMV - Global Minimum Variance
+  if(nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
+  EPR=colMeans(all.returns)
+  COV=var(all.returns)
+  GMV=globalMin.portfolio(EPR,COV)
+  GMV_Return = GMV$er
+  GMV_sd = GMV$sd
+  weight_GMV = GMV$weights
+  }else{
+    EPR=colMeans(TodosAtivosPredict)
+    COV=var(TodosAtivosPredict)
+    GMV=globalMin.portfolio(EPR,COV)
+    GMV_Return = GMV$er
+    GMV_sd = GMV$sd
+    weight_GMV = GMV$weights}
+
+################################cARTEIRAS SHARPE ###############################
+### Carteira Sharpe todos os ativos
+## Optmization
+symbols = colnames(TodosAtivosPredict)
+#####
+
+#init.portf <- portfolio.spec(assets = symbols)
+#init.portf <- add.constraint(portfolio = init.portf, type = "full_investment")
+#init.portf <- add.constraint(portfolio = init.portf, type = "long_only")
+#init.portf <- add.objective(portfolio = init.portf, type = "return", name = "mean")
+#init.portf
+
+#init.portf <- add.constraint(portfolio = init.portf, type = "risk",
+#                             name = "StdDev", multiplier = 0)
+#port1 <- add.constraint(portfolio = init.portf,
+#                        type = "diversification", min=0, max=1,
+#                        indexnum=2)
+#port1 <- add.constraint(portfolio = init.portf, type = "risk", name = "StdDev")
+
+
+### Carteira Sharpe todos os ativos
+#maxSRport.rp <- optimize.portfolio(R=TodosAtivosPredict,
+#                                  portfolio = port1,
+#                                   optimize_method = "random",
+#                                  search_size = 20000,
+#                                 maxSR=TRUE, trace = TRUE)
+#maxSRport.rp
+
+#maxSR.weight.rp <- extractWeights(maxSRport.rp)
+
 
   ##############################################################################
   ######## Sharpe Calculate
