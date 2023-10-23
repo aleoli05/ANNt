@@ -29,6 +29,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   load('~/Pesos_MFractal_Mkv2.rda')
   load('~/Pesos_C_Markov2.rda')
   load('~/Pesos_ANNt_Eq2.rda')
+  load('~/Pesos_ANNt_Mkv.rda')
   load('~/Pesos_ANNt_Mkv2.rda')
   load('~/Weight_Sharpe_1.rda')
   load('~/Weight_Sharpe_MF.rda')
@@ -140,7 +141,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   ###############################################################################
   # Carteira de Markovitz de Minima Variância M_Fractal
 
-  Ret_C_MFractal = as.matrix(C_MFractal)%*% Pesos_MFractal_Mkv2[1,]
+  Ret_C_MFractal = as.matrix(C_MFractal)%*% Pesos_MFractal_Mkv
   print(paste('[3] weights of the MF_MKW Portfolio:'))
   print(Pesos_MFractal_Mkv2)
   ###############################################################################

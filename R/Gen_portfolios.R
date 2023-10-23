@@ -840,6 +840,7 @@ symbols = colnames(TodosAtivosPredict)
 
   #### Weights
   save(Pesos_MFractal_2,file='~/Pesos_MFractal_2.rda')
+  save(Pesos_MFractal_Mkv,file='~/Pesos_MFractal_Mkv.rda')
   save(Pesos_MFractal_Mkv2,file='~/Pesos_MFractal_Mkv2.rda')
   save(Pesos_C_Markov2,file='~/Pesos_C_Markov2.rda')
   save(Pesos_ANNt_Eq2,file='~/Pesos_ANNt_Eq2.rda')
