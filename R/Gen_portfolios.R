@@ -246,6 +246,14 @@ ___________________________________________________________________
     }
   }
 
+
+  if(ncol(scenario.set)>480 & ncol(scenario.set)<500){
+    Fi = ncol(scenario.set)+9
+    I=(nrow(all.returns)-Fi)+1
+    all.returns=all.returns[I:nrow(all.returns),]
+  }
+
+
   ###############################################################################
 
 
@@ -371,6 +379,7 @@ ___________________________________________________________________
   TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
   pesos_todosPredict <- round(tseries::portfolio.optim(all.returns)$pw, 4)
   RetornoMedioMArkovitz = TodosAtivosPredict%*% pesos_todosPredict
+
   # Weight extract
   Carteira_Markov = data.frame(colnames(TodosAtivosPredict),pesos_todosPredict)
   Pesos_C_Markov <- Carteira_Markov[Carteira_Markov[,2]>0,]
