@@ -377,7 +377,32 @@ ___________________________________________________________________
   ###################################################################################
   # Carteira de Markovitz de Minima Variância obtida a partir de todos ativos
   TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
-  pesos_todosPredict <- round(tseries::portfolio.optim(all.returns)$pw, 4)
+  #pesos_todosPredict <- round(tseries::portfolio.optim(all.returns)$pw, 4)
+  library(quadprog)
+  library(Matrix)
+
+  assets= ncol(all.returns)
+  H <- cov(all.returns)
+  f <- rep(0, assets)
+  Aeq <- rep(1, assets)
+  beq <- 1
+  lb <- rep(0, assets)
+  ub <- rep(1, assets)
+
+  soluction <- quadprog(H, f, NULL, NULL, Aeq, beq, lb, ub)
+  pesos_todosPredict <- round(soluction$x, 4)
+  pesos_todosPredict
+
+
+#ts=as.ts(all.returns[11:nrow(all.returns),])
+  #pd_D_mat <- nearPD(ts)
+
+  #output <- solve.QP(Dmat = as.matrix(ts),
+  #                   dvec = d_vec,
+   #                  Amat = ts,
+  #                   bvec = 0,
+   #                  meq  = 1)
+
   RetornoMedioMArkovitz = TodosAtivosPredict%*% pesos_todosPredict
 
   # Weight extract
