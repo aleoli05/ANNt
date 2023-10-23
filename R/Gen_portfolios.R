@@ -195,6 +195,62 @@ ___________________________________________________________________
 
   options(warn=-1)
 
+  ######################## Adjust of nrow series for GMV and Sharpe #############
+  all.returns <- TodosAtivosPredict
+  if (nrow(all.returns)<ncol(all.returns)){
+    message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
+  }
+  while (nrow(all.returns)<ncol(all.returns)){
+    Inicio=as.Date(rownames(all.returns)[1])-(ncol(all.returns)-nrow(all.returns))
+    if(length(which(rownames(dados2)==Inicio))==0){
+      while(length(which(rownames(dados2)==Inicio))==0){
+        dia=as.Date(Inicio)
+        new_day=dia+1
+        Inicio = as.character(new_day)
+      }
+    }
+
+    Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
+    if(length(which(rownames(dados2)==Fim))==0){
+      while(length(which(rownames(dados2)==Fim))==0){
+        dia=as.Date(Fim)
+        new_day=dia-1
+        Fim = as.character(new_day)
+      }
+    }
+    all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-10):which(rownames(scenario.set)==Fim),-1]
+  }
+  # y=0
+  #  for (k in 1:(nAtivos-1)){
+  #  ativo = k
+  #Envelope
+  #  for( m in 1:nrow(all.returns)){
+  #    if(all.returns[m,k]==0){
+  #    all.returns[m,k]==0.0000000001
+  #   x=1
+  #    y=y+x
+  #  }}}
+
+  Contador=round(nrow(all.returns),-1)
+  #if(nrow(all.returns)-Contador<0){
+  Contador=Contador-10
+  #}
+  Remover= nrow(all.returns)-Contador
+  if(ncol(all.returns)>10){
+    all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
+
+    if (nrow(all.returns)-ncol(all.returns)<10){
+      Inicio=as.Date(rownames(all.returns)[1])
+      Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
+      all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
+    }
+  }
+
+  ###############################################################################
+
+
+
+
   a<-0.9
   N<-1024
   tsx<-MFsim(N,a)
@@ -313,7 +369,7 @@ ___________________________________________________________________
   ###################################################################################
   # Carteira de Markovitz de Minima Variância obtida a partir de todos ativos
   TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
-  pesos_todosPredict <- round(tseries::portfolio.optim(TodosAtivosPredict)$pw, 4)
+  pesos_todosPredict <- round(tseries::portfolio.optim(all.returns)$pw, 4)
   RetornoMedioMArkovitz = TodosAtivosPredict%*% pesos_todosPredict
   # Weight extract
   Carteira_Markov = data.frame(colnames(TodosAtivosPredict),pesos_todosPredict)
@@ -382,41 +438,7 @@ ___________________________________________________________________
   print(paste('[4] Weights of the ANNt_MKW Portfolio:'))
   print(Pesos_ANNt_Mkv2)
 
- ######################## Adjust of nrow series for GMV and Sharpe #############
-  all.returns <- TodosAtivosPredict
-  if (nrow(all.returns)<ncol(all.returns)){
-    message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
-  }
-  while (nrow(all.returns)<ncol(all.returns)){
-    Inicio=as.Date(rownames(all.returns)[1])-(ncol(all.returns)-nrow(all.returns))
-    Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
-    all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-10):which(rownames(scenario.set)==Fim),-1]
-  }
- # y=0
- #  for (k in 1:(nAtivos-1)){
-  #  ativo = k
-    #Envelope
-    #  for( m in 1:nrow(all.returns)){
-      #    if(all.returns[m,k]==0){
-      #    all.returns[m,k]==0.0000000001
-       #   x=1
-      #    y=y+x
-      #  }}}
 
-  Contador=round(nrow(all.returns),-1)
-  #if(nrow(all.returns)-Contador<0){
-  Contador=Contador-10
-  #}
-  Remover= nrow(all.returns)-Contador
-  if(ncol(all.returns)>10){
-    all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
-
-    if (nrow(all.returns)-ncol(all.returns)<10){
-      Inicio=as.Date(rownames(all.returns)[1])
-      Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
-      all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
-    }
-  }
 
 ################################cARTEIRAS SHARPE ###############################
 ### Carteira Sharpe todos os ativos
