@@ -26,10 +26,10 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   load("~/Final_Date_Training.rda")
   #load("~/x1.rda")
   load('~/Pesos_MFractal_2.rda')
+  load('~/Pesos_MFractal_Mkv.rda')
   load('~/Pesos_MFractal_Mkv2.rda')
   load('~/Pesos_C_Markov2.rda')
   load('~/Pesos_ANNt_Eq2.rda')
-  load('~/Pesos_ANNt_Mkv.rda')
   load('~/Pesos_ANNt_Mkv2.rda')
   load('~/Weight_Sharpe_1.rda')
   load('~/Weight_Sharpe_MF.rda')
@@ -370,6 +370,6 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   write_xlsx(as.data.frame(Weights_All), "~/Weights_All.xlsx")
 
   View(Weights_All)
-  View(Comparativo_RETORNOS)
+  #View(Comparativo_RETORNOS)
 
 }
