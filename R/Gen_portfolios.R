@@ -619,7 +619,7 @@ symbols = colnames(TodosAtivosPredict)
           meq = 2)                                            # as primeiro meq restri??es s?o igualdades
 
         pesos  <-  portfolio$solution # vetor contendo a solu??o do problema
-        #pesos
+        pesos
       }
 
       fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
@@ -643,7 +643,7 @@ symbols = colnames(TodosAtivosPredict)
         rownames(pesos) <- 1:nPontos
 
         # Valor do retorno
-        #pesos
+        pesos
       }
 
       retornosAtivos = TodosAtivosPredict

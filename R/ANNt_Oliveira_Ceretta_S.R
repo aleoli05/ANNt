@@ -255,7 +255,7 @@ pesosCarteira <- function(retornosAtivos, retornoAlvo) {
     meq = 2)                                            # as primeiro meq restri??es s?o igualdades
 
   pesos  <-  portfolio$solution # vetor contendo a solu??o do problema
-  #pesos
+  pesos
 }
 
 fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
@@ -279,7 +279,7 @@ fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
   rownames(pesos) <- 1:nPontos
 
   # Valor do retorno
-  #pesos
+  pesos
 }
 
 retornosAtivos = TodosAtivosPredict
@@ -359,6 +359,7 @@ load('~/scenario.set.rda')
 scenario.set=Portfolio_with_RM_Original
 save(scenario.set, file="~/scenario.set.rda")
 
+Rf=Rf*100
 Gen_portfolios('n_Assets',Initial_Date_Testing,'',Rf, Type_ANNt)
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')
