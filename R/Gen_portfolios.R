@@ -551,36 +551,120 @@ symbols = colnames(TodosAtivosPredict)
       }
 
   ####### set up portfolio with objetive and constraints
-  n.assets <- length(colnames(all.returns))
-  port.sec <- portfolio.spec(assets = colnames(all.returns))
-  port.sec <- add.objective(portfolio = port.sec, type = "risk", name = "StdDev")
-  port.sec <- add.objective(portfolio = port.sec, type = "return", name = "mean")
-  port.sec <- add.constraint(portfolio = port.sec, type = "full_investiment")
-  port.sec <- add.constraint(portfolio = port.sec, type = "box", min = 0, max = 1)
+  #n.assets <- length(colnames(all.returns))
+  #port.sec <- portfolio.spec(assets = colnames(all.returns))
+  #port.sec <- add.objective(portfolio = port.sec, type = "risk", name = "StdDev")
+  #port.sec <- add.objective(portfolio = port.sec, type = "return", name = "mean")
+  #port.sec <- add.constraint(portfolio = port.sec, type = "full_investiment")
+  #port.sec <- add.constraint(portfolio = port.sec, type = "box", min = 0, max = 1)
 
 
   # map off efficient frontier (for variance risk)
-  eff.frontier <- create.EfficientFrontier(R = all.returns, portfolio = port.sec,
-                                           n.portfolio = 2000, type = "mean-StdDev")
+  #eff.frontier <- create.EfficientFrontier(R = all.returns, portfolio = port.sec,
+  #                                         n.portfolio = 2000, type = "mean-StdDev")
 
   # Daily Sharpe ratio
-  rf=(1+Rf)^(1/252)-1
-  sharpe.ratios <- (eff.frontier$frontier[,"mean"]-rf)/eff.frontier$frontier[,"StdDev"]
-  max.sharpe.ratio <- sharpe.ratios[sharpe.ratios==max(sharpe.ratios)]
-  optimal.port.name <- names(max.sharpe.ratio)
-  optimal.mean <- eff.frontier$frontier[optimal.port.name,"mean"]
-  optimal.sd <- eff.frontier$frontier[optimal.port.name,"StdDev"]
+  #rf=(1+Rf)^(1/252)-1
+  #sharpe.ratios <- (eff.frontier$frontier[,"mean"]-rf)/eff.frontier$frontier[,"StdDev"]
+  #max.sharpe.ratio <- sharpe.ratios[sharpe.ratios==max(sharpe.ratios)]
+  #optimal.port.name <- names(max.sharpe.ratio)
+  #optimal.mean <- eff.frontier$frontier[optimal.port.name,"mean"]
+  #optimal.sd <- eff.frontier$frontier[optimal.port.name,"StdDev"]
 
-  n.trading.days.per.year <- 1
+  #n.trading.days.per.year <- 1
 
   #print(sprintf("Optimal Sharpe Ratio: %f", max.sharpe.ratio*sqrt(n.trading.days.per.year)))
   #print(sprintf("Optimal E(port return): %f", optimal.mean*sqrt(n.trading.days.per.year)))
-  mean_sharpe = optimal.mean*sqrt(n.trading.days.per.year)
+  #mean_sharpe = optimal.mean*sqrt(n.trading.days.per.year)
   #print(sprintf("Optimal sd(port return): %f", optimal.sd*sqrt(n.trading.days.per.year)))
-  sd_sharpe <- optimal.sd*sqrt(n.trading.days.per.year)
+  #sd_sharpe <- optimal.sd*sqrt(n.trading.days.per.year)
 
   #print("Optimal weights")
-  weight_test <- eff.frontier$frontier[optimal.port.name,(1:n.assets)+3]
+  #weight_test <- eff.frontier$frontier[optimal.port.name,(1:n.assets)+3]
+
+
+  ################# SHARPE manual construction ###############################
+      ################# Envelope LOOP 5000 vezes #######################################
+
+      pesosCarteira <- function(retornosAtivos, retornoAlvo) {
+        ## Argumentos:
+        # retornosAtivos - conjunto de dados dos retornos dos ativos
+        # retornoAlvo - o retorno-alvo da carteira
+
+        ##  A fun??o solve.QP() do pacote quadprog implementa o m?todo dual de Goldfarb e Idnani (1982, 1983)
+        ##  para a solu??o do problema de otimiza??o quadr?tica na forma
+        ##  min(-d'b + 1/2 b' Db) com as restri??es A'T b >= b0.
+
+        ## Para detalhes, veja D. Goldfarb and A. Idnani (1983). "A numerically stable dual method for solving strictly convex #quadratic programs". Mathematical Programming, 27, 1-33.
+
+        ## A solu??o aqui s?o os pesos que minimizam o risco para o retorno em 'retornoAlvo'
+
+        if(!require("quadprog")) install.packages("quadprog")
+        suppressMessages(suppressWarnings(library(quadprog)))
+
+        nAtivos  <-  ncol(retornosAtivos)
+        portfolio <- solve.QP(
+          Dmat <- cov(retornosAtivos),                        # matriz D
+          dvec <- rep(0, times = nAtivos),                    # vetor  d
+          Amat <- t(rbind(retorno = colMeans(retornosAtivos), # matriz A de restri??es
+                          orcamento = rep(1, nAtivos),
+                          longa = diag(nAtivos))),
+          bvec <- c(retorno = retornoAlvo,                    # vetor  b0
+                    orcamento = 1,
+                    longa = rep(0, times = nAtivos)),
+          meq = 2)                                            # as primeiro meq restri??es s?o igualdades
+
+        pesos  <-  portfolio$solution # vetor contendo a solu??o do problema
+        pesos
+      }
+
+      fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
+        # Quantidade de ativos
+        nAtivos <- ncol(retornosAtivos)
+        # Retornos-alvo
+        mu <- colMeans(retornosAtivos)
+        retornoAlvo <- seq(min(mu), max(mu), length = nPontos)
+        # Pesos ?timos
+        pesos <- rep(0, nAtivos)
+        pesos[which.min(mu)] <- 1
+        for (i in 2:(nPontos-1)) {
+          novosPesos <- pesosCarteira(retornosAtivos, retornoAlvo[i])
+          pesos <- rbind(pesos, novosPesos)
+        }
+        novosPesos <- rep(0, nAtivos)
+        novosPesos[which.max(mu)] <- 1
+        pesos <- rbind(pesos, novosPesos)
+        pesos <- round(pesos, 4)
+        colnames(pesos) <- colnames(retornosAtivos)
+        rownames(pesos) <- 1:nPontos
+
+        # Valor do retorno
+        pesos
+      }
+
+      retornosAtivos = TodosAtivosPredict
+      pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
+      Medias_set.returns <- as.matrix(t(apply(TodosAtivosPredict, 2, mean)))
+      mu = Medias_set.returns
+      retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
+
+  riscosAlvo  <-  NULL
+  for (i in 1:nrow(pesos_front)) {
+    novoRiscoAlvo  <-  sqrt(pesos_front[i, ] %*%
+                              cov(retornosAtivos) %*%
+                              pesos_front[i, ])
+    riscosAlvo  <-  c(riscosAlvo, novoRiscoAlvo)
+  }
+
+  S_=tan((retornoAlvos-rf)/riscosAlvo)
+
+  fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos, Sharpe = S_)
+  sHARPEMAX = which(fronteiraEficiente$Sharpe==max(fronteiraEficiente$Sharpe))
+
+  mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
+  sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
+  weight_test = pesos_front[sHARPEMAX,]
+
     }else{
     load('~/mean_sharpe.rda')
       load('~/sd_sharpe.rda')
