@@ -542,7 +542,10 @@ symbols = colnames(TodosAtivosPredict)
   } else{
   #######################Verify if ANNt_Oliveira_Ceretta_S was ativate###########
     if (file.exists('~/weight_test.rda')==TRUE){
-    load('~/weight_test.rda') } else{weight_test=NULL}
+    load('~/weight_test.rda')
+      load('~/sd_sharpe.rda')
+      load('~/weight_test.rda')
+      } else{weight_test=NULL}
 
      if(Signal_Sharpe==0 | length(weight_test)!=ncol(all.returns)){
 
@@ -612,11 +615,11 @@ symbols = colnames(TodosAtivosPredict)
                           longa = diag(nAtivos))),
           bvec <- c(retorno = retornoAlvo,                    # vetor  b0
                     orcamento = 1,
-                    longa = rep(0, times = nAtivos)),
+                     longa = rep(0, times = nAtivos)),
           meq = 2)                                            # as primeiro meq restri??es s?o igualdades
 
         pesos  <-  portfolio$solution # vetor contendo a solu??o do problema
-        pesos
+        #pesos
       }
 
       fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
@@ -640,7 +643,7 @@ symbols = colnames(TodosAtivosPredict)
         rownames(pesos) <- 1:nPontos
 
         # Valor do retorno
-        pesos
+        #pesos
       }
 
       retornosAtivos = TodosAtivosPredict

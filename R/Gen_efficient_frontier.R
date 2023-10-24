@@ -132,7 +132,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
       }
     }
 
-    TodosAtivosPredict=scenario.set[(which(rownames(scenario.set)==Inicio)-10):which(rownames(scenario.set)==Fim),-1]
+    TodosAtivosPredict=scenario.set[(which(rownames(scenario.set)==Inicio)):which(rownames(scenario.set)==Fim),-1]
   }
 
   all.returns=TodosAtivosPredict
@@ -151,7 +151,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
     }
   }
 
-  TodosAtivosPredict=all.returns
+  #TodosAtivosPredict=all.returns
 
   ##############################################################################
    # Cria um n?mero de carteiras aleatorias
