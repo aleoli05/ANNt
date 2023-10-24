@@ -296,6 +296,7 @@ for (i in 1:nrow(pesos_front)) {
   riscosAlvo  <-  c(riscosAlvo, novoRiscoAlvo)
 }
 
+rf=(1+Rf)^(1/252)-1
 S_=tan((retornoAlvos-rf)/riscosAlvo)
 
 fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos, Sharpe = S_)
