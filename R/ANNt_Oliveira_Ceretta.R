@@ -50,13 +50,14 @@ save(x4, file='~/x4.rda')
 Initial_Date_Testing <- c('')
 Final_Date_Testing <- c('')
 Rf <- Rf
+save(Rf, file='~/Rf.rda')
 Initial_Analysis_Date <- c('')
 Final_Analysis_Date <- c('')
 
 Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily')
 Final_Date_Training <- Final_Date_Training
 ANNt_order ('', '', '', 'hidden', 'stepmax')
-Gen_portfolios('n_Assets',Initial_Date_Testing,'',0, Type_ANNt)
+Gen_portfolios('n_Assets',Initial_Date_Testing,'',Rf, Type_ANNt)
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')
 Gen_efficient_frontier('','')

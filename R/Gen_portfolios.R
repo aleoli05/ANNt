@@ -63,6 +63,7 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
   library(DEoptim)
   library(IntroCompFinR)
 
+  #load('~/Rf.rda')
 
 
 if(type_ANNt=='T1'){
@@ -656,6 +657,7 @@ symbols = colnames(TodosAtivosPredict)
     riscosAlvo  <-  c(riscosAlvo, novoRiscoAlvo)
   }
 
+  rf=(1+Rf)^(1/252)-1
   S_=tan((retornoAlvos-rf)/riscosAlvo)
 
   fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos, Sharpe = S_)
@@ -736,7 +738,7 @@ symbols = colnames(TodosAtivosPredict)
                                               n.portfolio = 2000, type = "mean-StdDev")
 
   # Daily Sharpe ratio
-  rf=(1+Rf)^(1/252)-1
+
   sharpe.ratios.MF <- (eff.frontier.MF$frontier[,"mean"]-rf)/eff.frontier.MF$frontier[,"StdDev"]
   max.sharpe.ratio.MF <- sharpe.ratios.MF[sharpe.ratios.MF==max(sharpe.ratios.MF)]
   optimal.port.name.MF <- names(max.sharpe.ratio.MF)
