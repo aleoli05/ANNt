@@ -547,9 +547,9 @@ symbols = colnames(TodosAtivosPredict)
      if(Signal_Sharpe==0 | length(weight_test)!=ncol(all.returns)){
 
       n_testing=which(rownames(dados2)==Final_Date_Testing)-which(rownames(dados2)==Initial_Date_Testing)
-      if(n_testing<ncol(dados2)){
-        stop("You need to specify a test period greater than the number of assets for the Sharpe portfolio to have a solution!")
-      }
+      #if(n_testing<ncol(dados2)){
+      #  stop("You need to specify a test period greater than the number of assets for the Sharpe portfolio to have a solution!")
+      #}
 
   ####### set up portfolio with objetive and constraints
   #n.assets <- length(colnames(all.returns))

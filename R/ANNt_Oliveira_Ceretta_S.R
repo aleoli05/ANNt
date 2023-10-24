@@ -350,8 +350,8 @@ save(scenario.set,file='~/scenario.set.rda')
 Final_Date_Training <- Final_Date_Training
 ANNt_order ('', '', '', 'hidden', 'stepmax')
 
-Signal_Sharpe=0
-save(Signal_Sharpe,file="~/Signal_Sharpe.rda")
+#Signal_Sharpe=0
+#save(Signal_Sharpe,file="~/Signal_Sharpe.rda")
 RM=RM_Original
 save(RM, file="~/RM.rda")
 load('~/scenario.set.rda')
