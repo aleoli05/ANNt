@@ -5,7 +5,7 @@
 #' @param Final_Analysis_date Final Date of Analysis. If '' is the same of ANNt testing
 #' @examples
 #' Initial_Analysis_Date <- c('2023-01-03')
-#' Final_Analysis_Date <- c('2023-01-03')
+#' Final_Analysis_Date <- c('')
 #' Gen_efficient_frontier('','')
 #' @export
 Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
@@ -45,18 +45,18 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
         new_day=dia+1
         Initial_Analysis_Date = as.character(new_day)
       }}
-      if(length(which(rownames(Comparativo_RETORNOS)==Final_Analysis_Date))==0){
-        while(length(which(rownames(Comparativo_RETORNOS)==Final_Analysis_Date))==0){
-          dia=as.Date(Final_Analysis_Date)
-          new_day=dia-1
-          Final_Analysis_Date = as.character(new_day)
-        }}
+    if(length(which(rownames(Comparativo_RETORNOS)==Final_Analysis_Date))==0){
+      while(length(which(rownames(Comparativo_RETORNOS)==Final_Analysis_Date))==0){
+        dia=as.Date(Final_Analysis_Date)
+        new_day=dia-1
+        Final_Analysis_Date = as.character(new_day)
+      }}
 
     Datas1Predict = rownames(scenario.set)[
       (which(rownames(scenario.set)==Initial_Analysis_Date)):
         (which(rownames(scenario.set)==Final_Analysis_Date))]
   }else{
-      Datas1Predict = rownames(scenario.set)[(Initial_Analysis_Date+6):(
+    Datas1Predict = rownames(scenario.set)[(Initial_Analysis_Date+6):(
       which(rownames(scenario.set)==Final_Analysis_Date))]
   }
 
@@ -108,7 +108,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   Mkw = Base_Palomar_frame%>%dplyr::select(which((colnames(Base_Palomar_frame) %in% colnames(Mkw_ativos))))
 
   #### Fronteira Eficiente###################################################################################################
-##Adjust necessary length series
+  ##Adjust necessary length series
   if (nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
     message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
   }
@@ -154,7 +154,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   #TodosAtivosPredict=all.returns
 
   ##############################################################################
-   # Cria um n?mero de carteiras aleatorias
+  # Cria um n?mero de carteiras aleatorias
   num_cart <- 150000
   acoes = colnames(as.data.frame(scenario.set)[-1])
   # Cria uma matriz para armazenar os pesos
@@ -341,6 +341,6 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
 
   write_xlsx(Base_Palomar_frame,'Base_Palomar.xts')
 
-    X="Efficient frontier generated!"
-    print(X)
+  X="Efficient frontier generated!"
+  print(X)
 }

@@ -66,46 +66,46 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
   #load('~/Rf.rda')
 
 
-if(type_ANNt=='T1'){
-  load('~/T1.rda')
-  Type_ANNt=T1
-  message("T1= Type_ANNt: NNet_Signal_Traning - Assets with the highest probability obtained with the NeuralNet Package's ANN and Signal probability in the training sample is implemented")
-} else {
-  if(type_ANNt=='T2'){
-  load('~/T2.rda')
-    Type_ANNt=T2
-    message("T2= Type_ANNt: NNet_t_Training - Assets with the highest probability obtained with the NeuralNet Package´s ANN and Student's t probability distribution  in the training sample is implemented")
-  } else{
-  if(type_ANNt=='T3'){
-  load('~/T3.rda')
-    Type_ANNt=T3
-    message("T3= Type_ANNt: MC_Signal_Training - Assets with the highest probability obtained with the manually programmed ANN and Signal probability in the training sample is implemented")
-  } else{
-  if(type_ANNt=='T4'){
-  load('~/T4.rda')
-    Type_ANNt=T4
-    message("T4= Type_ANNt: MC_t_Training - Assets with the highest probability obtained with the manually programmed ANN and Signal probability in the test sample is implemented")
-  } else{
-  if(type_ANNt=='T5'){
-  load('~/T5.rda')
-    Type_ANNt=T5
-    message("T5= Type_ANNt: NNet_Signal_Test - Assets with the highest probability obtained with the NeuralNet Package's ANN and Signal probability in the test sample is implemented")
-  } else{
-  if(type_ANNt=='T6'){
-  load('~/T6.rda')
-    Type_ANNt=T6
-    message("T6= Type_ANNt: NNet_t_Test - Assets with the highest probability obtained with the NeuralNet Package´s ANN and Student's t probability distribution  in the test sample is implemented")
-  } else{
-  if(type_ANNt=='T7'){
-  load('~/T7.rda')
-    Type_ANNt=T7
-    message("T7= Type_ANNt: MC_Signal_Test - Assets with the highest probability obtained with the manually programmed ANN and Signal probability in the test sample is implemented")
-  } else{
-  if(type_ANNt=='T8'){
-  load("~/T8.rda") # Carrega objeto scenario.set
-    Type_ANNt=T8
-    message("T8= Type_ANNt: MC_t_Test - Assets with the highest probability obtained with the manually programmed ANN and Student's t probability distribution  in the test sample is implemented")
-    }}}}}}}}
+  if(type_ANNt=='T1'){
+    load('~/T1.rda')
+    Type_ANNt=T1
+    message("T1= Type_ANNt: NNet_Signal_Traning - Assets with the highest probability obtained with the NeuralNet Package's ANN and Signal probability in the training sample is implemented")
+  } else {
+    if(type_ANNt=='T2'){
+      load('~/T2.rda')
+      Type_ANNt=T2
+      message("T2= Type_ANNt: NNet_t_Training - Assets with the highest probability obtained with the NeuralNet Package´s ANN and Student's t probability distribution  in the training sample is implemented")
+    } else{
+      if(type_ANNt=='T3'){
+        load('~/T3.rda')
+        Type_ANNt=T3
+        message("T3= Type_ANNt: MC_Signal_Training - Assets with the highest probability obtained with the manually programmed ANN and Signal probability in the training sample is implemented")
+      } else{
+        if(type_ANNt=='T4'){
+          load('~/T4.rda')
+          Type_ANNt=T4
+          message("T4= Type_ANNt: MC_t_Training - Assets with the highest probability obtained with the manually programmed ANN and Signal probability in the test sample is implemented")
+        } else{
+          if(type_ANNt=='T5'){
+            load('~/T5.rda')
+            Type_ANNt=T5
+            message("T5= Type_ANNt: NNet_Signal_Test - Assets with the highest probability obtained with the NeuralNet Package's ANN and Signal probability in the test sample is implemented")
+          } else{
+            if(type_ANNt=='T6'){
+              load('~/T6.rda')
+              Type_ANNt=T6
+              message("T6= Type_ANNt: NNet_t_Test - Assets with the highest probability obtained with the NeuralNet Package´s ANN and Student's t probability distribution  in the test sample is implemented")
+            } else{
+              if(type_ANNt=='T7'){
+                load('~/T7.rda')
+                Type_ANNt=T7
+                message("T7= Type_ANNt: MC_Signal_Test - Assets with the highest probability obtained with the manually programmed ANN and Signal probability in the test sample is implemented")
+              } else{
+                if(type_ANNt=='T8'){
+                  load("~/T8.rda") # Carrega objeto scenario.set
+                  Type_ANNt=T8
+                  message("T8= Type_ANNt: MC_t_Test - Assets with the highest probability obtained with the manually programmed ANN and Student's t probability distribution  in the test sample is implemented")
+                }}}}}}}}
 
   save(Type_ANNt, file='~/Type_ANNt.rda')
   # Duração do processamento 1720/length(dados)=1.2 min)
@@ -113,14 +113,14 @@ if(type_ANNt=='T1'){
   load("~/I_dataPredict.rda") # Carrega objeto scenario.set
   load("~/F_dataPredict.rda") # Carrega objeto scenario.set
   if(exists('Initial_Date_Testing')==FALSE) {
-  load("~/Initial_Date_Testing.rda")
+    load("~/Initial_Date_Testing.rda")
   }
   if(exists('Final_Date_Testing')==FALSE){
-  load("~/Final_Date_Training.rda")
+    load("~/Final_Date_Training.rda")
   }
 
   if(file.exists("~/Signal_Sharpe.rda")==TRUE){
-  load("~/Signal_Sharpe.rda")
+    load("~/Signal_Sharpe.rda")
   }else{
     Signal_Sharpe=0
     save(Signal_Sharpe, file="~/Signal_Sharpe.rda")
@@ -172,9 +172,9 @@ ___________________________________________________________________
     #Final_Date_Testing=rownames(dados2[nrow(dados2),])
     #Final_Date_Testing=Sys.Date()
     while(length(which(rownames(dados2)==Final_Date_Testing))==0){
-    dia=as.Date(Final_Date_Testing)
-    new_day=dia-1
-    Final_Date_Testing = as.character(new_day)
+      dia=as.Date(Final_Date_Testing)
+      new_day=dia-1
+      Final_Date_Testing = as.character(new_day)
     }
   }
 
@@ -198,9 +198,9 @@ ___________________________________________________________________
 
   ######################## Adjust of nrow series for GMV and Sharpe #############
   all.returns <- TodosAtivosPredict
-#  if (nrow(all.returns)<ncol(all.returns)){
-#    message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
-#  }
+  #  if (nrow(all.returns)<ncol(all.returns)){
+  #    message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
+  #  }
   while (nrow(all.returns)<ncol(all.returns)){
     Inicio=as.Date(rownames(all.returns)[1])-(ncol(all.returns)-nrow(all.returns))
     if(length(which(rownames(dados2)==Inicio))==0){
@@ -277,12 +277,12 @@ ___________________________________________________________________
     #Envelope
     test_logic = which(scenario.set[,ativo]==0)
     if(length(test_logic)!=0){
-    test_logico=NULL
-    for( m in 2:length(test_logic)){
-      test_logico[m-1] = test_logic[m]-test_logic[m-1]
-    }
-    if(any(is.na(test_logico))==TRUE){
-      test_logico=0}
+      test_logico=NULL
+      for( m in 2:length(test_logic)){
+        test_logico[m-1] = test_logic[m]-test_logic[m-1]
+      }
+      if(any(is.na(test_logico))==TRUE){
+        test_logico=0}
     } else{ test_logico=0}
 
 
@@ -290,28 +290,28 @@ ___________________________________________________________________
     if(Test_logico_==TRUE){
       MDM=0
     } else {
-    # Calculo das defasagens para cada ativo
-    dat_MF <- data.frame(dados[,ativo])
-    rownames(dat_MF)=rownames(dados)
-    Inicio_data = Initial_Date_Testing
-    Fim_data = Final_Date_Testing
-    I_data = which(rownames(dat_MF)==Inicio_data)
-    F_data = which(rownames(dat_MF)==Fim_data)
-    if(class(Initial_Date_Testing)==('numeric')){
-      I_data=Initial_Date_Testing
-    }
-    entradas = as.matrix(dat_MF[I_data:F_data,])
-    saidas = as.matrix(dat_MF[(I_data+1):(F_data+1),1])
+      # Calculo das defasagens para cada ativo
+      dat_MF <- data.frame(dados[,ativo])
+      rownames(dat_MF)=rownames(dados)
+      Inicio_data = Initial_Date_Testing
+      Fim_data = Final_Date_Testing
+      I_data = which(rownames(dat_MF)==Inicio_data)
+      F_data = which(rownames(dat_MF)==Fim_data)
+      if(class(Initial_Date_Testing)==('numeric')){
+        I_data=Initial_Date_Testing
+      }
+      entradas = as.matrix(dat_MF[I_data:F_data,])
+      saidas = as.matrix(dat_MF[(I_data+1):(F_data+1),1])
 
-    scale=10:100
-    q<--10:10
-    m<-1
-    b_MF<-MFDFA(as.timeSeries(dat_MF), scale, m, q)
+      scale=10:100
+      q<--10:10
+      m<-1
+      b_MF<-MFDFA(as.timeSeries(dat_MF), scale, m, q)
 
-    # MDM - Market Deficiency Measure
-    MDM = 1/2*(abs((b_MF$Hq[1]-0.5))+abs(b_MF$Hq[11]-0.5))
-    ## Not run:
-    ## Results plot ####
+      # MDM - Market Deficiency Measure
+      MDM = 1/2*(abs((b_MF$Hq[1]-0.5))+abs(b_MF$Hq[11]-0.5))
+      ## Not run:
+      ## Results plot ####
     }
 
     # Resultados das Probabilidades
@@ -362,7 +362,7 @@ ___________________________________________________________________
   colnames(Pesos_MFractal_Mkv2) <- Pesos_MFractal_Mkv1[,1]
   rownames(Pesos_MFractal_Mkv2)<-'Weight'
   #print(paste('Weights of the MF-MKW Portfolio:'))
-    #   print(Pesos_MFractal_Mkv2)
+  #   print(Pesos_MFractal_Mkv2)
 
 
 
@@ -395,14 +395,14 @@ ___________________________________________________________________
   pesos_todosPredict
 
 
-#ts=as.ts(all.returns[11:nrow(all.returns),])
+  #ts=as.ts(all.returns[11:nrow(all.returns),])
   #pd_D_mat <- nearPD(ts)
 
   #output <- solve.QP(Dmat = as.matrix(ts),
   #                   dvec = d_vec,
-   #                  Amat = ts,
+  #                  Amat = ts,
   #                   bvec = 0,
-   #                  meq  = 1)
+  #                  meq  = 1)
 
   RetornoMedioMArkovitz = TodosAtivosPredict%*% pesos_todosPredict
 
@@ -475,35 +475,35 @@ ___________________________________________________________________
 
 
 
-################################cARTEIRAS SHARPE ###############################
-### Carteira Sharpe todos os ativos
-## Optmization
-symbols = colnames(TodosAtivosPredict)
-#####
+  ################################cARTEIRAS SHARPE ###############################
+  ### Carteira Sharpe todos os ativos
+  ## Optmization
+  symbols = colnames(TodosAtivosPredict)
+  #####
 
-#init.portf <- portfolio.spec(assets = symbols)
-#init.portf <- add.constraint(portfolio = init.portf, type = "full_investment")
-#init.portf <- add.constraint(portfolio = init.portf, type = "long_only")
-#init.portf <- add.objective(portfolio = init.portf, type = "return", name = "mean")
-#init.portf
+  #init.portf <- portfolio.spec(assets = symbols)
+  #init.portf <- add.constraint(portfolio = init.portf, type = "full_investment")
+  #init.portf <- add.constraint(portfolio = init.portf, type = "long_only")
+  #init.portf <- add.objective(portfolio = init.portf, type = "return", name = "mean")
+  #init.portf
 
-#init.portf <- add.constraint(portfolio = init.portf, type = "risk",
-#                             name = "StdDev", multiplier = 0)
-#port1 <- add.constraint(portfolio = init.portf,
-#                        type = "diversification", min=0, max=1,
-#                        indexnum=2)
-#port1 <- add.constraint(portfolio = init.portf, type = "risk", name = "StdDev")
+  #init.portf <- add.constraint(portfolio = init.portf, type = "risk",
+  #                             name = "StdDev", multiplier = 0)
+  #port1 <- add.constraint(portfolio = init.portf,
+  #                        type = "diversification", min=0, max=1,
+  #                        indexnum=2)
+  #port1 <- add.constraint(portfolio = init.portf, type = "risk", name = "StdDev")
 
 
-### Carteira Sharpe todos os ativos
-#maxSRport.rp <- optimize.portfolio(R=TodosAtivosPredict,
-#                                  portfolio = port1,
-#                                   optimize_method = "random",
-#                                  search_size = 20000,
-#                                 maxSR=TRUE, trace = TRUE)
-#maxSRport.rp
+  ### Carteira Sharpe todos os ativos
+  #maxSRport.rp <- optimize.portfolio(R=TodosAtivosPredict,
+  #                                  portfolio = port1,
+  #                                   optimize_method = "random",
+  #                                  search_size = 20000,
+  #                                 maxSR=TRUE, trace = TRUE)
+  #maxSRport.rp
 
-#maxSR.weight.rp <- extractWeights(maxSRport.rp)
+  #maxSR.weight.rp <- extractWeights(maxSRport.rp)
 
 
   ##############################################################################
@@ -529,10 +529,10 @@ symbols = colnames(TodosAtivosPredict)
 
     ### Carteira Sharpe todos os ativos
     maxSRport.rp <- optimize.portfolio(R=all.returns,
-                                      portfolio = port1,
+                                       portfolio = port1,
                                        optimize_method = "random",
-                                      search_size = 20000,
-                                     maxSR=TRUE, trace = TRUE)
+                                       search_size = 20000,
+                                       maxSR=TRUE, trace = TRUE)
     maxSRport.rp
 
     weight_test <- extractWeights(maxSRport.rp)
@@ -540,54 +540,54 @@ symbols = colnames(TodosAtivosPredict)
 
 
   } else{
-  #######################Verify if ANNt_Oliveira_Ceretta_S was ativate###########
+    #######################Verify if ANNt_Oliveira_Ceretta_S was ativate###########
     if (file.exists('~/weight_test.rda')==TRUE){
-    load('~/weight_test.rda')
+      load('~/weight_test.rda')
       load('~/sd_sharpe.rda')
       load('~/weight_test.rda')
-      } else{weight_test=NULL}
+    } else{weight_test=NULL}
 
-     if(Signal_Sharpe==0 | length(weight_test)!=ncol(all.returns)){
+    if(Signal_Sharpe==0 | length(weight_test)!=ncol(all.returns)){
 
       n_testing=which(rownames(dados2)==Final_Date_Testing)-which(rownames(dados2)==Initial_Date_Testing)
       #if(n_testing<ncol(dados2)){
       #  stop("You need to specify a test period greater than the number of assets for the Sharpe portfolio to have a solution!")
       #}
 
-  ####### set up portfolio with objetive and constraints
-  #n.assets <- length(colnames(all.returns))
-  #port.sec <- portfolio.spec(assets = colnames(all.returns))
-  #port.sec <- add.objective(portfolio = port.sec, type = "risk", name = "StdDev")
-  #port.sec <- add.objective(portfolio = port.sec, type = "return", name = "mean")
-  #port.sec <- add.constraint(portfolio = port.sec, type = "full_investiment")
-  #port.sec <- add.constraint(portfolio = port.sec, type = "box", min = 0, max = 1)
+      ####### set up portfolio with objetive and constraints
+      #n.assets <- length(colnames(all.returns))
+      #port.sec <- portfolio.spec(assets = colnames(all.returns))
+      #port.sec <- add.objective(portfolio = port.sec, type = "risk", name = "StdDev")
+      #port.sec <- add.objective(portfolio = port.sec, type = "return", name = "mean")
+      #port.sec <- add.constraint(portfolio = port.sec, type = "full_investiment")
+      #port.sec <- add.constraint(portfolio = port.sec, type = "box", min = 0, max = 1)
 
 
-  # map off efficient frontier (for variance risk)
-  #eff.frontier <- create.EfficientFrontier(R = all.returns, portfolio = port.sec,
-  #                                         n.portfolio = 2000, type = "mean-StdDev")
+      # map off efficient frontier (for variance risk)
+      #eff.frontier <- create.EfficientFrontier(R = all.returns, portfolio = port.sec,
+      #                                         n.portfolio = 2000, type = "mean-StdDev")
 
-  # Daily Sharpe ratio
-  #rf=(1+Rf)^(1/252)-1
-  #sharpe.ratios <- (eff.frontier$frontier[,"mean"]-rf)/eff.frontier$frontier[,"StdDev"]
-  #max.sharpe.ratio <- sharpe.ratios[sharpe.ratios==max(sharpe.ratios)]
-  #optimal.port.name <- names(max.sharpe.ratio)
-  #optimal.mean <- eff.frontier$frontier[optimal.port.name,"mean"]
-  #optimal.sd <- eff.frontier$frontier[optimal.port.name,"StdDev"]
+      # Daily Sharpe ratio
+      #rf=(1+Rf)^(1/252)-1
+      #sharpe.ratios <- (eff.frontier$frontier[,"mean"]-rf)/eff.frontier$frontier[,"StdDev"]
+      #max.sharpe.ratio <- sharpe.ratios[sharpe.ratios==max(sharpe.ratios)]
+      #optimal.port.name <- names(max.sharpe.ratio)
+      #optimal.mean <- eff.frontier$frontier[optimal.port.name,"mean"]
+      #optimal.sd <- eff.frontier$frontier[optimal.port.name,"StdDev"]
 
-  #n.trading.days.per.year <- 1
+      #n.trading.days.per.year <- 1
 
-  #print(sprintf("Optimal Sharpe Ratio: %f", max.sharpe.ratio*sqrt(n.trading.days.per.year)))
-  #print(sprintf("Optimal E(port return): %f", optimal.mean*sqrt(n.trading.days.per.year)))
-  #mean_sharpe = optimal.mean*sqrt(n.trading.days.per.year)
-  #print(sprintf("Optimal sd(port return): %f", optimal.sd*sqrt(n.trading.days.per.year)))
-  #sd_sharpe <- optimal.sd*sqrt(n.trading.days.per.year)
+      #print(sprintf("Optimal Sharpe Ratio: %f", max.sharpe.ratio*sqrt(n.trading.days.per.year)))
+      #print(sprintf("Optimal E(port return): %f", optimal.mean*sqrt(n.trading.days.per.year)))
+      #mean_sharpe = optimal.mean*sqrt(n.trading.days.per.year)
+      #print(sprintf("Optimal sd(port return): %f", optimal.sd*sqrt(n.trading.days.per.year)))
+      #sd_sharpe <- optimal.sd*sqrt(n.trading.days.per.year)
 
-  #print("Optimal weights")
-  #weight_test <- eff.frontier$frontier[optimal.port.name,(1:n.assets)+3]
+      #print("Optimal weights")
+      #weight_test <- eff.frontier$frontier[optimal.port.name,(1:n.assets)+3]
 
 
-  ################# SHARPE manual construction ###############################
+      ################# SHARPE manual construction ###############################
       ################# Envelope LOOP 5000 vezes #######################################
 
       pesosCarteira <- function(retornosAtivos, retornoAlvo) {
@@ -615,7 +615,7 @@ symbols = colnames(TodosAtivosPredict)
                           longa = diag(nAtivos))),
           bvec <- c(retorno = retornoAlvo,                    # vetor  b0
                     orcamento = 1,
-                     longa = rep(0, times = nAtivos)),
+                    longa = rep(0, times = nAtivos)),
           meq = 2)                                            # as primeiro meq restri??es s?o igualdades
 
         pesos  <-  portfolio$solution # vetor contendo a solu??o do problema
@@ -652,29 +652,29 @@ symbols = colnames(TodosAtivosPredict)
       mu = Medias_set.returns
       retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
-  riscosAlvo  <-  NULL
-  for (i in 1:nrow(pesos_front)) {
-    novoRiscoAlvo  <-  sqrt(pesos_front[i, ] %*%
-                              cov(retornosAtivos) %*%
-                              pesos_front[i, ])
-    riscosAlvo  <-  c(riscosAlvo, novoRiscoAlvo)
-  }
+      riscosAlvo  <-  NULL
+      for (i in 1:nrow(pesos_front)) {
+        novoRiscoAlvo  <-  sqrt(pesos_front[i, ] %*%
+                                  cov(retornosAtivos) %*%
+                                  pesos_front[i, ])
+        riscosAlvo  <-  c(riscosAlvo, novoRiscoAlvo)
+      }
 
-  rf=(1+Rf)^(1/252)-1
-  S_=tan((retornoAlvos-rf)/riscosAlvo)
+      rf=(1+Rf)^(1/252)-1
+      S_=tan((retornoAlvos-rf)/riscosAlvo)
 
-  fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos, Sharpe = S_)
-  sHARPEMAX = which(fronteiraEficiente$Sharpe==max(fronteiraEficiente$Sharpe))
+      fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos, Sharpe = S_)
+      sHARPEMAX = which(fronteiraEficiente$Sharpe==max(fronteiraEficiente$Sharpe))
 
-  mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
-  sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
-  weight_test = pesos_front[sHARPEMAX,]
+      mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
+      sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
+      weight_test = pesos_front[sHARPEMAX,]
 
     }else{
-    load('~/mean_sharpe.rda')
+      load('~/mean_sharpe.rda')
       load('~/sd_sharpe.rda')
       load('~/weight_test.rda')
-  }
+    }
 
   }
   #########################################
@@ -772,7 +772,7 @@ symbols = colnames(TodosAtivosPredict)
   ### Retornos carteira Sharpe MF_DFA Multifractal
   RetornoMedioMaxIS_MFractal = as.matrix(C_MFractal)%*% weight_test_MF
 
-################################################################################
+  ################################################################################
   ### Carteira Sharpe RNAt
   ##############################################################################
   ## Optmization
