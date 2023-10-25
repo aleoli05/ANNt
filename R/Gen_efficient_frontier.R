@@ -280,7 +280,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   }
 
   retornosAtivos = TodosAtivosPredict
-  pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=200)
+  pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
   mu = Medias_set.returns
   retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
