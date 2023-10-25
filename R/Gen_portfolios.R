@@ -219,7 +219,7 @@ ___________________________________________________________________
         Fim = as.character(new_day)
       }
     }
-    all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-10):which(rownames(scenario.set)==Fim),-1]
+    all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)):which(rownames(scenario.set)==Fim),-1]
   }
   # y=0
   #  for (k in 1:(nAtivos-1)){
@@ -232,27 +232,27 @@ ___________________________________________________________________
   #    y=y+x
   #  }}}
 
-  Contador=round(nrow(all.returns),-1)
+  #Contador=round(nrow(all.returns),-1)
   #if(nrow(all.returns)-Contador<0){
-  Contador=Contador-10
+  #Contador=Contador-10
   #}
-  Remover= nrow(all.returns)-Contador
-  if(ncol(all.returns)>10){
-    all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
+  #Remover= nrow(all.returns)-Contador
+  #if(ncol(all.returns)>10){
+  #  all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
 
-    if (nrow(all.returns)-ncol(all.returns)<10){
-      Inicio=as.Date(rownames(all.returns)[1])
-      Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
-      all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
-    }
-  }
+   # if (nrow(all.returns)-ncol(all.returns)<10){
+    #  Inicio=as.Date(rownames(all.returns)[1])
+    #  Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
+    #  all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
+    #}
+  #}
 
 
-  if(ncol(scenario.set)>480 & ncol(scenario.set)<500){
-    Fi = ncol(scenario.set)+9
-    I=(nrow(all.returns)-Fi)+1
-    all.returns=all.returns[I:nrow(all.returns),]
-  }
+  #if(ncol(scenario.set)>480 & ncol(scenario.set)<500){
+  #  Fi = ncol(scenario.set)+9
+  #  I=(nrow(all.returns)-Fi)+1
+  #  all.returns=all.returns[I:nrow(all.returns),]
+  #}
 
 
   ###############################################################################
@@ -404,7 +404,10 @@ ___________________________________________________________________
   #                   bvec = 0,
   #                  meq  = 1)
 
-  RetornoMedioMArkovitz = TodosAtivosPredict%*% pesos_todosPredict
+  RetornoMedioMArkovitz = as.matrix(TodosAtivosPredict)%*% pesos_todosPredict
+  MKW = as.matrix(all.returns)%*% pesos_todosPredict
+  mean_MKW=mean(MKW)
+  sd_MKW=sd(MKW)
 
   # Weight extract
   Carteira_Markov = data.frame(colnames(TodosAtivosPredict),pesos_todosPredict)
@@ -646,9 +649,9 @@ ___________________________________________________________________
         pesos
       }
 
-      retornosAtivos = TodosAtivosPredict
+      retornosAtivos = all.returns
       pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
-      Medias_set.returns <- as.matrix(t(apply(TodosAtivosPredict, 2, mean)))
+      Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
       mu = Medias_set.returns
       retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
@@ -969,6 +972,7 @@ ___________________________________________________________________
     Weights_All[16,k+1]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
     Weights_All[17,k+1]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
   }
+  Rf=Rf*100
   save(mean_sharpe,file="~/mean_sharpe.rda")
   save(sd_sharpe,file="~/sd_sharpe.rda")
   save(weight_test,file="~/weight_test.rda")
@@ -993,6 +997,8 @@ ___________________________________________________________________
   save(Weight_Sharpe_1,file='~/Weight_Sharpe_1.rda')
   save(Weight_Sharpe_MF,file='~/Weight_Sharpe_MF.rda')
   save(Weight_ANNt_Sharpe,file='~/Weight_ANNt_Sharpe.rda')
+  save(sd_MKW, file='~/sd_MKW.rda')
+  save(mean_MKW, file='~/mean_MKW.rda')
 
   write_xlsx(as.data.frame(Weights_All), "~/Weights_All.xlsx")
 

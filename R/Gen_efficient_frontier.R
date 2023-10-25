@@ -291,7 +291,39 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
                               pesos_front[i, ])
     riscosAlvo  <-  c(riscosAlvo, novoRiscoAlvo)
   }
-  fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos)
+  rf=(1+Rf)^(1/252)-1
+  S_=tan((retornoAlvos-rf)/riscosAlvo)
+
+  fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos, Sharpe = S_)
+  sHARPEMAX = which(fronteiraEficiente$Sharpe==max(fronteiraEficiente$Sharpe))
+
+  mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
+  sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
+  weight_test = pesos_front[sHARPEMAX,]
+
+  ###############################################################################
+  # GMV - Global Minimum Variance
+  #if(nrow(TodosAtivosPredict)<ncol(TodosAtivosPredict)){
+  #EPR=colMeans(all.returns)
+  #COV=var(all.returns)
+  #GMV=globalMin.portfolio(EPR,COV)
+  #  GMV_Return = mean(RetornoMedioMArkovitz)
+  #  GMV_sd = sd(RetornoMedioMArkovitz)
+  #  weight_GMV = pesos_todosPredict
+  #}else{
+  # EPR=colMeans(TodosAtivosPredict)
+  #  COV=var(TodosAtivosPredict)
+  # GMV=globalMin.portfolio(EPR,COV)
+  #GMV_Return = GMV$er
+  #GMV_sd = GMV$sd
+  #weight_GMV = GMV$weights}
+
+  GMV = which(fronteiraEficiente$risco==min(fronteiraEficiente$risco))
+
+  GMV_Return=fronteiraEficiente$retorno[GMV]
+  GMV_sd=fronteiraEficiente$risco[GMV]
+  weight_GMV = pesos_front[GMV,]
+
 
   #  all.returns <- TodosAtivosPredict
   ## set up portfolio with objetive and constraints
@@ -338,6 +370,11 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   save(Sharpe,file='~/Sharpe.rda')
   save(riscosAlvo,file='~/riscosAlvo.rda')
   save(retornoAlvos,file='~/retornoAlvos.rda')
+  save(mean_sharpe,file="~/mean_sharpe.rda")
+  save(sd_sharpe,file="~/sd_sharpe.rda")
+  save(weight_test,file="~/weight_test.rda")
+  save(GMV_Return,file='~/GMV_Return.rda')
+  save(GMV_sd,file='~/GMV_sd.rda')
 
   write_xlsx(Base_Palomar_frame,'Base_Palomar.xts')
 

@@ -25,21 +25,25 @@ load('~/Classificacao_MFractal.rda')
 load('~/Comparativo_RETORNOS.rda')
 load('~/Initial_Analysis_Date.rda')
 load('~/Final_Analysis_Date.rda')
+load('~/mean_sharpe.rda')
+load('~/sd_sharpe.rda')
 load('~/GMV_Return.rda')
 load('~/GMV_sd.rda')
+load('~/sd_MKW.rda')
+load('~/mean_MKW.rda')
 load('~/RM.rda')
 
 
 Inicio_data = Initial_Analysis_Date
 Fim_data = Final_Analysis_Date
 
- if (ncol(Base_Palomar)>10){
-  GMV_Return=1
-  GMV_sd=1
-}
+ #if (ncol(Base_Palomar)>10){
+  #GMV_Return=1
+#  GMV_sd=1
+#}
 
-sd_sharpe = sd(as.data.frame(Comparativo_RETORNOS)$SHARPE)
-mean_sharpe = mean(as.data.frame(Comparativo_RETORNOS)$SHARPE)
+#sd_sharpe = sd(as.data.frame(Comparativo_RETORNOS)$SHARPE)
+#mean_sharpe = mean(as.data.frame(Comparativo_RETORNOS)$SHARPE)
 attach(as.data.frame(Base_Palomar))
 attach(as.data.frame(Comparativo_RETORNOS))
 
@@ -282,7 +286,7 @@ text(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]),
 #     cex = 0.6,
 #     adj = -0.2
 #)
-points(sd(MARKOWITZ),mean(MARKOWITZ), col="brown", pch=19)
+points(sd_MKW, mean_MKW, col="brown", pch=19)
 #text(sd(MARKOWITZ),mean(MARKOWITZ),
 #     labels = "MARKOWITZ",
 #     col="brown",

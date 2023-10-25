@@ -164,7 +164,7 @@ if(class(Initial_Date_Testing)!=('numeric')){
   (which(rownames(scenario.set)==Initial_Date_Testing)):(which(rownames(scenario.set)==Final_Date_Testing))]
 
   }else{
-  Datas1Predict = rownames(scenario.set)[(Initial_Date_Testing+6):(which(rownames(scenario.set)==Final_Date_Testing))]
+  Datas1Predict = rownames(scenario.set)[(Initial_Date_Testing):(which(rownames(scenario.set)==Final_Date_Testing))]
 }
 save(Datas1Predict,file='~/Datas1Predict.rda')
 PosCovidSP500 = as.matrix(scenario.set[Datas1Predict,1])
@@ -197,27 +197,27 @@ while (nrow(all.returns)<ncol(all.returns)){
 
   all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
 }
- TodosAtivosPredict=all.returns
+ #TodosAtivosPredict=all.returns
 
-Contador=round(nrow(all.returns),-1)
+#Contador=round(nrow(all.returns),-1)
 #if(nrow(all.returns)-Contador<0){
-Contador=Contador-10
+#Contador=Contador-10
 #}
-Remover= nrow(all.returns)-Contador
-if(ncol(all.returns)>10){
-  all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
+#Remover= nrow(all.returns)-Contador
+#if(ncol(all.returns)>10){
+#  all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
 
-  if (nrow(all.returns)-ncol(all.returns)<10){
-    Inicio=as.Date(rownames(all.returns)[1])
-    Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
-    all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
-  }
-}
+  #if (nrow(all.returns)-ncol(all.returns)<10){
+  #  Inicio=as.Date(rownames(all.returns)[1])
+  #  Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
+  #  all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
+  #}
+#}
 
-if(ncol(scenario.set)>480 & ncol(scenario.set)<500){
-  I=(nrow(scenario.set)-499)
-  all.returns=scenario.set[I:nrow(scenario.set),-1]
-}
+#if(ncol(scenario.set)>480 & ncol(scenario.set)<500){
+#  I=(nrow(scenario.set)-499)
+#  all.returns=scenario.set[I:nrow(scenario.set),-1]
+#}
 
 ####### set up portfolio with objetive and constraints
 
@@ -282,9 +282,9 @@ fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
   pesos
 }
 
-retornosAtivos = TodosAtivosPredict
+retornosAtivos = all.returns
 pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
-Medias_set.returns <- as.matrix(t(apply(TodosAtivosPredict, 2, mean)))
+Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
 mu = Medias_set.returns
 retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
