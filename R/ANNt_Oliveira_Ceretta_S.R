@@ -184,7 +184,7 @@ all.returns <- TodosAtivosPredict
 #}
 if ((nrow(all.returns)<ncol(all.returns))==TRUE){
   I = which(rownames(scenario.set)==rownames(all.returns)[nrow(all.returns)])
-  I = I-(ncol(all.returns))+1
+  I = I-(ncol(all.returns))-9
   Inicio=rownames(scenario.set)[I]
   Fim=rownames(all.returns)[nrow(all.returns)]
 
