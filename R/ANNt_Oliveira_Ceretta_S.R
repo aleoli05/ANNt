@@ -177,6 +177,8 @@ options(warn=-1)
 
 
 all.returns <- TodosAtivosPredict
+
+print ('ok')
 #if (nrow(all.returns)<ncol(all.returns)){
 #  message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
 #}
@@ -223,6 +225,8 @@ while (nrow(all.returns)<ncol(all.returns)){
 
 rf = (1+Rf)^(1/252)-1
 
+print('ok 1')
+
 ################# SHARPE manual construction ###############################
 ################# Envelope LOOP 5000 vezes #######################################
 
@@ -258,6 +262,7 @@ pesosCarteira <- function(retornosAtivos, retornoAlvo) {
   pesos
 }
 
+print('ok 2')
 fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
   # Quantidade de ativos
   nAtivos <- ncol(retornosAtivos)
@@ -282,8 +287,13 @@ fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
   pesos
 }
 
+
 retornosAtivos = all.returns
+print ('ok 3')
+
 pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
+
+print('ok 4')
 Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
 mu = Medias_set.returns
 retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
@@ -305,6 +315,8 @@ sHARPEMAX = which(fronteiraEficiente$Sharpe==max(fronteiraEficiente$Sharpe))
 mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
 sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
 weight_test = pesos_front[sHARPEMAX,]
+
+print ('ok 5')
 ################################################################################
 
 save(mean_sharpe,file="~/mean_sharpe.rda")
@@ -345,7 +357,7 @@ save(RM_Original,file='~/RM_Original.rda')
 save(Specific_RM,file='~/Specific_RM.rda')
 save(scenario.set,file='~/scenario.set.rda')
 #################################################################################
-
+print('ok 6')
 
 
 Final_Date_Training <- Final_Date_Training
