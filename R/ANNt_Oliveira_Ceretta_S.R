@@ -185,20 +185,21 @@ print ('ok')
 while (nrow(all.returns)<ncol(all.returns)){
   Inicio=as.character(as.Date(rownames(all.returns)[1])-(ncol(all.returns)-nrow(all.returns)))
   Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
-
+  print ('ok 1111')
   while(length(which(rownames(scenario.set)==Inicio))==0){
     dia=as.Date(Inicio)
     new_day=dia+1
     Inicio = as.character(new_day)}
-
+  print ('ok 222222')
     while(length(which(rownames(scenario.set)==Fim))==0){
       dia=as.Date(Fim)
       new_day=dia-1
       Fim = as.character(new_day)}
 
-
-  all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
 }
+ print ('ok 33444')
+  all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
+
  #TodosAtivosPredict=all.returns
 
 #Contador=round(nrow(all.returns),-1)
@@ -262,7 +263,8 @@ pesosCarteira <- function(retornosAtivos, retornoAlvo) {
   pesos
 }
 
-print('ok 2')
+
+
 fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
   # Quantidade de ativos
   nAtivos <- ncol(retornosAtivos)
@@ -289,11 +291,11 @@ fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
 
 
 retornosAtivos = all.returns
-print ('ok 3')
+
 
 pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
 
-print('ok 4')
+
 Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
 mu = Medias_set.returns
 retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
@@ -316,7 +318,6 @@ mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
 sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
 weight_test = pesos_front[sHARPEMAX,]
 
-print ('ok 5')
 ################################################################################
 
 save(mean_sharpe,file="~/mean_sharpe.rda")
@@ -357,7 +358,7 @@ save(RM_Original,file='~/RM_Original.rda')
 save(Specific_RM,file='~/Specific_RM.rda')
 save(scenario.set,file='~/scenario.set.rda')
 #################################################################################
-print('ok 6')
+
 
 
 Final_Date_Training <- Final_Date_Training
