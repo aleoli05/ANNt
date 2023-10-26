@@ -184,20 +184,20 @@ print ('ok')
 #}
 while (nrow(all.returns)<ncol(all.returns)){
   Inicio=as.character(as.Date(rownames(all.returns)[1])-(ncol(all.returns)-nrow(all.returns)))
-  Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
-  print ('ok 1111')
+  Fim=rownames(all.returns)[nrow(all.returns)]
+
   while(length(which(rownames(scenario.set)==Inicio))==0){
     dia=as.Date(Inicio)
     new_day=dia+1
     Inicio = as.character(new_day)}
-  print ('ok 222222')
+
     while(length(which(rownames(scenario.set)==Fim))==0){
       dia=as.Date(Fim)
       new_day=dia-1
       Fim = as.character(new_day)}
 
 }
- print ('ok 33444')
+
   all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
 
  #TodosAtivosPredict=all.returns
@@ -226,7 +226,7 @@ while (nrow(all.returns)<ncol(all.returns)){
 
 rf = (1+Rf)^(1/252)-1
 
-print('ok 1')
+
 
 ################# SHARPE manual construction ###############################
 ################# Envelope LOOP 5000 vezes #######################################
