@@ -131,28 +131,30 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
       new_day=dia-1
       Fim = as.character(new_day)
     }
-
+    all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
   }
 
 
-  all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
 
-  TodosAtivosPredict = all.returns
+  if (ncol(TodosAtivosPredict<nrow(TodosAtivosPredict))){
+    all.returns=TodosAtivosPredict
+  }
 
-  Contador=round(nrow(all.returns),-1)
+
+ # Contador=round(nrow(all.returns),-1)
   #if(nrow(all.returns)-Contador<0){
-  Contador=Contador-10
+#  Contador=Contador-10
   #}
-  Remover= nrow(all.returns)-Contador
-  if(ncol(all.returns)>10){
-    all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
+ # Remover= nrow(all.returns)-Contador
+  #if(ncol(all.returns)>10){
+   # all.returns <- all.returns[1:(nrow(all.returns)-Remover),]
 
-    if (nrow(all.returns)-ncol(all.returns)<10){
-      Inicio=as.Date(rownames(all.returns)[1])
-      Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
-      all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
-    }
-  }
+    #if (nrow(all.returns)-ncol(all.returns)<10){
+     # Inicio=as.Date(rownames(all.returns)[1])
+      #Fim=as.Date(rownames(all.returns)[nrow(all.returns)])
+      #all.returns=scenario.set[(which(rownames(scenario.set)==Inicio)-20):which(rownames(scenario.set)==Fim),-1]
+    #}
+  #}
 
   #TodosAtivosPredict=all.returns
 

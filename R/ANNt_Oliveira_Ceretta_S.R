@@ -90,6 +90,8 @@ Initial_Date_Testing <- c('')
 Final_Date_Testing <- c('')
 Rf <- Rf
 save(Rf,file='~/Rf.rda')
+x5 = Rf
+save(x5, file='~/x5.rda')
 Initial_Analysis_Date <- c('')
 Final_Analysis_Date <- c('')
 
@@ -182,12 +184,13 @@ all.returns <- TodosAtivosPredict
 #if (nrow(all.returns)<ncol(all.returns)){
 #  message("The length of the series is less than the number of assets. I will increase the length so I can calculate the Sharpe portfolio of all assets. I'll do this just for this portfolio, ok!")
 #}
+
+
 if ((nrow(all.returns)<ncol(all.returns))==TRUE){
   I = which(rownames(scenario.set)==rownames(all.returns)[nrow(all.returns)])
   I = I-(ncol(all.returns))-9
   Inicio=rownames(scenario.set)[I]
   Fim=rownames(all.returns)[nrow(all.returns)]
-
 
   while(length(which(rownames(scenario.set)==Inicio))==0){
     dia=as.Date(Inicio)
@@ -200,11 +203,11 @@ if ((nrow(all.returns)<ncol(all.returns))==TRUE){
       new_day=dia-1
       Fim = as.character(new_day)
       }
+  all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
 
 }
 
 
-  all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
 
  #TodosAtivosPredict=all.returns
 
@@ -379,7 +382,7 @@ scenario.set=Portfolio_with_RM_Original
 save(scenario.set, file="~/scenario.set.rda")
 
 Rf=Rf*100
-Gen_portfolios('n_Assets',Initial_Date_Testing,'',Rf, Type_ANNt)
+Gen_portfolios('n_Assets',Initial_Date_Testing,'','x5', Type_ANNt)
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')
 Gen_efficient_frontier('','')

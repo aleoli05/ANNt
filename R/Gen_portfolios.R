@@ -109,9 +109,13 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
 
   save(Type_ANNt, file='~/Type_ANNt.rda')
   # Duração do processamento 1720/length(dados)=1.2 min)
+  load("~/x5.rda") # Carrega objeto scenario.set
   load("~/scenario.set.rda") # Carrega objeto scenario.set
   load("~/I_dataPredict.rda") # Carrega objeto scenario.set
   load("~/F_dataPredict.rda") # Carrega objeto scenario.set
+  if(Rf=='x5'){
+    Rf=x5
+  }
   if(exists('Initial_Date_Testing')==FALSE) {
     load("~/Initial_Date_Testing.rda")
   }
@@ -219,11 +223,12 @@ ___________________________________________________________________
       new_day=dia-1
       Fim = as.character(new_day)
     }
-
+    all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
   }
 
-
-  all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
+if (ncol(TodosAtivosPredict<nrow(TodosAtivosPredict))){
+  all.returns=TodosAtivosPredict
+}
 
   # y=0
   #  for (k in 1:(nAtivos-1)){
@@ -575,7 +580,7 @@ ___________________________________________________________________
       #                                         n.portfolio = 2000, type = "mean-StdDev")
 
       # Daily Sharpe ratio
-      #rf=(1+Rf)^(1/252)-1
+      rf=(1+Rf)^(1/252)-1
       #sharpe.ratios <- (eff.frontier$frontier[,"mean"]-rf)/eff.frontier$frontier[,"StdDev"]
       #max.sharpe.ratio <- sharpe.ratios[sharpe.ratios==max(sharpe.ratios)]
       #optimal.port.name <- names(max.sharpe.ratio)
@@ -748,8 +753,8 @@ ___________________________________________________________________
                                               n.portfolio = 2000, type = "mean-StdDev")
 
   # Daily Sharpe ratio
-
-  sharpe.ratios.MF <- (eff.frontier.MF$frontier[,"mean"]-rf)/eff.frontier.MF$frontier[,"StdDev"]
+  rf2 <- (1+Rf)^(1/252-1) # Renda Fixa
+  sharpe.ratios.MF <- (eff.frontier.MF$frontier[,"mean"]-rf2)/eff.frontier.MF$frontier[,"StdDev"]
   max.sharpe.ratio.MF <- sharpe.ratios.MF[sharpe.ratios.MF==max(sharpe.ratios.MF)]
   optimal.port.name.MF <- names(max.sharpe.ratio.MF)
   optimal.mean.MF <- eff.frontier.MF$frontier[optimal.port.name.MF,"mean"]
