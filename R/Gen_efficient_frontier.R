@@ -136,7 +136,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
 
 
 
-  if (ncol(TodosAtivosPredict<nrow(TodosAtivosPredict))){
+  if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
     all.returns=TodosAtivosPredict
   }
 

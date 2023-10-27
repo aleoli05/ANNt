@@ -226,7 +226,7 @@ ___________________________________________________________________
     all.returns=scenario.set[which(rownames(scenario.set)==as.character(Inicio)):which(rownames(scenario.set)==Fim),-1]
   }
 
-if (ncol(TodosAtivosPredict<nrow(TodosAtivosPredict))){
+if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   all.returns=TodosAtivosPredict
 }
 
