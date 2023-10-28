@@ -176,9 +176,9 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
 
 
   id <- diag(length(acoes))
-  ret_medio <- colMeans(TodosAtivosPredict)
-  #mat_cov <- cov(TodosAtivosPredict)
-  mat_cov <- apply(TodosAtivosPredict, 2, skewness)
+  ret_medio <- colMeans(all.returns)
+  #mat_cov <- cov(all.returns)
+  mat_cov <- apply(all.Returns, 2, skewness)
   rf <- (1+Rf)^(1/252-1) # Renda Fixa
   for (i in seq_along(ret_carteira)) {
     if (i <= length(acoes)) # carteiras com apenas uma a??o
@@ -284,7 +284,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
     pesos
   }
 
-  retornosAtivos = TodosAtivosPredict
+  retornosAtivos = all.returns
   pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
   mu = Medias_set.returns
   retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
