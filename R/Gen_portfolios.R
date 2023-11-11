@@ -166,7 +166,9 @@ ___________________________________________________________________
       dia=as.Date(Initial_Date_Testing)
       new_day=dia+1
       Initial_Date_Testing = as.character(new_day)
+      print ('Initial Ok')
     }
+    print ('Initial Date Testing Ok')
   }
   if(Final_Date_Testing==('')){
     Final_Date_Testing=rownames(dados2[nrow(dados2),])
@@ -179,7 +181,9 @@ ___________________________________________________________________
       dia=as.Date(Final_Date_Testing)
       new_day=dia-1
       Final_Date_Testing = as.character(new_day)
+      print ('Final Ok')
     }
+    print ('Initial Date Testing Ok')
   }
 
 
