@@ -156,7 +156,16 @@ ___________________________________________________________________
   if(Initial_Date_Testing==('')){
     load("~/x1.rda")
     Final_Date_Training=x1
-    D = which(rownames(scenario.set)==Final_Date_Training)
+
+    if(length(which(rownames(as.data.frame(scenario.set))==Final_Date_Training))==0){
+      while(length(which(rownames(as.data.frame(scenario.set))==Final_Date_Training))==0){
+        dia=as.Date(Final_Date_Training)
+        new_day=dia-1
+        Final_Date_Training = as.character(new_day)
+      }
+    }
+
+    D = which(rownames(as.data.frame(scenario.set))==Final_Date_Training)
     Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
   }
   if(length(which(rownames(dados2)==Initial_Date_Testing))==0){
@@ -168,7 +177,7 @@ ___________________________________________________________________
       Initial_Date_Testing = as.character(new_day)
       print ('Initial Ok')
     }
-    print ('Initial Date Testing Ok')
+    #print ('Initial Date Testing Ok')
   }
   if(Final_Date_Testing==('')){
     Final_Date_Testing=rownames(dados2[nrow(dados2),])
@@ -181,9 +190,9 @@ ___________________________________________________________________
       dia=as.Date(Final_Date_Testing)
       new_day=dia-1
       Final_Date_Testing = as.character(new_day)
-      print ('Final Ok')
+      #print ('Final Ok')
     }
-    print ('Initial Date Testing Ok')
+    #print ('Initial Date Testing Ok')
   }
 
 
