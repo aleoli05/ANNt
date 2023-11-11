@@ -157,7 +157,7 @@ ___________________________________________________________________
     load("~/x1.rda")
     Final_Date_Training=x1
     D = which(rownames(scenario.set)==Final_Date_Training)
-    Initial_Date_Testing=Initial_Date_Testing = rownames(as.data.frame(scenario.set)[D+1,])
+    Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
   }
   if(length(which(rownames(dados2)==Initial_Date_Testing))==0){
     #Final_Date_Testing=rownames(dados2[nrow(dados2),])
@@ -200,6 +200,7 @@ ___________________________________________________________________
 
   options(warn=-1)
 
+  print("Dates Verification Ok")
   ######################## Adjust of nrow series for GMV and Sharpe #############
   all.returns <- TodosAtivosPredict
   #  if (nrow(all.returns)<ncol(all.returns)){
@@ -263,7 +264,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   #  all.returns=all.returns[I:nrow(all.returns),]
   #}
 
-
+  print("Lenght Data Verification Ok")
   ###############################################################################
 
 
@@ -329,6 +330,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   }
 
+  print("MDM Verification Ok")
   # Classificacao Muti_Fractal
   #Classificacao_MFractal <- sort(ResProb_MFractal, decreasing=FALSE)
   nomes = colnames(ResProb_MFractal)
