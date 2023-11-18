@@ -55,7 +55,8 @@ Assets_series <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity) {
 
   ################# Create Returns Times Series ###########################
  if(Periodicity!='daily'){
-   stop('This periodicity is not implementedy in this verson. Please, use daily periodicity!')
+   coluna=4
+   #stop('This periodicity is not implementedy in this verson. Please, use daily periodicity!')
  }
 
 
@@ -124,12 +125,13 @@ if (x==1) {
   tickers <- c(RM,Tickers)
   portfolioPrices <- NULL
 
+
   for (Ticker in tickers)
     portfolioPrices <- cbind(portfolioPrices,
                              getSymbols.yahoo(Ticker, from= Initial_Date,
                                               to= Final_Date,
                                               periodicity= Periodicity,
-                                              auto.assign=FALSE)[,6])
+                                              auto.assign=FALSE)[,coluna])
 
   # Salve SP500 in excel
 
@@ -183,7 +185,7 @@ if (x==1) {
                                getSymbols.yahoo(Ticker, from= Initial_Date,
                                                 to= Final_Date,
                                                 periodicity= Periodicity,
-                                                auto.assign=FALSE)[,6])
+                                                auto.assign=FALSE)[,coluna])
 
     # Salve SP500 in excel
 
@@ -255,7 +257,7 @@ if (x==1) {
                                 getSymbols.yahoo(Ticker, from= Initial_Date,
                                                  to= Final_Date,
                                                  periodicity= Periodicity,
-                                                 auto.assign=FALSE)[,6])
+                                                 auto.assign=FALSE)[,coluna])
 
      # Salve SP500 in excel
 

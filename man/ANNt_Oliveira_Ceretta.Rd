@@ -30,7 +30,7 @@ ANNt_Oliveira_Ceretta(
 
 \item{Final_Date}{End date of the treatment series}
 
-\item{Periodicity}{should be one of “daily”, “weekly”, “monthly”, “hourly”, “1minutes”, “2minutes”, “5minutes”, “15minutes”, “30minutes”, “60minutes”, “90minutes”. (Intraday maximum 7 days)}
+\item{Periodicity}{should be one of “daily”, “weekly”, “monthly”}
 
 \item{Hidden}{Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons}
 

@@ -6,7 +6,7 @@
 #'@param Initial_Date Series start Date, format ('Year-Month-Day'). Assets with values not observed in the series are excluded
 #'@param Initial_Date_Training Training series start Date
 #'@param Final_Date End date of the treatment series
-#'@param Periodicity should be one of “daily”, “weekly”, “monthly”, “hourly”, “1minutes”, “2minutes”, “5minutes”, “15minutes”, “30minutes”, “60minutes”, “90minutes”. (Intraday maximum 7 days)
+#'@param Periodicity should be one of “daily”, “weekly”, “monthly”
 #'@param Hidden Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons
 #'@param Stepmax Number of replications per asset to train the ANN. For a good performance, use 7500
 #'@param Type_ANNt Select type ANNt: "T1"= NNet_Signal_Traning; "T2"= NNet_t_Training; "T3"= MC_Signal_Training; "T4"= MC_t_Training; "T5"= NNet_Signal_Test; "T6"= NNet_t_Test; "T7"= MC_Signal_Test; "T8"= Type_ANNt: MC_t_Test
@@ -28,6 +28,10 @@
 ANNt_Oliveira_Ceretta <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
+  if(Periodicity!='daily'|Periodicity!='monthly' | Periodicity!='weekly'){
+    stop('This periodicity is not implementedy in this command. Use step by step process starting with the "Assets_series" command!')
+  }
+
 
 Signal_Sharpe=0
 save(Signal_Sharpe, file='~/Signal_Sharpe.rda')

@@ -113,7 +113,13 @@ dev.off()
 }
 par(mfrow=c(2,2), mar=c(4,4,1,1), oma=c(1,2,2,1))
 #par(mfrow=c(1,2), oma=(c(4,1,1,1)))
-
+limite_y=NULL
+if(max(riscosAlvo)<0.01){
+  limite_max_x=1.1*(max(riscosAlvo))
+  limite_min_x=0.5*min(riscosAlvo)
+}else {
+  limite_min_x=0.001
+  limite_max_x=0.055}
 png(file="~/Efficiente_frontier.png", width=1920, height=1200, res=296, family = "A")
 
 plot(Base_Palomar[2,],Base_Palomar[1,],
@@ -122,7 +128,7 @@ plot(Base_Palomar[2,],Base_Palomar[1,],
      #col= cores,
      #cex.lab = 0.8,
      #cex.axis = 0.8,
-     xlim = c(0.001, 0.055))
+     xlim = c(limite_min_x, limite_max_x))
 title("Efficient Frontier", line =1.5)
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
@@ -342,7 +348,7 @@ plot(Base_Palomar[2,],Base_Palomar[1,],
      #col= cores,
      #cex.lab = 0.8,
      #cex.axis = 0.8,
-     xlim = c(0.001, 0.055))
+     xlim = c(limite_min_x, limite_max_x))
 title("Efficient Frontier", line =1.5)
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
