@@ -28,7 +28,8 @@
 ANNt_Oliveira_Ceretta <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
-  if(Periodicity!='daily'|Periodicity!='monthly' | Periodicity!='weekly'){
+  Periodo= c('daily','monthly','weekly')
+  if(length(which(Periodo==Periodicity))==0){
     stop('This periodicity is not implementedy in this command. Use step by step process starting with the "Assets_series" command!')
   }
 

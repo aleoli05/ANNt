@@ -69,7 +69,8 @@ ANNt_Oliveira_Ceretta_S <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Tr
   library(IntroCompFinR)
   library(quadprog)
 
-  if(Periodicity!='daily'|Periodicity!='monthly' | Periodicity!='weekly'){
+  Periodo= c('daily','monthly','weekly')
+  if(length(which(Periodo==Periodicity))==0){
     stop('This periodicity is not implementedy in this command. Use step by step process starting with the "Assets_series" command!')
   }
 

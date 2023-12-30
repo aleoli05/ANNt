@@ -28,7 +28,7 @@
 ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax) {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
-
+library("quantmod")
 
   load("~/scenario.set.rda") # Carrega objeto scenario.set
   load("~/Initial_Date.rda") # Carrega objeto scenario.set
