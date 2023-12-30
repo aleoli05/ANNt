@@ -54,7 +54,7 @@ Assets_series <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity) {
   library(DEoptim)
 
   ################# Create Returns Times Series ###########################
-  coluna=NULL
+  coluna=6
  if(Periodicity!='daily'){
    coluna=4
    #stop('This periodicity is not implementedy in this verson. Please, use daily periodicity!')
