@@ -129,7 +129,8 @@ plot(Base_Palomar[2,],Base_Palomar[1,],
      #cex.lab = 0.8,
      #cex.axis = 0.8,
      xlim = c(limite_min_x, limite_max_x))
-title("Efficient Frontier", line =1.5)
+#title("Efficient Frontier", line =1.5)
+title(paste("Efficient Frontier:", N_Assets, "Assets"),line = 1.5)
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
   #xlab= Inicio_data,"/", xlab= "2023-03-17"),
@@ -349,7 +350,8 @@ plot(Base_Palomar[2,],Base_Palomar[1,],
      #cex.lab = 0.8,
      #cex.axis = 0.8,
      xlim = c(limite_min_x, limite_max_x))
-title("Efficient Frontier", line =1.5)
+#title("Efficient Frontier", line =1.5)
+title(paste("Efficient Frontier:", N_Assets, "Assets"),line = 1.5)
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
   #xlab= Inicio_data,"/", xlab= "2023-03-17"),

@@ -2,7 +2,9 @@
 
 export(ANNt_OCA2023)
 export(ANNt_Oliveira_Ceretta)
+export(ANNt_Oliveira_Ceretta_Out)
 export(ANNt_Oliveira_Ceretta_S)
+export(ANNt_Oliveira_Ceretta_S_Out)
 export(ANNt_order)
 export(Assets_series)
 export(Backup_ANNt)

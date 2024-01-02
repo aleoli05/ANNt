@@ -142,7 +142,8 @@ lines(Tabela_CUSUM[,1],Tabela_CUSUM[,8],
 text(x=max(Tabela_CUSUM[,1]-20), y=max(Tabela_CUSUM[,9]),
      label=paste("H =",Control), cex = 0.6
 )
-title("Graphic Cumulative Sum of Returns")
+#title("Graphic Cumulative Sum of Returns")
+title(paste("Graphic Cumulative Sum of Returns:", N_Assets, "Assets"))
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
   #xlab= Inicio_data,"/", xlab= "2023-03-17"),
@@ -230,7 +231,8 @@ lines(Tabela_CUSUM[,1],Tabela_CUSUM[,8],
 text(x=max(Tabela_CUSUM[,1]-20), y=max(Tabela_CUSUM[,9]),
      label=paste("H =",Control), cex = 0.6
 )
-title("Graphic Cumulative Sum of Returns")
+#title("Graphic Cumulative Sum of Returns")
+title(paste("Graphic Cumulative Sum of Returns:", N_Assets, "Assets"))
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
   #xlab= Inicio_data,"/", xlab= "2023-03-17"),
