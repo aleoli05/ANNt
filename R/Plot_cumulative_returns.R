@@ -69,7 +69,7 @@ Comparativo2 = as.data.frame(Comparativo)
 #            round(nrow(Comparativo)/2,0),
 #            round(nrow(Comparativo)*3/4,0),
 #            nrow(Comparativo))
-if(nrow(Comparativo)>200) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+if(nrow(Comparativo)>300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
 #} else{Eixo_X2 = c(1, 50, 100, 149)}
 } else{
   if(nrow(Comparativo)>100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
