@@ -776,8 +776,8 @@ ___________________________________________________________________
     ## Probabilidade com curtorese (Lambda > 3) = Probabilidade t Student
     library(moments)
     #png(file = "leptokurtic.png")
-
-    if (kurtosis(camadaSaidaPredict)>3) {
+      ku=kurtosis(camadaSaidaPredict)
+    if (ku>3) {
       ku=round(kurtosis(camadaSaidaPredict),2)
       print(paste("Leptokurtic curve kurtosis:", ku))
       #print(ku)
