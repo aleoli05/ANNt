@@ -777,11 +777,11 @@ ___________________________________________________________________
     library(moments)
     #png(file = "leptokurtic.png")
       ku=kurtosis(camadaSaidaPredict)
-    if ((ku>3)==TRUE) {
-      ku=round(kurtosis(camadaSaidaPredict),2)
-      print(paste("Leptokurtic curve kurtosis:", ku))
+    #if ((ku>3)==TRUE) {
+      ku1=round(ku,2)
+      print(paste("Kurtosis:", ku1))
       #print(ku)
-    }
+    #}
     t = 3.373 # p =0.1
     q = -0.4
     ProbtStudentPredict=(q-mean(camadaSaidaPredict))/(std.error(camadaSaidaPredict))
