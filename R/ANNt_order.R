@@ -777,7 +777,7 @@ ___________________________________________________________________
     library(moments)
     #png(file = "leptokurtic.png")
       ku=kurtosis(camadaSaidaPredict)
-    if (ku>3) {
+    if ((ku>3)==TRUE) {
       ku=round(kurtosis(camadaSaidaPredict),2)
       print(paste("Leptokurtic curve kurtosis:", ku))
       #print(ku)
