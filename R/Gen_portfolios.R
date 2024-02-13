@@ -1030,3 +1030,4 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   View(Comparativo_RETORNOS)
 
 }
+
