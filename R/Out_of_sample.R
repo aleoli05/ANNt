@@ -321,7 +321,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     Weights_All[8,k+1]=data.frame(colnames(Pesos_ANNt_Eq2))[k,]
     Weights_All[9,k+1]=round(data.frame(Pesos_ANNt_Eq2)[k],2)
   }
-  Weights_All [10,1] <- 'ANNt_EQ'
+  Weights_All [10,1] <- 'ANNt_MKW'
   for(k in (1:ncol(Pesos_ANNt_Mkv2))){
     Weights_All[10,k+1]=data.frame(colnames(Pesos_ANNt_Mkv2))[k,]
     Weights_All[11,k+1]=round(data.frame(Pesos_ANNt_Mkv2)[k],2)
