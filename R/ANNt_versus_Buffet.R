@@ -25,7 +25,7 @@ ANNt_order ('2018-01-11', '2021-12-30','2023-08-04 ', '', 5000)
 Gen_portfolios(5,'2023-01-03','',0, 'T8')
 
 # 5) Portfolios Backtesting, example:
-Portfolios_backtesting('','')
+Portfolio_backtesting('', '')
 
 # 6) Plot Cumulative Portfolio Returns, example:
 Plot_Cumulative_Returns('')
