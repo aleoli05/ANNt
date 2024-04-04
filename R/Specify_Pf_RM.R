@@ -43,6 +43,7 @@ Specify_Pf_RM<-function(Name,Portfolio,Weights){
   save(RM_Original,file='~/RM_Original.rda')
   save(RM_Specific,file='~/RM_Specific.rda')
   save(scenario.set,file='~/scenario.set.rda')
+  save(RM, file="~/RM.rda")
 
   ################################################################################
   #### Asset_Order
