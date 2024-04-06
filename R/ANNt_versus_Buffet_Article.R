@@ -431,20 +431,6 @@ Resultados_Assim_Curtose = data.frame(Resultados_Assim_Curtose)
 colnames(Resultados_Assim_Curtose)=tickers[-1]
 Resultados_Assim_Curtose
 
-#### Armazenamento Predicao
-Inicio_data = "2018-01-10"
-Fim_data = "2021-12-30"
-I_data = which(rownames(dat_r)==Inicio_data)
-F_data = which(rownames(dat_r)==Fim_data)
-entradas = as.matrix(dat_r[I_data:F_data,])
-saidas = as.matrix(dat_r[(I_data+1):(F_data+1),1])
-
-I_dataPredict = F_data+1
-F_dataPredict = nrow(dat_r)-1
-colunas=ncol(scenario.set)
-linhas= length(dat_r[(I_dataPredict+1):(F_dataPredict+1),1])+7
-saidasPredicao_test = matrix(ncol=colunas, nrow=linhas)
-colnames(saidasPredicao_test)=colnames(scenario.set)
 
 
 ################################################################################

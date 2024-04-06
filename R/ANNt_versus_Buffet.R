@@ -13,7 +13,7 @@ ANNt_versus_Buffet <- function() {
 Assets_series (Tickers='Current_SP500_Tickers','^GSPC', '2018-01-03', '','daily')
 
 # 2) Specify Buffet´s Portfolio, example:
-Name = c("My_Pf")
+Name = c("Buffet")
 Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY", "MCO") # PORTFOLIO´s Buffet 2023
 Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO weights 2023
 Specify_Pf_RM(Name,Portfolio,Weights)
