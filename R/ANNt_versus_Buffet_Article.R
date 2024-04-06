@@ -345,6 +345,10 @@ charts.PerformanceSummary(scenario.set$SP500)
 
 #########################################
 
+Name = c("Buffet")
+Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY", "MCO") # PORTFOLIO´s Buffet 2023
+Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO weights 2023
+Specify_Pf_RM(Name,Portfolio,Weights)
 
 
 
@@ -354,7 +358,7 @@ ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 5000)
 
 load("~/T8.rda") # Carrega objeto scenario.set
 load("~/scenario.set.rda") # Carrega objeto scenario.set
-
+load("~/RM.rda")
 
 ################################################################################
 
