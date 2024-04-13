@@ -63,268 +63,24 @@ library(DEoptim)
 # BENCHMARK
 BENCHMARK <- c("SP500")
 
-## Importando Simbolos do Excel com pesos relativos no SP500
-#SP50008072022 <- read_excel("D:/SP50008072022.xlsx")
-#View(SP50008072022)
+library(readxl)
+library(readr)
 
-#View(tickers)
-#SP50008072022 = SP50008072022 %>% mutate(Symbol =
-#                                        case_when(Symbol == "BRK.B" ~ "BRK-B",
-#                                                 Symbol == "BF.B" ~ "BF-B",
-#                                              TRUE ~ as.character(Symbol)))
+#download.file("https://github.com/aleoli05/ANNt/raw/main/Data_/portfolioPrices.rda",destfile ="~/Assets_Prices_Buffet.rda")
+Assets_series (Tickers='Current_SP500_Tickers','^GSPC', '2018-01-03', '','daily')
+load("~/Assets_Prices_Buffet.rda")
 
-#tickers = c("^GSPC")
-#for (i in 2:nrow(SP50008072022)){
-#  tickers[i] = as.character(SP50008072022[i,2])
-#}
-
-# Create vector of Tickers - Amostra de Modelagem
-# 1. ^GSPC - S&P500
-# 2. AAPL - Apple Inc.
-# 3. MSFT - Microsoft Corporation
-# 4. AMZN - Amazon.com, Inc.
-# 5. TSLA - Tesla, Inc.
-# 6. GOOG - Alphabet Inc.
-# 7. GOOGL - Alphabet Inc. (GOOGL)
-# 8. GOOG - Alphabet Inc. (GOOG)
-# 9. NVDA - NVIDIA Corporation (NVDA)
-# 10. BRK.B - Berkshire Hathaway Inc. (BRK.B)
-# 11. META - Meta Platforms, Inc.
-# 12. UNH - Unitedhealth Group (UNH)
-# 13. JNJ - Johnson & Johnson
-# 14. JPM - JPMorgan Chase & Co.
-# 15. V - Visa Inc.
-# 16. PG - Procter & Gamble Company (PG)
-# 17. XOM - Exxon Mobil Corporation (XOM)
-# 18. HD - The Home Depot, Inc. (HD)
-# 19. CVX - Chevron Corporation (CVX)
-# 20. MA - Mastercard Incorporated (MA)
-# 21. BAC - Bank of America Corporation (BAC)
-# 22. PFE - Pfizer, Inc. (PFE)
-# 23. ABBV - ABBVIE, Inc. (ABBV)
-# 24. AVGO - Broadcom, Inc. (AVGO)
-# 25. DIS - The Walt Disney Company (DIS)
-# 26. VZ - Verizon Communication Inc. (VZ)
-# 27. TMO - Thermo Fisher Scientific (TMO)
-# 28. COST - Costco Wholesale Corporation (COST)
-# 29. ABT - Abbott Laboratories (ABT)
-# 30. ACN - Accenture Plc Class A (ACN)
-# 31. MCD - MacDonald?s Corporation (MCD)
-# 32. CSCO - Cisco Systems Inc. (CSCO)
-# 33. CMCSA - Comcast Coportation Class A (CMCSA)
-# 34. KO - Coca-Cola Company (KO)
-# 35. MRK - Mark & Co. Inc. (MRK)
-# 36. LLY - Eli Lilly and Company (LLY)
-# 37. ADBE - Adobe Incorporated (ADBE)
-# 38. WMT - Walmart Inc. (WMT)
-# 39. CRM - Salesforce Inc. (CRM)
-# 40. BMY - Bristol - Myers Squibb Company (BMY)
-# 41. DHR - Danaher Corporation (DHR)
-# 42. PM - Philip Morris International Inc. (PM)
-# 43. INTC - Intel Corporation (INTC)
-# 44. WFC - Wells Fargo & Company (WFC)
-# 45. NEE - NextEra Energy Inc. (NEE)
-# 46. LIN - Linde PLC (LIN)
-# 47. T - AT&T Inc. (T)
-# 48. QCOM - Qualcomm Incorporated (QCOM)
-# 49. TXN - Texas Instruments Incorporated (TXN)
-# 50. RTX - Raytheon Tecnologies Corporation (RTX)
-# 51. UNP - Union Pacific Corporation (UNP)
-
-
-# 12. UEEC- United Health Products, Inc.
-
-
-# 2. AXP - American Express Company
-# 3. C - Citigroup, Inc.
-# 5.
-# 6.
-# 7.
-
-# 1. PETRO4.SA - Petrobr?s (B3)
-# 2. GGBR4.SA - Gerdau (B3)
-# 3. USIM5.SA - Usinas Siderurgicas de Minas Gerais A Pref Shs (B3)
-# 4. VALE3.SA - Vale S.A. (B3)
-# 5. ITUB4.SA - Ita? (B3)
-# 6. BBDC4.SA - Bradesco (B3)
-# 7. ABEV3.SA - Ambev S/A (B3)
-# 8. BBAS3.SA - Banco do Brasil S/A (B3)
-# 9. ELET3.SA - Eletrobr?s (B3)
-# 10. JBSS3.SA - JBS (B3)
-# 11. WEGE3.SA - Wege (B3)
-# 12. SUZB3.SA - Suzano S.A. (B3)
-
-# 10. BTC-USD - Bitcoin USD
-# 11.
-# 12.
-# 13. COKE - Coca-cola Consolidated, Inc.
-# 14.
-# 15. CL=F - Crude Oil May 22 (CBOT)
-# 16. ZS=F - Soybean Futures, Jul-22 (CBOT)
-
-
-tickers_modelagem <- c("^GSPC", "AAPL", "MSFT", "AMZN", "TSLA", "GOOGL", "GOOG",
-                       "NVDA",
-                       "BRK-B", "META", "UNH", "JNJ", "JPM", "V", "PG", "XOM", "HD", "MA",
-                       "BAC", "PFE", "ABBV", "CVX", "AVGO", "DIS", "VZ", "TMO", "COST",
-                       "ABT", "ACN", "MCD", "CSCO", "CMCSA", "KO", "MRK", "LLY",
-                       "ADBE", "WMT", "CRM", "BMY", "DHR", "PM", "INTC", "LIN", "T",
-                       "QCOM", "TXN", "WFC", "NEE", "RTX", "UNP",
-                       "UEEC",
-                       "AXP", "C",
-                       "PETR4.SA", "GGBR4.SA", "USIM5.SA", "VALE3.SA", "ITUB4.SA",
-                       "BBDC4.SA", "ABEV3.SA", "BBAS3.SA", "ELET3.SA", "JBSS3.SA",
-                       "WEGE3.SA", "SUZB3.SA",
-                       "BTC-USD", "PETZ3.SA", "COKE", "CL=F",
-                       "ZS=F")
-
-#### Todos os ativos SP500 em ordem descrescente de pesos 08/07/2022
-
-tickers <- c("^GSPC",
-             "AAPL",  "MSFT",  "AMZN",  "GOOGL", "GOOG", "TSLA",
-             "BRK-B", "UNH",   "JNJ",   "NVDA",  "META",  "XOM",
-             "PG",    "JPM",   "V",     "PFE",   "HD",    "CVX",
-             "MA",    "ABBV",  "LLY",   "KO",    "PEP",   "MRK",
-             "BAC",   "COST",  "TMO",   "VZ",    "AVGO",  "ABT",
-             "MCD",   "ADBE",  "CSCO",  "CMCSA", "DIS",   "ACN",
-             "WMT",   "CRM",   "DHR",   "BMY",   "NEE",   "INTC",
-             "WFC",   "T",     "QCOM",  "PM",    "TXN",   "RTX",
-             "LIN",   "NKE",   "UPS",   "UNP",   "AMGN",  "AMD",
-             "IBM",   "CVS",   "SPGI",  "LOW",   "MDT",   "AMT",
-             "HON",   "INTU",  "ELV",   "ORCL",  "COP",   "MS",
-             "GS",    "LMT",   "NOW",   "SCHW",  "CAT",   "C",
-             "SBUX",  "ADP",   "PLD",   "BLK",   "CI",    "PYPL",
-             "MDLZ",  "AXP",   "DE",    "ZTS",   "NFLX",  "CB",
-             "DUK",   "AMAT",  "TMUS",  "MMC",   "GILD",  "ADI",
-             "BA",    "MO",    "SO",    "VRTX", "ISRG",  "CME",
-             "CCI",   "MMM",   "BKNG",  "PGR",   "NOC",   "BDX",
-             "TJX",   "TGT",   "GE",    "SYK",   "PNC",   "CL",
-             "REGN",  "MU",    "D",     "TFC",   "CSX",   "USB",
-             "EOG",   "EW",    "ATVI",  "HUM",   "EQIX",  "EL",
-             "MRNA",  "WM",    "DG",    "AON",   "LRCX",  "SHW",
-             "FIS",   "FDX",   "OXY",   "NSC",   "FISV",  "BSX",
-             "ICE",   "CHTR",  "ITW",   "APD",   "ETN",   "GD",
-             "CNC",   "SNPS",  "PXD",   "SLB",   "AEP",   "PSA",
-             "EMR",   "GM",    "NEM",   "KLAC",  "MCK",   "SRE",
-             "LHX",   "MCO",   "F",     "GIS",   "KMB",   "MPC",
-             "CDNS",  "MET",   "SYY",   "ORLY",  "VLO",   "EXC",
-             "AZO",   "COF",   "FCX",   "ROP",   "ADM",   "IQV",
-             "FTNT",  "O",     "AIG",   "TRV",   "NXPI",  "ADSK",
-             "HCA",   "PSX",   "STZ",   "ECL",   "APH",   "DOW",
-             "CTVA",  "MAR",   "XEL",   "DLTR",  "CMG",   "WMB",
-             "TEL",   "WELL",  "PAYX",  "A",     "MSI",   "DLR",
-             "PRU",   "MNST",  "ALL",   "SBAC",  "EA",    "CTSH",
-             "MSCI",  "AJG",   "YUM",   "AFL",   "CTAS",  "HPQ",
-             "JCI",   "DVN",   "BAX",   "KMI",   "ED",    "MCHP",
-             "IDXX",  "GPN",   "PH",    "DXCM", "RMD",   "KR",
-             "SPG",   "WBD",   "BIIB",  "HSY",   "PEG",   "HLT",
-             "ILMN",  "WEC",   "BK",    "CARR",  "TT",    "VICI",
-             "IFF",   "OTIS",  "TWTR",  "NUE",   "FAST",  "DD",
-             "CMI",   "ES",    "VRSK",  "PCAR",  "MTB",   "TDG",
-             "PPG",   "DFS",   "MTD",   "HES",   "ENPH",  "AWK",
-             "WBA",   "TROW",  "RSG",   "ROST",  "FRC",   "KHC",
-             "HAL",   "AVB",   "KDP",   "BKR",   "AMP",   "KEYS",
-             "AME",   "WY",    "ODFL",  "TSN",   "OKE",   "APTV",
-             "CBRE",  "GLW",   "SIVB",  "EBAY",  "CPRT",  "EQR",
-             "DTE",   "EIX",   "ALB",   "DHI",   "WST",   "ROK",
-             "LYB",   "STT",   "CHD",   "TSCO",  "EFX",   "FITB",
-             "EXR",   "BALL",  "ANET",  "LH",    "ON",    "AEE",
-             "ETR",   "WTW",   "ARE",   "HIG",   "ZBH",   "DRE",
-             "ANSS",  "LUV",   "CDW",   "MTCH",  "CTRA",  "FE",
-             "ABC",   "WAT",   "STE",   "GWW",   "MKC",   "PPL",
-             "LEN",   "VTR",   "NTRS",  "IT",    "ULTA",  "TTWO",
-             "FTV",   "CTLT",  "FANG",  "GPC",   "MAA",   "VMC",
-             "MLM",   "CMS",   "CEG",   "AMCR",  "DAL",   "ALGN",
-             "PWR",   "EPAM",  "PKI",   "K",     "CNP",   "NDAQ",
-             "HOLX",  "URI",   "RF",    "CFG",   "TDY",   "HBAN",
-             "CINF",  "CLX",   "DOV",   "CF",    "RJF",   "IR",
-             "VRSN",  "BR",    "ESS",   "HPE",   "SWK",   "FLT",
-             "CAG",   "MPWR",  "MOS",   "EXPD",  "J",     "KEY",
-             "MOH",   "ZBRA",  "SWKS",  "DGX",   "IP",    "SEDG",
-             "PFG",   "WAB",   "ATO",   "PARA",  "PAYC",  "GRMN",
-             "COO",   "MRO",   "POOL",  "KMX",   "FDS",   "INCY",
-             "DRI",   "TRMB",  "AKAM",  "STX",   "DPZ",   "TER",
-             "SYF",   "VFC",   "CAH",   "EVRG",  "EXPE",  "GNRC",
-             "NTAP",  "XYL",   "LNT",   "BBY",   "SJM",   "CPT",
-             "TECH",  "LDOS",  "AES",   "IEX",   "IRM",   "PEAK",
-             "WRB",   "TYL",   "BRO",   "WDC",   "JBHT",  "LKQ",
-             "AVY",   "JKHY",  "UDR",   "HRL",   "TXT",   "NVR",
-             "PKG",   "OMC",   "NLOK",  "FMC",   "CHRW",  "BXP",
-             "BF-B",  "CBOE",  "MAS",   "VTRS",  "CE",    "KIM",
-             "HWM",   "CTXS",  "LVS",   "SBNY",  "ABMD",  "TFX",
-             "UAL",   "EMN",   "APA",   "LYV",   "NI",    "L",
-             "CRL",   "AAP",   "NDSN",  "HST",   "RE",    "ETSY",
-             "PTC",   "BIO",   "IPG",   "QRVO",  "WRK",   "HAS",
-             "SNA",   "LW",    "HSIC",  "FOXA",  "MGM",   "PHM" ,
-             "TAP",   "MKTX",  "LUMN",  "AIZ",   "CPB",   "CMA",
-             "FFIV",  "JNPR",  "NRG",   "GL",    "REG",   "WHR",
-             "AAL",   "ALLE",  "CZR",   "RHI",   "HII",   "FBHS",
-             "SEE",   "NLSN",  "TPR",   "OGN",   "BWA",   "LNC",
-             "ROL",   "PNW",   "RCL",   "AOS",   "PNR",   "ZION",
-             "XRAY",  "CCL",  "DXC",   "NWL",   "UHS",   "CDAY",
-             "FRT",   "BBWI",  "BEN",   "MHK",   "NWSA",  "WYNN",
-             "IVZ",   "PENN",  "DVA",   "ALK",   "NCLH",  "VNO",
-             "FOX",   "DISH",  "RL",    "PVH",   "NWS",   "EMBC")
-
-
-
-################################################################################
-
-#Calculate Returns: Daily
-tickers <- tickers_modelagem
-portfolioPrices <- NULL
-for (Ticker in tickers)
-  portfolioPrices <- cbind(portfolioPrices,
-                           getSymbols.yahoo(Ticker, from="2010-01-01", to="2023-03-17",
-                                            auto.assign=FALSE)[,4])
-
-# Salvando o SP500 em excel
-colnames(portfolioPrices) <- str_replace(tickers,".Close","")
 portfolioPrices_Teste = portfolioPrices
-
+portfolioPrices=portfolioPrices[1:1310]
+View(portfolioPrices)
 
 Datas_portfolio = rownames(as.data.frame(portfolioPrices))
-portfolioPrices_Df = mutate(as.data.frame(Datas_portfolio),
-                            as.data.frame(portfolioPrices))
-write_xlsx(portfolioPrices_Df, "SP500.xlsx")
-
-# Excluindo ativos para matriz retangular
-
-portfolioPrices = portfolioPrices_Teste
-Excluir = c( "EMBC", "FOX", "CDAY", "DOW", "CTVA", "NWSA", "NWS", "OTIS", "CEG",
-             "OGN", "CARR", "FOXA", "MRNA")
-portfolioPrices = portfolioPrices[,!(names(portfolioPrices) %in% Excluir)]
-tickers = colnames(portfolioPrices)
-
-
-#View(portfolioPrices)
-
-# Delete all dates with no prices
-#portfolioPrices <- portfolioPrices_Df %>% filter(nrow() >
-#                           nrow(rownames("2016-01-04")))
-#portfolioPrices <- portfolioPrices[apply(portfolioPrices_Df,1,
-#                                       function(x) filter(nrow(x)>1511)),]
-#portfolioPrices <- matrix(which(rownames(portfolioPrices)> "2016-01-04"))
-portfolioPrices <- portfolioPrices[apply(portfolioPrices,1,
-                                         function(x) all(!is.na(x))),]
-portfolioPrices <- portfolioPrices[apply(portfolioPrices,1,
-                                         function(x) all(!0)),]
-View(portfolioPrices)
 
 
 # BENCHMARK
 BENCHMARK <- c("SP500")
 #Renames Columns
 
-tickers <- str_replace(tickers,".SA","")
-tickers <- str_replace(tickers,"-","")
-tickers <- str_replace(tickers,"=","")
-tickers <- str_replace(tickers,"^G","G")
-colnames(portfolioPrices) <- tickers
-colnames(portfolioPrices)[1] <- BENCHMARK
-
-
-View(portfolioPrices)
 
 # Calculate Returns: Daily RoC
 portfolioReturns <- na.omit(ROC(portfolioPrices, type="discrete"))
@@ -357,8 +113,9 @@ ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 5000)
 
 
 load("~/T8.rda") # Carrega objeto scenario.set
-load("~/scenario.set.rda") # Carrega objeto scenario.set
 load("~/RM.rda")
+#load("~/portfolioReturns.rda")
+
 
 ################################################################################
 
@@ -399,7 +156,7 @@ Datas1Predict = rownames(scenario.set)[
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,]))
 
-
+library(dplyr)
 PosCovidSP500 = as.matrix(portfolioReturns[Datas1Predict,1])
 Buffet = c("AAPL", "BAC", "KO", "AXP", "CVX", "KHC", "OXY") # PORTFOLIO_2022
 PesosBuffet = c( 0.414, 0.102, 0.073, 0.068, 0.068, 0.037, 0.033) # PORTFOLIO_2022
@@ -503,8 +260,9 @@ global_max_portfolio <- PortfolioAnalytics::optimize.portfolio(
   trace = TRUE
 )
 
-optimize.portfolio(R = TodosAtivosPredict, portfolio = max_exp_return_portfolio, optimize_method = "ROI",
-                   trace = TRUE)
+#library(PortfolioAnalytics)
+#optimize.portfolio(R = TodosAtivosPredict, portfolio = max_exp_return_portfolio, optimize_method = "ROI",
+#                   trace = TRUE)
 
 
 ################33
