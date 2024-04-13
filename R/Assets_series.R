@@ -326,6 +326,7 @@ if (x==1) {
   save(scenario.set,file='~/scenario.set.rda')
   save(scenario.set,file='~/Assets_Returns.rda')
   save(portfolioPrices,file='~/Assets_Prices.rda')
+  save(portfolio_observed,file='~/Assets_Prices_observed.rda')
   Assets_Prices=portfolioPrices
   Asset_Prices_Observed=portfolio_observed
   Assets_Returns=scenario.set
