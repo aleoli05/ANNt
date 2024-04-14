@@ -110,7 +110,7 @@ Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY", "MCO") # PORTFOLIOÂ
 Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO weights 2023
 Specify_Pf_RM(Name,Portfolio,Weights)
 
-
+scenario.set=as.matrix(scenario.set)
 
 # 3) ANNt order generate, example:
 ## 1Â° Time Series
