@@ -66,7 +66,7 @@ BENCHMARK <- c("SP500")
 library(readxl)
 library(readr)
 
-download.file("https://github.com/aleoli05/ANNt/raw/main/Data_/portfolioPrices.rda",destfile ="~/Assets_Prices_Buffet.rda")
+download.file("https://github.com/aleoli05/ANNt/raw/main/Data_/Assets_Prices_Buffet.rda",destfile ="~/Assets_Prices_Buffet.rda")
 #Assets_series (Tickers='Current_SP500_Tickers','^GSPC', '2018-01-03', '','daily')
 load("~/Assets_Prices_Buffet.rda")
 
