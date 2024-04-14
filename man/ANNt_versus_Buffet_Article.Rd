@@ -3,7 +3,7 @@
 \name{ANNt_versus_Buffet_Article}
 \alias{ANNt_versus_Buffet_Article}
 \title{ANNt_versus_Buffet_Article
-Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.}
+Realize the 2st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.}
 \usage{
 ANNt_versus_Buffet_Article()
 }
@@ -12,7 +12,7 @@ ANNt_versus_Buffet_Article()
 }
 \description{
 ANNt_versus_Buffet_Article
-Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
+Realize the 2st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
 }
 \examples{
 ANNt_versus_Buffet_Article()

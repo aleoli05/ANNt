@@ -1,5 +1,5 @@
 #' ANNt_versus_Buffet_Article
-#' Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
+#' Realize the 2st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
 #'
 #' @param Parameters was defined in paper
 #' @examples
@@ -111,12 +111,13 @@ Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO w
 Specify_Pf_RM(Name,Portfolio,Weights)
 
 scenario.set=as.matrix(scenario.set)
+save(scenario.set,file='~/scenario.set.rda')
 
 # 3) ANNt order generate, example:
 ## 1° Time Series
-#ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 5000)
+#ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 7000)
 ## 2° Time Series
-ANNt_order ('2018-01-21', '2022-08-11','2023-03-17 ', '', 5000)
+ANNt_order ('2018-01-21', '2022-08-11','2023-03-17 ', '', 7000)
 
 
 load("~/T8.rda") # Carrega objeto scenario.set
