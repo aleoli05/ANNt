@@ -66,12 +66,12 @@ BENCHMARK <- c("SP500")
 library(readxl)
 library(readr)
 
-#download.file("https://github.com/aleoli05/ANNt/raw/main/Data_/portfolioPrices.rda",destfile ="~/Assets_Prices_Buffet.rda")
-Assets_series (Tickers='Current_SP500_Tickers','^GSPC', '2018-01-03', '','daily')
+download.file("https://github.com/aleoli05/ANNt/raw/main/Data_/portfolioPrices.rda",destfile ="~/Assets_Prices_Buffet.rda")
+#Assets_series (Tickers='Current_SP500_Tickers','^GSPC', '2018-01-03', '','daily')
 load("~/Assets_Prices_Buffet.rda")
 
-portfolioPrices_Teste = portfolioPrices
-portfolioPrices=portfolioPrices[1:1310]
+portfolioPrices_Teste = portfolio_observed
+portfolioPrices=portfolio_observed[1:1310,]
 View(portfolioPrices)
 
 Datas_portfolio = rownames(as.data.frame(portfolioPrices))
@@ -92,12 +92,16 @@ scenario.set <- scenario.set[apply(scenario.set,1,
 
 assets <- ncol(scenario.set)
 scenarios <- nrow(scenario.set)
+#scenario.set=as.zoo(scenario.set)
+#rownames(scenario.set)=rownames(portfolioReturns)
 
 # Plot Charts
 cat("\n", paste0(names(scenario.set), "\n"))
 
-chart.Bar(scenario.set$SP500)
-charts.PerformanceSummary(scenario.set$SP500)
+#chart.Bar(scenario.set$SP500)
+#charts.PerformanceSummary(scenario.set$SP500)
+chart.Bar(scenario.set[,1])
+charts.PerformanceSummary(scenario.set[,1])
 
 #########################################
 
@@ -109,7 +113,10 @@ Specify_Pf_RM(Name,Portfolio,Weights)
 
 
 # 3) ANNt order generate, example:
-ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 5000)
+## 1° Time Series
+#ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 5000)
+## 2° Time Series
+ANNt_order ('2018-01-21', '2022-08-11','2023-03-17 ', '', 5000)
 
 
 load("~/T8.rda") # Carrega objeto scenario.set
@@ -144,9 +151,11 @@ load("~/RM.rda")
 # Carteira de Buffet - 7 ativos - 80%
 scenario.set = data.frame(scenario.set)
 
+########################### 1° Serie Times #####################################
 ### Short term Analysis
 Datas1Predict = rownames(scenario.set)[
-  (which(rownames(scenario.set)=="2021-12-31")):(nrow(scenario.set)-1)]
+  (which(rownames(scenario.set)=="2021-12-31")):
+    (which(rownames(scenario.set)=="2022-08-04"))]
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 
 ### Long Term Analysis
@@ -155,6 +164,22 @@ Datas1Predict = rownames(scenario.set)[
     (which(rownames(scenario.set)=="2022-08-04"))]
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,]))
+
+########################### 2° Serie Times Rebalanced###########################
+### Short term Analysis
+Datas1Predict = rownames(scenario.set)[
+  (which(rownames(scenario.set)=="2022-08-12")):
+    (which(rownames(scenario.set)=="2023-03-17"))]
+TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
+
+### Long Term Analysis
+Datas1Predict = rownames(scenario.set)[
+  (which(rownames(scenario.set)=="2020-09-01")):
+    (which(rownames(scenario.set)=="2023-03-17"))]
+TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
+TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,]))
+
+################################################################################
 
 library(dplyr)
 PosCovidSP500 = as.matrix(portfolioReturns[Datas1Predict,1])
@@ -251,14 +276,14 @@ TodosAtivosPredict_xts = mutate(as.data.frame(dias),
                                 as.data.frame(TodosAtivosPredict))
 TodosAtivosPredict_xts = as.timeSeries(TodosAtivosPredict_xts)
 
-global_max_portfolio <- PortfolioAnalytics::optimize.portfolio(
-  R = TodosAtivosPredict_xts,
-  portfolio = max_exp_return_portfolio,
-  # This defaults to the "glpk" solver
-  optimize_method = "glpk",
-  # Return additional information on the path or portfolios searched
-  trace = TRUE
-)
+#global_max_portfolio <- PortfolioAnalytics::optimize.portfolio(
+#  R = TodosAtivosPredict_xts,
+#  portfolio = max_exp_return_portfolio,
+#  # This defaults to the "glpk" solver
+#  optimize_method = "glpk",
+#  # Return additional information on the path or portfolios searched
+#  trace = TRUE
+#)
 
 #library(PortfolioAnalytics)
 #optimize.portfolio(R = TodosAtivosPredict, portfolio = max_exp_return_portfolio, optimize_method = "ROI",
@@ -809,16 +834,102 @@ Media_C_Net_T_Comparativa = as.xts(Media_C_Net_T_Comparativa)
 
 pdf("Cartas_Comparativas.pdf")
 Comparativo = as.xts(Comparativo)
-charts.PerformanceSummary(Comparativo$SP500)
-charts.PerformanceSummary(Comparativo$Buffet)
-charts.PerformanceSummary(Comparativo$RNAt_Eq)
-charts.PerformanceSummary(Comparativo$Markovitz)
-charts.PerformanceSummary(Comparativo$RNAt_Mkv)
-Legenda=colnames(Comparativo)
-plot(Comparativo)
+#charts.PerformanceSummary(Comparativo$SP500)
+#charts.PerformanceSummary(Comparativo$Buffet)
+#charts.PerformanceSummary(Comparativo$RNAt_Eq)
+#charts.PerformanceSummary(Comparativo$Markovitz)
+#charts.PerformanceSummary(Comparativo$RNAt_Mkv)
+#Legenda=colnames(Comparativo)
+#plot(Comparativo)
 
 
 dev.off()
+
+##### Cumulative Returns Graphic
+
+par(#mfrow=c(2,2),
+  #mar=c(2,2,2,2),
+  oma=c(1,2,1,1))
+
+library("ggplot2")
+windowsFonts(A=windowsFont("Times New Roman"))
+par(family="A", cex=0.8)
+
+Eixo = c(1:nrow(Comparativo))
+Eixo_X = rownames(as.data.frame(Comparativo))
+Comparativo2 = as.data.frame(Comparativo)
+#Eixo_X2 = c(1,
+#            round(nrow(Comparativo)/4,0),
+#            round(nrow(Comparativo)/2,0),
+#            round(nrow(Comparativo)*3/4,0),
+#            nrow(Comparativo))
+if(nrow(Comparativo)>200) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+} else {Eixo_X2 = c(1, 50, 100, 149, 200, 250, 300)}
+Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
+Inicio_data = rownames(Comparativo2[1,])
+Fim_data = rownames(Comparativo2[nrow(Comparativo2),])
+TestComparativo = cbind(as.data.frame(Comparativo), Eixo)
+Retornos=TestComparativo$SP500
+Periodos=TestComparativo$Eixo
+z = TestComparativo$Buffet
+w = TestComparativo$ANNt_Eq
+t = TestComparativo$ANNt_Mkv
+v = TestComparativo$ANNt_Sharpe
+s = TestComparativo$Markowitz
+u = TestComparativo$MaxSharpe
+cores <- c("black", "red", "blue", "green", "darkgreen", "brown", "gray")
+plot(Periodos, Retornos,
+     type ="l",
+     xaxt = "n",
+     ylab = "Cumulative Returns",
+     xlab = "Period",
+     las =1,
+     #xaxp = c(1,nline, 5),
+     ylim = c(min(Comparativo), max(Comparativo)))
+lines(z, col = c("red"))
+lines(w, col = c("blue"))
+lines(t, col = c("green"))
+lines(v, col = c("darkgreen"))
+lines(s, col = c("brown"))
+lines(u, col = c("gray"))
+axis(1, at=(Eixo_X2), label = Eixo_X3)
+axis(4, las=1)
+#abline(h=-0.4, lty=3)
+#abline(h=-0.2, lty=3)
+#abline(h= 0.0, lty=3)
+#abline(h= 0.2, lty=3)
+#abline(h= 0.4, lty=3)
+#abline(h= 0.6, lty=3)
+#abline(h= 0.8, lty=3)
+#abline(v=nline/1, lty=3)
+#abline(v=nline/2, lty=3)
+#abline(v=nline*3/4, lty=3)
+#abline(v=nline/4, lty=3)
+#abline(v=1, lty=3)
+grid(nx = NULL, ny = NULL, lty =3, lwd = 1, col = "gray")
+#title(main = "Comparativo", font.main = 1, line = 1.5)
+#title(main = paste("Comparativo           ",
+#                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
+title("Comparative")
+title(main = paste(
+  xlab= Inicio_data,"/", xlab= Fim_data),
+  line = 0.5,
+  cex = 0.5,
+  font.main = 1)
+legend("topleft", cex= 1.0, legend = c(    "SP500",
+                                           "Buffet",
+                                           "ANNt_Eq",
+                                           "ANNt_Mkw",
+                                           "ANNt_Sharpe",
+                                           "Markowitz",
+                                           "Sharpe"),
+       lty = 2,
+       lwd = 3,
+       #bty = "o",
+       bty = "n",
+       col = cores)
+#box.col = "white")
+
 
 ### New Grafic
 
