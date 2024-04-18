@@ -251,7 +251,7 @@ Ret_Medio_RNA_T_Mkv = as.matrix(C_Net_T_comparativa) %*% pesos_MarkovitzNNet_T
 
 ##### Carteira de Sharpe para todos os Ativos
 ## Optmization
-symbols2 = colnames(TodosAtivosPredict[,-487])
+symbols2 = colnames(TodosAtivosPredict[,1:480])
 init.portf <- portfolio.spec(assets = symbols)
 init.portf <- add.constraint(portfolio = init.portf, type = "full_investment")
 init.portf <- add.constraint(portfolio = init.portf, type = "long_only")
@@ -268,7 +268,7 @@ port1 <- add.constraint(portfolio = init.portf, type = "risk", name = "StdDev")
 print("Test 1")
 
 ### Carteira Sharpe todos os ativos
-maxSRport.rp <- optimize.portfolio(R=TodosAtivosPredict[,-487],
+maxSRport.rp <- optimize.portfolio(R=TodosAtivosPredict[,1:480],
                                    portfolio = port1,
                                    optimize_method = "random",
                                    search_size = 2000,
