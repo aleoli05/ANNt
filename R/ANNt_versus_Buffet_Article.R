@@ -184,7 +184,7 @@ TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,]))
 
 ################################################################################
-
+all.returns <- TodosAtivosPredict
 library(dplyr)
 PosCovidSP500 = as.matrix(portfolioReturns[Datas1Predict,1])
 Buffet = c("AAPL", "BAC", "KO", "AXP", "CVX", "KHC", "OXY") # PORTFOLIO_2022
@@ -238,67 +238,10 @@ TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 pesos_todosPredict <- round(tseries::portfolio.optim(TodosAtivosPredict)$pw, 2)
 RetornoMedioMArkovitz = TodosAtivosPredict%*% pesos_todosPredict
 
-#### Carteira de M?dia Vari?ncia de Markowitz
-library(CVXR)
-Pesos_mean_variance_portfolio <- function(X) {
-  mu  <- colMeans(X)
-  # compute mean vector
-  Sigma <- cov(X)
-  # compute the SCM
-  # design mean-variance portfolio
-  w <-Variable(nrow(Sigma))
-  prob<-Problem(Maximize(t(mu)%*% w-0.5 * quad_form(w, Sigma)),
-                constraints = list(w>=0,sum(w)==1))
-  result  <- solve(prob)
-  return( as.vector(result$getValue(w)))
-}
 
 ###############
 symbols = colnames(TodosAtivosPredict)
-max_exp_return_portfolio <- PortfolioAnalytics::portfolio.spec(assets = symbols)
-max_exp_return_portfolio <- PortfolioAnalytics::add.constraint(
-  portfolio = max_exp_return_portfolio,
-  type = "full_investment",
 
-)
-max_exp_return_portfolio <- PortfolioAnalytics::add.constraint(
-  portfolio = max_exp_return_portfolio,
-  type = "box", min = 0.01, max = 0.9
-)
-
-# Add objective to maximize mean returns
-max_exp_return_portfolio <- PortfolioAnalytics::add.objective(
-  portfolio = max_exp_return_portfolio,
-  # Maximize expected returns
-  type = "return",
-  # A character corresponding to a function name, mean()
-  name = "mean"
-)
-
-dias = rownames(as.data.frame(TodosAtivosPredict))
-TodosAtivosPredict_xts = mutate(as.data.frame(dias),
-                                as.data.frame(TodosAtivosPredict))
-TodosAtivosPredict_xts = as.timeSeries(TodosAtivosPredict_xts)
-
-#global_max_portfolio <- PortfolioAnalytics::optimize.portfolio(
-#  R = TodosAtivosPredict_xts,
-#  portfolio = max_exp_return_portfolio,
-#  # This defaults to the "glpk" solver
-#  optimize_method = "glpk",
-#  # Return additional information on the path or portfolios searched
-#  trace = TRUE
-#)
-
-#library(PortfolioAnalytics)
-#optimize.portfolio(R = TodosAtivosPredict, portfolio = max_exp_return_portfolio, optimize_method = "ROI",
-#                   trace = TRUE)
-
-
-################33
-Pesos_MeanVP <- Pesos_mean_variance_portfolio(TodosAtivosPredict)
-RetornoMedioMean_Variance_Mkv = TodosAtivosPredict%*% Pesos_MeanVP
-mean(RetornoMedioMean_Variance_Mkv)
-sd(RetornoMedioMean_Variance_Mkv)
 
 # Carteira RNA NNet dist T com pesos de Markovitz  para Comparação
 pesos_MarkovitzNNet_T <- round(tseries::portfolio.optim(
