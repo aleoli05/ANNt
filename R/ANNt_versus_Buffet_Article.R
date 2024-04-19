@@ -315,8 +315,9 @@ maxSR.weight.rp.RNAt <- extractWeights(maxSRport.rp.RNAt)
 RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% maxSR.weight.rp.RNAt
 
 
+print("Test3")
 
-all.returns <- TodosAtivosPredict
+all.returns <- TodosAtivosPredict[1:630]
 ## set up portfolio with objetive and constraints
 n.assets <- length(colnames(all.returns))
 port.sec <- portfolio.spec(assets = colnames(all.returns))
@@ -354,6 +355,7 @@ weight_Sharpe
 #RetornoMedioMaxIS = as.matrix(TodosAtivosPredict)%*% maxSR.weight.rp
 RetornoMedioMaxIS = as.matrix(TodosAtivosPredict)%*% weight_test
 
+print("Test 4")
 ################################################################################
 ### Retornos carteira Sharpe RNAt
 all.returns_RNA_t <- as.matrix(C_Net_T_comparativa)
