@@ -26,7 +26,7 @@ ANNt_versus_Buffet_Article <- function() {
 ################################################################################
 ##### 1. Setup & Data
 
-
+options(warn=-1)
 # library(webinar.cpom)
 library(quantmod)
 library(PerformanceAnalytics)
@@ -266,7 +266,7 @@ port1 <- add.constraint(portfolio = init.portf,
                         indexnum=2)
 port1 <- add.constraint(portfolio = init.portf, type = "risk", name = "StdDev")
 
-print("Test 1")
+# print("Test 1")
 
 ### Carteira Sharpe todos os ativos
 maxSRport.rp <- optimize.portfolio(R=TodosAtivosPredict[1:630,],
@@ -281,7 +281,7 @@ maxSR.weight.rp <- extractWeights(maxSRport.rp)
 ### Retornos carteira Sharpe todos os ativos
 RetornoMedioMaxIS = as.matrix(TodosAtivosPredict)%*% maxSR.weight.rp
 
-print("Test 2")
+#print("Test 2")
 
 
 ### Carteira Sharpe RNAt
@@ -315,7 +315,7 @@ maxSR.weight.rp.RNAt <- extractWeights(maxSRport.rp.RNAt)
 RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% maxSR.weight.rp.RNAt
 
 
-print("Test3")
+#print("Test 3")
 
 all.returns <- TodosAtivosPredict[1:630,]
 ## set up portfolio with objetive and constraints
@@ -356,7 +356,7 @@ weight_Sharpe
 #RetornoMedioMaxIS = as.matrix(TodosAtivosPredict)%*% maxSR.weight.rp
 RetornoMedioMaxIS = as.matrix(TodosAtivosPredict)%*% weight_test
 
-print("Test 4")
+# print("Test 4")
 ################################################################################
 ### Retornos carteira Sharpe RNAt
 all.returns_RNA_t <- as.matrix(C_Net_T_comparativa[1:630,])
@@ -396,7 +396,7 @@ weight_Sharpe_RNA_t
 
 RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt
 
-print("Test 5")
+# print("Test 5")
 ##
 
 # Geração da Matriz de comparação dos Retornos
