@@ -317,7 +317,7 @@ RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% maxSR.weight.rp.RNAt
 
 print("Test3")
 
-all.returns <- TodosAtivosPredict[1:630]
+all.returns <- TodosAtivosPredict[1:630,]
 ## set up portfolio with objetive and constraints
 n.assets <- length(colnames(all.returns))
 port.sec <- portfolio.spec(assets = colnames(all.returns))
