@@ -359,11 +359,11 @@ RetornoMedioMaxIS = as.matrix(TodosAtivosPredict)%*% weight_test
 print("Test 4")
 ################################################################################
 ### Retornos carteira Sharpe RNAt
-all.returns_RNA_t <- as.matrix(C_Net_T_comparativa)
+all.returns_RNA_t <- as.matrix(C_Net_T_comparativa[1:630,])
 ## set up portfolio with objetive and constraints
 n.assets.RNAt <- length(colnames(all.returns_RNA_t))
-
-port.sec.RNAt <- portfolio.spec(assets = colnames(all.returns_RNA_t))
+Symbols_RNAt= colnames(all.returns_RNA_t)
+port.sec.RNAt <- portfolio.spec(assets = Symbols_RNAt)
 port.sec.RNAt <- add.objective(portfolio = port.sec.RNAt, type = "risk", name = "StdDev")
 port.sec.RNAt <- add.objective(portfolio = port.sec.RNAt, type = "return", name = "mean")
 port.sec.RNAt <- add.constraint(portfolio = port.sec.RNAt, type = "full_investiment")
@@ -396,7 +396,7 @@ weight_Sharpe_RNA_t
 
 RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt
 
-
+print("Test 5")
 ##
 
 # Geração da Matriz de comparação dos Retornos
