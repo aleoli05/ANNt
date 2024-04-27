@@ -332,7 +332,7 @@ if (x==1) {
   Assets_Returns=scenario.set
   write.zoo(scenario.set, file='scenario.set')
   View(Assets_Prices)
-  View(portfolio_observed)
+  #View(portfolio_observed)
   View(Assets_Returns)
   #write_xlsx(tickers,file='~/tickers.xlsx')
   write_xlsx(portfolioPrices_Df, "~/Assets_Prices.xlsx")
