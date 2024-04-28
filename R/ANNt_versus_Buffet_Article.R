@@ -118,7 +118,7 @@ save(scenario.set,file='~/scenario.set.rda')
 ## 1° Time Series
 #ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 7000)
 ## 2° Time Series
-ANNt_order ('2018-08-21', '2022-08-11','2023-03-17 ', '', 7000)
+ANNt_order ('2018-08-21', '2022-08-11','2023-03-17 ', '', 20000)
 
 
 load("~/T8.rda") # Carrega objeto scenario.set
