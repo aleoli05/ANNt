@@ -25,7 +25,7 @@
 #'Stepmax <- 7500
 #'Type_ANNt <- 'T8'
 #'N_Assets <- 3
-#'ANNt_Oliveira_Ceretta_S(c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', 0, '2018-01-03', '2022-12-29', '', 'daily',5,7500,'T8',3)
+#'ANNt_Oliveira_Ceretta_S_Out(c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', 0, '2018-01-03', '2022-12-29', '', 'daily',5,7500,'T8',3)
 #'@export
 ANNt_Oliveira_Ceretta_S_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
