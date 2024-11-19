@@ -1,8 +1,8 @@
 Package: ANNt
 Type: Package
 Title: Artificial Neural Network with 't' Distribution Portfolio
-Version: 1.1.3
-Date: 2024-04-18
+Version: 1.1.4
+Date: 2024-11-19
 Author: Alexandre Silva de Oliveira and Paulo Sergio Ceretta
 Maintainer: The package maintainer <aleoli05@gmail.com> <ceretta10@gmail.com>
 Description: Portfolio optimization system using Artificial Neural Networks. 
@@ -15,5 +15,5 @@ Imports: quantmod, PerformanceAnalytics, magrittr, fBasics, tidyverse, stringr,
     dplyr, neuralnet, zoo, forecast, timetk, moments, data.table, ggplot2, rvest,
     caret, readxl, writexl, portfolio.optimization, PortfolioAnalytics, ROI, 
     fPortfolio, timeSeries, gridExtra, cowplot, portfolioBacktest, CVXR, MFDFA,
-    DEoptim, rvest, cvar
+    DEoptim, cvar, rusquant
 Collation: Please cite as: OLIVEIRA, A. S.; CERETTA, P. S. ANNt Package for R. https://github.com/ANNt  

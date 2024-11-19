@@ -16,7 +16,8 @@ ANNt_Oliveira_Ceretta(
   Hidden,
   Stepmax,
   Type_ANNt,
-  N_Assets
+  N_Assets,
+  Base = "yahoo"
 )
 }
 \arguments{
@@ -39,6 +40,8 @@ ANNt_Oliveira_Ceretta(
 \item{Type_ANNt}{Select type ANNt: "T1"= NNet_Signal_Traning; "T2"= NNet_t_Training; "T3"= MC_Signal_Training; "T4"= MC_t_Training; "T5"= NNet_Signal_Test; "T6"= NNet_t_Test; "T7"= MC_Signal_Test; "T8"= Type_ANNt: MC_t_Test}
 
 \item{N_Assets}{Limit of asset numbers in the portfolio}
+
+\item{Base}{Database to use: "yahoo" or "Rus"}
 
 \item{Initial_Date_Training}{Training series start Date}
 }
