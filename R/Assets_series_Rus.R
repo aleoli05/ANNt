@@ -1,6 +1,6 @@
 #' Assets series Rus
 #' Import the series with the length specified of the Moscow Stock Exchange
-#' @export
+
 #' @param Tickers Name of the assets
 #' @param RM Proxy of the Russia market - Example: IMOEX - Moscow Exchange Index
 #' @param Initial_Date Series start Date, format ('Year-Month-Day')
@@ -21,6 +21,7 @@
 #' # Generates the Adjusted Daily Prices Series from Yahoo Finance
 #' Assets_series_Rus (Tickers=c('AFKS', 'AFLT', 'FEES', 'GMKN','GAZP'),'IMOEX', '2018-01-03', '','daily')
 #'
+#' @export
 Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity) {
 
   library(quantmod)
