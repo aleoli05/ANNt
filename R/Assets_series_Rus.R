@@ -151,7 +151,7 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
 
   #portfolioReturns <- na.omit(ROC(portfolioPrices, type="discrete"))
   portfolioReturns <- as.matrix(na.omit(ROC(portfolioPrices), type="discrete"))
-  #portfolioReturns <- as.matrix(na.omit(portfolio_observed, type="discrete"))
+
 
   scenario.set <- portfolioReturns
 
@@ -171,11 +171,11 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   save(scenario.set,file='~/Assets_Returns.rda')
   save(portfolioPrices,file='~/Assets_Prices.rda')
   Assets_Prices=portfolioPrices
-  Asset_Prices_Observed=portfolio_observed
+
   Assets_Returns=scenario.set
   write.zoo(scenario.set, file='scenario.set')
   View(Assets_Prices)
-  View(portfolio_observed)
+
   View(Assets_Returns)
   #write_xlsx(tickers,file='~/tickers.xlsx')
   write_xlsx(portfolioPrices_Df, "~/Assets_Prices.xlsx")
