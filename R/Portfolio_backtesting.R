@@ -347,6 +347,7 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
                             "CAPM Beta", "Jensen´s Alpha (% p.d.)", "Treynor (% p.d.)")
   Summary_Backtest = sumbacktest
   View(Summary_Backtest)
+  save(Summary_Backtest, file="~/Summary_Backtest.rda")
   save(Summary_Backtest, file="Summary_Backtest.rda")
   Portfolio = rownames(as.data.frame(sumbacktest))
   SUMBACKTEST_Df = mutate(as.data.frame(Portfolio),
