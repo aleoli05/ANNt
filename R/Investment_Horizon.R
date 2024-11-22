@@ -157,10 +157,10 @@ Comparativo_RETORNOS_Horizon_Anual2 = as.data.frame(Comparativo_RETORNOS_Horizon
 #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)/2,0),
 #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)*3/4,0),
 #            nrow(Comparativo_RETORNOS_Horizon_Anual))
-if(nrow(Comparativo_RETORNOS_Horizon_Anual)>10) {Eixo_X2 = c(1, 5, 10, 15, 20, 25, 30)
+if(nrow(Comparativo_RETORNOS_Horizon_Anual)>12) {Eixo_X2 = c(1, 5, 10, 15, 20, 25, 30)
 #} else{Eixo_X2 = c(1, 50, 100, 149)}
 } else{
-  if(nrow(Comparativo_RETORNOS_Horizon_Anual)>5) {Eixo_X2 = c(1, 3, 5, 7, 9, 11, 13)
+  if(nrow(Comparativo_RETORNOS_Horizon_Anual)>6) {Eixo_X2 = c(1, 3, 5, 7, 9, 11, 13)
   }else{Eixo_X2 = c(1:nrow(Comparativo_RETORNOS_Horizon_Anual))}}
 Eixo_X3 = rownames(Comparativo_RETORNOS_Horizon_Anual2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA","")
@@ -172,6 +172,7 @@ Retornos=TestComparativo_RETORNOS_Horizon_Anual[,1]
 Periodos=TestComparativo_RETORNOS_Horizon_Anual$Eixo
 s = TestComparativo_RETORNOS_Horizon_Anual$MARKOWITZ
 u = TestComparativo_RETORNOS_Horizon_Anual$SHARPE
+h = TestComparativo_RETORNOS_Horizon_Anual$MF_EQ
 z = TestComparativo_RETORNOS_Horizon_Anual$MF_MKW
 p = TestComparativo_RETORNOS_Horizon_Anual$MF_SHARPE
 w = TestComparativo_RETORNOS_Horizon_Anual$ANNt_EQ
@@ -187,6 +188,7 @@ plot(Periodos, Retornos,
      ylim = c(min(Comparativo_RETORNOS_Horizon_Anual), max(Comparativo_RETORNOS_Horizon_Anual)))
 lines(s, col = c("brown"))
 lines(u, col = c("gray"))
+lines(h, col = c("yellow"))
 lines(z, col = c("red"))
 lines(p, col = c("purple"))
 lines(w, col = c("blue"))
@@ -222,7 +224,7 @@ title(paste("Portfolio Returns over the Investment Horizon:", N_Assets, "Assets"
 Contador_MF_DFA = matrix(nrow=149)
 legend("topleft",
        #"bottomright",
-       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                   "ANNt_EQ",
                   "ANNt_MKW", "ANNt_SHARPE"),
        cex = 0.8,
@@ -230,7 +232,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red",
+       col = c("black", "brown", "gray", "yellow", "red",
                "purple","blue",
                "green",
                "darkgreen"))
@@ -255,10 +257,10 @@ Comparativo_RETORNOS_Horizon_Anual2 = as.data.frame(Comparativo_RETORNOS_Horizon
 #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)/2,0),
 #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)*3/4,0),
 #            nrow(Comparativo_RETORNOS_Horizon_Anual))
-if(nrow(Comparativo_RETORNOS_Horizon_Anual)>10) {Eixo_X2 = c(1, 5, 10, 15, 20, 25, 30)
+if(nrow(Comparativo_RETORNOS_Horizon_Anual)>12) {Eixo_X2 = c(1, 5, 10, 15, 20, 25, 30)
 #} else{Eixo_X2 = c(1, 50, 100, 149)}
 } else{
-  if(nrow(Comparativo_RETORNOS_Horizon_Anual)>5) {Eixo_X2 = c(1, 3, 5, 7, 9, 11, 13)
+  if(nrow(Comparativo_RETORNOS_Horizon_Anual)>6) {Eixo_X2 = c(1, 3, 5, 7, 9, 11, 13)
   }else{Eixo_X2 = c(1:nrow(Comparativo_RETORNOS_Horizon_Anual))}}
 Eixo_X3 = rownames(Comparativo_RETORNOS_Horizon_Anual2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA","")
@@ -270,6 +272,7 @@ Retornos=TestComparativo_RETORNOS_Horizon_Anual[,1]
 Periodos=TestComparativo_RETORNOS_Horizon_Anual$Eixo
 s = TestComparativo_RETORNOS_Horizon_Anual$MARKOWITZ
 u = TestComparativo_RETORNOS_Horizon_Anual$SHARPE
+h = TestComparativo_RETORNOS_Horizon_Anual$MF_EQ
 z = TestComparativo_RETORNOS_Horizon_Anual$MF_MKW
 p = TestComparativo_RETORNOS_Horizon_Anual$MF_SHARPE
 w = TestComparativo_RETORNOS_Horizon_Anual$ANNt_EQ
@@ -286,6 +289,7 @@ plot(Periodos, Retornos,
      ylim = c(min(Comparativo_RETORNOS_Horizon_Anual), max(Comparativo_RETORNOS_Horizon_Anual)))
 lines(s, col = c("brown"), lwd=2)
 lines(u, col = c("gray"), lwd=2)
+lines(h, col = c("yellow"), lwd=2)
 lines(z, col = c("red"), lwd=2)
 lines(p, col = c("purple"), lwd=2)
 lines(w, col = c("blue"), lwd=2)
@@ -321,7 +325,7 @@ title(paste("Portfolio Returns over the Investment Horizon:", N_Assets, "Assets"
 Contador_MF_DFA = matrix(nrow=149)
 legend("topleft",
        #"bottomright",
-       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+       legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                   "ANNt_EQ",
                   "ANNt_MKW", "ANNt_SHARPE"),
        cex = 0.6,
@@ -329,7 +333,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red",
+       col = c("black", "brown", "gray", "yellow", "red",
                "purple",
                "blue",
                "green",

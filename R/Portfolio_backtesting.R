@@ -338,8 +338,8 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
 
   #rownames(sumbacktest)= c("MF_MKV", RM, "ANNt_EQ", "MARKOWITZ", "ANNt_MKV",
    #                        "SHARPE", "MF_SHARPE", "ANNt_SHARPE")
-  rownames(sumbacktest)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKV", "MF_SHARPE",
-                            "ANNt_EQ", "ANNt_MKV","ANNt_SHARPE")
+  rownames(sumbacktest)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                            "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE")
   colnames(sumbacktest) = c("Average Return (% p.d.)","Annualized Return (% p.a.)",
                             "Cumulative Return (% p.p.)", "Annualized Volatility (% p.a.)",
                             "VaR 95% (% p.d.)", "CVaR 95% (% p.d.)",
