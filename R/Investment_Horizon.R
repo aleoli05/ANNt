@@ -58,8 +58,17 @@ Interval = round(diferenca_dias/Frequency,0)
 
 
 # Geração da Matriz de comparação dos Retornos
+Comparativo_Rm_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_RETORNOS_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_RCum_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_Volatility_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Var_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_CVar_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Sharpe_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Sortino_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Beta_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Alpha_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Tempo = c(1:Frequency)
 
 for (i in (1:Frequency)){
@@ -84,21 +93,66 @@ if(Fun=='Original'){
 }
 
 load('~/Summary_Backtest.rda')
+Comparativo_Rm_Horizon_Anual[i,] = Summary_Backtest[,1]
 Comparativo_RETORNOS_Horizon_Anual[i,] = Summary_Backtest[,2]
+Comparativo_RCum_Horizon_Anual[i,] = Summary_Backtest[,3]
 Comparativo_Volatility_Horizon_Anual[i,] = Summary_Backtest[,4]
+Comparativo_Var_Horizon_Anual[i,] = Summary_Backtest[,4]
+Comparativo_CVar_Horizon_Anual[i,] = Summary_Backtest[,5]
+Comparativo_Sharpe_Horizon_Anual[i,] = Summary_Backtest[,6]
+Comparativo_Sortino_Horizon_Anual[i,] = Summary_Backtest[,7]
+Comparativo_Beta_Horizon_Anual[i,] = Summary_Backtest[,8]
+Comparativo_Alpha_Horizon_Anual[i,] = Summary_Backtest[,9]
+Comparativo_Treynor_Horizon_Anual[i,] = Summary_Backtest[,10]
 Tempo[i]=Inicio_Test
 
 }
 Inicio_Teste_Datas = Tempo
+rownames(Comparativo_Rm_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_Rm_Horizon_Anual)= rownames(Summary_Backtest)
 rownames(Comparativo_RETORNOS_Horizon_Anual)=Inicio_Teste_Datas
 colnames(Comparativo_RETORNOS_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_RCum_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_RCum_Horizon_Anual)= rownames(Summary_Backtest)
 rownames(Comparativo_Volatility_Horizon_Anual)=Inicio_Teste_Datas
 colnames(Comparativo_Volatility_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_Var_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_Var_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_CVar_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_CVar_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_Sharpe_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_Sharpe_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_Sortino_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_Sortino_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_Beta_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_Beta_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_Alpha_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_Alpha_Horizon_Anual)= rownames(Summary_Backtest)
+rownames(Comparativo_Treynor_Horizon_Anual)=Inicio_Teste_Datas
+colnames(Comparativo_Treynor_Horizon_Anual)= rownames(Summary_Backtest)
 
+save(Comparativo_Rm_Horizon_Anual, file='~/Comparativo_Rm_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_Rm_Horizon_Anual), "~/Comparativo_Rm_Horizon_Anual.xlsx")
 save(Comparativo_RETORNOS_Horizon_Anual, file='~/Comparativo_RETORNOS_Horizon_Anual.rda')
 write_xlsx(as.data.frame(Comparativo_RETORNOS_Horizon_Anual), "~/Comparativo_RETORNOS_Horizon_Anual.xlsx")
+save(Comparativo_RCum_Horizon_Anual, file='~/Comparativo_Rm_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_RCum_Horizon_Anual), "~/Comparativo_Rm_Horizon_Anual.xlsx")
 save(Comparativo_Volatility_Horizon_Anual, file='~/Comparativo_Volatility_Horizon_Anual.rda')
 write_xlsx(as.data.frame(Comparativo_Volatility_Horizon_Anual), "~/Comparativo_Volatility_Horizon_Anual.xlsx")
+save(Comparativo_Var_Horizon_Anual, file='~/Comparativo_Var_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_Var_Horizon_Anual), "~/Comparativo_Var_Horizon_Anual.xlsx")
+save(Comparativo_CVar_Horizon_Anual, file='~/Comparativo_CVar_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_CVar_Horizon_Anual), "~/Comparativo_CVar_Horizon_Anual.xlsx")
+save(Comparativo_Sharpe_Horizon_Anual, file='~/Comparativo_Sharpe_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_Sharpe_Horizon_Anual), "~/Comparativo_Sharpe_Horizon_Anual.xlsx")
+save(Comparativo_Sortino_Horizon_Anual, file='~/Comparativo_Sortino_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_Sortino_Horizon_Anual), "~/Comparativo_Sortino_Horizon_Anual.xlsx")
+save(Comparativo_Beta_Horizon_Anual, file='~/Comparativo_Beta_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_Beta_Horizon_Anual), "~/Comparativo_Beta_Horizon_Anual.xlsx")
+save(Comparativo_Alpha_Horizon_Anual, file='~/Comparativo_Alpha_Horizon_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_Alpha_Horizon_Anual), "~/Comparativo_Alpha_Horizon_Anual.xlsx")
+save(Comparativo_Treynor_Horizon_Anual, file='~/Comparativo_Sortino_Treynor_Anual.rda')
+write_xlsx(as.data.frame(Comparativo_Treynor_Horizon_Anual), "~/Comparativo_Treynor_Horizon_Anual.xlsx")
 
 View(Comparativo_RETORNOS_Horizon_Anual)
 ################################################################################
