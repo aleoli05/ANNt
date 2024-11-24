@@ -7,11 +7,17 @@
 Plot_Ratio_Horizon(Ratio = "Annualized_Returns")
 }
 \arguments{
-\item{Ratio:}{Annualized_Returns - This is the standard ratio;
-Volatility - Annualized Volatility
+\item{Ratio:}{Rm - Average_Return - Means of Returns from each portfolio;
+Annualized_Returns - This is the standard ratio;
+Cm - Cumulative_Returns;
+Volatility - Annualized Volatility;
+Var - Variance with 95% confidence;
+CVar - Conditional Variance 95% confidence;
 Sharpe - Sharpe Ratio;
 Alpha - Jensen's Alpha;
-Beta - Covariance between portfolio and market proxy over market proxy Variance.}
+Beta - Covariance between portfolio and market proxy over market proxy Variance;
+Sortino - Sortino Ratio;
+Treynor - Treynor Ratio.}
 }
 \description{
 Analyzes ratios chart of portfolios with different investment horizons.
