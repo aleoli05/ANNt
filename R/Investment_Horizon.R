@@ -71,6 +71,66 @@ Comparativo_Alpha_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Tempo = c(1:Frequency)
 
+#### Matrix of weights
+
+load('~/Pesos_MFractal_2.rda')
+load('~/Pesos_MFractal_Mkv2.rda')
+load('~/Pesos_C_Markov2.rda')
+load('~/Pesos_ANNt_Eq2.rda')
+load('~/Pesos_ANNt_Mkv2.rda')
+load('~/Weight_Sharpe_1.rda')
+load('~/Weight_Sharpe_MF.rda')
+load('~/Weight_ANNt_Sharpe.rda')
+
+Weights_MF_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MF_EQ_Horizon <- as.data.frame((Weights_MF_EQ_Horizon))
+Weights_MF_EQ_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MF_EQ_Horizon [1,2] <- 'ASSETS'
+Weights_MF_EQ_Horizon [2,1] <- 'MF_EQ'
+
+Weights_MF_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MF_MKW_Horizon <- as.data.frame((Weights_MF_MKW_Horizon))
+Weights_MF_MKW_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MF_MKW_Horizon [1,2] <- 'ASSETS'
+Weights_MF_MKW_Horizon [2,1] <- 'MF_MKW'
+
+Weights_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MKW_Horizon <- as.data.frame((Weights_MKW_Horizon))
+Weights_MKW_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MKW_Horizon [1,2] <- 'ASSETS'
+Weights_MKW_Horizon [2,1] <- 'MARKOWITZ'
+
+Weights_ANNt_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_ANNt_EQ_Horizon <- as.data.frame((Weights_ANNt_EQ_Horizon))
+Weights_ANNt_EQ_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_ANNt_EQ_Horizon [1,2] <- 'ASSETS'
+Weights_ANNt_EQ_Horizon [2,1] <- 'ANNt_EQ'
+
+Weights_ANNt_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_ANNt_MKW_Horizon <- as.data.frame((Weights_ANNt_MKW_Horizon))
+Weights_ANNt_MKW_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_ANNt_MKW_Horizon [1,2] <- 'ASSETS'
+Weights_ANNt_MKW_Horizon [2,1] <- 'ANNt_MKW'
+
+Weights_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_Sharpe_Horizon <- as.data.frame((Weights_Sharpe_Horizon))
+Weights_Sharpe_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_Sharpe_Horizon [1,2] <- 'ASSETS'
+Weights_Sharpe_Horizon [2,1] <- 'SHARPE'
+
+Weights_MF_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MF_Sharpe_Horizon <- as.data.frame((Weights_MF_Sharpe_Horizon))
+Weights_MF_Sharpe_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MF_Sharpe_Horizon [1,2] <- 'ASSETS'
+Weights_MF_Sharpe_Horizon [2,1] <- 'MF_SHARPE'
+
+Weights_ANNt_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_ANNt_Sharpe_Horizon <- as.data.frame((Weights_ANNt_Sharpe_Horizon))
+Weights_ANNt_Sharpe_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_ANNt_Sharpe_Horizon [1,2] <- 'ASSETS'
+Weights_ANNt_Sharpe_Horizon [2,1] <- 'ANNt_SHARPE'
+
+######################################
 for (i in (1:Frequency)){
 Fim_Train= (data2-Interval*i)
 Inicio = as.character(Fim_Train-treino)
@@ -106,7 +166,80 @@ Comparativo_Alpha_Horizon_Anual[i,] = Summary_Backtest[,10]
 Comparativo_Treynor_Horizon_Anual[i,] = Summary_Backtest[,11]
 Tempo[i]=Inicio_Test
 
+
+
+#######
+if (i==1){
+  x=1
 }
+
+for(k in (1:ncol(Pesos_MFractal_2))){
+  Weights_MF_EQ_Horizon[x+i,k+1]=data.frame(colnames(Pesos_MFractal_2))[k,]
+  Weights_MF_EQ_Horizon[1+x+i,k+1]=round(data.frame(Pesos_MFractal_2)[k],2)
+}
+
+for(k in (1:ncol(Pesos_MFractal_Mkv2))){
+  Weights_MF_MKW_Horizon[x+i,k+1]=data.frame(colnames(Pesos_MFractal_Mkv2))[k,]
+  Weights_MF_MKW_Horizon[1+x+i,k+1]=round(data.frame(Pesos_MFractal_Mkv2)[k],2)
+}
+
+for(k in (1:ncol(Pesos_C_Markov2))){
+  Weights_MKW_Horizon[x+i,k+1]=data.frame(colnames(Pesos_C_Markov2))[k,]
+  Weights_MKW_Horizon[1+x+i,k+1]=round(data.frame(Pesos_C_Markov2)[k],2)
+}
+
+for(k in (1:ncol(Pesos_ANNt_Eq2))){
+  Weights_ANNt_EQ_Horizon[x+i,k+1]=data.frame(colnames(Pesos_ANNt_Eq2))[k,]
+  Weights_ANNt_EQ_Horizon[1+x+i,k+1]=round(data.frame(Pesos_ANNt_Eq2)[k],2)
+}
+
+for(k in (1:ncol(Pesos_ANNt_Mkv2))){
+  Weights_ANNt_MKW_Horizon[x+i,k+1]=data.frame(colnames(Pesos_ANNt_Mkv2))[k,]
+  Weights_ANNt_MKW_Horizon[1+x+i,k+1]=round(data.frame(Pesos_ANNt_Mkv2)[k],2)
+}
+
+for(k in (1:ncol(Weight_Sharpe_1))){
+  Weights_Sharpe_Horizon[x+i,k+1]=data.frame(colnames(Weight_Sharpe_1))[k,]
+  Weights_Sharpe_Horizon[1+x+i,k+1]=round(data.frame(Weight_Sharpe_1)[k],2)
+}
+
+for(k in (1:ncol(Weight_Sharpe_MF))){
+  Weights_MF_Sharpe_Horizon[x+i,k+1]=data.frame(colnames(Weight_Sharpe_MF))[k,]
+  Weights_MF_Sharpe_Horizon[1+x+i,k+1]=round(data.frame(Weight_Sharpe_MF)[k],2)
+}
+
+for(k in (1:ncol(Weight_ANNt_Sharpe))){
+  Weights_ANNt_Sharpe_Horizon[x+i,k+1]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
+  Weights_ANNt_Sharpe_Horizon[1+x+i,k+1]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
+}
+x=x+1
+}
+
+save(Weights_MF_EQ_Horizon,file='~/Weights_MF_EQ_Horizon.rda')
+write_xlsx(as.data.frame(Weights_MF_EQ_Horizon), "~/Weights_MF_EQ_Horizon.xlsx")
+
+save(Weights_MF_MKW_Horizon,file='~/Weights_MF_MKW_Horizon.rda')
+write_xlsx(as.data.frame(Weights_MF_MKW_Horizon), "~/Weights_MF_MKW_Horizon.xlsx")
+
+save(Weights_MKW_Horizon,file='~/Weights_MKW_Horizon.rda')
+write_xlsx(as.data.frame(Weights_MKW_Horizon), "~/Weights_MKW_Horizon.xlsx")
+
+save(Weights_ANNt_EQ_Horizon,file='~/Weights_ANNt_EQ_Horizon.rda')
+write_xlsx(as.data.frame(Weights_ANNt_EQ_Horizon), "~/Weights_ANNt_EQ_Horizon.xlsx")
+
+save(Weights_ANNt_MKW_Horizon,file='~/Weights_ANNt_MKW_Horizon.rda')
+write_xlsx(as.data.frame(Weights_ANNt_MKW_Horizon), "~/Weights_ANNt_MKW_Horizon.xlsx")
+
+save(Weights_Sharpe_Horizon,file='~/Weights_Sharpe_Horizon.rda')
+write_xlsx(as.data.frame(Weights_Sharpe_Horizon), "~/Weights_Sharpe_Horizon.xlsx")
+
+save(Weights_MF_Sharpe_Horizon,file='~/Weights_MF_Sharpe_Horizon.rda')
+write_xlsx(as.data.frame(Weights_MF_Sharpe_Horizon), "~/Weights_MF_Sharpe_Horizon.xlsx")
+
+save(Weights_ANNt_Sharpe_Horizon,file='~/Weights_ANNt_Sharpe_Horizon.rda')
+write_xlsx(as.data.frame(Weights_ANNt_Sharpe_Horizon), "~/Weights_ANNt_Sharpe_Horizon.xlsx")
+#############################################
+
 Inicio_Teste_Datas = Tempo
 rownames(Comparativo_Rm_Horizon_Anual)=Inicio_Teste_Datas
 colnames(Comparativo_Rm_Horizon_Anual)= rownames(Summary_Backtest)
