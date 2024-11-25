@@ -73,15 +73,6 @@ Tempo = c(1:Frequency)
 
 #### Matrix of weights
 
-load('~/Pesos_MFractal_2.rda')
-load('~/Pesos_MFractal_Mkv2.rda')
-load('~/Pesos_C_Markov2.rda')
-load('~/Pesos_ANNt_Eq2.rda')
-load('~/Pesos_ANNt_Mkv2.rda')
-load('~/Weight_Sharpe_1.rda')
-load('~/Weight_Sharpe_MF.rda')
-load('~/Weight_ANNt_Sharpe.rda')
-
 Weights_MF_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_MF_EQ_Horizon <- as.data.frame((Weights_MF_EQ_Horizon))
 Weights_MF_EQ_Horizon [1,1] <- 'PORTFOLIOS'
@@ -151,7 +142,14 @@ if(Fun=='S'){
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base='yahoo')
 }
-
+load('~/Pesos_MFractal_2.rda')
+load('~/Pesos_MFractal_Mkv2.rda')
+load('~/Pesos_C_Markov2.rda')
+load('~/Pesos_ANNt_Eq2.rda')
+load('~/Pesos_ANNt_Mkv2.rda')
+load('~/Weight_Sharpe_1.rda')
+load('~/Weight_Sharpe_MF.rda')
+load('~/Weight_ANNt_Sharpe.rda')
 load('~/Summary_Backtest.rda')
 Comparativo_Rm_Horizon_Anual[i,] = Summary_Backtest[,1]
 Comparativo_RETORNOS_Horizon_Anual[i,] = Summary_Backtest[,2]
