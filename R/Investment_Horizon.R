@@ -75,51 +75,67 @@ Tempo = c(1:Frequency)
 
 Weights_MF_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_MF_EQ_Horizon <- as.data.frame((Weights_MF_EQ_Horizon))
-Weights_MF_EQ_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MF_EQ_Horizon [1,1] <- 'MF_EQ PORTFOLIOS'
 Weights_MF_EQ_Horizon [1,2] <- 'ASSETS'
-Weights_MF_EQ_Horizon [2,1] <- 'MF_EQ'
+Weights_MF_EQ_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_MF_EQ_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_MF_EQ_Horizon [3,2] <- 'Days'
 
 Weights_MF_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_MF_MKW_Horizon <- as.data.frame((Weights_MF_MKW_Horizon))
-Weights_MF_MKW_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MF_MKW_Horizon [1,1] <- 'MF_MKW PORTFOLIOS'
 Weights_MF_MKW_Horizon [1,2] <- 'ASSETS'
-Weights_MF_MKW_Horizon [2,1] <- 'MF_MKW'
+Weights_MF_MKW_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_MF_MKW_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_MF_MKW_Horizon [3,2] <- 'Days'
 
 Weights_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_MKW_Horizon <- as.data.frame((Weights_MKW_Horizon))
-Weights_MKW_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MKW_Horizon [1,1] <- 'MARKOWITZ PORTFOLIOS'
 Weights_MKW_Horizon [1,2] <- 'ASSETS'
-Weights_MKW_Horizon [2,1] <- 'MARKOWITZ'
+Weights_MKW_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_MKW_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_MKW_Horizon [3,2] <- 'Days'
 
 Weights_ANNt_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_ANNt_EQ_Horizon <- as.data.frame((Weights_ANNt_EQ_Horizon))
-Weights_ANNt_EQ_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_ANNt_EQ_Horizon [1,1] <- 'ANNt_EQ PORTFOLIOS'
 Weights_ANNt_EQ_Horizon [1,2] <- 'ASSETS'
-Weights_ANNt_EQ_Horizon [2,1] <- 'ANNt_EQ'
+Weights_ANNt_EQ_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_ANNt_EQ_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_ANNt_EQ_Horizon [3,2] <- 'Days'
 
 Weights_ANNt_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_ANNt_MKW_Horizon <- as.data.frame((Weights_ANNt_MKW_Horizon))
-Weights_ANNt_MKW_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_ANNt_MKW_Horizon [1,1] <- 'ANNt_MKW PORTFOLIOS'
 Weights_ANNt_MKW_Horizon [1,2] <- 'ASSETS'
-Weights_ANNt_MKW_Horizon [2,1] <- 'ANNt_MKW'
+Weights_ANNt_MKW_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_ANNt_MKW_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_ANNt_MKW_Horizon [3,2] <- 'Days'
 
 Weights_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_Sharpe_Horizon <- as.data.frame((Weights_Sharpe_Horizon))
-Weights_Sharpe_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_Sharpe_Horizon [1,1] <- 'SHARPE PORTFOLIOS'
 Weights_Sharpe_Horizon [1,2] <- 'ASSETS'
-Weights_Sharpe_Horizon [2,1] <- 'SHARPE'
+Weights_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_Sharpe_Horizon [3,2] <- 'Days'
 
 Weights_MF_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_MF_Sharpe_Horizon <- as.data.frame((Weights_MF_Sharpe_Horizon))
-Weights_MF_Sharpe_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_MF_Sharpe_Horizon [1,1] <- 'MF_SHARPE PORTFOLIOS'
 Weights_MF_Sharpe_Horizon [1,2] <- 'ASSETS'
-Weights_MF_Sharpe_Horizon [2,1] <- 'MF_SHARPE'
+Weights_MF_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_MF_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_MF_Sharpe_Horizon [3,2] <- 'Days'
 
 Weights_ANNt_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
 Weights_ANNt_Sharpe_Horizon <- as.data.frame((Weights_ANNt_Sharpe_Horizon))
-Weights_ANNt_Sharpe_Horizon [1,1] <- 'PORTFOLIOS'
+Weights_ANNt_Sharpe_Horizon [1,1] <- 'ANNt_SHARPE PORTFOLIOS'
 Weights_ANNt_Sharpe_Horizon [1,2] <- 'ASSETS'
-Weights_ANNt_Sharpe_Horizon [2,1] <- 'ANNt_SHARPE'
+Weights_ANNt_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
+Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
+Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
 
 ######################################
 for (i in (1:Frequency)){
@@ -151,6 +167,13 @@ load('~/Weight_Sharpe_1.rda')
 load('~/Weight_Sharpe_MF.rda')
 load('~/Weight_ANNt_Sharpe.rda')
 load('~/Summary_Backtest.rda')
+load('~/Initial_Date_Testing.rda')
+load('~/Final_Date_Testing.rda')
+
+data3 = as.Date.character(Initial_Date_Testing)
+data4 = as.Date.character(Final_Date_Testing)
+teste_dias = as.numeric(data4-data3)
+
 Comparativo_Rm_Horizon_Anual[i,] = Summary_Backtest[,1]
 Comparativo_RETORNOS_Horizon_Anual[i,] = Summary_Backtest[,2]
 Comparativo_RCum_Horizon_Anual[i,] = Summary_Backtest[,3]
@@ -168,47 +191,80 @@ Tempo[i]=Inicio_Test
 
 #######
 if (i==1){
-  x=1
+  x=2
 }
 
 for(k in (1:ncol(Pesos_MFractal_2))){
-  Weights_MF_EQ_Horizon[x+i,k+1]=data.frame(colnames(Pesos_MFractal_2))[k,]
-  Weights_MF_EQ_Horizon[1+x+i,k+1]=round(data.frame(Pesos_MFractal_2)[k],2)
+  Weights_MF_EQ_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_MF_EQ_Horizon[x+i,2]=Final_Date_Testing
+  Weights_MF_EQ_Horizon[1+x+i,1]=teste_dias
+  Weights_MF_EQ_Horizon[1+x+i,2]='Days'
+  Weights_MF_EQ_Horizon[x+i,k+2]=data.frame(colnames(Pesos_MFractal_2))[k,]
+  Weights_MF_EQ_Horizon[1+x+i,k+2]=round(data.frame(Pesos_MFractal_2)[k],2)
+
 }
 
 for(k in (1:ncol(Pesos_MFractal_Mkv2))){
-  Weights_MF_MKW_Horizon[x+i,k+1]=data.frame(colnames(Pesos_MFractal_Mkv2))[k,]
-  Weights_MF_MKW_Horizon[1+x+i,k+1]=round(data.frame(Pesos_MFractal_Mkv2)[k],2)
+  Weights_MF_MKW_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_MF_MKW_Horizon[x+i,2]=Final_Date_Testing
+  Weights_MF_MKW_Horizon[1+x+i,1]=teste_dias
+  Weights_MF_MKW_Horizon[1+x+i,2]='Days'
+  Weights_MF_MKW_Horizon[x+i,k+2]=data.frame(colnames(Pesos_MFractal_Mkv2))[k,]
+  Weights_MF_MKW_Horizon[1+x+i,k+2]=round(data.frame(Pesos_MFractal_Mkv2)[k],2)
 }
 
 for(k in (1:ncol(Pesos_C_Markov2))){
-  Weights_MKW_Horizon[x+i,k+1]=data.frame(colnames(Pesos_C_Markov2))[k,]
-  Weights_MKW_Horizon[1+x+i,k+1]=round(data.frame(Pesos_C_Markov2)[k],2)
+  Weights_MKW_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_MKW_Horizon[x+i,2]=Final_Date_Testing
+  Weights_MKW_Horizon[1+x+i,1]=teste_dias
+  Weights_MKW_Horizon[1+x+i,2]='Days'
+  Weights_MKW_Horizon[x+i,k+2]=data.frame(colnames(Pesos_C_Markov2))[k,]
+  Weights_MKW_Horizon[1+x+i,k+2]=round(data.frame(Pesos_C_Markov2)[k],2)
 }
 
 for(k in (1:ncol(Pesos_ANNt_Eq2))){
-  Weights_ANNt_EQ_Horizon[x+i,k+1]=data.frame(colnames(Pesos_ANNt_Eq2))[k,]
-  Weights_ANNt_EQ_Horizon[1+x+i,k+1]=round(data.frame(Pesos_ANNt_Eq2)[k],2)
+  Weights_ANNt_EQ_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_ANNt_EQ_Horizon[x+i,2]=Final_Date_Testing
+  Weights_ANNt_EQ_Horizon[1+x+i,1]=teste_dias
+  Weights_ANNt_EQ_Horizon[1+x+i,2]='Days'
+  Weights_ANNt_EQ_Horizon[x+i,k+2]=data.frame(colnames(Pesos_ANNt_Eq2))[k,]
+  Weights_ANNt_EQ_Horizon[1+x+i,k+2]=round(data.frame(Pesos_ANNt_Eq2)[k],2)
 }
 
 for(k in (1:ncol(Pesos_ANNt_Mkv2))){
-  Weights_ANNt_MKW_Horizon[x+i,k+1]=data.frame(colnames(Pesos_ANNt_Mkv2))[k,]
-  Weights_ANNt_MKW_Horizon[1+x+i,k+1]=round(data.frame(Pesos_ANNt_Mkv2)[k],2)
+  Weights_ANNt_MKW_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_ANNt_MKW_Horizon[x+i,2]=Final_Date_Testing
+  Weights_ANNt_MKW_Horizon[1+x+i,1]=teste_dias
+  Weights_ANNt_MKW_Horizon[1+x+i,2]='Days'
+  Weights_ANNt_MKW_Horizon[x+i,k+2]=data.frame(colnames(Pesos_ANNt_Mkv2))[k,]
+  Weights_ANNt_MKW_Horizon[1+x+i,k+2]=round(data.frame(Pesos_ANNt_Mkv2)[k],2)
 }
 
 for(k in (1:ncol(Weight_Sharpe_1))){
-  Weights_Sharpe_Horizon[x+i,k+1]=data.frame(colnames(Weight_Sharpe_1))[k,]
-  Weights_Sharpe_Horizon[1+x+i,k+1]=round(data.frame(Weight_Sharpe_1)[k],2)
+  Weights_Sharpe_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_Sharpe_Horizon[x+i,2]=Final_Date_Testing
+  Weights_Sharpe_Horizon[1+x+i,1]=teste_dias
+  Weights_Sharpe_Horizon[1+x+i,2]='Days'
+  Weights_Sharpe_Horizon[x+i,k+2]=data.frame(colnames(Weight_Sharpe_1))[k,]
+  Weights_Sharpe_Horizon[1+x+i,k+2]=round(data.frame(Weight_Sharpe_1)[k],2)
 }
 
 for(k in (1:ncol(Weight_Sharpe_MF))){
-  Weights_MF_Sharpe_Horizon[x+i,k+1]=data.frame(colnames(Weight_Sharpe_MF))[k,]
-  Weights_MF_Sharpe_Horizon[1+x+i,k+1]=round(data.frame(Weight_Sharpe_MF)[k],2)
+  Weights_MF_Sharpe_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_MF_Sharpe_Horizon[x+i,2]=Final_Date_Testing
+  Weights_MF_Sharpe_Horizon[1+x+i,1]=teste_dias
+  Weights_MF_Sharpe_Horizon[1+x+i,2]='Days'
+  Weights_MF_Sharpe_Horizon[x+i,k+2]=data.frame(colnames(Weight_Sharpe_MF))[k,]
+  Weights_MF_Sharpe_Horizon[1+x+i,k+2]=round(data.frame(Weight_Sharpe_MF)[k],2)
 }
 
 for(k in (1:ncol(Weight_ANNt_Sharpe))){
-  Weights_ANNt_Sharpe_Horizon[x+i,k+1]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
-  Weights_ANNt_Sharpe_Horizon[1+x+i,k+1]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
+  Weights_ANNt_Sharpe_Horizon[x+i,1]=Initial_Date_Testing
+  Weights_ANNt_Sharpe_Horizon[x+i,2]=Final_Date_Testing
+  Weights_ANNt_Sharpe_Horizon[1+x+i,1]=teste_dias
+  Weights_ANNt_Sharpe_Horizon[1+x+i,2]='Days'
+  Weights_ANNt_Sharpe_Horizon[x+i,k+2]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
+  Weights_ANNt_Sharpe_Horizon[1+x+i,k+2]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
 }
 x=x+1
 }
