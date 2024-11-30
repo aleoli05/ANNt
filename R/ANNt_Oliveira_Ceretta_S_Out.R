@@ -394,7 +394,7 @@ scenario.set=Portfolio_with_RM_Original
 save(scenario.set, file="~/scenario.set.rda")
 
 Rf=Rf*100
-Gen_portfolios('n_Assets',Initial_Date,Final_Date_Training,'x5', Type_ANNt)
+Gen_portfolios(N_Assets='n_Assets',Initial_Date_Testing=Initial_Date,Final_Date_Testing=Final_Date_Training,'x5', type_ANNt=Type_ANNt)
 Out_of_sample(Initial_Date_Testing,'')
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')

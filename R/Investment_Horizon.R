@@ -154,8 +154,9 @@ for (i in (1:Frequency)){
     Fim_Train= as.Date.character(Specific_Dates[i])
     Inicio = as.character(Fim_Train-treino)
     Inicio_Test = as.character(Fim_Train+1)
+    Fim_Train= as.character(Fim_Train)
      }
-  else{
+  if (length(Specific_Dates)==1){
         Fim_Train= (data2-Interval*i)
         Inicio = as.character(Fim_Train-treino)
         Inicio_Test = as.character(Fim_Train+1)

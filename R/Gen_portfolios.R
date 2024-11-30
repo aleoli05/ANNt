@@ -121,6 +121,7 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
   }
   if(exists('Final_Date_Testing')==FALSE){
     load("~/Final_Date_Training.rda")
+    load("~/Final_Date_Testing.rda")
   }
 
   if(file.exists("~/Signal_Sharpe.rda")==TRUE){
