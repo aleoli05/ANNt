@@ -46,6 +46,8 @@
 
 #' @export
 Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training, Final_Date, Frequency, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out', Specific_Dates=Sys.Date()){
+Tickers_1=Tickers
+save(Tickers_1, file='~/Tickers_1.rda')
 X = Final_Date
 BS= Base
 Specifies_Dates=Specific_Dates
@@ -160,18 +162,18 @@ for (i in (1:Frequency)){
         Fim_Train= as.character(Fim_Train)
         }
 
-
+load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
-  ANNt_Oliveira_Ceretta_S_Out(Tickers, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
 }
 if(Fun=='Out'){
-  ANNt_Oliveira_Ceretta_Out(Tickers, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
 }
 if(Fun=='S'){
-  ANNt_Oliveira_Ceretta_S(Tickers, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
 }
 if(Fun=='Original'){
-  ANNt_Oliveira_Ceretta(Tickers, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
 }
 load('~/Pesos_MFractal_2.rda')
 load('~/Pesos_MFractal_Mkv2.rda')
