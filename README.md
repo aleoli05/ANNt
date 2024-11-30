@@ -6,7 +6,7 @@ Artificial Neural Network with 't' Distribution Portfolio
         library(remotes)
         install_github('aleoli05/ANNt')
         
-        or if have problems:
+        or if you have problems:
         
         install.packages('devtools')
         options(download.file.method = "wininet") 
