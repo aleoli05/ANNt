@@ -9,6 +9,7 @@ Artificial Neural Network with 't' Distribution Portfolio
         or if you have problems:
         
         install.packages('devtools')
+        library(devtools)
         options(download.file.method = "wininet") 
         devtools::install_github('aleoli05/ANNt')
         
