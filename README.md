@@ -4,6 +4,13 @@ Artificial Neural Network with 't' Distribution Portfolio
 # SINGLE COMMAND FOR THE ENTIRE PACKAGE AFTER INSTALLING THE REQUIRED PACKAGES#
         install.packages('remotes')
         library(remotes)
+        install_github('aleoli05/ANNt')
+        
+        or if you have problems:
+        
+        install.packages('devtools')
+        options(download.file.method = "wininet") 
+        devtools::install_github('aleoli05/ANNt')
         
         ANNt_Oliveira_Ceretta(c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', 0, '2018-01-03', '2022-12-29', '', 'daily', 5, 2500, 3)
         
