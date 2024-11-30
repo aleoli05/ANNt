@@ -8,6 +8,7 @@
 #'@export
 Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
 
+
   if(Portfolio=='MF_EQ'){
     load('~/Weights_MF_EQ_Horizon.rda')
     hist=Weights_MF_EQ_Horizon

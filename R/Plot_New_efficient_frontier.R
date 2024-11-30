@@ -61,6 +61,7 @@ png(file="~/New_Efficient_Frontier.png", width=1920, height=1200, res=296, famil
 plot(Base_Palomar[4,],Base_Palomar[1,],
      ylab="Return", xlab="Return Probability > Return Benchmark",
      col="lightgrey",
+     family="A",
      #cex.lab = 0.8,
      #cex.axis = 0.8,
      xlim = c(0.4, 0.560))
@@ -156,6 +157,7 @@ par(family="A")
 plot(Base_Palomar[4,],Base_Palomar[1,],
      ylab="Return", xlab="Return Probability > Return Benchmark",
      col="lightgrey",
+     family="A",
      #cex.lab = 0.8,
      #cex.axis = 0.8,
      xlim = c(0.4, 0.560))

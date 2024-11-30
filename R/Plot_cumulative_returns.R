@@ -90,6 +90,7 @@ w = TestComparativo$ANNt_EQ
 t = TestComparativo$ANNt_MKW
 q = TestComparativo$ANNt_SHARPE
 plot(Periodos, Retornos,
+     family="A",
      type ="l",
      xaxt = "n",
      ylab = "Cumulative Returns",
@@ -188,6 +189,7 @@ w = TestComparativo$ANNt_EQ
 t = TestComparativo$ANNt_MKW
 q = TestComparativo$ANNt_SHARPE
 plot(Periodos, Retornos,
+     family="A",
      type ="l",
      xaxt = "n",
      ylab = "Cumulative Returns",
