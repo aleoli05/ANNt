@@ -64,7 +64,7 @@ plot(Base_Palomar[4,],Base_Palomar[1,],
      family="A",
      #cex.lab = 0.8,
      #cex.axis = 0.8,
-     xlim = c(0.4, 0.560))
+     xlim = c(0.4, 0.570))
 title("New Efficient Frontier (NEF)")
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
