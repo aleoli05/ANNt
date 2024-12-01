@@ -9,8 +9,8 @@ Plot_Ratio_Horizon(Ratio = "Annualized_Returns")
 \arguments{
 \item{Ratio:}{Rm - Average_Return - Means of Returns from each portfolio;
 Annualized_Returns - This is the standard ratio;
-Cm - Cumulative_Returns;
-Volatility - Annualized Volatility;
+RCum - Cumulative_Returns;
+Annualized_Volatility - Annualized Volatility;
 Var - Variance with 95% confidence;
 CVar - Conditional Variance 95% confidence;
 Sharpe - Sharpe Ratio;
