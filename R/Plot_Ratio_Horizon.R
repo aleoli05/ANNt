@@ -27,6 +27,8 @@ Plot_Ratio_Horizon <-function(Ratio="Annualized_Returns"){
 
 Plot_Annualized_Returns_Horizon <-function(){
   load('~/Comparativo_RETORNOS_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_RETORNOS_Horizon_Anual[,1])
@@ -267,6 +269,8 @@ Plot_Annualized_Returns_Horizon <-function(){
 
 Plot_Annualized_Volatility_Horizon <-function(){
   load('~/Comparativo_Volatility_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Volatility_Horizon_Anual[,1])
@@ -507,6 +511,8 @@ Plot_Annualized_Volatility_Horizon <-function(){
 
 Plot_Annualized_Sharpe_Horizon <-function(){
   load('~/Comparativo_Sharpe_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Sharpe_Horizon_Anual[,1])
@@ -747,6 +753,8 @@ Plot_Annualized_Sharpe_Horizon <-function(){
 
 Plot_Annualized_Alpha_Horizon <-function(){
   load('~/Comparativo_Alpha_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Alpha_Horizon_Anual[,1])
@@ -987,6 +995,8 @@ Plot_Annualized_Alpha_Horizon <-function(){
 
 Plot_Annualized_Beta_Horizon <-function(){
   load('~/Comparativo_Beta_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Beta_Horizon_Anual[,1])
@@ -1227,6 +1237,8 @@ Plot_Annualized_Beta_Horizon <-function(){
 
 Plot_Annualized_Sortino_Horizon <-function(){
   load('~/Comparativo_Sortino_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Sortino_Horizon_Anual[,1])
@@ -1467,6 +1479,8 @@ Plot_Annualized_Sortino_Horizon <-function(){
 
 Plot_Annualized_Treynor_Horizon <-function(){
   load('~/Comparativo_Treynor_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Treynor_Horizon_Anual[,1])
@@ -1707,6 +1721,8 @@ Plot_Annualized_Treynor_Horizon <-function(){
 
 Plot_Annualized_Var_Horizon <-function(){
   load('~/Comparativo_Var_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Var_Horizon_Anual[,1])
@@ -1947,6 +1963,8 @@ Plot_Annualized_Var_Horizon <-function(){
 
 Plot_Annualized_CVar_Horizon <-function(){
   load('~/Comparativo_CVar_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_CVar_Horizon_Anual[,1])
@@ -2187,6 +2205,8 @@ Plot_Annualized_CVar_Horizon <-function(){
 
 Plot_Annualized_RCum_Horizon <-function(){
   load('~/Comparativo_RCum_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_RCum_Horizon_Anual[,1])
@@ -2427,6 +2447,8 @@ Plot_Annualized_RCum_Horizon <-function(){
 
 Plot_Annualized_Rm_Horizon <-function(){
   load('~/Comparativo_Rm_Horizon_Anual.rda')
+  load('~/N_Assets.rda')
+  load('~/RM.rda')
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Rm_Horizon_Anual[,1])
