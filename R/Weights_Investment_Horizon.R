@@ -26,7 +26,7 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
   }
     if(Portfolio=='ANNt_EQ'){
       load('~/Weights_ANNt_EQ_Horizon.rda')
-      hist=Weights_ANNt_EQ_Horizon.rda
+      hist=Weights_ANNt_EQ_Horizon
       View(Weights_ANNt_EQ_Horizon)
     }
       if(Portfolio=='ANNt_MKW'){
