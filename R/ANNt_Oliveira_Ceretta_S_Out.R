@@ -82,7 +82,7 @@ x0 = Final_Date
 save(x0, file='~/x0.rda')
 Final_Date <-Final_Date
 Periodicity <- Periodicity
-Initial_Date_Training <-''
+Initial_Date_Training <-Initial_Date
 # Indicate that the command ANNt_Oliveira_Ceretta is used
 x1 = Final_Date_Training
 save(x1, file='~/x1.rda')
@@ -153,11 +153,11 @@ if(length(which(rownames(dados2)==Final_Date_Training))==0){
     Final_Date_Training = as.character(new_day)
   }}
 
-
 if(Initial_Date_Testing==('')){
   D = which(rownames(scenario.set)==Final_Date_Training)
   Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
 }
+
 if(Final_Date_Testing==('')){
   Final_Date_Testing=rownames(dados2[nrow(dados2),])
   #Final_Date_Testing=Sys.Date()
@@ -165,20 +165,20 @@ if(Final_Date_Testing==('')){
 
 Rf=Rf/100
 
-if(class(Initial_Date_Testing)!=('numeric')){
+if(class(Initial_Date_Training)!=('numeric')){
 
-  if(length(which(rownames(dados2)==Initial_Date_Testing))==0){
-    while(length(which(rownames(dados2)==Initial_Date_Testing))==0){
-      dia=as.Date(Initial_Date_Testing)
+  if(length(which(rownames(dados2)==Initial_Date_Training))==0){
+    while(length(which(rownames(dados2)==Initial_Date_Training))==0){
+      dia=as.Date(Initial_Date_Training)
       new_day=dia+1
-      Initial_Date_Testing = as.character(new_day)
+      Initial_Date_Training = as.character(new_day)
     }}
 
   Datas1Predict = rownames(scenario.set)[
-  (which(rownames(scenario.set)==Initial_Date_Testing)):(which(rownames(scenario.set)==Final_Date_Testing))]
+  (which(rownames(scenario.set)==Initial_Date_Training)):(which(rownames(scenario.set)==Final_Date_Training))]
 
   }else{
-  Datas1Predict = rownames(scenario.set)[(Initial_Date_Testing):(which(rownames(scenario.set)==Final_Date_Testing))]
+  Datas1Predict = rownames(scenario.set)[(Initial_Date_Training):(which(rownames(scenario.set)==Final_Date_Training))]
 }
 save(Datas1Predict,file='~/Datas1Predict.rda')
 PosCovidSP500 = as.matrix(scenario.set[Datas1Predict,1])

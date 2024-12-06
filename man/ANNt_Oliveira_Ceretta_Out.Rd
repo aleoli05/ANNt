@@ -61,5 +61,5 @@ Hidden <- 5
 Stepmax <- 7500
 Type_ANNt <- 'T8'
 N_Assets <- 3
-ANNt_Oliveira_Ceretta(c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', 0, '2018-01-03', '2022-12-29', '', 'daily',5,7500,'T8',3)
+ANNt_Oliveira_Ceretta_Out(c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', 0, '2018-01-03', '2022-12-29', '', 'daily',5,7500,'T8',3)
 }
