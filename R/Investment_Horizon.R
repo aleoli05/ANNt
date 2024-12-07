@@ -39,8 +39,7 @@
 #' N_Assets <- 3
 #' Base <- 'yahoo'
 #' Fun <- 'S_Out'
-#' Specific_Date <- c(Sys.Date())
-#' #' # Generates the Adjusted Daily Prices Series from Yahoo Finance
+#' Specific_Dates <- c(Sys.Date())
 #' Investiment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 #'
 
