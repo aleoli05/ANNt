@@ -83,7 +83,10 @@ save(x0, file='~/x0.rda')
 Final_Date <-Final_Date
 Periodicity <- Periodicity
 Initial_Date_Training <-Initial_Date
+
 # Indicate that the command ANNt_Oliveira_Ceretta is used
+x1_ <- Initial_Date_Training
+save(x1_, file='~/x1_.rda')
 x1 = Final_Date_Training
 save(x1, file='~/x1.rda')
 Final_Date_Testing <-c('')
@@ -382,9 +385,9 @@ save(scenario.set,file='~/scenario.set.rda')
 
 
 
-X11 <- Final_Date_Training
+Final_Date_Training <- Final_Date_Training
 X10 = Initial_Date_Training
-ANNt_order (Initial_Date_Training = X10, Final_Date_Training = X11, '', 'hidden', 'stepmax')
+ANNt_order ('', '', '', 'hidden', 'stepmax')
 
 #Signal_Sharpe=0
 #save(Signal_Sharpe,file="~/Signal_Sharpe.rda")

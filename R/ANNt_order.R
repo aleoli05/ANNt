@@ -33,10 +33,15 @@ library("quantmod")
   load("~/scenario.set.rda") # Carrega objeto scenario.set
   load("~/Initial_Date.rda") # Carrega objeto scenario.set
   #load("~/tickers.rda") # Carrega objeto scenario.set
+  load("~/Signal_Sharpe.rda") # Carrega objeto scenario.set
 
   tickers=colnames(scenario.set)
- dados<-scenario.set
 
+   dados<-scenario.set
+# if(Signal_Sharpe==1){
+#   load('~/x1_.rda')
+#   Initial_Date_Training=x1_
+# }
  if(Final_Date_Training==''){
     load('~/x1.rda')
    Final_Date_Training=x1
