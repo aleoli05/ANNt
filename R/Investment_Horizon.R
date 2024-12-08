@@ -53,6 +53,22 @@ Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Traini
                                 Import='Yes'){
 
 Horizon='Yes'
+#load('~/Horizon.rda')
+if (Import =='No'){
+  if (Base=='yahoo'){
+    Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily')
+  }
+  if(Base=='Rus'){
+    Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily')
+  }
+  load('~/scenario.set.rda')
+  scenario_ajustado=scenario.set
+}
+
+if(Import=='No'){
+  Horizon='No'
+  save(Horizon,file='~/Horizon.rda')
+}
 
 save(Horizon,file='~/Horizon.rda')
 Tickers_1=Tickers
@@ -172,6 +188,19 @@ for (i in (1:Frequency)){
         Fim_Train= as.character(Fim_Train)
         }
 
+  if (Import =='No'){
+    if(length(which(rownames(scenario_ajustado)==Inicio))==0){
+      while(length(which(rownames(scenario_ajustado)==Inicio))==0){
+        dia=as.Date(Inicio)
+        new_day=dia+1
+        Inicio = as.character(new_day)
+      }}
+    D = 1+ which(rownames(scenario_ajustado)==Inicio)
+    D1 = nrow(scenario_ajustado)
+  scenario.set = scenario_ajustado[D:D1,]
+  save(scenario.set,file='~/scenario.set.rda')
+  }
+
 load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
@@ -194,10 +223,6 @@ if(Fun=='Original'){
                         N_Assets, Base=BS, Import=Horizon)
 }
 
-if(Import=='No'){
-Horizon='No'
-save(Horizon,file='~/Horizon.rda')
-}
 
 load('~/Pesos_MFractal_2.rda')
 load('~/Pesos_MFractal_Mkv2.rda')
