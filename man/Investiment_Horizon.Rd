@@ -19,7 +19,8 @@ Investiment_Horizon(
   N_Assets,
   Base = "yahoo",
   Fun = "S_Out",
-  Specific_Dates = Sys.Date()
+  Specific_Dates = Sys.Date(),
+  Import = "Yes"
 )
 }
 \arguments{
@@ -52,6 +53,9 @@ Investiment_Horizon(
 'Out' uses the ANNt_Oliveira_Cereta_Out function;
 'S' uses the ANNt_Oliveira_Cereta_S function;
 'Original' uses the ANNt_Oliveira_Ceretta function.}
+
+\item{Import}{Import dates from external data base after first import. "Yes"
+or "No". "Yes" is the standard.}
 
 \item{Initial_Date_Training}{Training series start Date.}
 

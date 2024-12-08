@@ -17,7 +17,8 @@ ANNt_Oliveira_Ceretta_S_Out(
   Stepmax,
   Type_ANNt,
   N_Assets,
-  Base = "yahoo"
+  Base = "yahoo",
+  Import = "Yes"
 )
 }
 \arguments{
@@ -42,6 +43,9 @@ ANNt_Oliveira_Ceretta_S_Out(
 \item{N_Assets}{Limit of asset numbers in the portfolio}
 
 \item{Base}{Database to use: "yahoo" or "Rus"}
+
+\item{Import}{Import dates from external data base after first import. "Yes"
+or "No". "Yes" is the standard.}
 
 \item{Initial_Date_Training}{Training series start Date}
 }

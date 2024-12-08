@@ -22,6 +22,8 @@
 #' 'Original' uses the ANNt_Oliveira_Ceretta function.
 #'@param Specifies_Date Specific dates for the end of training. Used to define
 #'the investment horizon of portfolios from specific dates.
+#'@param Import Import dates from external data base after first import. "Yes"
+#'or "No". "Yes" is the standard.
 
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
@@ -44,7 +46,15 @@
 #'
 
 #' @export
-Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training, Final_Date, Frequency, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out', Specific_Dates=Sys.Date()){
+Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
+                                Final_Date, Frequency, Periodicity, Hidden,
+                                Stepmax, Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out',
+                                Specific_Dates=Sys.Date(),
+                                Import='Yes'){
+
+Horizon='Yes'
+
+save(Horizon,file='~/Horizon.rda')
 Tickers_1=Tickers
 save(Tickers_1, file='~/Tickers_1.rda')
 X = Final_Date
@@ -164,17 +174,31 @@ for (i in (1:Frequency)){
 
 load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
-  ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
+                              Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
+                              N_Assets, Base=BS, Import=Horizon)
 }
 if(Fun=='Out'){
-  ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
+                            Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
+                            N_Assets, Base=BS, Import=Horizon)
 }
 if(Fun=='S'){
-  ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
+                          Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
+                          N_Assets, Base=BS, Import=Horizon)
 }
 if(Fun=='Original'){
-  ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train, Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt, N_Assets, Base=BS)
+  ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
+                        Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
+                        N_Assets, Base=BS, Import=Horizon)
 }
+
+if(Import=='No'){
+Horizon='No'
+save(Horizon,file='~/Horizon.rda')
+}
+
 load('~/Pesos_MFractal_2.rda')
 load('~/Pesos_MFractal_Mkv2.rda')
 load('~/Pesos_C_Markov2.rda')
