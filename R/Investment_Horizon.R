@@ -206,21 +206,83 @@ if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                               Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
                               N_Assets, Base=BS, Import=Horizon)
+  {
+    load('~/Initial_Date_Out.rda')
+    load('~/Final_Date_Out.rda')
+    Initial_Date_Testing=as.Date(Initial_Date_Out)
+    Initial_Date_Testing=as.character(Initial_Date_Testing)
+    Final_Date_Testing=Final_Date_Out
+    data3 = as.Date.character(Initial_Date_Out)
+    data4 = as.Date.character(Final_Date_Out)
+    teste_dias = as.numeric(data4-data3)
+    Weights_MF_EQ_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MF_EQ_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_MF_MKW_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MF_MKW_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_MKW_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MKW_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_ANNt_EQ_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_ANNt_EQ_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_ANNt_MKW_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_ANNt_MKW_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_Sharpe_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_MF_Sharpe_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MF_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_ANNt_Sharpe_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
+  }
 }
 if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                             Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
                             N_Assets, Base=BS, Import=Horizon)
+  {
+    load('~/Initial_Date_Out.rda')
+    load('~/Final_Date_Out.rda')
+    Initial_Date_Testing=as.Date(Initial_Date_Out)
+    Initial_Date_Testing=as.character(Initial_Date_Testing)
+    Final_Date_Testing=Final_Date_Out
+    data3 = as.Date.character(Initial_Date_Out)
+    data4 = as.Date.character(Final_Date_Out)
+    teste_dias = as.numeric(data4-data3)
+    Weights_MF_EQ_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MF_EQ_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_MF_MKW_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MF_MKW_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_MKW_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MKW_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_ANNt_EQ_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_ANNt_EQ_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_ANNt_MKW_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_ANNt_MKW_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_Sharpe_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_MF_Sharpe_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_MF_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
+    Weights_ANNt_Sharpe_Horizon [2,1] <- 'Initial_Date_Out'
+    Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
+  }
 }
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                           Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
                           N_Assets, Base=BS, Import=Horizon)
+  load('~/Initial_Date_Testing.rda')
+  load('~/Final_Date_Testing.rda')
+  data3 = as.Date.character(Initial_Date_Testing)
+  data4 = as.Date.character(Final_Date_Testing)
+  teste_dias = as.numeric(data4-data3)
 }
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                         Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
                         N_Assets, Base=BS, Import=Horizon)
+  load('~/Initial_Date_Testing.rda')
+  load('~/Final_Date_Testing.rda')
+  data3 = as.Date.character(Initial_Date_Testing)
+  data4 = as.Date.character(Final_Date_Testing)
+  teste_dias = as.numeric(data4-data3)
 }
 
 
@@ -233,12 +295,6 @@ load('~/Weight_Sharpe_1.rda')
 load('~/Weight_Sharpe_MF.rda')
 load('~/Weight_ANNt_Sharpe.rda')
 load('~/Summary_Backtest.rda')
-load('~/Initial_Date_Testing.rda')
-load('~/Final_Date_Testing.rda')
-
-data3 = as.Date.character(Initial_Date_Testing)
-data4 = as.Date.character(Final_Date_Testing)
-teste_dias = as.numeric(data4-data3)
 
 Comparativo_Rm_Horizon_Anual[i,] = Summary_Backtest[,1]
 Comparativo_RETORNOS_Horizon_Anual[i,] = Summary_Backtest[,2]

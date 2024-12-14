@@ -355,6 +355,8 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   save(Weights_All,file='~/Weights_All.rda')
   #save(N_Assets,file='~/N_Assets.rda')
   save(Final_Date_Testing,file='~/Final_Date_Testing.rda')
+  save(Initial_Date_Out,file='~/Initial_Date_Out.rda')
+  save(Final_Date_Out,file='~/Final_Date_Out.rda')
 
 
   #### Weights
