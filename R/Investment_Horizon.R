@@ -53,6 +53,8 @@ Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Traini
                                 Import='Yes'){
 
 Horizon='Yes'
+RM_Nome_Backup=RM
+save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 #load('~/Horizon.rda')
 if (Import =='No'){
   if (Base=='yahoo'){
@@ -478,6 +480,27 @@ Comparativo_RETORNOS_Horizon_Anual = as.data.frame(Comparativo_RETORNOS_Horizon_
 nline = nrow(Comparativo_RETORNOS_Horizon_Anual)
 
 
+#########################
+Weights_Investment_Horizon(Portfolio='MF_EQ')
+Weights_Investment_Horizon(Portfolio='MF_MKW')
+Weights_Investment_Horizon(Portfolio='MKW')
+Weights_Investment_Horizon(Portfolio='ANNt_EQ')
+Weights_Investment_Horizon(Portfolio='ANNt_MKW')
+Weights_Investment_Horizon(Portfolio='MF_Sharpe')
+Weights_Investment_Horizon(Portfolio='ANNt_Sharpe')
+Weights_Investment_Horizon(Portfolio='Sharpe')
+Plot_Ratio_Horizon(Ratio="Annualized_Returns")
+Plot_Ratio_Horizon(Ratio="Annualized_Volatility")
+Plot_Ratio_Horizon(Ratio="Rm")
+Plot_Ratio_Horizon(Ratio="RCum")
+Plot_Ratio_Horizon(Ratio="CVar")
+Plot_Ratio_Horizon(Ratio="Var")
+Plot_Ratio_Horizon(Ratio="Beta")
+Plot_Ratio_Horizon(Ratio="Alpha")
+Plot_Ratio_Horizon(Ratio="Sharpe")
+Plot_Ratio_Horizon(Ratio="Sortino")
+Plot_Ratio_Horizon(Ratio="Treynor")
+
 
 #########################
 Until_Date=rownames(Comparativo_RETORNOS_Horizon_Anual)[nrow(Comparativo_RETORNOS_Horizon_Anual)]
@@ -706,4 +729,5 @@ save(Until_Date, file="~/Until_Date.rda")
 
 Plot_Returns_Annualized_Horizon()
 ################################################################################
+Backup_ANNt(Investment='Yes')
 }

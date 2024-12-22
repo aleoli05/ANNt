@@ -1,10 +1,11 @@
 #'Backup_ANNt
 #'Generate backup of the role
 #'@param () No require parameters
+#'@param Investment 'No' is default; 'Yes' if command Investment_Horizon was executed
 #'@examples
 #'Backup_ANNt()
 #'@export
-Backup_ANNt <- function(){
+Backup_ANNt <- function(Investment='No'){
   library(stringr)
   library(writexl)
 
@@ -100,11 +101,24 @@ Backup_ANNt <- function(){
 View(Readme_ANNt)
 
   Data = Sys.time()
+
+if(Investment=='No'){
   nome_dir= str_replace(Data,"-","_")
   nome_dir= str_replace(nome_dir,"-","_")
   nome_dir= str_replace(nome_dir,":","h")
   nome_dir= str_replace(nome_dir,":","m")
   nome_dir= str_replace(nome_dir,"-","_")
+} else{
+  if(Investment=='Yes'){
+    load('~/RM_Nome_Backup.rda')
+    nome_dir= str_replace(Data,"-","_")
+    nome_dir= str_replace(nome_dir,"-","_")
+    nome_dir= str_replace(nome_dir,":","h")
+    nome_dir= str_replace(nome_dir,":","m")
+    nome_dir= str_replace(nome_dir,"-","_")
+    nome_dir=paste(RM_Nome_Backup,nome_dir, sep="_")
+  }
+}
   nome_readme=paste("Readme_ANNt_", nome_dir, sep="")
   save(Readme_ANNt, file='~/Readme_ANNt.rda')
 

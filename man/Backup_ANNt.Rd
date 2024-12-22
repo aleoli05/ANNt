@@ -5,9 +5,11 @@
 \title{Backup_ANNt
 Generate backup of the role}
 \usage{
-Backup_ANNt()
+Backup_ANNt(Investment = "No")
 }
 \arguments{
+\item{Investment}{'No' is default; 'Yes' if command Investment_Horizon was executed}
+
 \item{()}{No require parameters}
 }
 \description{
