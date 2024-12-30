@@ -125,12 +125,22 @@ if(Investment=='No'){
 
   nome_dir_backup=paste("~/Backup_ANNt_",nome_dir, sep="")
   dir.create(nome_dir_backup)
+
+  Readme_ANNt_wrt = paste(nome_dir_backup,"/",nome_readme,".xlsx", sep="")
+  write_xlsx(Readme_ANNt, Readme_ANNt_wrt)
+
+  Current_Work_Space=paste(nome_dir_backup,"/","Work_Space",nome_dir,".RData", sep="")
+  save.image(Current_Work_Space)
+
+
+
   files = dir('~/')[1:length(dir('~/'))]
   caminho = '~/'
   files_from = str_c(caminho,files)
   files_to = str_c(nome_dir_backup,'/',files)
   file.copy(files_from, files_to)
 
-  Readme_ANNt_wrt = paste(nome_dir_backup,"/",nome_readme,".xlsx", sep="")
-  write_xlsx(Readme_ANNt, Readme_ANNt_wrt)
+
+
+
 }
