@@ -33,6 +33,7 @@ ydev=dev.list()
 if(class(ydev)!="NULL"){
   dev.off()
 }else{print('Starting Plot__New_efficient_frontier Command')}
+dev.capabilities()
 
 attach(as.data.frame(Base_Palomar))
 attach(as.data.frame(Comparativo_RETORNOS))

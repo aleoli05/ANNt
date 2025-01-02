@@ -53,11 +53,12 @@ Assets_series <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity) {
   library(MFDFA)
   library(DEoptim)
 
-  ################# Create Returns Times Series ###########################
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
   }else{print('Starting Asset_series Command')}
+
+  ################# Create Returns Times Series ###########################
 
   coluna=6
  if(Periodicity!='daily'){
@@ -347,6 +348,7 @@ if (x==1) {
   write_xlsx(scenario.set2, "~/Assets_Returns.xlsx")
   write_xlsx(sp500tickers, "~/Current_SP500_Tickers.xlsx")
 
+  dev.capabilities()
   # Plot Charts
   cat("\n", paste0(names(scenario.set), "\n"))
 
@@ -360,6 +362,7 @@ if (x==1) {
   par(family="A")
   cex=0.5
   Chart_RM=(charts.PerformanceSummary(scenario.set[,1],main=paste("Performance of", RM)))
+  dev.off()
     op <- par(new = TRUE)
     windowsFonts(A=windowsFont("Times New Roman"))
     par(family="A")

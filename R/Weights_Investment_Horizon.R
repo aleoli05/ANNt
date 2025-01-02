@@ -12,6 +12,7 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
   if(class(ydev)!="NULL"){
     dev.off()
   }else{print('Starting Weigths_Investment_Horizon Command')}
+  dev.capabilities()
 
   if(Portfolio=='MF_EQ'){
     load('~/Weights_MF_EQ_Horizon.rda')
@@ -86,13 +87,37 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
   #  geom_text(geom = 'text', color = 'black',
   #             aes(label=Mean),
   #             position = position_stack(vjust = 0.5))
+ #######################################################################################
+  nome_=paste('~/Weigths_',Portfolio,'.png',sep='')
+  op <- par(new = TRUE)
+  windowsFonts(A=windowsFont("Times New Roman"))
+  par(family="A")
+  ggplot(Tab_Freq_2, aes(y=Frequency,x=reorder(Asset,Frequency,decreasing=TRUE),, fill=Assets))+
+    geom_bar(stat='identity')+
+    geom_text(geom = 'text', color = 'black',
+              aes(label=Mean),
+              position = position_stack(vjust = 0.5))+
+    ggtitle('Frequency and Weights of the Assets')+
+    theme(plot.title=element_text(family="A"))
+
+
+  ggsave(nome_)
+  dev.off()
+  ######################################################################################
+
+  op <- par(new = TRUE)
+  windowsFonts(A=windowsFont("Times New Roman"))
+  par(family="A")
 
   ggplot(Tab_Freq_2, aes(y=Frequency,x=reorder(Asset,Frequency,decreasing=TRUE),, fill=Assets))+
     geom_bar(stat='identity')+
     geom_text(geom = 'text', color = 'black',
               aes(label=Mean),
               position = position_stack(vjust = 0.5))+
-    ggtitle('Frequency and Weights of the Assets')
+    ggtitle('Frequency and Weights of the Assets')+
+    theme(plot.title=element_text(family="A"))
+
+
 
   #barplot(Tab_Freq_$Frequency, names.arg =Assets)
   #barplot(Tab_Freq_$Frequency, horiz=TRUE, names.arg =Assets, cex.names=0.5)

@@ -39,6 +39,7 @@ ydev=dev.list()
 if(class(ydev)!="NULL"){
 dev.off()
 }else{print('Starting Plot_CUSUM Command')}
+dev.capabilities()
 ################################################################################
 #### CUSUM
 RetornoMedioMaxIS_RNAt=as.data.frame(Comparativo_RETORNOS)$ANNt_SHARPE

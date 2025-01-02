@@ -22,6 +22,7 @@ attach(as.data.frame(Comparativo))
   if(class(ydev)!="NULL"){
     dev.off()
   }else{print('Starting Plot_cumulative_returns Command')}
+  dev.capabilities()
 ###Gráfico Comparativo dos Retornos Acumulados das Carteiras
 
 options(warn=-1)

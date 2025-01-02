@@ -304,6 +304,7 @@ ___________________________________________________________________
       if(class(ydev)!="NULL"){
         dev.off()
       }
+      #dev.capabilities()
       #op <- par(new = TRUE)
       #windowsFonts(A=windowsFont("Times New Roman"))
       #par(family="A")

@@ -37,6 +37,7 @@ ydev=dev.list()
 if(class(ydev)!="NULL"){
   dev.off()
 }else{print('Starting Plot_efficient_frontier Command')}
+dev.capabilities()
 
 Inicio_data = Initial_Analysis_Date
 Fim_data = Final_Analysis_Date

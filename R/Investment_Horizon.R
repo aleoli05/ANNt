@@ -55,6 +55,7 @@ Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Traini
   if(class(ydev)!="NULL"){
     dev.off()
   }else{print('Starting Investment_Horizon Command')}
+  dev.capabilities()
 
 Horizon='Yes'
 RM_Nome_Backup=RM

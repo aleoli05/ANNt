@@ -2454,6 +2454,7 @@ Plot_Annualized_Rm_Horizon <-function(){
   if(class(ydev)!="NULL"){
     dev.off()
   }else{print('Starting Plot_Ratio_Horizon Command')}
+  dev.capabilities()
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Rm_Horizon_Anual[,1])
@@ -2494,6 +2495,8 @@ Plot_Annualized_Rm_Horizon <-function(){
     oma=c(1,2,1,1))
 
   library("ggplot2")
+
+
   windowsFonts(A=windowsFont("Times New Roman"))
   par(family="A", cex=0.8)
 
