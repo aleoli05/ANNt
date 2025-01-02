@@ -18,6 +18,10 @@ load('~/Comparativo.rda')
   load('~/RM.rda')
 attach(as.data.frame(Comparativo))
 
+  ydev=dev.list()
+  if(class(ydev)!="NULL"){
+    dev.off()
+  }
 ###Gráfico Comparativo dos Retornos Acumulados das Carteiras
 
 options(warn=-1)
@@ -248,6 +252,6 @@ legend("topleft",
                 "green",
                "darkgreen"))
 save(Until_Date, file="~/Until_Date.rda")
-dev.off()
+
 
 }

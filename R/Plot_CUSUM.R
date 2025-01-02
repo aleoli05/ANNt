@@ -34,8 +34,8 @@ load('~/Comparativo.rda')
 load('~/Initial_Analysis_Date.rda')
 load('~/Final_Analysis_Date.rda')
 load('~/Final_Date_Testing.rda')
-ydev=dev.list()
 
+ydev=dev.list()
 if(class(ydev)!="NULL"){
 dev.off()
 }
@@ -253,6 +253,6 @@ legend("bottomright", cex= 0.6, legend = c(    "CuSum+",
 #axis(1, at=(Eixo_X2), label = Eixo_X3)
 #axis(4, las=1)
 #box.col = "white")
-dev.off()
+
 
 }

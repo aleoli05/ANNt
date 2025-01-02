@@ -33,6 +33,10 @@ load('~/sd_MKW.rda')
 load('~/mean_MKW.rda')
 load('~/RM.rda')
 
+ydev=dev.list()
+if(class(ydev)!="NULL"){
+  dev.off()
+}
 
 Inicio_data = Initial_Analysis_Date
 Fim_data = Final_Analysis_Date
@@ -559,7 +563,7 @@ legend(x="topright",
        cex = 0.6
 )
 
-dev.off()
+
 
 
 }

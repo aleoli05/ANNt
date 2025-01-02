@@ -2450,6 +2450,11 @@ Plot_Annualized_Rm_Horizon <-function(){
   load('~/N_Assets.rda')
   load('~/RM.rda')
 
+  ydev=dev.list()
+  if(class(ydev)!="NULL"){
+    dev.off()
+  }
+
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Rm_Horizon_Anual[,1])
   nline = nrow(Comparativo_Rm_Horizon_Anual)
@@ -2720,7 +2725,7 @@ if(Ratio=="RCum"){
 if(Ratio=="Rm"){
   Plot_Annualized_Rm_Horizon()
 }
-dev.off()
+
 
 ################################################################################
 }

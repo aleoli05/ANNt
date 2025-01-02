@@ -51,6 +51,12 @@ Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Traini
                                 Stepmax, Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out',
                                 Specific_Dates=Sys.Date(),
                                 Import='Yes'){
+  ydev=dev.list()
+
+  dev.off()
+  if(class(ydev)!="NULL"){
+    dev.off()
+  }
 
 Horizon='Yes'
 RM_Nome_Backup=RM
@@ -730,6 +736,5 @@ save(Until_Date, file="~/Until_Date.rda")
 Plot_Returns_Annualized_Horizon()
 ################################################################################
 Backup_ANNt(Investment='Yes')
-dev.off()
 
 }

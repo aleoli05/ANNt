@@ -29,6 +29,11 @@ load('~/Comparativo_RETORNOS.rda')
 load('~/Initial_Analysis_Date.rda')
 load('~/Final_Analysis_Date.rda')
 
+ydev=dev.list()
+if(class(ydev)!="NULL"){
+  dev.off()
+}
+
 attach(as.data.frame(Base_Palomar))
 attach(as.data.frame(Comparativo_RETORNOS))
 Inicio_data = Initial_Analysis_Date
@@ -243,7 +248,7 @@ legend(x="topleft",
        cex = 0.6
 )
 
-dev.off()
+
 
 
 }

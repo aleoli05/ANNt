@@ -8,6 +8,10 @@
 #'@export
 Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
 
+  ydev=dev.list()
+  if(class(ydev)!="NULL"){
+    dev.off()
+  }
 
   if(Portfolio=='MF_EQ'){
     load('~/Weights_MF_EQ_Horizon.rda')
@@ -92,6 +96,6 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
 
   #barplot(Tab_Freq_$Frequency, names.arg =Assets)
   #barplot(Tab_Freq_$Frequency, horiz=TRUE, names.arg =Assets, cex.names=0.5)
-  dev.off()
+
 
 }
