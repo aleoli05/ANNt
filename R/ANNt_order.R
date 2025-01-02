@@ -260,7 +260,7 @@ ___________________________________________________________________
     ydev=dev.list()
     if(class(ydev)!="NULL"){
       dev.off()
-    }
+    }else{print('Starting ANNt_order Command')}
 
     if (Hidden==''){
       Hidden=nlinhas

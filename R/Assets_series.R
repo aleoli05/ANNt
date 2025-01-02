@@ -57,7 +57,7 @@ Assets_series <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity) {
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
-  }
+  }else{print('Starting Asset_series Command')}
 
   coluna=6
  if(Periodicity!='daily'){

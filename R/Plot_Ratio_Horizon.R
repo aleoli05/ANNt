@@ -2453,7 +2453,7 @@ Plot_Annualized_Rm_Horizon <-function(){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
-  }
+  }else{print('Starting Plot_Ratio_Horizon Command')}
 
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Rm_Horizon_Anual[,1])

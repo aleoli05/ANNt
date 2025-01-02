@@ -11,7 +11,7 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
-  }
+  }else{print('Starting Weigths_Investment_Horizon Command')}
 
   if(Portfolio=='MF_EQ'){
     load('~/Weights_MF_EQ_Horizon.rda')

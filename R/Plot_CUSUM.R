@@ -38,7 +38,7 @@ load('~/Final_Date_Testing.rda')
 ydev=dev.list()
 if(class(ydev)!="NULL"){
 dev.off()
-}
+}else{print('Starting Plot_CUSUM Command')}
 ################################################################################
 #### CUSUM
 RetornoMedioMaxIS_RNAt=as.data.frame(Comparativo_RETORNOS)$ANNt_SHARPE
