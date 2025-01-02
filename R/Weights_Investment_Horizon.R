@@ -92,16 +92,17 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
   op <- par(new = TRUE)
   windowsFonts(A=windowsFont("Times New Roman"))
   par(family="A")
-  ggplot(Tab_Freq_2, aes(y=Frequency,x=reorder(Asset,Frequency,decreasing=TRUE),, fill=Assets))+
+  grafico =  ggplot(Tab_Freq_2, aes(y=Frequency,x=reorder(Asset,Frequency,decreasing=TRUE),, fill=Assets))+
     geom_bar(stat='identity')+
     geom_text(geom = 'text', color = 'black',
               aes(label=Mean),
-              position = position_stack(vjust = 0.5))+
+              position = position_stack(vjust = 0.5),
+              text=element_text(family="A"))+
     ggtitle('Frequency and Weights of the Assets')+
-    theme(plot.title=element_text(family="A"))
-
-
-  ggsave(nome_)
+    theme(text=element_text(family="A"))
+  png(nome_)
+  print(grafico)
+  #ggsave(nome_)
   dev.off()
   ######################################################################################
 
@@ -113,9 +114,10 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
     geom_bar(stat='identity')+
     geom_text(geom = 'text', color = 'black',
               aes(label=Mean),
-              position = position_stack(vjust = 0.5))+
+              position = position_stack(vjust = 0.5),
+              text=element_text(family="A"))+
     ggtitle('Frequency and Weights of the Assets')+
-    theme(plot.title=element_text(family="A"))
+    theme(text=element_text(family="A"))
 
 
 
