@@ -360,7 +360,6 @@ if (x==1) {
   par(family="A")
   cex=0.5
   Chart_RM=(charts.PerformanceSummary(scenario.set[,1],main=paste("Performance of", RM)))
-    dev.off()
     op <- par(new = TRUE)
     windowsFonts(A=windowsFont("Times New Roman"))
     par(family="A")

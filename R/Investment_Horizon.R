@@ -52,8 +52,6 @@ Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Traini
                                 Specific_Dates=Sys.Date(),
                                 Import='Yes'){
   ydev=dev.list()
-
-  dev.off()
   if(class(ydev)!="NULL"){
     dev.off()
   }else{print('Starting Investment_Horizon Command')}
