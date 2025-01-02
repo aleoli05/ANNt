@@ -30,6 +30,8 @@ ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Te
   # Excesso do retorno em relacao ao RM
 library("quantmod")
 
+print('Starting ANNt_order Command')
+
   load("~/scenario.set.rda") # Carrega objeto scenario.set
   load("~/Initial_Date.rda") # Carrega objeto scenario.set
   #load("~/tickers.rda") # Carrega objeto scenario.set
@@ -257,10 +259,6 @@ ___________________________________________________________________
     library("DEoptim")
     library("rvest")
 
-    ydev=dev.list()
-    if(class(ydev)!="NULL"){
-      dev.off()
-    }else{print('Starting ANNt_order Command')}
 
     if (Hidden==''){
       Hidden=nlinhas
