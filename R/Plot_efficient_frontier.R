@@ -559,6 +559,7 @@ legend(x="topright",
        cex = 0.6
 )
 
+dev.off()
 
 
 }

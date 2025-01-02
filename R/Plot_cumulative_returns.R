@@ -248,4 +248,6 @@ legend("topleft",
                 "green",
                "darkgreen"))
 save(Until_Date, file="~/Until_Date.rda")
+dev.off()
+
 }

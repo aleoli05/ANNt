@@ -243,6 +243,7 @@ legend(x="topleft",
        cex = 0.6
 )
 
+dev.off()
 
 
 }

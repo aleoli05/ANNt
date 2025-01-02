@@ -253,5 +253,6 @@ legend("bottomright", cex= 0.6, legend = c(    "CuSum+",
 #axis(1, at=(Eixo_X2), label = Eixo_X3)
 #axis(4, las=1)
 #box.col = "white")
+dev.off()
 
 }

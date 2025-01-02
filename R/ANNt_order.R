@@ -1114,4 +1114,6 @@ names2[1]='Ticker'
 colnames(Summary_ANNt_xls)<-names2
 write_xlsx(Summary_ANNt_xls, nome_Summary_ANNt)
   ###############################
+dev.off()
+
 }

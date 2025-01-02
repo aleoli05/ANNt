@@ -362,4 +362,6 @@ if (x==1) {
     cex=0.5
   charts.PerformanceSummary(scenario.set[,1],main=paste("Performance of", RM))
   #########################################
+  dev.off()
+
 }
