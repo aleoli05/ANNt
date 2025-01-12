@@ -154,6 +154,7 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   portfolioPrices<- portfolioPrices[apply(portfolioPrices,1,
                                           function(x) all(!0)),]
 
+  portfolio_observed=portfolioPrices
   #portfolioReturns <- na.omit(ROC(portfolioPrices, type="discrete"))
   portfolioReturns <- as.matrix(na.omit(ROC(portfolioPrices), type="discrete"))
 
