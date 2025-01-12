@@ -59,6 +59,11 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   }
   library(rusquant)
 
+  ydev=dev.list()
+  if(class(ydev)!="NULL"){
+    dev.off()
+  }else{print('Starting Asset_series Command')}
+
   ################# Create Returns Times Series ###########################
 
  if(Periodicity=='daily'){
@@ -170,6 +175,7 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   save(scenario.set,file='~/scenario.set.rda')
   save(scenario.set,file='~/Assets_Returns.rda')
   save(portfolioPrices,file='~/Assets_Prices.rda')
+  save(portfolio_observed,file='~/Assets_Prices_observed.rda')
   Assets_Prices=portfolioPrices
 
   Assets_Returns=scenario.set
