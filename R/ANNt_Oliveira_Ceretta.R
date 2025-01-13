@@ -61,6 +61,8 @@ Initial_Date_Testing <- c('')
 Final_Date_Testing <- c('')
 Rf <- Rf
 save(Rf, file='~/Rf.rda')
+x5 = Rf
+save(x5, file='~/x5.rda')
 Initial_Analysis_Date <- c('')
 Final_Analysis_Date <- c('')
 

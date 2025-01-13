@@ -108,6 +108,8 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
                 }}}}}}}}
 
   save(Type_ANNt, file='~/Type_ANNt.rda')
+
+
   # Duração do processamento 1720/length(dados)=1.2 min)
   load("~/x5.rda") # Carrega objeto scenario.set
   load("~/scenario.set.rda") # Carrega objeto scenario.set

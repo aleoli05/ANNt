@@ -177,15 +177,22 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   save(scenario.set,file='~/Assets_Returns.rda')
   save(portfolioPrices,file='~/Assets_Prices.rda')
   save(portfolio_observed,file='~/Assets_Prices_observed.rda')
+
   Assets_Prices=portfolioPrices
 
   Assets_Returns=scenario.set
+  Asset_Prices_Observed=portfolio_observed
+  Assets_Returns=scenario.set
+
+
   write.zoo(scenario.set, file='scenario.set')
   View(Assets_Prices)
 
   View(Assets_Returns)
   #write_xlsx(tickers,file='~/tickers.xlsx')
   write_xlsx(portfolioPrices_Df, "~/Assets_Prices.xlsx")
+  portfolio_observed2=data.frame(portfolio_observed)
+  write_xlsx(portfolio_observed2, "~/Assets_Prices_Observed.xlsx")
   scenario.set2=data.frame(rownames(as.data.frame(scenario.set)),as.data.frame(scenario.set))
   write_xlsx(scenario.set2, "~/Assets_Returns.xlsx")
   write_xlsx(as.data.frame(Tickers_MOEX), "~/Current_Tickers_MOEX.xlsx")
