@@ -71,10 +71,13 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   P2 = ts(PosCovid_set.returns)
 
   Betas <- CAPM.beta(Ra=P2[,1:ncol(P2)], Rb=P1)
-
+  colnames(Betas)<-'Betas'
+  Betas <- as.matrix(t(Betas))
+  Betas_set <- as.matrix(Betas[,-1])
+  colnames(Betas_set)<-'Betas'
+  Betas_set <- t(Betas_set)
 
   Medias_set.returns <- as.matrix(t(apply(PosCovid_set.returns[,-1], 2, mean)))
-  Betas_set <- Betas[,-1]
 
   Desvios_set.returns <- as.matrix(t(apply(PosCovid_set.returns[,-1], 2, sd)))
 

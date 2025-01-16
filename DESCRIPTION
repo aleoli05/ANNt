@@ -10,7 +10,7 @@ Description: Portfolio optimization system using Artificial Neural Networks.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports: quantmod, PerformanceAnalytics, magrittr, fBasics, tidyverse, stringr,
     dplyr, neuralnet, zoo, forecast, timetk, moments, data.table, ggplot2, rvest,
     caret, readxl, writexl, portfolio.optimization, PortfolioAnalytics, ROI, 
