@@ -68,6 +68,9 @@ if (Import =='No'){
   if(Base=='Rus'){
     Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily')
   }
+  if(Base=='Rus_2'){
+    Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily')
+  }
   load('~/scenario.set.rda')
   scenario_ajustado=scenario.set
 }

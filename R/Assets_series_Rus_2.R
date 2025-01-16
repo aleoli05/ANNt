@@ -95,7 +95,7 @@ Assets_series_Rus_2 <- function(Tickers, RM, Initial_Date, Final_Date, Periodici
   #portfolio<- read_excel("//Alexandre-pc/c/Backup/Disco D/novos/Pós-Graduações/Curso de PPGA Doutorado em Administração/Artigo BRICs/Dados Russia/IMOEX.xls",
   #                       col_types = c("text", "text", "text",
   #                                     "text", "text", "text", "text", "text"))
-  portfolio <- read_csv("C:/Backup/Disco D/novos/Pós-Graduações/Curso de PPGA Doutorado em Administração/Artigo BRICs/Dados Russia/IMOEX.csv")
+  portfolio <- read_csv("~/Data/IMOEX.csv")
   #portfolio$Price=portfolio$Price%>%str_remove(',')
   portfolio$Price=as.numeric(portfolio$Price)
   View(portfolio)
