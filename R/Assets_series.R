@@ -205,6 +205,9 @@ if (x==1) {
     tickers= tickers %>% mutate(tickers =
                                   case_when(tickers == "^BVSP" ~ "IBOV",
                                             tickers == "^GSPC" ~ "SP500",
+                                            tickers == "^J200.JO" ~ "FSTE_JSE",
+                                            tickers == "^NSEI" ~ "NIFTY_50",
+                                            tickers == "000001.SS" ~ "SSE_50",
                                             TRUE ~ as.character(tickers)))
     tickers = as.character(tickers[,1])
     tickers <- str_replace(tickers,"-","")

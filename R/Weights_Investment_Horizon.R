@@ -89,6 +89,7 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
   #             position = position_stack(vjust = 0.5))
  #######################################################################################
   nome_=paste('~/Weigths_',Portfolio,'.png',sep='')
+  titulo = paste('Frequency and Weights of the ',Portfolio,'´Assets',sep='')
   op <- par(new = TRUE)
   windowsFonts(A=windowsFont("Times New Roman"))
   par(family="A")
@@ -98,7 +99,7 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
               aes(label=Mean),
               position = position_stack(vjust = 0.5),
               text=element_text(family="A"))+
-    ggtitle('Frequency and Weights of the Assets')+
+    ggtitle(titulo)+
     theme(text=element_text(family="A"))
   png(nome_)
   print(grafico)
@@ -116,7 +117,7 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
               aes(label=Mean),
               position = position_stack(vjust = 0.5),
               text=element_text(family="A"))+
-    ggtitle('Frequency and Weights of the Assets')+
+    ggtitle(titulo)+
     theme(text=element_text(family="A"))
 
 
