@@ -73,11 +73,11 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   Betas <- CAPM.beta(Ra=P2[,1:ncol(P2)], Rb=P1)
   save(Betas,file='~/Betas.rda')
 
-  if(ncol(Betas)!=1){
+  #if(ncol(Betas)!=1){
     Betas_set <- Betas[,-1]
-  }
+  #}
 
-  if(ncol(Betas==1)){
+  if(ncol(as.data.frame(Betas)==1)){
   colnames(Betas)<-'Betas'
   Betas <- as.matrix(t(Betas))
   Betas_set <- as.matrix(Betas[,-1])
