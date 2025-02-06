@@ -26,6 +26,7 @@ Plot_Ratio_Horizon <-function(Ratio="Annualized_Returns"){
 # Graphic Annualized Returns
 
 Plot_Annualized_Returns_Horizon <-function(){
+  library(stringr)
   load('~/Comparativo_RETORNOS_Horizon_Anual.rda')
   load('~/N_Assets.rda')
   load('~/RM.rda')
