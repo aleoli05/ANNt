@@ -4,7 +4,7 @@
 \alias{Plot_Ratio_Horizon}
 \title{Plot_Ratio_Horizon}
 \usage{
-Plot_Ratio_Horizon(Ratio = "Annualized_Returns")
+Plot_Ratio_Horizon(Ratio = "Annualized_Returns", Legend_position = "topleft")
 }
 \arguments{
 \item{Ratio:}{Rm - Average_Return - Means of Returns from each portfolio;
@@ -18,6 +18,15 @@ Alpha - Jensen's Alpha;
 Beta - Covariance between portfolio and market proxy over market proxy Variance;
 Sortino - Sortino Ratio;
 Treynor - Treynor Ratio.}
+
+\item{Legend_position:}{topleft;
+topright;
+bottomleft;
+bottomrigh;
+bottom;
+top;
+left;
+right.}
 }
 \description{
 Analyzes ratios chart of portfolios with different investment horizons.

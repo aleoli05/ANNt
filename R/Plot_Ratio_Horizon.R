@@ -16,11 +16,20 @@
 #' Sortino - Sortino Ratio;
 #' Treynor - Treynor Ratio.
 #'
+#'@param Legend_position:
+#'topleft;
+#'topright;
+#'bottomleft;
+#'bottomrigh;
+#'bottom;
+#'top;
+#'left;
+#'right.
 #'@examples
 #' Plot_Ratio_Horizon(Ratio="Annualized_Returns")
 
 #'@export
-Plot_Ratio_Horizon <-function(Ratio="Annualized_Returns"){
+Plot_Ratio_Horizon <-function(Ratio="Annualized_Returns",Legend_position="topleft"){
 
 ################################################################################
 # Graphic Annualized Returns
@@ -146,7 +155,7 @@ Plot_Annualized_Returns_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -247,7 +256,7 @@ Plot_Annualized_Returns_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -388,7 +397,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -489,7 +498,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -630,7 +639,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -731,7 +740,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -872,7 +881,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -973,7 +982,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1114,7 +1123,7 @@ Plot_Annualized_Beta_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1215,7 +1224,7 @@ Plot_Annualized_Beta_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1356,7 +1365,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1457,7 +1466,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1598,7 +1607,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1699,7 +1708,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1840,7 +1849,7 @@ Plot_Annualized_Var_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -1941,7 +1950,7 @@ Plot_Annualized_Var_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -2082,7 +2091,7 @@ Plot_Annualized_CVar_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -2183,7 +2192,7 @@ Plot_Annualized_CVar_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -2324,7 +2333,7 @@ Plot_Annualized_RCum_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -2425,7 +2434,7 @@ Plot_Annualized_RCum_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -2574,7 +2583,7 @@ Plot_Annualized_Rm_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
@@ -2675,7 +2684,7 @@ Plot_Annualized_Rm_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
                     "ANNt_EQ",
