@@ -74,11 +74,11 @@ Comparativo2 = as.data.frame(Comparativo)
 #            round(nrow(Comparativo)/2,0),
 #            round(nrow(Comparativo)*3/4,0),
 #            nrow(Comparativo))
-if(nrow(Comparativo)>300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
 #} else{Eixo_X2 = c(1, 50, 100, 149)}
-} else{
-  if(nrow(Comparativo)>100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
-  }else{Eixo_X2 = c(1,25,50,75,100)}}
+  if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+  if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
+  }else{Eixo_X2 = c(1,25,50,75,100)}}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA","")
 Inicio_data = rownames(Comparativo2[1,])
@@ -128,7 +128,7 @@ grid(nx = NULL, ny = NULL, lty =3, lwd = 1, col = "gray")
 #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
 #title(main = paste("Comparativo           ",
 #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-title(paste("ANNt and Others Portfolios:", N_Assets, "Assets"))
+title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 #title(main = paste(
 # xlab= Inicio_data,"/", xlab= Fim_data),
 #line = 0.5,
@@ -173,11 +173,11 @@ Comparativo2 = as.data.frame(Comparativo)
 #            round(nrow(Comparativo)/2,0),
 #            round(nrow(Comparativo)*3/4,0),
 #            nrow(Comparativo))
-if(nrow(Comparativo)>300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
 #} else{Eixo_X2 = c(1, 50, 100, 149)}
-} else{
-  if(nrow(Comparativo)>100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
-  }else{Eixo_C2 = c(1,25,50,75,100)}}
+if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+if(nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
+  }else{Eixo_C2 = c(1,25,50,75,100)}}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA","")
 Inicio_data = rownames(Comparativo2[1,])
@@ -227,7 +227,7 @@ grid(nx = NULL, ny = NULL, lty =3, lwd = 1, col = "gray")
 #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
 #title(main = paste("Comparativo           ",
 #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-title(paste("ANNt and Others Portfolios:", N_Assets, "Assets"))
+title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 #title(main = paste(
 # xlab= Inicio_data,"/", xlab= Fim_data),
 #line = 0.5,

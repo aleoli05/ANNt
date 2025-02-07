@@ -13,6 +13,7 @@ Plot_New_efficient_frontier<-function(){
 #### Fronteira Eficiente de Probabilidade
 #### Cores dos gr?ficos
 load('~/Base_Palomar.rda')
+load('~/RM.rda')
 load('~/Rf.rda')
 load('~/N_Assets.rda')
 load('~/max_frame.rda')
@@ -71,7 +72,7 @@ plot(Base_Palomar[4,],Base_Palomar[1,],
      #cex.lab = 0.8,
      #cex.axis = 0.8,
      xlim = c(0.4, 0.570))
-title("New Efficient Frontier (NEF)")
+title("New Efficient Frontier (NEF) for the ",RM)
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
   #xlab= Inicio_data,"/", xlab= "2023-03-17"),
@@ -167,7 +168,7 @@ plot(Base_Palomar[4,],Base_Palomar[1,],
      #cex.lab = 0.8,
      #cex.axis = 0.8,
      xlim = c(0.4, 0.560))
-title("New Efficient Frontier (NEF)")
+title("New Efficient Frontier (NEF) for the ",RM)
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
   #xlab= Inicio_data,"/", xlab= "2023-03-17"),
