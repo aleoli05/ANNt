@@ -1524,7 +1524,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
 
 
 
-  png(file="~/Graphic_Annualized_Sortino_Horizon.png", width=1920, height=1920, res=296, family = "A")
+  png(file="~/Graphic_Annualized_Treynor_Horizon.png", width=1920, height=1920, res=296, family = "A")
   par(#mfrow=c(2,2),
     #mar=c(2,2,2,2),
     oma=c(1,2,1,1))
