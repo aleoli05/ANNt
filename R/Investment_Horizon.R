@@ -189,12 +189,28 @@ for (i in (1:Frequency)){
     Fim_Train= as.Date.character(Specific_Dates[i])
     Inicio = as.character(Fim_Train-treino)
     Inicio_Test = as.character(Fim_Train+1)
+
+    if(length(which(rownames(as.data.frame(scenario.set))==Inicio_Test))==0){
+      while(length(which(rownames(as.data.frame(scenario.set))==Inicio_Test))==0){
+        dia=as.Date(Inicio_Test)
+        new_day=dia+1
+        Inicio_Test = as.character(new_day)
+      }}
+
     Fim_Train= as.character(Fim_Train)
      }
   if (length(Specific_Dates)==1){
         Fim_Train= (data2-Interval*i)
         Inicio = as.character(Fim_Train-treino)
         Inicio_Test = as.character(Fim_Train+1)
+
+        if(length(which(rownames(as.data.frame(scenario.set))==Inicio_Test))==0){
+          while(length(which(rownames(as.data.frame(scenario.set))==Inicio_Test))==0){
+            dia=as.Date(Inicio_Test)
+            new_day=dia+1
+            Inicio_Test = as.character(new_day)
+          }}
+
         Fim_Train= as.character(Fim_Train)
         }
 
