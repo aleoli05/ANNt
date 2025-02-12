@@ -76,9 +76,13 @@ Comparativo2 = as.data.frame(Comparativo)
 #            nrow(Comparativo))
 if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
 #} else{Eixo_X2 = c(1, 50, 100, 149)}
+ }else{
   if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+  }else{
   if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
-  }else{Eixo_X2 = c(1,25,50,75,100)}}}
+  }else{
+    Eixo_X2 = c(1,25,50,75,100)
+    }}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA","")
 Inicio_data = rownames(Comparativo2[1,])
@@ -175,9 +179,13 @@ Comparativo2 = as.data.frame(Comparativo)
 #            nrow(Comparativo))
 if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
 #} else{Eixo_X2 = c(1, 50, 100, 149)}
-if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
-if(nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
-  }else{Eixo_C2 = c(1,25,50,75,100)}}}
+}else{
+  if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+  }else{
+    if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
+    }else{
+      Eixo_X2 = c(1,25,50,75,100)
+    }}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA","")
 Inicio_data = rownames(Comparativo2[1,])
