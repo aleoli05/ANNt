@@ -246,7 +246,8 @@ Plot_Annualized_Returns_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_RETORNOS_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Annualized Returns over the", RM,"Investment Horizon", N_Assets, "Assets"))
+  #title(paste("Annualized Returns over the", RM,"Investment Horizon", N_Assets, "Assets"))
+  title(paste("Annualized Returns over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
