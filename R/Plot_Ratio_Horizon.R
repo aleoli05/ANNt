@@ -144,7 +144,8 @@ Plot_Annualized_Returns_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_RETORNOS_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Annualized Returns over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Annualized Returns over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Annualized Returns over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -386,8 +387,10 @@ Plot_Annualized_Volatility_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Volatility_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Annualized Volatility of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
-  #title(main = paste(
+  #title(paste("Annualized Volatility of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Annualized Volatility of Portfolios over the", RM,"Investment Horizon"))
+
+   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
   #cex = 0.5,
@@ -487,7 +490,8 @@ Plot_Annualized_Volatility_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Volatility_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Annualized Volatility of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Annualized Volatility of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Annualized Volatility of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -628,7 +632,8 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Sharpe_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Sharpe Ratio of Portfolio over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Sharpe Ratio of Portfolio over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Sharpe Ratio of Portfolio over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -729,8 +734,9 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Sharpe_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Sharpe Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
-  #title(main = paste(
+  #title(paste("Sharpe Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Sharpe Ratio of Portfolios over the", RM,"Investment Horizon"))
+    #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
   #cex = 0.5,
@@ -870,7 +876,8 @@ Plot_Annualized_Alpha_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Alpha_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Jensen's Alpha Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Jensen's Alpha Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Jensen's Alpha Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -971,7 +978,8 @@ Plot_Annualized_Alpha_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Alpha_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Jensen's Alpha Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Jensen's Alpha Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Jensen's Alpha Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -1112,7 +1120,8 @@ Plot_Annualized_Beta_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Beta_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Beta Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Beta Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Beta Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -1213,7 +1222,8 @@ Plot_Annualized_Beta_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Beta_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Beta Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Beta Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Beta Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -1354,7 +1364,8 @@ Plot_Annualized_Sortino_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Sortino_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Sortino Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Sortino Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Sortino Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -1455,8 +1466,9 @@ Plot_Annualized_Sortino_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Sortino_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Sortino Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
-  #title(main = paste(
+  #title(paste("Sortino Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Sortino Ratio of Portfolios over the", RM,"Investment Horizon"))
+    #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
   #cex = 0.5,
@@ -1596,7 +1608,8 @@ Plot_Annualized_Treynor_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Treynor_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Treynor Ratio of Portfolios over the",RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Treynor Ratio of Portfolios over the",RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Treynor Ratio of Portfolios over the",RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -1697,7 +1710,8 @@ Plot_Annualized_Treynor_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Treynor_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Treynor Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Treynor Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Treynor Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -1838,7 +1852,8 @@ Plot_Annualized_Var_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Var_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Var Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Var Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Var Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -1939,7 +1954,8 @@ Plot_Annualized_Var_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Var_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Var Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Var Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Var Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -2080,8 +2096,9 @@ Plot_Annualized_CVar_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_CVar_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("CVar Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
-  #title(main = paste(
+  #title(paste("CVar Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("CVar Ratio of Portfolios over the", RM,"Investment Horizon"))
+    #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
   #cex = 0.5,
@@ -2181,7 +2198,8 @@ Plot_Annualized_CVar_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_CVar_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("CVar Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("CVar Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("CVar Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -2322,7 +2340,8 @@ Plot_Annualized_RCum_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_RCum_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Cumulative Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Cumulative Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Cumulative Return Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -2423,7 +2442,8 @@ Plot_Annualized_RCum_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_RCum_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Cumulative Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Cumulative Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Cumulative Return Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -2572,7 +2592,8 @@ Plot_Annualized_Rm_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Rm_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Average Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Average Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Average Return Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
@@ -2673,7 +2694,8 @@ Plot_Annualized_Rm_Horizon <-function(){
   #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
   #title(main = paste("Comparativo_Rm_Horizon_Anual           ",
   #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
-  title(paste("Average Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  #title(paste("Average Return Ratio of Portfolios over the", RM,"Investment Horizon:", N_Assets, "Assets"))
+  title(paste("Average Return Ratio of Portfolios over the", RM,"Investment Horizon"))
   #title(main = paste(
   # xlab= Inicio_data,"/", xlab= Fim_data),
   #line = 0.5,
