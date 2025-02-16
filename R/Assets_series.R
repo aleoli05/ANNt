@@ -284,7 +284,11 @@ if (x==1) {
      tickers= as.data.frame(tickers)
      tickers= tickers %>% mutate(tickers =
                                    case_when(tickers == "^BVSP" ~ "IBOV",
+                                             tickers == "^IBVX50" ~ "IBVX50",
                                              tickers == "^GSPC" ~ "SP500",
+                                             tickers == "^J200.JO" ~ "FSTE/JSE_40",
+                                             tickers == "^NSEI" ~ "NIFTY_50",
+                                             tickers == "000001.SS" ~ "SSE_50",
                                              TRUE ~ as.character(tickers)))
      tickers = as.character(tickers[,1])
      tickers <- str_replace(tickers,"-","")
@@ -311,8 +315,8 @@ if (x==1) {
     if(RM=='^BVSP'){
       RM <- c("IBOV")
 
-  }}
-
+    }}
+ RM <- tickers[1]
   colnames(portfolioPrices)[1] <- RM
   colnames(portfolio_observed)[1] <- RM
 
