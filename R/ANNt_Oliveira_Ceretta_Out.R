@@ -40,7 +40,7 @@ ANNt_Oliveira_Ceretta_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_
     stop('This periodicity is not implementedy in this command. Use step by step process starting with the "Assets_series" command!')
   }
 
-
+Exclude=Exclude_ticket
 Signal_Sharpe=0
 save(Signal_Sharpe, file='~/Signal_Sharpe.rda')
 Initial_Date <-Initial_Date
@@ -71,13 +71,13 @@ Final_Analysis_Date <- c('')
 #load('~/Horizon.rda')
 if (Import =='Yes'){
   if (Base=='yahoo'){
-    Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket)
+    Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket=Exclude)
   }
   if(Base=='Rus'){
-    Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket)
+    Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket=Exclude)
   }
   if(Base=='Rus_2'){
-    Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket)
+    Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket=Exclude)
   }
 }
 
