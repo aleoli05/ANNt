@@ -65,13 +65,13 @@ save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 #load('~/Horizon.rda')
 if (Import =='No'){
   if (Base=='yahoo'){
-    Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily')
+    Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket = Exclude)
   }
   if(Base=='Rus'){
-    Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily')
+    Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket = Exclude)
   }
   if(Base=='Rus_2'){
-    Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily')
+    Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket = Exclude)
   }
   load('~/scenario.set.rda')
   scenario_ajustado=scenario.set
