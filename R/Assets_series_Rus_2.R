@@ -91,10 +91,16 @@ Assets_series_Rus_2 <- function(Tickers, RM, Initial_Date, Final_Date, Periodici
   ###############################
 
   #######
-  if (any(Exclude_ticket!='')){
-    Exclude=which(Tickers==Exclude_ticket)
-    Tickers=Tickers[-Exclude]
+  ###############Exclude_ticket
+  Exclude=NULL
+  for (i in 1:length(Exclude_ticket)) {
+    Exclude[i]<-which(Tickers_n==Exclude_ticket[i])
+    #Exclude<-Tickers[!Exclude_ticket]
   }
+  if(length(Exclude)!=0){
+    Tickers_n=Tickers_n[-Exclude]
+  }
+  ###############
   Tickers_MOEX = Tickers
   Date_1="Date"
   #portfolio<- read_excel("//Alexandre-pc/c/Backup/Disco D/novos/Pós-Graduações/Curso de PPGA Doutorado em Administração/Artigo BRICs/Dados Russia/IMOEX.xls",

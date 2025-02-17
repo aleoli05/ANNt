@@ -124,15 +124,32 @@ Assets_series <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity, Ex
 
 
 Tickers=Tick
+
+###############Exclude_ticket
+Exclude=NULL
+for (i in 1:length(Exclude_ticket)) {
+  Exclude[i]<-which(Tickers==Exclude_ticket[i])
+  #Exclude<-Tickers[!Exclude_ticket]
+}
+if(length(Exclude)!=0){
+  Tickers=Tickers[-Exclude]
+}
+###############
 #########################################################################################
 if (x==1) {
 
   Tickers = Current_SP500
   #Calculate Returns: Daily
-  if (any(Exclude_ticket!='')){
-    Exclude=which(Tickers==Exclude_ticket)
-    Tickers=Tickers[-Exclude]
+  ###############Exclude_ticket
+  Exclude=NULL
+    for (i in 1:length(Exclude_ticket)) {
+    Exclude[i]<-which(Tickers==Exclude_ticket[i])
+    #Exclude<-Tickers[!Exclude_ticket]
+    }
+  if(length(Exclude)!=0){
+  Tickers=Tickers[-Exclude]
   }
+  ###############
   tickers <- c(RM,Tickers)
   portfolioPrices <- NULL
 
@@ -193,6 +210,17 @@ if (x==1) {
 
     #Calculate Returns: Daily
     tickers2 <- tickers
+
+    ###############Exclude_ticket
+    Exclude=NULL
+    for (i in 1:length(Exclude_ticket)) {
+      Exclude[i]<-which(tickers2==Exclude_ticket[i])
+      #Exclude<-Tickers[!Exclude_ticket]
+    }
+    if(length(Exclude)!=0){
+      tickers2=tickers2[-Exclude]
+    }
+    ###############
     portfolioPrices <- NULL
 
     for (Ticker in tickers2)
@@ -267,7 +295,17 @@ if (x==1) {
    if (x==0) {
 
      Tickers_n = Tickers_1
-     #Calculate Returns: Daily
+     ###############Exclude_ticket
+     Exclude=NULL
+     for (i in 1:length(Exclude_ticket)) {
+       Exclude[i]<-which(Tickers_n==Exclude_ticket[i])
+       #Exclude<-Tickers[!Exclude_ticket]
+     }
+     if(length(Exclude)!=0){
+       Tickers_n=Tickers_n[-Exclude]
+     }
+     ###############
+          #Calculate Returns: Daily
      tickers <- c(RM,Tickers_n)
      portfolioPrices <- NULL
 
