@@ -59,6 +59,7 @@ Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Traini
   dev.capabilities()
 
 Horizon='Yes'
+Exclude = Exclude_ticket
 RM_Nome_Backup=RM
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 #load('~/Horizon.rda')
@@ -232,7 +233,7 @@ load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                               Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                              N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
+                              N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -263,7 +264,7 @@ if(Fun=='S_Out'){
 if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                             Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                            N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
+                            N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -294,7 +295,7 @@ if(Fun=='Out'){
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                           Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                          N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
+                          N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -304,7 +305,7 @@ if(Fun=='S'){
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                         Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                        N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
+                        N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
