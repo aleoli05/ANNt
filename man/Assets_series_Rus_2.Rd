@@ -5,7 +5,14 @@
 \title{Assets series Rus_2
 Import the series with the length specified of the Russ from Investing.com}
 \usage{
-Assets_series_Rus_2(Tickers, RM, Initial_Date, Final_Date, Periodicity)
+Assets_series_Rus_2(
+  Tickers,
+  RM,
+  Initial_Date,
+  Final_Date,
+  Periodicity,
+  Exclude_ticket = ""
+)
 }
 \arguments{
 \item{Tickers}{Name of the assets}
@@ -19,6 +26,8 @@ Assets with values not observed in the series are excluded}
 \item{Final_Date}{Series end Date ('Year-Month-Day'). If '' is the System Date}
 
 \item{Periodicity}{should be one of “daily”, “weekly”, “monthly”, “hourly”, “1minutes”, “2minutes”, “5minutes”, “15minutes”, “30minutes”, “60minutes”, “90minutes”. (Intraday maximum 7 days)}
+
+\item{Exclude_ticket}{Deletes any ticket from the ticket list that you want to remove for some reason}
 }
 \description{
 Assets series Rus_2

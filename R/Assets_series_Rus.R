@@ -8,6 +8,7 @@
 #' Assets with values not observed in the series are excluded
 #' @param Final_Date Series end Date ('Year-Month-Day'). If '' is the System Date
 #' @param Periodicity should be one of “daily”, “weekly”, “monthly”, “hourly”, “1minutes”, “2minutes”, “5minutes”, “15minutes”, “30minutes”, “60minutes”, “90minutes”. (Intraday maximum 7 days)
+#' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 
 
 #' @examples
@@ -22,7 +23,7 @@
 #' Assets_series_Rus (Tickers=c('AFKS', 'AFLT', 'FEES', 'GMKN','GAZP'),'IMOEX', '2018-01-03', '','daily')
 #'
 #' @export
-Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity) {
+Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity, Exclude_ticket='') {
 
   library(quantmod)
   library(PerformanceAnalytics)
@@ -88,6 +89,12 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   ###############################
 
   #######
+
+  if (Exclude_ticket!=''){
+    Exclude=which(Tickers==Exclude_ticket)
+    Tickers=Tickers[-Exclude]
+  }
+
   Tickers_MOEX = Tickers
   Date_1="Date"
   portfolio<- getSymbols.Alor(RM, env = globalenv(), from = Initial_Date, to = Final_Date, adjust = FALSE, api.key = NULL, period = Periodicity, verbose = TRUE, board = "MOEX", auto.assign = FALSE)

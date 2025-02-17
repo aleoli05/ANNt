@@ -8,7 +8,7 @@
 #' Assets with values not observed in the series are excluded
 #' @param Final_Date Series end Date ('Year-Month-Day'). If '' is the System Date
 #' @param Periodicity should be one of “daily”, “weekly”, “monthly”, “hourly”, “1minutes”, “2minutes”, “5minutes”, “15minutes”, “30minutes”, “60minutes”, “90minutes”. (Intraday maximum 7 days)
-
+#' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
@@ -21,7 +21,7 @@
 #' # Generates the Adjusted Daily Prices Series from Yahoo Finance
 #' Assets_series (Tickers=c('AAPL','XOM','TSLA','KO', 'F'),'^GSPC', '2018-01-03', '','daily')
 #'
-Assets_series <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity) {
+Assets_series <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity, Exclude_ticket='') {
 
   library(quantmod)
   library(PerformanceAnalytics)
@@ -129,6 +129,10 @@ if (x==1) {
 
   Tickers = Current_SP500
   #Calculate Returns: Daily
+  if (Exclude_ticket!=''){
+    Exclude=which(Tickers==Exclude_ticket)
+    Tickers=Tickers[-Exclude]
+  }
   tickers <- c(RM,Tickers)
   portfolioPrices <- NULL
 
