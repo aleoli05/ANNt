@@ -129,7 +129,7 @@ if (x==1) {
 
   Tickers = Current_SP500
   #Calculate Returns: Daily
-  if (Exclude_ticket!=''| length(Exclude_ticket)>1){
+  if (any(Exclude_ticket!='')){
     Exclude=which(Tickers==Exclude_ticket)
     Tickers=Tickers[-Exclude]
   }
