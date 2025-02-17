@@ -18,7 +18,8 @@ ANNt_Oliveira_Ceretta_S(
   Type_ANNt,
   N_Assets,
   Base = "yahoo",
-  Import = "Yes"
+  Import = "Yes",
+  Exclude_ticket = ""
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ ANNt_Oliveira_Ceretta_S(
 
 \item{Import}{Import dates from external data base after first import. "Yes"
 or "No". "Yes" is the standard.}
+
+\item{Exclude_ticket}{Deletes any ticket from the ticket list that you want to remove for some reason}
 
 \item{Initial_Date_Training}{Training series start Date}
 }

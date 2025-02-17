@@ -24,6 +24,7 @@
 #'the investment horizon of portfolios from specific dates.
 #'@param Import Import dates from external data base after first import. "Yes"
 #'or "No". "Yes" is the standard.
+#' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
@@ -50,7 +51,7 @@ Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Traini
                                 Final_Date, Frequency, Periodicity, Hidden,
                                 Stepmax, Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out',
                                 Specific_Dates=Sys.Date(),
-                                Import='Yes'){
+                                Import='Yes',Exclude_ticket=''){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -231,7 +232,7 @@ load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                               Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                              N_Assets, Base=BS, Import=Horizon)
+                              N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -262,7 +263,7 @@ if(Fun=='S_Out'){
 if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                             Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                            N_Assets, Base=BS, Import=Horizon)
+                            N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -293,7 +294,7 @@ if(Fun=='Out'){
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                           Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                          N_Assets, Base=BS, Import=Horizon)
+                          N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -303,7 +304,7 @@ if(Fun=='S'){
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                         Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                        N_Assets, Base=BS, Import=Horizon)
+                        N_Assets, Base=BS, Import=Horizon, Exclude_ticket='')
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)

@@ -16,6 +16,8 @@
 #'@param Base Database to use: "yahoo" or "Rus"
 #'@param Import Import dates from external data base after first import. "Yes"
 #'or "No". "Yes" is the standard.
+#'@param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
+#'
 #'@examples
 #'Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #'RM <-c('^GSPC') #RM the S&P500
@@ -33,7 +35,7 @@
 
 ANNt_Oliveira_Ceretta_S <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
                                     Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
-                                    N_Assets, Base='yahoo', Import='Yes'){
+                                    N_Assets, Base='yahoo', Import='Yes', Exclude_ticket=''){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
@@ -113,13 +115,13 @@ Final_Analysis_Date <- c('')
 #load('~/Horizon.rda')
 if (Import =='Yes'){
   if (Base=='yahoo'){
-    Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily')
+    Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket)
   }
   if(Base=='Rus'){
-    Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily')
+    Assets_series_Rus (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket)
   }
   if(Base=='Rus_2'){
-    Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily')
+    Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket)
   }
 }
 ################################################################################

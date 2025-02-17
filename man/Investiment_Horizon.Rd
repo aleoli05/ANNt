@@ -20,7 +20,8 @@ Investiment_Horizon(
   Base = "yahoo",
   Fun = "S_Out",
   Specific_Dates = Sys.Date(),
-  Import = "Yes"
+  Import = "Yes",
+  Exclude_ticket = ""
 )
 }
 \arguments{
@@ -56,6 +57,8 @@ Investiment_Horizon(
 
 \item{Import}{Import dates from external data base after first import. "Yes"
 or "No". "Yes" is the standard.}
+
+\item{Exclude_ticket}{Deletes any ticket from the ticket list that you want to remove for some reason}
 
 \item{Initial_Date_Training}{Training series start Date.}
 
