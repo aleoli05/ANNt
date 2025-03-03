@@ -91,7 +91,7 @@ x0 = Final_Date
 save(x0, file='~/x0.rda')
 Final_Date <-Final_Date
 Periodicity <- Periodicity
-Initial_Date_Training <-''
+Initial_Date_Training <-Initial_Date
 
 # Indicate that the command ANNt_Oliveira_Ceretta is used
 x1_ <- Initial_Date_Training
