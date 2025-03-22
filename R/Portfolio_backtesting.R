@@ -118,7 +118,7 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
 
   #### Indice de sharpe
   #Rf = 0.0311
-  IS = function(X,Rf) {
+  IS = function(X,Rf=0) {
     media=mean(X)
     desvio = sd(X)
     T=length(X)
@@ -179,7 +179,7 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
 
   #### Alfa de Jensen
 
-  Alfa = function(X,Y,Rf) {
+  Alfa = function(X,Y,Rf=0) {
     media_X=mean(X)
     desvio_X = sd(X)
     T=length(X)
@@ -194,8 +194,8 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
 
 
   #### Indice de Treynor
-  Rf = 0.0311
-  ITreynor = function(X,Y,Rf) {
+  #Rf = 0.0311
+  ITreynor = function(X,Y,Rf=0) {
     media_X=mean(X)
     desvio_X = sd(X)
     T=length(X)
@@ -282,15 +282,15 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   #sumbacktest[6,6]= round(CVar_95(RetornoMedioMean_Variance_Mkv),4)*100
 
 
-  sumbacktest[1,7]= round(IS(Comparativo_RETORNOS[,1],0.0311),2)
-  sumbacktest[2,7]= round(IS(MARKOWITZ,0.0311),2)
-  sumbacktest[3,7]= round(IS(SHARPE,0.0311),2)
-  sumbacktest[4,7]= round(IS(MF_EQ,0.0311),2)
-  sumbacktest[5,7]= round(IS(MF_MKW,0.0311),2)
-  sumbacktest[6,7]= round(IS(MF_SHARPE,0.0311),2)
-  sumbacktest[7,7]= round(IS(ANNt_EQ,0.0311),2)
-  sumbacktest[8,7]= round(IS(ANNt_MKW,0.0311),2)
-  sumbacktest[9,7]= round(IS(ANNt_SHARPE,0.0311),2)
+  sumbacktest[1,7]= round(IS(Comparativo_RETORNOS[,1]),2)
+  sumbacktest[2,7]= round(IS(MARKOWITZ),2)
+  sumbacktest[3,7]= round(IS(SHARPE),2)
+  sumbacktest[4,7]= round(IS(MF_EQ),2)
+  sumbacktest[5,7]= round(IS(MF_MKW),2)
+  sumbacktest[6,7]= round(IS(MF_SHARPE),2)
+  sumbacktest[7,7]= round(IS(ANNt_EQ),2)
+  sumbacktest[8,7]= round(IS(ANNt_MKW),2)
+  sumbacktest[9,7]= round(IS(ANNt_SHARPE),2)
   #sumbacktest[6,7]= round(IS(RetornoMedioMean_Variance_Mkv),4)
 
 
@@ -316,25 +316,25 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[9,9]= round(Beta(ANNt_SHARPE, Comparativo_RETORNOS[,1]),2)
 
 
-  sumbacktest[1,10]= round(Alfa(Comparativo_RETORNOS[,1], Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[2,10]= round(Alfa(MARKOWITZ, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[3,10]= round(Alfa(SHARPE, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[4,10]= round(Alfa(MF_EQ, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[5,10]= round(Alfa(MF_MKW, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[6,10]= round(Alfa(MF_SHARPE, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[7,10]= round(Alfa(ANNt_EQ, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[8,10]= round(Alfa(ANNt_MKW, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[9,10]= round(Alfa(ANNt_SHARPE, Comparativo_RETORNOS[,1], 0.0311)*100,2)
+  sumbacktest[1,10]= round(Alfa(Comparativo_RETORNOS[,1], Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[2,10]= round(Alfa(MARKOWITZ, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[3,10]= round(Alfa(SHARPE, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[4,10]= round(Alfa(MF_EQ, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[5,10]= round(Alfa(MF_MKW, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[6,10]= round(Alfa(MF_SHARPE, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[7,10]= round(Alfa(ANNt_EQ, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[8,10]= round(Alfa(ANNt_MKW, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[9,10]= round(Alfa(ANNt_SHARPE, Comparativo_RETORNOS[,1])*100,2)
 
-  sumbacktest[1,11]= round(ITreynor(Comparativo_RETORNOS[,1], Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[2,11]= round(ITreynor(MARKOWITZ, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[3,11]= round(ITreynor(SHARPE, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[4,11]= round(ITreynor(MF_EQ, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[5,11]= round(ITreynor(MF_MKW, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[6,11]= round(ITreynor(MF_SHARPE, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[7,11]= round(ITreynor(ANNt_EQ, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[8,11]= round(ITreynor(ANNt_MKW, Comparativo_RETORNOS[,1], 0.0311)*100,2)
-  sumbacktest[9,11]= round(ITreynor(ANNt_SHARPE, Comparativo_RETORNOS[,1], 0.0311)*100,2)
+  sumbacktest[1,11]= round(ITreynor(Comparativo_RETORNOS[,1], Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[2,11]= round(ITreynor(MARKOWITZ, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[3,11]= round(ITreynor(SHARPE, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[4,11]= round(ITreynor(MF_EQ, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[5,11]= round(ITreynor(MF_MKW, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[6,11]= round(ITreynor(MF_SHARPE, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[7,11]= round(ITreynor(ANNt_EQ, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[8,11]= round(ITreynor(ANNt_MKW, Comparativo_RETORNOS[,1])*100,2)
+  sumbacktest[9,11]= round(ITreynor(ANNt_SHARPE, Comparativo_RETORNOS[,1])*100,2)
 
   #rownames(sumbacktest)= c("MF_MKV", RM, "ANNt_EQ", "MARKOWITZ", "ANNt_MKV",
    #                        "SHARPE", "MF_SHARPE", "ANNt_SHARPE")
