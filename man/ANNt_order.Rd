@@ -10,7 +10,8 @@ ANNt_order(
   Final_Date_Training,
   Final_Date_Testing,
   Hidden,
-  Stepmax
+  Stepmax,
+  Asymmetry = "Negative"
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ ANNt_order(
 \item{Hidden}{Number of hidden neurons (If '' is the length series)}
 
 \item{Stepmax}{Number of replications per asset to train the ANN}
+
+\item{Asymmetry}{"Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
 
 \item{Inicial_Date}{Series start Date (Must be 7 perios greater than the analyzed seriess)}
 }

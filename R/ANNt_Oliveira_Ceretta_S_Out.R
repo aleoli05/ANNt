@@ -11,6 +11,7 @@
 #'@param Periodicity should be one of “daily”, “weekly”, “monthly”
 #'@param Hidden Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons
 #'@param Stepmax Number of replications per asset to train the ANN. For a good performance, use 7500
+#' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
 #'@param Type_ANNt Select type ANNt: "T1"= NNet_Signal_Traning; "T2"= NNet_t_Training; "T3"= MC_Signal_Training; "T4"= MC_t_Training; "T5"= NNet_Signal_Test; "T6"= NNet_t_Test; "T7"= MC_Signal_Test; "T8"= Type_ANNt: MC_t_Test
 #'@param N_Assets Limit of asset numbers in the portfolio
 #'@param Base Database to use: "yahoo" or "Rus"
@@ -33,7 +34,7 @@
 #'ANNt_Oliveira_Ceretta_S_Out(c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', 0, '2018-01-03', '2022-12-29', '', 'daily',5,7500,'T8',3)
 #'@export
 ANNt_Oliveira_Ceretta_S_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
-                                        Final_Date, Periodicity, Hidden, Stepmax, Type_ANNt,
+                                        Final_Date, Periodicity, Hidden, Stepmax, Asymmetry='Negative', Type_ANNt,
                                         N_Assets,Base='yahoo', Import='Yes', Exclude_ticket=''){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
@@ -401,7 +402,7 @@ save(scenario.set,file='~/scenario.set.rda')
 
 Final_Date_Training <- Final_Date_Training
 X10 = Initial_Date_Training
-ANNt_order ('', '', '', 'hidden', 'stepmax')
+ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 
 #Signal_Sharpe=0
 #save(Signal_Sharpe,file="~/Signal_Sharpe.rda")

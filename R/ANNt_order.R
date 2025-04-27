@@ -7,6 +7,7 @@
 #' @param Final_Date_Training Series end Date (If '' is the System Date)
 #' @param Hidden Number of hidden neurons (If '' is the length series)
 #' @param Stepmax Number of replications per asset to train the ANN
+#' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
 #' @author Alexandre Silva de Oliveira
 
 #' @examples
@@ -25,7 +26,7 @@
 #data.
 
 #' @export
-ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax) {
+ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 library("quantmod")
@@ -392,6 +393,7 @@ ___________________________________________________________________
     se = std.error(prev)
 
     # Calculo da probabilidade excesso de retorno >0 c/ deslocamento da curva T
+    if (Asymmetry=="Negative") {
     if (mean(prev)>0) {
       ProbabilidadeTmedia =pt(0.0,
                               df=length(prev)-1,ncp = se, lower.tail=FALSE)
@@ -401,6 +403,17 @@ ___________________________________________________________________
                               df=length(prev)-1,ncp = -se, lower.tail=FALSE)
       #print(paste("Left asymmetric density (Positive)"))
     }
+    }else {if(Asymmetry=='Positive'){
+      if (mean(prev)>0) {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(prev)-1,ncp = -se, lower.tail=FALSE)
+        #print(paste("Right asymmetric density (Negative)"))
+      } else {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(prev)-1,ncp = se, lower.tail=FALSE)
+        #print(paste("Left asymmetric density (Positive)"))
+      }
+    }}
     #ProbabilidadeTmedia =pt(mean(prev),
     #                    df=length(prev)-1,lower.tail=TRUE)
 
@@ -563,16 +576,30 @@ ___________________________________________________________________
     # Calculo da probabilidade excesso de retorno >0 c/ deslocamento da curva T
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                       df=length(camadaSaida)-1, lower.tail=FALSE)
-
-    if (mean(camadaSaida)>0) {
-      ProbabilidadeTmedia =pt(0.0,
-                              df=length(camadaSaida)-1,ncp = se, lower.tail=FALSE)
-     # cat("Right asymmetric density (Negative)")
-    } else {
-      ProbabilidadeTmedia =pt(0.0,
-                              df=length(camadaSaida)-1,ncp = -se, lower.tail=FALSE)
-      #cat("Left asymmetric density (Positive)")
-    }
+################################################################################
+#### Teste se soma ou subrai o sd na assimetria (Padrão=soma se (standart error) = Assimetria negativa)
+    if (Asymmetry=="Negative") {
+          if (mean(camadaSaida)>0) {
+            ProbabilidadeTmedia =pt(0.0,
+                                    df=length(camadaSaida)-1,ncp = se, lower.tail=FALSE)
+           # cat("Right asymmetric density (Negative)")
+          } else {
+            ProbabilidadeTmedia =pt(0.0,
+                                    df=length(camadaSaida)-1,ncp = -se, lower.tail=FALSE)
+            #cat("Left asymmetric density (Positive)")
+          }
+    }else {if(Asymmetry=='Positive'){
+      if (mean(camadaSaida)>0) {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(camadaSaida)-1,ncp = -se, lower.tail=FALSE)
+        # cat("Right asymmetric density (Negative)")
+      } else {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(camadaSaida)-1,ncp = se, lower.tail=FALSE)
+        #cat("Left asymmetric density (Positive)")
+      }
+    }}
+################################################################################
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                 df=length(camadaSaida)-1, lower.tail = TRUE)
 
@@ -736,6 +763,7 @@ ___________________________________________________________________
     se = std.error(prevPredict)
 
     # Calculo da probabilidade excesso de retorno >0 c/ deslocamento da curva T
+    if (Asymmetry=="Negative") {
     if (mean(prevPredict)>0) {
       ProbabilidadeTmedia =pt(0.0,
                               df=length(prevPredict)-1,ncp = se,
@@ -747,6 +775,19 @@ ___________________________________________________________________
                               lower.tail=FALSE)
       #cat("Left asymmetric density (Positive)")
     }
+    }else {if(Asymmetry=='Positive'){
+      if (mean(prevPredict)>0) {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(prevPredict)-1,ncp = -se,
+                                lower.tail=FALSE)
+        #cat("Right asymmetric density (Negative)")
+      } else {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(prevPredict)-1,ncp = se,
+                                lower.tail=FALSE)
+        #cat("Left asymmetric density (Positive)")
+      }
+    }}
     #ProbabilidadeTmedia =pt(mean(prev),
     #                    df=length(prev)-1,lower.tail=TRUE)
 
@@ -801,7 +842,7 @@ ___________________________________________________________________
     # Calculo da probabilidade excesso de retorno >0 c/ deslocamento da curva T
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                       df=length(camadaSaida)-1, lower.tail=FALSE)
-
+    if (Asymmetry=="Negative") {
     if (mean(camadaSaidaPredict)>0) {
       ProbabilidadeTmedia =pt(0.0,
                               df=length(camadaSaidaPredict)-1,ncp = se,
@@ -813,6 +854,19 @@ ___________________________________________________________________
                               lower.tail=FALSE)
       print(paste("Left asymmetric density (Positive)"))
     }
+    }else {if(Asymmetry=='Positive'){
+      if (mean(camadaSaidaPredict)>0) {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(camadaSaidaPredict)-1,ncp = -se,
+                                lower.tail=FALSE)
+        print(paste("Right asymmetric density (Negative)"))
+      } else {
+        ProbabilidadeTmedia =pt(0.0,
+                                df=length(camadaSaidaPredict)-1,ncp = se,
+                                lower.tail=FALSE)
+        print(paste("Left asymmetric density (Positive)"))
+      }
+    }}
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                 df=length(camadaSaida)-1, lower.tail = TRUE)
 
