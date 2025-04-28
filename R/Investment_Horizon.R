@@ -44,11 +44,11 @@
 #' Base <- 'yahoo'
 #' Fun <- 'S_Out'
 #' Specific_Dates <- c(Sys.Date())
-#' Investiment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
+#' Investment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 #'
 
 #' @export
-Investiment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
+Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
                                 Final_Date, Frequency, Periodicity, Hidden,
                                 Stepmax, Asymmetry='Negative', Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out',
                                 Specific_Dates=Sys.Date(),
@@ -551,7 +551,7 @@ Corte= which(rownames(as.data.frame(Comparativo_RETORNOS_Horizon_Anual))==as.Dat
 Coparativo_Backup = Comparativo_RETORNOS_Horizon_Anual
 Comparativo_RETORNOS_Horizon_Anual=Comparativo_RETORNOS_Horizon_Anual[1:Corte,]
 
-
+load('~/RM.rda')
 
 png(file="~/Graphic_Annualized_Returns_Horizon.png", width=1920, height=1920, res=296, family = "A")
 par(#mfrow=c(2,2),

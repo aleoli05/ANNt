@@ -78,6 +78,7 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
   #Tab_Freq_=sort(Tab_Freq_$Frequency, decreasing = TRUE)
   #Tab_Freq_2=Tab_Freq_ %>% arrange(desc(Tab_Freq_$Frequency))
   Tab_Freq_2= Tab_Freq_[order(Tab_Freq_$Frequency, decreasing=TRUE),]
+  print(Tab_Freq_2)
   #View(Tab_Freq_2)
   library(ggplot2)
   Mean=round(Tab_Freq_2$`Mean Weight`,2)
