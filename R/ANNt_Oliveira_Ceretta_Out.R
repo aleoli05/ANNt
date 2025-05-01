@@ -83,7 +83,9 @@ if (Import =='Yes'){
 }
 
 Final_Date_Training <- Final_Date_Training
-ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
+X11 = Asymmetry
+save(X11,file='~/X11.rda')
+ANNt_order ('', '', '', 'hidden', 'stepmax',Asymmetry=Asymmetry)
 Gen_portfolios('n_Assets',Initial_Date,Final_Date_Training,Rf, Type_ANNt)
 Out_of_sample(Initial_Date_Testing,'')
 Portfolio_backtesting('','')

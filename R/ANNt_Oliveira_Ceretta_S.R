@@ -403,6 +403,8 @@ save(scenario.set,file='~/scenario.set.rda')
 
 Final_Date_Training <- Final_Date_Training
 X10 = Initial_Date_Training
+X11 = Asymmetry
+save(X11,file='~/X11.rda')
 ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 
 #Signal_Sharpe=0

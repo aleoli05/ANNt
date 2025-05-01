@@ -95,6 +95,12 @@ print('Starting ANNt_order Command')
  } else{
    Cont1=Hidden
  }
+
+   if (Asymmetry=='asymmetry'){
+     load('~/X11.rda')
+     Asymmetry=X11
+   }
+
  # Duração do processamento 285.4/length(dados=0.2 horas)
 
  Fator_Tempo = (12000/nrow(dados))*(Cont1/(nrow(dados)-5))*Stepmax/2500
