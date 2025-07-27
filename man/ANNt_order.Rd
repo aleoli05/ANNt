@@ -23,7 +23,9 @@ ANNt_order(
 
 \item{Asymmetry}{"Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
 
-\item{Inicial_Date}{Series start Date (Must be 7 perios greater than the analyzed seriess)}
+\item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
+
+\item{Date_Training}{Series finish training date}
 }
 \description{
 classify assets by the probability of return exceeding a RM
