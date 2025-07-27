@@ -6,8 +6,8 @@
 Command that calculate the Long Short Term Recurent Neural Network}
 \usage{
 LSTM_RNN(
-  Tickers,
-  Lookback,
+  Tickers = "AAPL",
+  Lookback = 8,
   Initial_Date_Training = c("2018-01-03"),
   Final_Date_Training = c("2022-12-29"),
   Final_Date_Testing = c(""),
@@ -16,7 +16,8 @@ LSTM_RNN(
   Num_layers = 2,
   Output_dim = 1,
   Num_epochs = 100,
-  Import = "Yes"
+  Import = "Yes",
+  Metric = "Return"
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ LSTM_RNN(
 
 \item{Import}{Import assets series}
 
+\item{Metric}{is the "Return" of the asset or the "Excess_Return" of the asset in relation to the benchmark}
+
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 
 \item{Date_Training}{Series finish training date}
@@ -58,5 +61,6 @@ Num_layers <- 2
 Output_dim <- 1
 Num_epochs <- 100
 Import <- 'Yes'
-LSTM_RNN(Tickers, Lookback, Initial_Date_Training=c('2018-01-03'),Final_Date_Training=c('2022-12-29'),Final_Date_Testing=c(''),Input_dim = 1,Hidden_dim = 32,Num_layers = 2,Output_dim = 1,Num_epochs = 100,Import='Yes')
+Metric <- 'Return'
+LSTM_RNN(Tickers, Lookback, Initial_Date_Training=c('2018-01-03'),Final_Date_Training=c('2022-12-29'),Final_Date_Testing=c(''),Input_dim = 1,Hidden_dim = 32,Num_layers = 2,Output_dim = 1,Num_epochs = 100,Import='Yes', Metric='Return')
 }

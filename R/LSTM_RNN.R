@@ -11,6 +11,7 @@
 #' @param Output_dim Output dimension of the RNN
 #' @param Num_epochs Number of the epochs
 #' @param Import Import assets series
+#' @param Metric is the "Return" of the asset or the "Excess_Return" of the asset in relation to the benchmark
 #'@examples
 #'Tickers <-c('AAPL')
 #'Lookback <- 8
@@ -23,9 +24,10 @@
 #'Output_dim <- 1
 #'Num_epochs <- 100
 #'Import <- 'Yes'
-#'LSTM_RNN(Tickers, Lookback, Initial_Date_Training=c('2018-01-03'),Final_Date_Training=c('2022-12-29'),Final_Date_Testing=c(''),Input_dim = 1,Hidden_dim = 32,Num_layers = 2,Output_dim = 1,Num_epochs = 100,Import='Yes')
+#'Metric <- 'Return'
+#'LSTM_RNN(Tickers, Lookback, Initial_Date_Training=c('2018-01-03'),Final_Date_Training=c('2022-12-29'),Final_Date_Testing=c(''),Input_dim = 1,Hidden_dim = 32,Num_layers = 2,Output_dim = 1,Num_epochs = 100,Import='Yes', Metric='Return')
 #'@export
-LSTM_RNN <- function(Tickers, Lookback, Initial_Date_Training=c('2018-01-03'),
+LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-01-03'),
                      Final_Date_Training=c('2022-12-29'),
                      Final_Date_Testing=c(''),
                      Input_dim = 1,
@@ -33,13 +35,17 @@ LSTM_RNN <- function(Tickers, Lookback, Initial_Date_Training=c('2018-01-03'),
                      Num_layers = 2,
                      Output_dim = 1,
                      Num_epochs = 100,
-                     Import='Yes'){
+                     Import ='Yes',
+                     Metric = 'Return'){
   require(quantmod)
   require(keras)
   require(reticulate)
   library(quantmod)
   library(keras)
   library(reticulate)
+  if (!requireNamespace("tensorflow", quietly = TRUE)) {
+    install_keras()
+  }
   if (!requireNamespace("tensorflow", quietly = TRUE)) {
     install_keras()
   }
@@ -54,13 +60,21 @@ LSTM_RNN <- function(Tickers, Lookback, Initial_Date_Training=c('2018-01-03'),
   }
   load('~/scenario.set.rda')
   scenario = as.data.frame(scenario.set)
-  if (Import=='Yes'){
-      stock=as.data.frame(scenario.set[,2])
-      nomes=colnames(scenario.set)
-      nome=nomes[2]
-      colnames(stock)=nome
-      View(stock)
-  }
+
+    specific = which(colnames(scenario.set)==Tickers)
+
+    if (Metric == 'Return'){
+    stock=as.data.frame(scenario.set[,specific])
+    } else{
+      if(Metric == 'Excess_Return'){
+        stock=as.data.frame(scenario.set[,specific]-scenario.set[,1])
+      }
+    }
+    nomes=colnames(scenario.set)
+    nome=nomes[specific]
+    colnames(stock)=nome
+    View(stock)
+
 
   if(length(which(rownames(as.data.frame(scenario.set))==Initial_Date_Training))==0){
     while(length(which(rownames(as.data.frame(scenario.set))==Initial_Date_Training))==0){

@@ -2,8 +2,8 @@
 #' Use artificial neural networks and t-distribution, the number of input neurons is the number of import assets
 
 
-#' @param Inicial_Date Series start Date (Must be 7 perios greater than the analyzed seriess)
-# @param Date_Training Series finish training date
+#' @param Inicial_Date Series start Date (Must be 7 periods greater than the analyzed series)
+#' @param Date_Training Series finish training date
 #' @param Final_Date_Training Series end Date (If '' is the System Date)
 #' @param Hidden Number of hidden neurons (If '' is the length series)
 #' @param Stepmax Number of replications per asset to train the ANN
