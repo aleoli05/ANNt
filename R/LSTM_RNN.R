@@ -205,6 +205,14 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
          col = c("green","blue" ,"red"), lwd = 2, bty='n', cex=0.5)
   grid()
 
+  colnames(y_train_pred_rescaled)=nome
+  colnames(y_test_pred_rescaled)=nome
+  r_nomes_train = scenario.set[Inicio_train:Final_train,]
+  rownames(y_train_pred_rescaled)=rownames(r_nomes_train)
+  r_nomes_test = scenario.set[(Final_train+1):Final_test,]
+  rownames(y_test_pred_rescaled)=rownames(r_nomes_test)
+  save(y_train_pred_rescaled,file='~/y_train_pred_rescaled.rda')
+  save(y_test_pred_rescaled,file='~/y_test_pred_rescaled.rda')
 
   #calculate mean squre error
   mse <- history$metrics$val_loss[length(history$metrics$val_loss)]
