@@ -12,6 +12,7 @@
 #' @param Num_epochs Number of the epochs
 #' @param Import Import assets series
 #' @param Metric is the "Return" of the asset or the "Excess_Return" of the asset in relation to the benchmark
+#' @param Plot Develop the network learning graph
 #'@examples
 #'Tickers <-c('AAPL')
 #'Lookback <- 8
@@ -36,7 +37,8 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
                      Output_dim = 1,
                      Num_epochs = 100,
                      Import ='Yes',
-                     Metric = 'Return'){
+                     Metric = 'Return',
+                     Plot = 'Yes'){
   require(quantmod)
   require(keras)
   require(reticulate)
@@ -195,16 +197,18 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
   # Shift the predicted values to start from where the training data predictions end
   shift <- length(y_train_pred_rescaled)
   y_test_pred_shifted <- c(rep(NA, shift), y_test_pred_rescaled[,1])
-  # Plot the training and predicted values
-  par(mfrow = c(1,1))
-  options(repr.plot.width=20, repr.plot.height=8)
-  plot(stock[,1], type = "l", col = "green",main="LSTM-APPLE-RETURNS PREDICTION", xlab = "Day", ylab = "Returns",lwd=3)
-  lines(y_train_pred_rescaled, col = "blue",lwd=3)
-  lines(y_test_pred_shifted, col = "red",lwd=3)
-  legend(x = "topleft", legend = c("Original", "Train Predictions","Test-Prediction"),
-         col = c("green","blue" ,"red"), lwd = 2, bty='n', cex=0.5)
-  grid()
 
+  # Plot the training and predicted values
+  if(Plot=='Yes'){
+      par(mfrow = c(1,1))
+      options(repr.plot.width=20, repr.plot.height=8)
+      plot(stock[,1], type = "l", col = "green",main="LSTM-APPLE-RETURNS PREDICTION", xlab = "Day", ylab = "Returns",lwd=3)
+      lines(y_train_pred_rescaled, col = "blue",lwd=3)
+      lines(y_test_pred_shifted, col = "red",lwd=3)
+      legend(x = "topleft", legend = c("Original", "Train Predictions","Test-Prediction"),
+             col = c("green","blue" ,"red"), lwd = 2, bty='n', cex=0.5)
+      grid()
+  }
   colnames(y_train_pred_rescaled)=nome
   colnames(y_test_pred_rescaled)=nome
   r_nomes_train = scenario.set[Inicio_train:Final_train,]

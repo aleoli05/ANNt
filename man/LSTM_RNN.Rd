@@ -17,7 +17,8 @@ LSTM_RNN(
   Output_dim = 1,
   Num_epochs = 100,
   Import = "Yes",
-  Metric = "Return"
+  Metric = "Return",
+  Plot = "Yes"
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ LSTM_RNN(
 \item{Import}{Import assets series}
 
 \item{Metric}{is the "Return" of the asset or the "Excess_Return" of the asset in relation to the benchmark}
+
+\item{Plot}{Develop the network learning graph}
 
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 
