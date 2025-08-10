@@ -26,7 +26,7 @@
 #'@param Import Import dates from external data base after first import. "Yes"
 #'or "No". "Yes" is the standard.
 #' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
-
+#' @param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
@@ -52,7 +52,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Final_Date, Frequency, Periodicity, Hidden,
                                 Stepmax, Asymmetry='Negative', Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out',
                                 Specific_Dates=Sys.Date(),
-                                Import='Yes',Exclude_ticket=''){
+                                Import='Yes',Exclude_ticket='', Type_ANN='ANNt'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()

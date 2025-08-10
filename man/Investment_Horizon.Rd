@@ -22,7 +22,8 @@ Investment_Horizon(
   Fun = "S_Out",
   Specific_Dates = Sys.Date(),
   Import = "Yes",
-  Exclude_ticket = ""
+  Exclude_ticket = "",
+  Type_ANN = "ANNt"
 )
 }
 \arguments{
@@ -62,6 +63,8 @@ Investment_Horizon(
 or "No". "Yes" is the standard.}
 
 \item{Exclude_ticket}{Deletes any ticket from the ticket list that you want to remove for some reason}
+
+\item{Type_ANN}{Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt}
 
 \item{Initial_Date_Training}{Training series start Date.}
 
