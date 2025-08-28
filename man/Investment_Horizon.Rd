@@ -23,7 +23,8 @@ Investment_Horizon(
   Specific_Dates = Sys.Date(),
   Import = "Yes",
   Exclude_ticket = "",
-  Type_ANN = "ANNt"
+  Type_ANN = "ANNt",
+  Order = "Yes"
 )
 }
 \arguments{
@@ -65,6 +66,8 @@ or "No". "Yes" is the standard.}
 \item{Exclude_ticket}{Deletes any ticket from the ticket list that you want to remove for some reason}
 
 \item{Type_ANN}{Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt}
+
+\item{Order}{If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database}
 
 \item{Initial_Date_Training}{Training series start Date.}
 

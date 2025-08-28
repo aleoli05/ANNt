@@ -19,7 +19,7 @@
 #'or "No". "Yes" is the standard.
 #'@param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 #'@param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
-#'
+#' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #'@examples
 #'Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #'RM <-c('^GSPC') #RM the S&P500
@@ -36,8 +36,9 @@
 #'@export
 
 ANNt_Oliveira_Ceretta_S <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
-                                    Final_Date, Periodicity, Hidden, Stepmax, Asymmetry='Negative', Type_ANNt,
-                                    N_Assets, Base='yahoo', Import='Yes', Exclude_ticket='', Type_ANN='ANNt'){
+                                    Final_Date, Periodicity, Hidden, Stepmax, Asymmetry='Negative', Type_ANNt='T4',
+                                    N_Assets, Base='yahoo', Import='Yes', Exclude_ticket='', Type_ANN='ANNt',
+                                    Order='Yes'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
@@ -406,12 +407,13 @@ Final_Date_Training <- Final_Date_Training
 X10 = Initial_Date_Training
 X11 = Asymmetry
 save(X11,file='~/X11.rda')
+if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {
   if(Type_ANN=='LSTMt'){
     LSTMt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry,Plot='No')
-  }}
+  }}}
 
 #Signal_Sharpe=0
 #save(Signal_Sharpe,file="~/Signal_Sharpe.rda")
@@ -434,7 +436,7 @@ Plot_CUSUM('','')
 save(Final_Date, file='~/Final_Date.rda')
 Signal_Sharpe=1
 save(Signal_Sharpe,file="~/Signal_Sharpe.rda")
-Backup_ANNt()
+Backup_Inv()
 Signal_Sharpe=0
 save(Signal_Sharpe,file="~/Signal_Sharpe.rda")
 }

@@ -27,6 +27,7 @@
 #'or "No". "Yes" is the standard.
 #' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 #' @param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
+#' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
@@ -50,9 +51,11 @@
 #' @export
 Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
                                 Final_Date, Frequency, Periodicity, Hidden,
-                                Stepmax, Asymmetry='Negative', Type_ANNt, N_Assets,Base='yahoo', Fun='S_Out',
+                                Stepmax, Asymmetry='Negative', Type_ANNt,
+                                N_Assets,Base='yahoo', Fun='S_Out',
                                 Specific_Dates=Sys.Date(),
-                                Import='Yes',Exclude_ticket='', Type_ANN='ANNt'){
+                                Import='Yes',Exclude_ticket='', Type_ANN='ANNt',
+                                Order='Yes'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -234,7 +237,8 @@ load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                               Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
-                              N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
+                              N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
+                              Type_ANN=Type_ANN, Order=Order)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -265,7 +269,8 @@ if(Fun=='S_Out'){
 if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                             Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
-                            N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
+                            N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
+                            Type_ANN=Type_ANN, Order=Order)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -296,7 +301,8 @@ if(Fun=='Out'){
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                           Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
-                          N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
+                          N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
+                          Type_ANN=Type_ANN, Order=Order)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -306,7 +312,8 @@ if(Fun=='S'){
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                         Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
-                        N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude)
+                        N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
+                        Type_ANN=Type_ANN, Order=Order)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
