@@ -85,7 +85,7 @@ if(Import=='No'){
   Horizon='No'
   save(Horizon,file='~/Horizon.rda')
 }
-
+save(Type_ANN, file='~/Rype_ANN.rda')
 save(Horizon,file='~/Horizon.rda')
 Tickers_1=Tickers
 save(Tickers_1, file='~/Tickers_1.rda')
