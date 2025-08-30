@@ -32,6 +32,10 @@ load('~/GMV_sd.rda')
 load('~/sd_MKW.rda')
 load('~/mean_MKW.rda')
 load('~/RM.rda')
+load('~/Type_ANN.rda')
+ANN_EQ = paste(Type_ANN,'_EQ', sep='')
+ANN_MKW = paste(Type_ANN,'_MKW', sep='')
+ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
 ydev=dev.list()
 if(class(ydev)!="NULL"){
@@ -310,7 +314,7 @@ points(sd_MKW, mean_MKW, col="brown", pch=19)
 #)
 points(sd(ANNt_SHARPE),mean(ANNt_SHARPE), col="darkgreen", pch=19)
 text(sd(ANNt_SHARPE),mean(ANNt_SHARPE),
-     labels = "ANN-t_SHARPE",
+     labels = ANN_SHARPE,
      col="darkgreen",
      font=2,
      cex = 0.6,
@@ -329,8 +333,8 @@ legend(x="topright",
        #legend=c(colnames(as.data.frame(Comparativo_RETORNOS)[1]), "MF_SHARPE", "ANNt_EQ" , "ANNt_MKW","ANNt_SHARPE",
        #        "MARKOWITZ","SHARPE"),
        legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
-                  "ANNt_Eq",
-                  "ANNt_MKW", "ANNt_SHARPE", "GMV"),
+                  ANN_Eq,
+                  ANN_MKW, ANN_SHARPE, "GMV"),
        #text.col = c("black","red","blue","green","darkgreen", "brown", "darkblue"),
        text.col=c("black", "brown", "darkgray", "red", "purple","blue",  "green", "darkgreen","orange"),
        text.font=2,
@@ -532,7 +536,7 @@ points(sd(MARKOWITZ),mean(MARKOWITZ), col="brown", pch=19)
 #)
 points(sd(ANNt_SHARPE),mean(ANNt_SHARPE), col="darkgreen", pch=19)
 text(sd(ANNt_SHARPE),mean(ANNt_SHARPE),
-     labels = "ANNt_SHARPE",
+     labels = ANN_SHARPE,
      col="darkgreen",
      font=2,
      cex = 0.6,
@@ -552,8 +556,8 @@ legend(x="topright",
        #legend=c(colnames(as.data.frame(Comparativo_RETORNOS)[1]), "MF_SHARPE", "ANNt_EQ" , "ANNt_MKW","ANNt_SHARPE",
        #        "MARKOWITZ","SHARPE"),
        legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
-                  "ANNt_Eq",
-                  "ANNt_MKW", "ANNt_SHARPE", "GMV"),
+                  ANN_Eq,
+                  ANN_MKW, ANN_SHARPE, "GMV"),
        text.font=2,
        #text.col = c("black","red","blue","green","darkgreen", "brown", "darkblue"),
        text.col=c("black", "brown", "darkgray", "red", "purple","blue",  "green", "darkgreen","orange"),
