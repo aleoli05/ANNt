@@ -67,7 +67,10 @@ Exclude = Exclude_ticket
 RM_Nome_Backup=RM
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 #load('~/Horizon.rda')
+
 if (Import =='No'){
+  if(Order=='Yes'){
+
   if (Base=='yahoo'){
     Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket = Exclude)
   }
@@ -76,6 +79,7 @@ if (Import =='No'){
   }
   if(Base=='Rus_2'){
     Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket = Exclude)
+  }
   }
   load('~/scenario.set.rda')
   scenario_ajustado=scenario.set
