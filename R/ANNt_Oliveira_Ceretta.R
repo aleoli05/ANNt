@@ -40,7 +40,7 @@ ANNt_Oliveira_Ceretta <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trai
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
-  if(Order=='Yes'){
+
   Exclude=Exclude_ticket
   Periodo= c('daily','monthly','weekly')
   if(length(which(Periodo==Periodicity))==0){
@@ -76,6 +76,7 @@ Initial_Analysis_Date <- c('')
 Final_Analysis_Date <- c('')
 
 #load('~/Horizon.rda')
+if(Order=='Yes'){
 if (Import =='Yes'){
   if (Base=='yahoo'){
     Assets_series (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket=Exclude)
@@ -86,12 +87,13 @@ if (Import =='Yes'){
   if(Base=='Rus_2'){
     Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket=Exclude)
   }
-}
+}}
 
 Final_Date_Training <- Final_Date_Training
 X11 = Asymmetry
 save(X11,file='~/X11.rda')
 
+if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {

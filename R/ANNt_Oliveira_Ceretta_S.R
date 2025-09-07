@@ -80,7 +80,7 @@ ANNt_Oliveira_Ceretta_S <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Tr
   library(IntroCompFinR)
   library(quadprog)
 
-  if(Order=='Yes'){
+
   Exclude=Exclude_ticket
 
   Periodo= c('daily','monthly','weekly')
@@ -118,6 +118,7 @@ save(x5, file='~/x5.rda')
 Initial_Analysis_Date <- c('')
 Final_Analysis_Date <- c('')
 
+if(Order=='Yes'){
 #load('~/Horizon.rda')
 if (Import =='Yes'){
   if (Base=='yahoo'){
@@ -129,7 +130,7 @@ if (Import =='Yes'){
   if(Base=='Rus_2'){
     Assets_series_Rus_2 (Tickers,RM, Initial_Date, Final_Date,'daily', Exclude_ticket=Exclude)
   }
-}
+}}
 ################################################################################
 load('~/scenario.set.rda')
 #load('~/Datas1Predict.rda')
@@ -408,7 +409,7 @@ Final_Date_Training <- Final_Date_Training
 X10 = Initial_Date_Training
 X11 = Asymmetry
 save(X11,file='~/X11.rda')
-
+if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {
