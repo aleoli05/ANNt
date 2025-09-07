@@ -103,10 +103,12 @@ if(Type_ANN=='ANNt'){
 Gen_portfolios('n_Assets',Initial_Date_Testing,'',Rf, Type_ANNt)
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')
+if(Order=='Yes'){
 Gen_efficient_frontier('','')
 Plot_efficient_frontier()
 Sys.sleep((15))
 Plot_New_efficient_frontier()
+}
 Sys.sleep((15))
 Plot_CUSUM('','')
 save(Final_Date, file='~/Final_Date.rda')
