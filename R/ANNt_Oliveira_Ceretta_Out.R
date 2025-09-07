@@ -38,6 +38,8 @@ ANNt_Oliveira_Ceretta_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_
                                       Order='Yes'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
+
+  if(Order=='Yes'){
   Periodo= c('daily','monthly','weekly')
   if(length(which(Periodo==Periodicity))==0){
     stop('This periodicity is not implementedy in this command. Use step by step process starting with the "Assets_series" command!')
@@ -87,7 +89,7 @@ if (Import =='Yes'){
 Final_Date_Training <- Final_Date_Training
 X11 = Asymmetry
 save(X11,file='~/X11.rda')
-if(Order=='Yes'){
+
 if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {

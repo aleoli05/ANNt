@@ -79,6 +79,7 @@ ANNt_Oliveira_Ceretta_S_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Dat
   library(IntroCompFinR)
   library(quadprog)
 
+  if(Order=='Yes'){
   Exclude=Exclude_ticket
 
   Periodo= c('daily','monthly','weekly')
@@ -404,7 +405,7 @@ save(scenario.set,file='~/scenario.set.rda')
 
 Final_Date_Training <- Final_Date_Training
 X10 = Initial_Date_Training
-if(Order=='Yes'){
+
 if(Type_ANN=='ANNt'){
 ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {

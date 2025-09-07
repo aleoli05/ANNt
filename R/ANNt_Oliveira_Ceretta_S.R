@@ -80,6 +80,7 @@ ANNt_Oliveira_Ceretta_S <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Tr
   library(IntroCompFinR)
   library(quadprog)
 
+  if(Order=='Yes'){
   Exclude=Exclude_ticket
 
   Periodo= c('daily','monthly','weekly')
@@ -407,7 +408,7 @@ Final_Date_Training <- Final_Date_Training
 X10 = Initial_Date_Training
 X11 = Asymmetry
 save(X11,file='~/X11.rda')
-if(Order=='Yes'){
+
 if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {

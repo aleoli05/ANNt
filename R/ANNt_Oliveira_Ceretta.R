@@ -39,6 +39,8 @@ ANNt_Oliveira_Ceretta <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trai
                                   Order='Yes'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
+
+  if(Order=='Yes'){
   Exclude=Exclude_ticket
   Periodo= c('daily','monthly','weekly')
   if(length(which(Periodo==Periodicity))==0){
@@ -89,7 +91,7 @@ if (Import =='Yes'){
 Final_Date_Training <- Final_Date_Training
 X11 = Asymmetry
 save(X11,file='~/X11.rda')
-if(Order=='Yes'){
+
 if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {
