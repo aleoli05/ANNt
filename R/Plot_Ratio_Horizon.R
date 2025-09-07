@@ -25,15 +25,37 @@
 #'top;
 #'left;
 #'right.
+#'@param Compare with:
+#' RM - Return of Market proxy;
+#' MARKOWITZ;
+#' SHARPE;
+#' MF_EQ;
+#' MF_MKW;
+#' MF_SHARPE;
+#' ANNt-EQ;
+#' ANNt_MKW;
+#' ANNt_SHARPE;
+#' Magic_EQ;
+#' Magic_MKW;
+#' Magic_SHARPE;
+#' Graham_EQ;
+#' Graham_MKW;
+#' Graham_SHARPE.
+#' @param Until_Date Period´s length to plot.
 #'@examples
 #' Plot_Ratio_Horizon(Ratio="Annualized_Returns")
 
 #'@export
-Plot_Ratio_Horizon <-function(Ratio="Annualized_Returns",Legend_position="topleft"){
+Plot_Ratio_Horizon <-function(Ratio="Annualized_Returns",Legend_position="topleft",
+                              Compare="RM", Until_Date=''){
 
 ################################################################################
 # Graphic Annualized Returns
   library(stringr)
+  if(Compare=='RM'){
+    load('~/RM.rda')
+    Compare=RM
+  }
 Plot_Annualized_Returns_Horizon <-function(){
   load('~/Comparativo_RETORNOS_Horizon_Anual.rda')
   load('~/N_Assets.rda')

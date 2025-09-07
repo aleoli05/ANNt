@@ -4,9 +4,33 @@
 \alias{Plot_Ratio_Horizon}
 \title{Plot_Ratio_Horizon}
 \usage{
-Plot_Ratio_Horizon(Ratio = "Annualized_Returns", Legend_position = "topleft")
+Plot_Ratio_Horizon(
+  Ratio = "Annualized_Returns",
+  Legend_position = "topleft",
+  Compare = "RM",
+  Until_Date = ""
+)
 }
 \arguments{
+\item{Compare}{with:
+RM - Return of Market proxy;
+MARKOWITZ;
+SHARPE;
+MF_EQ;
+MF_MKW;
+MF_SHARPE;
+ANNt-EQ;
+ANNt_MKW;
+ANNt_SHARPE;
+Magic_EQ;
+Magic_MKW;
+Magic_SHARPE;
+Graham_EQ;
+Graham_MKW;
+Graham_SHARPE.}
+
+\item{Until_Date}{Period´s length to plot.}
+
 \item{Ratio:}{Rm - Average_Return - Means of Returns from each portfolio;
 Annualized_Returns - This is the standard ratio;
 RCum - Cumulative_Returns;
