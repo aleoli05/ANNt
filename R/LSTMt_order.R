@@ -26,11 +26,13 @@
 #data.
 
 #' @export
-LSTMt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative') {
+LSTMt_order <- function(Initial_Date_Training, Final_Date_Training,
+                        Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 library("quantmod")
-
+  Hidden_ANNt=5
+  Stepmax_ANNt=200
 print('Starting LSTMt_order Command')
 
   load("~/scenario.set.rda") # Carrega objeto scenario.set
@@ -273,7 +275,7 @@ ___________________________________________________________________
       Hidden=nlinhas
     }
 
-    epocas = 10*Stepmax
+    epocas = Stepmax_ANNt
     # Fun??o Sigmoide
     sigmoide = function(soma) {
       #return (1/ (1+exp(-soma)))
@@ -344,10 +346,10 @@ ___________________________________________________________________
                        Final_Date_Training=c('2022-12-29'),
                        Final_Date_Testing=c(''),
                        Input_dim = 1,
-                       Hidden_dim = 32,
+                       Hidden_dim = Hidden,
                        Num_layers = 2,
                        Output_dim = 1,
-                       Num_epochs = 100,
+                       Num_epochs = Stepmax,
                        Import ='No',
                        Metric = 'Return')
   load('~/y_train_pred_rescaled.rda')
@@ -481,8 +483,8 @@ ___________________________________________________________________
     # Gerando pesos iniciais aleat?rios
     options(warn=-1)
     pesos0 = matrix(runif(ncolunas*nlinhas, min = 0, max = 1), nrow = ncolunas,
-                    ncol = Hidden, byrow = T)
-    pesos1 = matrix(runif(ncolunas*(nlinhas), min = 0, max = 1), nrow = Hidden,
+                    ncol = Hidden_ANNt, byrow = T)
+    pesos1 = matrix(runif(ncolunas*(nlinhas), min = 0, max = 1), nrow = Hidden_ANNt,
                     ncol = 1, byrow = T)
     options(warn=-1)
     ### pesos1 com Bias na camada oculta
@@ -519,7 +521,7 @@ ___________________________________________________________________
     }
 
     # Estimando o n?mero de ?pocas e a taxa de aprendizagem
-    epocas = Stepmax
+    epocas = Stepmax_ANNt
     momento = 1
     taxaAprendizagem = 0.3
     #########################################
