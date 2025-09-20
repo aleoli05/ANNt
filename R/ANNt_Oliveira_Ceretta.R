@@ -98,7 +98,7 @@ if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {
   if(Type_ANN=='LSTMt'){
-    LSTMt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry,Plot='No')
+    LSTMt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
   }}}
 Gen_portfolios('n_Assets',Initial_Date_Testing,'',Rf, Type_ANNt)
 Portfolio_backtesting('','')

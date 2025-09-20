@@ -412,7 +412,7 @@ if(Type_ANN=='ANNt'){
 ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 } else {
   if(Type_ANN=='LSTMt'){
-  LSTMt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry,Plot='No')
+  LSTMt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
 }}}
 #Signal_Sharpe=0
 #save(Signal_Sharpe,file="~/Signal_Sharpe.rda")
