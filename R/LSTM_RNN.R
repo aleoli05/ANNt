@@ -173,7 +173,10 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
   # Calculate the predicted returns using the LSTM model
   y_train_pred_returns <- model %>% predict(x_train)
   y_test_pred_returns <- model %>% predict(x_test)
-  # Set up the layout of the plots
+
+
+  if(Plot=='Yes'){
+   # Set up the layout of the plots
   par(mfrow = c(1,2))
   options(repr.plot.width=15, repr.plot.height=8)
   # Plot the training and predicted values
@@ -184,7 +187,7 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
   # Plot the loss of training data
   plot(history$metrics$loss, type = "l", xlab = "Epochs",main="Training Loss", ylab = "Loss", col = "blue", lwd =3)
   grid()
-
+  }
 
   # Calculate the mean and standard deviation of the original dataset
   mean_return <- mean(stock[,1])
