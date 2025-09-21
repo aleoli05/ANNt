@@ -342,8 +342,8 @@ ___________________________________________________________________
   Ticket = paste(colnames(dados2[ativo]))
   Hidden_dim = Hidden
   Num_epochs = Stepmax
-  LSTM_RNN (Tickers=Ticket, Lookback=8, Initial_Date_Training=c('2018-01-03'),
-                       Final_Date_Training=c('2022-12-29'),
+  LSTM_RNN (Tickers=Ticket, Lookback=8, Initial_Date_Training=c(''),
+                       Final_Date_Training=c(''),
                        Final_Date_Testing=c(''),
                        Input_dim = 1,
                        Hidden_dim = Hidden,
