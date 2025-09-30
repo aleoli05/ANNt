@@ -93,10 +93,10 @@ save(X11,file='~/X11.rda')
 
 if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
-  ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
+  ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry)
 } else {
   if(Type_ANN=='LSTMt'){
-    LSTMt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
+    LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry)
   }}}
 Gen_portfolios('n_Assets',Initial_Date,Final_Date_Training,Rf, Type_ANNt)
 Out_of_sample(Initial_Date_Testing,'')

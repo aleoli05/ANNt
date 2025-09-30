@@ -411,10 +411,10 @@ X11 = Asymmetry
 save(X11,file='~/X11.rda')
 if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
-  ANNt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
+  ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry)
 } else {
   if(Type_ANN=='LSTMt'){
-    LSTMt_order ('', '', '', 'hidden', 'stepmax', Asymmetry=Asymmetry)
+    LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry)
   }}}
 
 #Signal_Sharpe=0
