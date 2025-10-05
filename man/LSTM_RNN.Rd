@@ -18,7 +18,9 @@ LSTM_RNN(
   Num_epochs = 100,
   Import = "Yes",
   Metric = "Return",
-  Plot = "Yes"
+  Plot = "Yes",
+  View_Metrics = "TRUE",
+  Verbose = 1
 )
 }
 \arguments{
@@ -43,6 +45,10 @@ LSTM_RNN(
 \item{Metric}{is the "Return" of the asset or the "Excess_Return" of the asset in relation to the benchmark}
 
 \item{Plot}{Develop the network learning graph}
+
+\item{View_Metrics}{"True" or "False" for view realtime plot of training metrics}
+
+\item{Verbose}{Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)}
 
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 

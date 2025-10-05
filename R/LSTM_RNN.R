@@ -13,6 +13,8 @@
 #' @param Import Import assets series
 #' @param Metric is the "Return" of the asset or the "Excess_Return" of the asset in relation to the benchmark
 #' @param Plot Develop the network learning graph
+#' @param View_Metrics "True" or "False" for view realtime plot of training metrics
+#' @param Verbose Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)
 #'@examples
 #'Tickers <-c('AAPL')
 #'Lookback <- 8
@@ -38,7 +40,9 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
                      Num_epochs = 100,
                      Import ='Yes',
                      Metric = 'Return',
-                     Plot = 'Yes'){
+                     Plot = 'Yes',
+                     View_Metrics='TRUE',
+                     Verbose=1){
   require(quantmod)
   require(keras)
   require(reticulate)
@@ -167,7 +171,7 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
   model %>% compile(loss = "mean_squared_error", optimizer = optimizer_adam(learning_rate = 0.01))
   model
   # Train the model on the training data
-  history <- model %>% fit(x_train, y_train, epochs = num_epochs, batch_size = 16, validation_data = list(x_test, y_test))
+  history <- model %>% fit(x_train, y_train, epochs = num_epochs, batch_size = 16, validation_data = list(x_test, y_test), view_metrics=View_Metrics, verbose=Verbose)
 
 
   # Calculate the predicted returns using the LSTM model

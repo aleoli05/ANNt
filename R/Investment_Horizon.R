@@ -240,7 +240,7 @@ for (i in (1:Frequency)){
 load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                              Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
+                              Final_Date, Periodicity, Hidden=Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                               N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                               Type_ANN=Type_ANN, Order=Order)
   {
@@ -272,7 +272,7 @@ if(Fun=='S_Out'){
 }
 if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                            Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
+                            Final_Date, Periodicity, Hidden=Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                             N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                             Type_ANN=Type_ANN, Order=Order)
   {
@@ -304,7 +304,7 @@ if(Fun=='Out'){
 }
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                          Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
+                          Final_Date, Periodicity, Hidden=Hidenn, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                           N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                           Type_ANN=Type_ANN, Order=Order)
   load('~/Initial_Date_Testing.rda')
@@ -315,7 +315,7 @@ if(Fun=='S'){
 }
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                        Final_Date, Periodicity, Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
+                        Final_Date, Periodicity, Hidden=Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                         N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                         Type_ANN=Type_ANN, Order=Order)
   load('~/Initial_Date_Testing.rda')
