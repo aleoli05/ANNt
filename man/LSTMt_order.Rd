@@ -11,7 +11,9 @@ LSTMt_order(
   Final_Date_Testing,
   Hidden,
   Stepmax,
-  Asymmetry = "Negative"
+  Asymmetry = "Negative",
+  View_Metrics = TRUE,
+  Verbose = 1
 )
 }
 \arguments{
@@ -22,6 +24,10 @@ LSTMt_order(
 \item{Stepmax}{Number of replications per asset to train the ANN}
 
 \item{Asymmetry}{"Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
+
+\item{View_Metrics}{"True" or "False" for view realtime plot of training metrics}
+
+\item{Verbose}{Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)}
 
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 

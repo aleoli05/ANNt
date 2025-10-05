@@ -8,6 +8,8 @@
 #' @param Hidden Number of hidden neurons (If '' is the length series)
 #' @param Stepmax Number of replications per asset to train the ANN
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
+#' @param View_Metrics "True" or "False" for view realtime plot of training metrics
+#' @param Verbose Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)
 #' @author Alexandre Silva de Oliveira
 
 #' @examples
@@ -27,7 +29,8 @@
 
 #' @export
 LSTMt_order <- function(Initial_Date_Training, Final_Date_Training,
-                        Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative') {
+                        Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative',
+                        View_Metrics=TRUE,Verbose=1) {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 library("quantmod")
@@ -352,7 +355,7 @@ ___________________________________________________________________
                        Num_epochs = Stepmax,
                        Import ='No',
                        Metric = 'Return',
-                       Plot = 'No')
+                       Plot = 'No', View_Metrics=View_Metrics, Verbose=Verbose)
   load('~/y_train_pred_rescaled.rda')
   load('~/y_test_pred_rescaled.rda')
 ##LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
