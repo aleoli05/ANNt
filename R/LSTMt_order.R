@@ -365,13 +365,14 @@ ___________________________________________________________________
     prev = y_train_pred_rescaled
 
     nome = colnames(entradas)[1]
+if (Plot=='Yes'){
     plot(as.vector(entradas[,1]), type="l", col= "red",
-         main = paste("Retornos Amostra de Tratamento - Ativo", xnames = nome))
+         main = paste("Training Sample Returns - Asset", xnames = nome))
     legend("topright", legend = c("RLSTMt", nome), pch = 19,
            col = c("black", "red"))
     lines(prev)
-if(Plot=='Yes'){
-    hist(prev, main = paste("Histograma Fase de Treinamento RLSTMt Ativo",
+
+    hist(prev, main = paste("Training Histogram Step RLSTMt Asset",
                             xnames= nome),
          xlab = paste("Retorno Excedente sobre", xnames = "RM"))
     mean(prev)
@@ -385,8 +386,8 @@ if(Plot=='Yes'){
     #ggsave(arquivo,p1)
     #pdf(file=arquivo, height = 8, width = 9)
     if(Plot=='Yes'){
-    hist(Testes, main = paste("Histograma Previsoes RNA Ativo",
-                                         xnames= nome), xlab = paste("Retorno Excedente sobre",
+    hist(Testes, main = paste("Predict Histogram ANN Asset",
+                                         xnames= nome), xlab = paste("Excess Returns over",
                                                                      xnames = "RM"))
     }
     #hist(Testes$net.result, main = paste("Histograma Previs?es RNA Ativo",
@@ -655,6 +656,7 @@ if(Plot=='Yes'){
     Data <- as.data.frame(Data)
 
     nome = colnames(entradas)[1]
+    if (Plot=='Yes'){
     matplot(cbind(camadaSaida, saidas), type = "l", xaxt = "n",
             xlab = "Data",
             ylab = "Retorno",
@@ -662,6 +664,7 @@ if(Plot=='Yes'){
                          xname = nome))
     legend("topright", legend = c("RNA", nome), pch = 19, col = c("black", "red"))
     axis(1, 1:nlinhas, Data$rn)
+    }
 
     ## Sinal Maior que a media
     #sinal = NULL
@@ -942,15 +945,15 @@ ___________________________________________________________________
     library(data.table)
     DataPredict <- as.data.table(camadaSaidaPredict, keep.rownames = TRUE)
     DataPredict <- as.data.frame(DataPredict)
-
+    if (Plot=='Yes'){
     matplot(cbind(camadaSaidaPredict, saidasPredict), type = "l", xaxt = "n",
             xlab = "Data",
             ylab = "Retorno",
-            main = paste("Otimiza??o RNA Fase de Teste - Ativo", xname = nome))
+            main = paste("Otimizacao RNA Fase de Teste - Ativo", xname = nome))
     legend("topright", legend = c("RNA", nome), pch = 19,
            col = c("black", "red"))
     axis(1, 1:nlinhasPredict, DataPredict$rn)
-
+    }
     ## Sinal Maior que a media
     #sinal = NULLnlinhasPredict
     #for (i in 1:nlinhasPredict) {
