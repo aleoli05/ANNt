@@ -414,7 +414,8 @@ if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry)
 } else {
   if(Type_ANN=='LSTMt'){
-    LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry, View_Metrics=FALSE, Verbose=0)
+    LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,
+                 View_Metrics=FALSE, Verbose=0, Plot='No')
   }}}
 
 #Signal_Sharpe=0

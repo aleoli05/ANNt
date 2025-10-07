@@ -13,7 +13,8 @@ LSTMt_order(
   Stepmax,
   Asymmetry = "Negative",
   View_Metrics = TRUE,
-  Verbose = 1
+  Verbose = 1,
+  Plot = "Yes"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ LSTMt_order(
 \item{View_Metrics}{"True" or "False" for view realtime plot of training metrics}
 
 \item{Verbose}{Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)}
+
+\item{Plot}{Plot return´s frequency histogram}
 
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 

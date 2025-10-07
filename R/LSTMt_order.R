@@ -10,6 +10,7 @@
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
 #' @param View_Metrics "True" or "False" for view realtime plot of training metrics
 #' @param Verbose Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)
+#' @param Plot Plot return´s frequency histogram
 #' @author Alexandre Silva de Oliveira
 
 #' @examples
@@ -30,7 +31,7 @@
 #' @export
 LSTMt_order <- function(Initial_Date_Training, Final_Date_Training,
                         Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative',
-                        View_Metrics=TRUE,Verbose=1) {
+                        View_Metrics=TRUE,Verbose=1, Plot='Yes') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 library("quantmod")
@@ -369,12 +370,12 @@ ___________________________________________________________________
     legend("topright", legend = c("RLSTMt", nome), pch = 19,
            col = c("black", "red"))
     lines(prev)
-
+if(Plot=='Yes'){
     hist(prev, main = paste("Histograma Fase de Treinamento RLSTMt Ativo",
                             xnames= nome),
          xlab = paste("Retorno Excedente sobre", xnames = "RM"))
     mean(prev)
-
+}
     #Testes = compute(nn, entradas)
     Testes = y_train_pred_rescaled
    #Testes$net.result
@@ -383,9 +384,11 @@ ___________________________________________________________________
     #arquivo = paste(arquivo,"HistTrain.pdf", sep="_")
     #ggsave(arquivo,p1)
     #pdf(file=arquivo, height = 8, width = 9)
-    hist(Testes, main = paste("Histograma Previs?es RNA Ativo",
+    if(Plot=='Yes'){
+    hist(Testes, main = paste("Histograma Previsoes RNA Ativo",
                                          xnames= nome), xlab = paste("Retorno Excedente sobre",
                                                                      xnames = "RM"))
+    }
     #hist(Testes$net.result, main = paste("Histograma Previs?es RNA Ativo",
      #                                    xnames= nome), xlab = paste("Retorno Excedente sobre",
       #                                                               xnames = "RM"))
