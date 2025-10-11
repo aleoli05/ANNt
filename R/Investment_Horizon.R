@@ -429,7 +429,7 @@ for(k in (1:ncol(Weight_ANNt_Sharpe))){
   Weights_ANNt_Sharpe_Horizon[1+x+i,k+2]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
 }
 x=x+1
-}
+
 
 save(Weights_MF_EQ_Horizon,file='~/Weights_MF_EQ_Horizon.rda')
 write_xlsx(as.data.frame(Weights_MF_EQ_Horizon), "~/Weights_MF_EQ_Horizon.xlsx")
@@ -502,7 +502,7 @@ save(Comparativo_Alpha_Horizon_Anual, file='~/Comparativo_Alpha_Horizon_Anual.rd
 write_xlsx(as.data.frame(Comparativo_Alpha_Horizon_Anual), "~/Comparativo_Alpha_Horizon_Anual.xlsx")
 save(Comparativo_Treynor_Horizon_Anual, file='~/Comparativo_Treynor_Horizon_Anual.rda')
 write_xlsx(as.data.frame(Comparativo_Treynor_Horizon_Anual), "~/Comparativo_Treynor_Horizon_Anual.xlsx")
-
+}
 View(Comparativo_RETORNOS_Horizon_Anual)
 ################################################################################
 ###Gráfico Comparativo dos Retornos Acumulados das Carteiras
