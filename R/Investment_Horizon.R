@@ -28,6 +28,7 @@
 #' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 #' @param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
+#' @param Continue_from Determine if continue from a Specific_Date in the data
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
@@ -55,7 +56,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 N_Assets,Base='yahoo', Fun='S_Out',
                                 Specific_Dates=Sys.Date(),
                                 Import='Yes',Exclude_ticket='', Type_ANN='ANNt',
-                                Order='Yes'){
+                                Order='Yes', Continue_from='1900-01-01'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -112,7 +113,8 @@ data2 = as.Date.character(Final_Date)
 diferenca_dias = as.numeric(data2-data1)
 Interval = round(diferenca_dias/Frequency,0)
 
-
+if (Continue_from=='1900-01-01'){
+  C_from=1
 # Geração da Matriz de comparação dos Retornos
 Comparativo_Rm_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_RETORNOS_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
@@ -192,9 +194,31 @@ Weights_ANNt_Sharpe_Horizon [1,2] <- 'ASSETS'
 Weights_ANNt_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
+}else{
+  C_from=which(Specific_Dates==Continue_from)
+  load('~/Weights_MF_EQ_Horizon.rda')
+  load('~/Weights_MF_MKW_Horizon.rda')
+  load('~/Weights_MKW_Horizon.rda')
+  load('~/Weights_ANNt_EQ_Horizon.rda')
+  load('~/Weights_ANNt_MKW_Horizon.rda')
+  load('~/Weights_Sharpe_Horizon.rda')
+  load('~/Weights_MF_Sharpe_Horizon.rda')
+  load('~/Weights_ANNt_Sharpe_Horizon.rda')
+  load('~/Comparativo_Rm_Horizon_Anual.rda')
+  load('~/Comparativo_RETORNOS_Horizon_Anual.rda')
+  load('~/Comparativo_RCum_Horizon_Anual.rda')
+  load('~/Comparativo_Volatility_Horizon_Anual.rda')
+  load('~/Comparativo_Var_Horizon_Anual.rda')
+  load('~/Comparativo_CVar_Horizon_Anual.rda')
+  load('~/Comparativo_Sharpe_Horizon_Anual.rda')
+  load('~/Comparativo_Sortino_Horizon_Anual.rda')
+  load('~/Comparativo_Beta_Horizon_Anual.rda')
+  load('~/Comparativo_Alpha_Horizon_Anual.rda')
+  load('~/Comparativo_Treynor_Horizon_Anual.rda')
 
+}
 ######################################
-for (i in (1:Frequency)){
+for (i in (C_from:Frequency)){
   if (length(Specific_Dates)!=1){
     Fim_Train= as.Date.character(Specific_Dates[i])
     Inicio = as.character(Fim_Train-treino)
