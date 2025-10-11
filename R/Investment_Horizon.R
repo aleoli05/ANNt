@@ -526,6 +526,10 @@ save(Comparativo_Alpha_Horizon_Anual, file='~/Comparativo_Alpha_Horizon_Anual.rd
 write_xlsx(as.data.frame(Comparativo_Alpha_Horizon_Anual), "~/Comparativo_Alpha_Horizon_Anual.xlsx")
 save(Comparativo_Treynor_Horizon_Anual, file='~/Comparativo_Treynor_Horizon_Anual.rda')
 write_xlsx(as.data.frame(Comparativo_Treynor_Horizon_Anual), "~/Comparativo_Treynor_Horizon_Anual.xlsx")
+
+save(i,file='~/i.rda')
+Continue_from=Specific_Dates[i]
+save(Continue_from,file='~/Continue_from.rda')
 }
 View(Comparativo_RETORNOS_Horizon_Anual)
 ################################################################################
