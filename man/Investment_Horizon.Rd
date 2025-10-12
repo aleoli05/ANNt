@@ -21,7 +21,8 @@ Investment_Horizon(
   Base = "yahoo",
   Fun = "S_Out",
   Specific_Dates = Sys.Date(),
-  Import = "Yes",
+  Download = "Yes",
+  Import = "No",
   Exclude_ticket = "",
   Type_ANN = "ANNt",
   Order = "Yes",
@@ -61,8 +62,10 @@ Investment_Horizon(
 'S' uses the ANNt_Oliveira_Cereta_S function;
 'Original' uses the ANNt_Oliveira_Ceretta function.}
 
-\item{Import}{Import dates from external data base after first import. "Yes"
-or "No". "Yes" is the standard.}
+\item{Download}{Download asset prices for external data set or local data set. "Yes" or "No". "Yes" is the standard.}
+
+\item{Import}{Import dates from external data base after first import in each re balance. "Yes"
+or "No". "No" is the standard.}
 
 \item{Exclude_ticket}{Deletes any ticket from the ticket list that you want to remove for some reason}
 
