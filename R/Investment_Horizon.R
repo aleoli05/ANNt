@@ -21,7 +21,7 @@
 #' 'Out' uses the ANNt_Oliveira_Cereta_Out function;
 #' 'S' uses the ANNt_Oliveira_Cereta_S function;
 #' 'Original' uses the ANNt_Oliveira_Ceretta function.
-#'@param Specifies_Date Specific dates for the end of training. Used to define
+#'@param Specific_Date Specific dates for the end of training. Used to define
 #'the investment horizon of portfolios from specific dates.
 #'@param Import Import dates from external data base after first import. "Yes"
 #'or "No". "Yes" is the standard.
@@ -63,7 +63,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
   }else{print('Starting Investment_Horizon Command')}
   dev.capabilities()
 
-Horizon='Yes'
+Horizon=Import
 Exclude = Exclude_ticket
 RM_Nome_Backup=RM
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')

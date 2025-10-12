@@ -74,7 +74,7 @@ or "No". "Yes" is the standard.}
 
 \item{Initial_Date_Training}{Training series start Date.}
 
-\item{Specifies_Date}{Specific dates for the end of training. Used to define
+\item{Specific_Date}{Specific dates for the end of training. Used to define
 the investment horizon of portfolios from specific dates.}
 }
 \description{
