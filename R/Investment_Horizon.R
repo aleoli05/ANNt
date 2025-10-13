@@ -86,7 +86,11 @@ if (Import =='No'){
   }
   load('~/scenario.set.rda')
   scenario_ajustado=scenario.set
-}}
+  save(scenario_ajustado,file='~/scenario_ajustado.rda')
+}}else{
+  load('~/scenario.set.rda')
+  scenario_ajustado=scenario.set
+}
 
 if(Import=='No'){
   Horizon='No'
