@@ -218,7 +218,8 @@ Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
   load('~/Comparativo_Beta_Horizon_Anual.rda')
   load('~/Comparativo_Alpha_Horizon_Anual.rda')
   load('~/Comparativo_Treynor_Horizon_Anual.rda')
-
+  y=wich(Specific_Dates==Continue_from)
+  x=y+1
 }
 ######################################
 for (i in (C_from:Frequency)){
