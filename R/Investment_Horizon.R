@@ -118,10 +118,11 @@ treino = as.numeric(data1-data0)
 data2 = as.Date.character(Final_Date)
 diferenca_dias = as.numeric(data2-data1)
 Interval = round(diferenca_dias/Frequency,0)
-Tempo = c(1:Frequency)
+
 
 if (Continue_from=='1900-01-01'){
   C_from=1
+  Tempo = c(1:Frequency)
 # Geração da Matriz de comparação dos Retornos
 Comparativo_Rm_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_RETORNOS_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
@@ -224,6 +225,7 @@ Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
   load('~/Comparativo_Treynor_Horizon_Anual.rda')
   y=which(Specific_Dates==Continue_from)
   x=y+1
+  Tempo=rownames(Comparativo_RETORNOS_Horizon_Anual)
 }
 ######################################
 for (i in (C_from:Frequency)){

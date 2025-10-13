@@ -68,10 +68,6 @@ Plot_Annualized_Returns_Horizon <-function(){
   options(warn=-1)
   Eixo_X = rownames(Comparativo_RETORNOS_Horizon_Anual[,1])
   nline = nrow(Comparativo_RETORNOS_Horizon_Anual)
-  Comparativo_RETORNOS_Horizon_Anual = Comparativo_RETORNOS_Horizon_Anual[rev(seq_len(nrow(Comparativo_RETORNOS_Horizon_Anual))),]
-  Comparativo_RETORNOS_Horizon_Anual = as.data.frame(Comparativo_RETORNOS_Horizon_Anual)
-  nline = nrow(Comparativo_RETORNOS_Horizon_Anual)
-
 
 
   #########################
@@ -91,6 +87,9 @@ Plot_Annualized_Returns_Horizon <-function(){
       Until_Date = as.character(new_day)
     }
   }
+
+  Comparativo_RETORNOS_Horizon_Anual = Comparativo_RETORNOS_Horizon_Anual[rev(seq_len(nrow(Comparativo_RETORNOS_Horizon_Anual))),]
+  Comparativo_RETORNOS_Horizon_Anual = as.data.frame(Comparativo_RETORNOS_Horizon_Anual)
 
   Corte= which(rownames(as.data.frame(Comparativo_RETORNOS_Horizon_Anual))==Until_Date)
   Coparativo_Backup = Comparativo_RETORNOS_Horizon_Anual
