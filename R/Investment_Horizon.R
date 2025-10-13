@@ -114,6 +114,7 @@ treino = as.numeric(data1-data0)
 data2 = as.Date.character(Final_Date)
 diferenca_dias = as.numeric(data2-data1)
 Interval = round(diferenca_dias/Frequency,0)
+Tempo = c(1:Frequency)
 
 if (Continue_from=='1900-01-01'){
   C_from=1
@@ -129,7 +130,7 @@ Comparativo_Sortino_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_Beta_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_Alpha_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Tempo = c(1:Frequency)
+
 
 #### Matrix of weights
 
