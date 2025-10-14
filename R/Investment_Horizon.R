@@ -538,7 +538,7 @@ save(Comparativo_Treynor_Horizon_Anual, file='~/Comparativo_Treynor_Horizon_Anua
 write_xlsx(as.data.frame(Comparativo_Treynor_Horizon_Anual), "~/Comparativo_Treynor_Horizon_Anual.xlsx")
 
 save(i,file='~/i.rda')
-Continue_from=Specific_Dates[i]
+Continue_from=Specific_Dates[i+1]
 save(Continue_from,file='~/Continue_from.rda')
 }
 View(Comparativo_RETORNOS_Horizon_Anual)
