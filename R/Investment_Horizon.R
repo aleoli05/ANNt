@@ -547,6 +547,7 @@ View(Comparativo_RETORNOS_Horizon_Anual)
 
 Plot_Returns_Annualized_Horizon <-function(){
 load('~/Comparativo_RETORNOS_Horizon_Anual.rda')
+Comparativo_RETORNOS_Horizon_Anual=as.data.frame(Comparativo_RETORNOS_Horizon_Anual)
 
 options(warn=-1)
 Eixo_X = rownames(Comparativo_RETORNOS_Horizon_Anual[,1])
