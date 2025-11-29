@@ -8,6 +8,7 @@
 #' @param Hidden Number of hidden neurons (If '' is the length series)
 #' @param Stepmax Number of replications per asset to train the ANN
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
+#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @author Alexandre Silva de Oliveira
 
 #' @examples
@@ -26,10 +27,14 @@
 #data.
 
 #' @export
-ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative') {
+ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative', Skew_t='No') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 library("quantmod")
+  if (!require("sn", character.only = TRUE)) {
+    install.packages("sn", dependencies = TRUE)
+  }
+  library("sn", character.only = TRUE)
 
 print('Starting ANNt_order Command')
 
@@ -420,6 +425,21 @@ ___________________________________________________________________
         #print(paste("Left asymmetric density (Positive)"))
       }
     }}
+    if (Skew_t=='Yes'){
+      modelo_ajustado<- selm(prev ~1, family='ST')
+      dist_sec <- extractSECdistr(modelo_ajustado)
+      xi=dist_sec@dp[1]
+      omega=dist_sec@dp[2]
+      alpha=dist_sec@dp[3]
+      nu=dist_sec@dp[4]
+      Resultados_Curtose=kurtosis(prev)
+      Resultados_Assim=skewness(prev)
+      Media=mean(prev)
+      Desvio=stdev(prev)
+      dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
+      ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+      ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+    }
     #ProbabilidadeTmedia =pt(mean(prev),
     #                    df=length(prev)-1,lower.tail=TRUE)
 
@@ -605,6 +625,21 @@ ___________________________________________________________________
         #cat("Left asymmetric density (Positive)")
       }
     }}
+    if (Skew_t=='Yes'){
+      modelo_ajustado<- selm(camadaSaida ~1, family='ST')
+      dist_sec <- extractSECdistr(modelo_ajustado)
+      xi=dist_sec@dp[1]
+      omega=dist_sec@dp[2]
+      alpha=dist_sec@dp[3]
+      nu=dist_sec@dp[4]
+      Resultados_Curtose=kurtosis(camadaSaida)
+      Resultados_Assim=skewness(camadaSaida)
+      Media=mean(camadaSaida)
+      Desvio=stdev(camadaSaida)
+      dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
+      ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+      ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+    }
 ################################################################################
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                 df=length(camadaSaida)-1, lower.tail = TRUE)

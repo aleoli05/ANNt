@@ -20,6 +20,7 @@
 #'@param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 #'@param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
+#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #'@examples
 #'Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #'RM <-c('^GSPC') #RM the S&P500
@@ -37,7 +38,7 @@
 ANNt_Oliveira_Ceretta_S_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
                                         Final_Date, Periodicity, Hidden, Stepmax, Asymmetry='Negative', Type_ANNt,
                                         N_Assets,Base='yahoo', Import='Yes', Exclude_ticket='',
-                                        Type_ANN='ANNt', Order='Yes'){
+                                        Type_ANN='ANNt', Order='Yes', Skew_t='No'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
@@ -409,11 +410,11 @@ X10 = Initial_Date_Training
 
 if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
-ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry)
+ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry, Skew_t=Skew_t)
 } else {
   if(Type_ANN=='LSTMt'){
   LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,
-               View_Metrics=FALSE, Verbose=0, Plot='No')
+               View_Metrics=FALSE, Verbose=0, Plot='No', Skew_t=Skew_t)
 }}}
 #Signal_Sharpe=0
 #save(Signal_Sharpe,file="~/Signal_Sharpe.rda")

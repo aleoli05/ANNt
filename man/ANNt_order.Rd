@@ -11,7 +11,8 @@ ANNt_order(
   Final_Date_Testing,
   Hidden,
   Stepmax,
-  Asymmetry = "Negative"
+  Asymmetry = "Negative",
+  Skew_t = "No"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ ANNt_order(
 \item{Stepmax}{Number of replications per asset to train the ANN}
 
 \item{Asymmetry}{"Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
+
+\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 

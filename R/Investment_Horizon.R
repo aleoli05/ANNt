@@ -30,6 +30,7 @@
 #' @param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @param Continue_from Determine if continue from a Specific_Date in the data
+#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
@@ -58,7 +59,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Specific_Dates=Sys.Date(),
                                 Download='Yes',
                                 Import='No',Exclude_ticket='', Type_ANN='ANNt',
-                                Order='Yes', Continue_from='1900-01-01'){
+                                Order='Yes', Continue_from='1900-01-01', Skew_t='No'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -276,7 +277,7 @@ if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Final_Date_Training=Fim_Train,
                               Final_Date, Periodicity, Hidden=Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                               N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                              Type_ANN=Type_ANN, Order=Order)
+                              Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -308,7 +309,7 @@ if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                             Final_Date, Periodicity, Hidden=Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                             N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                            Type_ANN=Type_ANN, Order=Order)
+                            Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -340,7 +341,7 @@ if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                           Final_Date, Periodicity, Hidden=Hidenn, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                           N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                          Type_ANN=Type_ANN, Order=Order)
+                          Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -351,7 +352,7 @@ if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
                         Final_Date, Periodicity, Hidden=Hidden, Stepmax, Asymmetry=Asymmetry, Type_ANNt,
                         N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                        Type_ANN=Type_ANN, Order=Order)
+                        Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)

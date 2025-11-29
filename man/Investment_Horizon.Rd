@@ -26,7 +26,8 @@ Investment_Horizon(
   Exclude_ticket = "",
   Type_ANN = "ANNt",
   Order = "Yes",
-  Continue_from = "1900-01-01"
+  Continue_from = "1900-01-01",
+  Skew_t = "No"
 )
 }
 \arguments{
@@ -74,6 +75,8 @@ or "No". "No" is the standard.}
 \item{Order}{If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database}
 
 \item{Continue_from}{Determine if continue from a Specific_Date in the data}
+
+\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 
 \item{Initial_Date_Training}{Training series start Date.}
 

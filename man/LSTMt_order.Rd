@@ -14,7 +14,8 @@ LSTMt_order(
   Asymmetry = "Negative",
   View_Metrics = TRUE,
   Verbose = 1,
-  Plot = "Yes"
+  Plot = "Yes",
+  Skew_t = "No"
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ LSTMt_order(
 \item{Verbose}{Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)}
 
 \item{Plot}{Plot return´s frequency histogram}
+
+\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 
