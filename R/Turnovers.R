@@ -12,8 +12,8 @@ Turnovers<-function(Portfolio){
 library(dplyr)
   if (length(Portfolio)==1){
   if (Portfolio=='Alls'){
-      Portfolio=c('MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe','ANNt_Sharpe',
-             'Magic_EQ','Magic_MKW', 'Magic_Sharpe', 'Graham_EQ', 'Graham_MKW', 'Graham_Sharpe')
+      Portfolio=c('MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe',
+                  'ANNt_Sharpe')
       load('~/Weights_MF_EQ_Horizon.rda')
   }}
 if (length(Portfolio)==1){
