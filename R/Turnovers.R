@@ -58,36 +58,6 @@ if (length(Portfolio)==1){
     dados=Weights_ANNt_Sharpe_Horizon
     View(Weights_ANNt_Sharpe_Horizon)
   }
-  if(Portfolio=='Magic_EQ'){
-    load('~/Weights_Magic_EQ_Horizon.rda')
-    dados=Weights_Magic_EQ_Horizon
-    View(Weights_Magic_EQ_Horizon)
-  }
-  if(Portfolio=='Magic_MKW'){
-    load('~/Weights_Magic_MKW_Horizon.rda')
-    dados=Weights_Magic_MKW_Horizon
-    View(Weights_Magic_MKW_Horizon)
-  }
-  if(Portfolio=='Magic_Sharpe'){
-    load('~/Weights_Magic_Sharpe_Horizon.rda')
-    dados=Weights_Magic_Sharpe_Horizon
-    View(Weights_Magic_Sharpe_Horizon)
-  }
-  if(Portfolio=='Graham_EQ'){
-    load('~/Weights_Graham_EQ_Horizon.rda')
-    dados=Weights_Graham_EQ_Horizon
-    View(Weights_Graham_EQ_Horizon)
-  }
-  if(Portfolio=='Graham_MKW'){
-    load('~/Weights_Graham_MKW_Horizon.rda')
-    dados=Weights_Graham_MKW_Horizon
-    View(Weights_Graham_MKW_Horizon)
-  }
-  if(Portfolio=='Graham_Sharpe'){
-    load('~/Weights_Graham_Sharpe_Horizon.rda')
-    dados=Weights_Graham_Sharpe_Horizon
-    View(Weights_Graham_Sharpe_Horizon)
-  }
 
   Linhas_CV=(nrow(dados)-2)
   Linhas=seq(from=3, to=nrow(dados)-1, by=2)
@@ -227,36 +197,7 @@ for (m in 1:length(Port)){
     dados=Weights_ANNt_Sharpe_Horizon
     View(Weights_ANNt_Sharpe_Horizon)
   }
-  if(Portfolio=='Magic_EQ'){
-    load('~/Weights_Magic_EQ_Horizon.rda')
-    dados=Weights_Magic_EQ_Horizon
-    View(Weights_Magic_EQ_Horizon)
-  }
-  if(Portfolio=='Magic_MKW'){
-    load('~/Weights_Magic_MKW_Horizon.rda')
-    dados=Weights_Magic_MKW_Horizon
-    View(Weights_Magic_MKW_Horizon)
-  }
-  if(Portfolio=='Magic_Sharpe'){
-    load('~/Weights_Magic_Sharpe_Horizon.rda')
-    dados=Weights_Magic_Sharpe_Horizon
-    View(Weights_Magic_Sharpe_Horizon)
-  }
-  if(Portfolio=='Graham_EQ'){
-    load('~/Weights_Graham_EQ_Horizon.rda')
-    dados=Weights_Graham_EQ_Horizon
-    View(Weights_Graham_EQ_Horizon)
-  }
-  if(Portfolio=='Graham_MKW'){
-    load('~/Weights_Graham_MKW_Horizon.rda')
-    dados=Weights_Graham_MKW_Horizon
-    View(Weights_Graham_MKW_Horizon)
-  }
-  if(Portfolio=='Graham_Sharpe'){
-    load('~/Weights_Graham_Sharpe_Horizon.rda')
-    dados=Weights_Graham_Sharpe_Horizon
-    View(Weights_Graham_Sharpe_Horizon)
-  }
+
 
   Linhas_CV=(nrow(dados)-2)
   Linhas=seq(from=3, to=nrow(dados)-1, by=2)
@@ -318,7 +259,7 @@ for (m in 1:length(Port)){
     Media=1
   }
   Turnover=dados[,1:2]
-  posicao_=seq(from=1, to=length(Turn), by=2)
+  posicao_=seq(from=1, to=(2*length(Turn)-1), by=2)
   elemento=0
   Lista=Turn
   for(i in 1:length(posicao_)){
@@ -333,9 +274,9 @@ for (m in 1:length(Port)){
     posicao=posicao[i]
     Lista= append(Lista, elemento3)
   }
-  Lista[Posicao3-1]=0
-  Lista[Posicao3]='Mean'
-  Lista[Posicao3+1]=Media
+  #Lista[Posicao3-1]=0
+  Lista[Posicao3-1]='Mean'
+  Lista[Posicao3]=Media
   Turnover[,3]=Lista
   Turnover=na.omit(Turnover)
   View(Turnover)
