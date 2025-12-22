@@ -48,6 +48,7 @@ print('Starting LSTMt_order Command')
   load("~/Initial_Date.rda") # Carrega objeto scenario.set
   #load("~/tickers.rda") # Carrega objeto scenario.set
   load("~/Signal_Sharpe.rda") # Carrega objeto scenario.set
+  ativos_fora=NULL
 
   tickers=colnames(scenario.set)
 
@@ -461,6 +462,9 @@ if (Plot=='Yes'){
       }
     }}
     if (Skew_t=='Yes'){
+      tryCatch(
+        expr = {
+          # Código principal a ser executado
       modelo_ajustado<- selm(prev ~1, family='ST')
       dist_sec <- extractSECdistr(modelo_ajustado)
       xi=dist_sec@dp[1]
@@ -471,9 +475,23 @@ if (Plot=='Yes'){
       Resultados_Assim=skewness(prev)
       Media=mean(prev)
       Desvio=stdev(prev)
-      dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
-      ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+      #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
+      #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
       ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        },
+      error = function(e) {
+        # Código a ser executado se ocorrer um erro
+        ProbabilidadeTmedia=0.0
+        ativos_fora[length(ativos_fora)+1]=ativo
+
+      },
+      warning = function(w) {
+        # (Opcional) Código a ser executado se ocorrer um aviso (warning)
+      },
+      finally = {
+        # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
+      }
+      )
     }
     #ProbabilidadeTmedia =pt(mean(prev),
     #                    df=length(prev)-1,lower.tail=TRUE)
@@ -661,6 +679,8 @@ if (Plot=='Yes'){
       }
     }}
     if (Skew_t=='Yes'){
+      tryCatch(
+        expr = {
       modelo_ajustado<- selm(camadaSaida ~1, family='ST')
       dist_sec <- extractSECdistr(modelo_ajustado)
       xi=dist_sec@dp[1]
@@ -671,9 +691,23 @@ if (Plot=='Yes'){
       Resultados_Assim=skewness(camadaSaida)
       Media=mean(camadaSaida)
       Desvio=stdev(camadaSaida)
-      dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
-      ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+      #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
+      #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
       ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        },
+      error = function(e) {
+        # Código a ser executado se ocorrer um erro
+        ProbabilidadeTmedia=0.0
+        ativos_fora[length(ativos_fora)+1]=ativo
+
+      },
+      warning = function(w) {
+        # (Opcional) Código a ser executado se ocorrer um aviso (warning)
+      },
+      finally = {
+        # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
+      }
+      )
     }
 ################################################################################
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
@@ -873,6 +907,37 @@ if (Plot=='Yes'){
         #cat("Left asymmetric density (Positive)")
       }
     }}
+    if (Skew_t=='Yes'){
+      tryCatch(
+        expr = {
+          # Código principal a ser executado
+          modelo_ajustado<- selm(prevPredict ~1, family='ST')
+          dist_sec <- extractSECdistr(modelo_ajustado)
+          xi=dist_sec@dp[1]
+          omega=dist_sec@dp[2]
+          alpha=dist_sec@dp[3]
+          nu=dist_sec@dp[4]
+          Resultados_Curtose=kurtosis(prevPredict)
+          Resultados_Assim=skewness(prevPredict)
+          Media=mean(prevPredict)
+          Desvio=stdev(prevPredict)
+          #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prevPredict)-1), family="ST")
+          #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+          ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        },
+        error = function(e) {
+          # Código a ser executado se ocorrer um erro
+          ProbabilidadeTmedia=0.0
+          ativos_fora[length(ativos_fora)+1]=ativo
+        },
+        warning = function(w) {
+          # (Opcional) Código a ser executado se ocorrer um aviso (warning)
+        },
+        finally = {
+          # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
+        }
+      )
+    }
     #ProbabilidadeTmedia =pt(mean(prev),
     #                    df=length(prev)-1,lower.tail=TRUE)
 
@@ -952,6 +1017,37 @@ if (Plot=='Yes'){
         print(paste("Left asymmetric density (Positive)"))
       }
     }}
+    if (Skew_t=='Yes'){
+      tryCatch(
+        expr = {
+          # Código principal a ser executado
+          modelo_ajustado<- selm(camadaSaidaPredict ~1, family='ST')
+          dist_sec <- extractSECdistr(modelo_ajustado)
+          xi=dist_sec@dp[1]
+          omega=dist_sec@dp[2]
+          alpha=dist_sec@dp[3]
+          nu=dist_sec@dp[4]
+          Resultados_Curtose=kurtosis(camadaSaidaPredict)
+          Resultados_Assim=skewness(camadaSaidaPredict)
+          Media=mean(camadaSaidaPredict)
+          Desvio=stdev(camadaSaidaPredict)
+          #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
+          #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+          ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        },
+        error = function(e) {
+          # Código a ser executado se ocorrer um erro
+          ProbabilidadeTmedia=0.0
+          ativos_fora[length(ativos_fora)+1]=ativo
+        },
+        warning = function(w) {
+          # (Opcional) Código a ser executado se ocorrer um aviso (warning)
+        },
+        finally = {
+          # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
+        }
+      )
+    }
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                 df=length(camadaSaida)-1, lower.tail = TRUE)
 
