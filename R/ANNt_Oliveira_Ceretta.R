@@ -16,7 +16,7 @@
 #'@param Import Import dates from external data base after first import. "Yes"
 #'or "No". "Yes" is the standard.
 #'@param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
-#'@param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
+#' @param Type_ANN Select the network type: 'ANNt', 'LSTMt' in RNN from ANNt, or 'SKEWt' to raw excess return data
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #'
@@ -101,7 +101,11 @@ if(Type_ANN=='ANNt'){
   if(Type_ANN=='LSTMt'){
     LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,
                  View_Metrics=FALSE, Verbose=0, Plot='No', Skew_t=Skew_t)
-  }}}
+  } else {
+    if(Type_ANN=='SKEWt'){
+      SKEWt_order ('', '', '', Asymmetry=Asymmetry,
+                   Plot='No', Skew_t=Skew_t)
+    }}}}
 Gen_portfolios('n_Assets',Initial_Date_Testing,'',Rf, Type_ANNt)
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')

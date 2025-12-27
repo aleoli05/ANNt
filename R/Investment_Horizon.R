@@ -27,7 +27,7 @@
 #'@param Import Import dates from external data base after first import in each re balance. "Yes"
 #'or "No". "No" is the standard.
 #' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
-#' @param Type_ANN Select the network type: 'ANNt' or 'LSTMt' in RNN from ANNt
+#' @param Type_ANN Select the network type: 'ANNt', 'LSTMt' in RNN from ANNt, or 'SKEWt' to raw excess return data
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @param Continue_from Determine if continue from a Specific_Date in the data
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
