@@ -188,11 +188,12 @@ ___________________________________________________________________
   ########################
   #### Cria??o da vari?vel de armazenamento dos resultados de assimetria e curtose
   #### Particular por Probabilidade t de Student
-  Resultados_Assim_Curtose = matrix(ncol=nAtivos-1,nrow=8)
+  Resultados_Assim_Curtose = matrix(ncol=nAtivos-1,nrow=12)
   Resultados_Assim_Curtose = data.frame(Resultados_Assim_Curtose)
   colnames(Resultados_Assim_Curtose)=tickers[-1]
   rownames(Resultados_Assim_Curtose) = c('Probability','Mean','Median','Stand. Dev.',
-                                         'Kurtosis','Skewness','Minimum','Maximum')
+                                         'Kurtosis','Skewness','Minimum','Maximum',
+                                         'xi', 'omega', 'alpha', 'nu')
   Resultados_Assim_Curtose
 
 
@@ -1083,7 +1084,10 @@ ___________________________________________________________________
     Resultados_Assim_Curtose[6,k]=skewness(camadaSaidaPredict)
     Resultados_Assim_Curtose[7,k]=min(camadaSaidaPredict)
     Resultados_Assim_Curtose[8,k]=max(camadaSaidaPredict)
-
+    Resultados_Assim_Curtose[9,k]=xi
+    Resultados_Assim_Curtose[10,k]=omega
+    Resultados_Assim_Curtose[11,k]=alpha
+    Resultados_Assim_Curtose[12,k]=nu
 
     dev.off() ### Salvando gr?ficos do Ativo dentro Loop
 
