@@ -441,7 +441,7 @@ ___________________________________________________________________
       Desvio=stdev(prev)
       #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
       #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-      ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
         },
       error = function(e) {
         # Código a ser executado se ocorrer um erro
@@ -658,7 +658,7 @@ ___________________________________________________________________
       Desvio=stdev(camadaSaida)
       #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
       #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-      ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
         },
       error = function(e) {
         # Código a ser executado se ocorrer um erro
@@ -878,7 +878,7 @@ ___________________________________________________________________
           Desvio=stdev(prevPredict)
           #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prevPredict)-1), family="ST")
           #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-          ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
         },
         error = function(e) {
           # Código a ser executado se ocorrer um erro
@@ -988,7 +988,7 @@ ___________________________________________________________________
           Desvio=stdev(camadaSaidaPredict)
           #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
           #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-          ProbabilidadeTmedia = pst(0.0, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
         },
         error = function(e) {
           # Código a ser executado se ocorrer um erro
@@ -1299,7 +1299,7 @@ nome_Summary_ANNt=paste("~/Summary_ANNt_",nome_asset,".xlsx", sep="")
   save(T6,file='~/T6.rda')
   save(T7,file='~/T7.rda')
   save(T8,file='~/T8.rda')
-  save(ativos_fora='~/ativos_fora.rda')
+  save(ativos_fora, file='~/ativos_fora.rda')
 
 write_xlsx(Assets_ANNt_Order, nome_Asset_order)
 
