@@ -26,14 +26,6 @@ SKEWt_order(
 \item{Inicial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 
 \item{Date_Training}{Series finish training date}
-
-\item{Hidden}{Number of hidden neurons (If '' is the length series)}
-
-\item{Stepmax}{Number of replications per asset to train the ANN}
-
-\item{View_Metrics}{"True" or "False" for view realtime plot of training metrics}
-
-\item{Verbose}{Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)}
 }
 \description{
 classify assets by the probability of return exceeding a RM with Skew_t

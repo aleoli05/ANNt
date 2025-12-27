@@ -5,11 +5,7 @@
 #' @param Inicial_Date Series start Date (Must be 7 periods greater than the analyzed series)
 #' @param Date_Training Series finish training date
 #' @param Final_Date_Training Series end Date (If '' is the System Date)
-#' @param Hidden Number of hidden neurons (If '' is the length series)
-#' @param Stepmax Number of replications per asset to train the ANN
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
-#' @param View_Metrics "True" or "False" for view realtime plot of training metrics
-#' @param Verbose Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch)
 #' @param Plot Plot return´s frequency histogram
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @author Alexandre Silva de Oliveira
@@ -85,22 +81,6 @@ print('Starting LSTMt_order Command')
      new_day=dia-1
      Final_Date_Testing = as.character(new_day)
    }
- }
-
- # y1 is the number of hidden, case the ANNt_Oliveira_Ceretta went used
- if(Hidden=='hidden'){
-  load('~/x2.rda')
-   Hidden=x2
- }
- # y2 is the number of Stepmax, case the ANNt_Oliveira_Ceretta went use
- if(Stepmax=='stepmax'){
-   load('~/x3.rda')
-   Stepmax=x3
- }
- if (Hidden==''){
-   Cont1=which(rownames(scenario.set)==Final_Date_Training)-5
- } else{
-   Cont1=Hidden
  }
 
    if (Asymmetry=='asymmetry'){
@@ -1123,8 +1103,6 @@ nome_Summary_SKEWt=paste("~/Summary_SKEWt_",nome_asset,".xlsx", sep="")
   #Initial_Date_Testing=rownames(as.data.frame(entradasPredict)[1,])
   save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')
   save(Final_Date_Testing, file='~/Final_Date_Testing.rda')
-  save(Hidden, file='~/Hidden.rda')
-  save(Stepmax, file='~/Stepmax.rda')
   save(I_dataPredict,file='~/I_dataPredict.rda')
   save(F_dataPredict,file='~/F_dataPredict.rda')
   save(Summary_SKEWt,file='~/Summary_SKEWt.rda')
