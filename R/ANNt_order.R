@@ -447,6 +447,10 @@ ___________________________________________________________________
       error = function(e) {
         # Código a ser executado se ocorrer um erro
         ProbabilidadeTmedia=0.0
+        xi=0.0
+        omega=0.0
+        alpha=0.0
+        nu=0.0
         ativos_fora[length(ativos_fora)+1]=ativo
 
       },
@@ -664,6 +668,10 @@ ___________________________________________________________________
       error = function(e) {
         # Código a ser executado se ocorrer um erro
         ProbabilidadeTmedia =0.0
+        xi=0.0
+        omega=0.0
+        alpha=0.0
+        nu=0.0
         ativos_fora[length(ativos_fora)+1]=ativo
       },
       warning = function(w) {
@@ -884,6 +892,10 @@ ___________________________________________________________________
         error = function(e) {
           # Código a ser executado se ocorrer um erro
           ProbabilidadeTmedia=0.0
+          xi=0.0
+          omega=0.0
+          alpha=0.0
+          nu=0.0
           ativos_fora[length(ativos_fora)+1]=ativo
         },
         warning = function(w) {
@@ -994,6 +1006,10 @@ ___________________________________________________________________
         error = function(e) {
           # Código a ser executado se ocorrer um erro
           ProbabilidadeTmedia=0.0
+          xi=0.0
+          omega=0.0
+          alpha=0.0
+          nu=0.0
           ativos_fora[length(ativos_fora)+1]=ativo
         },
         warning = function(w) {
