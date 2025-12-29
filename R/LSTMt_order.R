@@ -213,7 +213,7 @@ ___________________________________________________________________
     ativo = k+1
     #Envelope
 
-
+    xi=1.0
     # Calculo das defasagens para cada ativo
 
 
