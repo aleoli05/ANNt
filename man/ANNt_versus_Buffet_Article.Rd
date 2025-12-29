@@ -5,9 +5,13 @@
 \title{ANNt_versus_Buffet_Article
 Realize the 2st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.}
 \usage{
-ANNt_versus_Buffet_Article()
+ANNt_versus_Buffet_Article(Term = "Shor_Term", Serie = "First_Serie")
 }
 \arguments{
+\item{Term}{"Short_Term" or "Long_Term" analysis}
+
+\item{Serie}{"First_Serie" or 'Rebalanced_Serie" for the first or rebalanced sample}
+
 \item{Parameters}{was defined in paper}
 }
 \description{

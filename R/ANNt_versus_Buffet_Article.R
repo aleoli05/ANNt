@@ -2,11 +2,13 @@
 #' Realize the 2st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
 #'
 #' @param Parameters was defined in paper
+#' @param Term "Short_Term" or "Long_Term" analysis
+#' @param Serie "First_Serie" or 'Rebalanced_Serie" for the first or rebalanced sample
 #' @examples
 #' ANNt_versus_Buffet_Article()
 #'
 #' @export
-ANNt_versus_Buffet_Article <- function() {
+ANNt_versus_Buffet_Article <- function(Term="Shor_Term", Serie="First_Serie") {
 
 
 
@@ -107,8 +109,16 @@ charts.PerformanceSummary(scenario.set[,1])
 #########################################
 
 Name = c("Buffet")
-Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY", "MCO") # PORTFOLIO´s Buffet 2023
-Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO weights 2023
+
+if (Serie=='First_Serie'){
+Portfolio=c("AAPL", "BAC", "KO", "AXP", "CVX", "KHC", "OXY") # PORTFOLIO´s Buffet 2022
+Weights=c( 0.414, 0.102, 0.073, 0.068, 0.068, 0.037, 0.033) # PORTFOLIO weights 2022
+} else {
+#Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY", "MCO") # PORTFOLIO´s Buffet 2023
+#Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO weights 2023
+Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY") # PORTFOLIO´s Buffet 2023
+Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038) # PORTFOLIO weights 2023
+}
 Specify_Pf_RM(Name,Portfolio,Weights)
 
 scenario.set=as.matrix(scenario.set)
@@ -155,34 +165,39 @@ load("~/RM.rda")
 load("~/scenario.set.rda")
 scenario.set = data.frame(scenario.set)
 
+if (Serie=='First_Serie'){
 ########################### 1° Serie Times #####################################
+if (Term=='First_Term'){
 ### Short term Analysis
 Datas1Predict = rownames(scenario.set)[
   (which(rownames(scenario.set)=="2021-12-31")):
     (which(rownames(scenario.set)=="2022-08-04"))]
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
-
+} else {
 ### Long Term Analysis
 Datas1Predict = rownames(scenario.set)[
   (which(rownames(scenario.set)=="2020-01-21")):
     (which(rownames(scenario.set)=="2022-08-04"))]
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,]))
-
+}
+} else {
 ########################### 2° Serie Times Rebalanced###########################
 ### Short term Analysis
+if (Term=='First_Term'){
 Datas1Predict = rownames(scenario.set)[
   (which(rownames(scenario.set)=="2022-08-12")):
     (which(rownames(scenario.set)=="2023-03-17"))]
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
-
+} else {
 ### Long Term Analysis
 Datas1Predict = rownames(scenario.set)[
   (which(rownames(scenario.set)=="2020-09-01")):
     (which(rownames(scenario.set)=="2023-03-17"))]
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,]))
-
+}
+}
 ################################################################################
 all.returns <- TodosAtivosPredict
 library(dplyr)
@@ -226,11 +241,11 @@ RetornosMediosBuffet = as.matrix(PosCovidBuffet) %*% PesosBuffetNormalizado
 #T6 = Carteira_T6[Datas1Predict,]
 
 
-CarteiraComparativa = colnames(T8[1:8])
+CarteiraComparativa = colnames(T8[1:7])
 C_Net_T_comparativa = as.data.frame(scenario.set) %>%
   dplyr::select(which((colnames(scenario.set) %in% CarteiraComparativa)))
 C_Net_T_comparativa = C_Net_T_comparativa[Datas1Predict,]
-PesosComparativos = c(rep(1/8,8))
+PesosComparativos = c(rep(1/7,7))
 Media_C_Net_T_Comparativa = as.matrix(C_Net_T_comparativa) %*% PesosComparativos
 
 # Carteira de Markovitz de Minima Variância obtida a partir de todos ativos
