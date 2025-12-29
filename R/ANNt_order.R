@@ -207,6 +207,9 @@ ___________________________________________________________________
     #Envelope
 
     xi=1.0
+    omega=0.0
+    alpha=0.0
+    nu=0.0
     # Calculo das defasagens para cada ativo
 
 
