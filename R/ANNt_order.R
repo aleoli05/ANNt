@@ -30,6 +30,7 @@
 ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative', Skew_t='No') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
+
 library("quantmod")
   if (!require("sn", character.only = TRUE)) {
     install.packages("sn", dependencies = TRUE)
@@ -205,7 +206,7 @@ ___________________________________________________________________
     ativo = k+1
     #Envelope
 
-
+    xi=1.0
     # Calculo das defasagens para cada ativo
 
 
