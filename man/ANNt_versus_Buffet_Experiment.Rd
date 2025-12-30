@@ -51,9 +51,9 @@ ANNt_versus_Buffet_Experiment
 Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
 }
 \examples{
-ANNt_versus_Buffet_Experiment(Initial_Date_Training='2018-01-11',
+ANNt_versus_Buffet_Experiment(Initial_Date='2018-01-11',
 Final_Date_Training='2021-12-30',
-Final_Date_Testing='2022-08-04 ',
+Final_Date='2022-08-04 ',
 Hidden= Hidden, Stepmax= Stepmax,
 Loss="MSE", Learning_Rate=0.3, Decay='No',
 Early_Stopping = 'No', Asymmetry='Negative',
