@@ -627,7 +627,8 @@ ___________________________________________________________________
 
   }
       if(length(Early_Stopping)!=1){
-      if(erroCamadaSaida < as.numeric(Early_Stopping[2])){j=epocas}
+      if((erroCamadaSaida < as.numeric(Early_Stopping[2]))==TRUE){
+        j=epocas}
       }
 
 ################################################################################
