@@ -1,6 +1,7 @@
 #' ANNt_versus_Buffet_Experiment
 #' Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
 #'
+#' @param Data_Base import from Yahoo Finance or if "GitHub" to be specified, from GitHub/aleoli05
 #' @param Initial_Date Series start Date (Must be 7 periods greater than the analyzed series)
 #' @param Final_Date_Training Series finish training date
 #' @param Final_Date Series end Date (If '' is the System Date)
@@ -28,7 +29,7 @@
 #' Skew_t='No')
 #'
 #' @export
-ANNt_versus_Buffet_Experiment <- function(Initial_Date='2018-01-03',
+ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub',Initial_Date='2018-01-03',
                                Final_Date_Training='2021-12-30',
                                Final_Date='2022-08-04 ',
                                Hidden= Hidden, Stepmax= Stepmax,
@@ -38,9 +39,17 @@ ANNt_versus_Buffet_Experiment <- function(Initial_Date='2018-01-03',
 
 
 # 1) Import the assets series, example:
+  if(Data_Base=='GitHub'){
+  library(readxl)
+  library(readr)
+
+  download.file("https://github.com/aleoli05/ANNt/raw/main/Data_/Assets_Prices_Buffet.rda",destfile ="~/Assets_Prices_Buffet.rda")
+  #Assets_series (Tickers='Current_SP500_Tickers','^GSPC', '2018-01-03', '','daily')
+  load("~/Assets_Prices_Buffet.rda")
+  } else {
 Assets_series (Tickers='Current_SP500_Tickers','^GSPC', Initial_Date = Initial_Date,
                   Final_Date=Final_Date,'daily')
-
+}
 # 2) Specify Buffet´s Portfolio, example:
 Name = c("Buffet")
 

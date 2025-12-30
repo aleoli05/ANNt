@@ -6,6 +6,7 @@
 Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.}
 \usage{
 ANNt_versus_Buffet_Experiment(
+  Data_Base = "GitHub",
   Initial_Date = "2018-01-03",
   Final_Date_Training = "2021-12-30",
   Final_Date = "2022-08-04 ",
@@ -20,6 +21,8 @@ ANNt_versus_Buffet_Experiment(
 )
 }
 \arguments{
+\item{Data_Base}{import from Yahoo Finance or if "GitHub" to be specified, from GitHub/aleoli05}
+
 \item{Initial_Date}{Series start Date (Must be 7 periods greater than the analyzed series)}
 
 \item{Final_Date_Training}{Series finish training date}
