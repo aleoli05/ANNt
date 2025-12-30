@@ -40,7 +40,37 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
                                Early_Stopping = 'No', Asymmetry='Negative',
                                Skew_t='No') {
 
-
+  options(warn=-1)
+  # library(webinar.cpom)
+  library(quantmod)
+  library(PerformanceAnalytics)
+  library(magrittr)
+  library(fBasics)
+  library(tidyverse)
+  library(stringr)
+  library(dplyr)
+  library(neuralnet)
+  library(zoo)
+  library(forecast)
+  library(timetk)
+  library(moments)
+  library(data.table)
+  library(ggplot2)
+  library(rvest)
+  library(caret)
+  library (readxl)
+  library(writexl)
+  library(portfolio.optimization)
+  library(PortfolioAnalytics)
+  library(ROI)
+  library(fPortfolio)
+  library(timeSeries)
+  library(gridExtra)
+  library(cowplot)
+  library(portfolioBacktest)
+  library(CVXR)
+  library(MFDFA)
+  library(DEoptim)
 # 1) Import the assets series, example:
   if(Data_Base=='GitHub'){
   library(readxl)
