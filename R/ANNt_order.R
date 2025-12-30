@@ -626,8 +626,10 @@ ___________________________________________________________________
         erroCamadaSaida <-  erroCamadaSaida + reg_term
 
   }
+      print(paste("Loss:",erroCamadaSaida))
       if(length(Early_Stopping)!=1){
-      if((erroCamadaSaida < as.numeric(Early_Stopping[2]))==TRUE){
+        Stop=as.numeric(Early_Stopping[2])
+      if((erroCamadaSaida < Stop)==TRUE){
         j=epocas}
       }
 
