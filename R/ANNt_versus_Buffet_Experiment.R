@@ -2,6 +2,7 @@
 #' Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
 #'
 #' @param Data_Base import from Yahoo Finance or if "GitHub" to be specified, from GitHub/aleoli05
+#' @param Serie "First_Serie" or 'Rebalanced_Serie" for the first or rebalanced sample
 #' @param Initial_Date Series start Date (Must be 7 periods greater than the analyzed series)
 #' @param Final_Date_Training Series finish training date
 #' @param Final_Date Series end Date (If '' is the System Date)
@@ -29,7 +30,7 @@
 #' Skew_t='No')
 #'
 #' @export
-ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub',Initial_Date='2018-01-03',
+ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie",Initial_Date='2018-01-03',
                                Final_Date_Training='2021-12-30',
                                Final_Date='2022-08-04 ',
                                Hidden= Hidden, Stepmax= Stepmax,
