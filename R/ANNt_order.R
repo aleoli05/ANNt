@@ -53,7 +53,7 @@ print('Starting ANNt_order Command')
   load("~/scenario.set.rda") # Carrega objeto scenario.set
   load("~/Initial_Date.rda") # Carrega objeto scenario.set
   #load("~/tickers.rda") # Carrega objeto scenario.set
-  load("~/Signal_Sharpe.rda") # Carrega objeto scenario.set
+  #load("~/Signal_Sharpe.rda") # Carrega objeto scenario.set
   ativos_fora=NULL
   tickers=colnames(scenario.set)
 
@@ -553,7 +553,7 @@ ___________________________________________________________________
     # Estimando o n?mero de ?pocas e a taxa de aprendizagem
     epocas = Stepmax
     momento = 1
-    taxaAprendizagem = Learning_rate
+    taxaAprendizagem = Learning_Rate
     #########################################
     for(j in 1:epocas) {
       # fed forward
