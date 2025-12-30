@@ -575,6 +575,8 @@ ___________________________________________________________________
       camadaSaida = sigmoide(somaSinapse1)
 ##################################### Loss Function #############################
       # back forward
+      R_predicted = camadaSaida
+      R_observed = saidas
       if (Loss=="MSE"){
       #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
       erroCamadaSaida = saidas - camadaSaida # M?nima diferen?a
@@ -583,8 +585,6 @@ ___________________________________________________________________
       erroCamadaSaida = mediaAbsoluta
       } else {if(Loss=="MADL"){
       ## Implementação do MADL/GMADL
-      R_predicted = camadaSaida
-      R_observed = saidas
       # MADL Function
       madl_loss <- function(R_observed, R_predicted) {
         N <- length(R_observed)
