@@ -92,6 +92,9 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
   #Renames Columns
   RM='Buffet'
   save(RM, file='~/RM.rda')
+  save(Initial_Date, file='~/Initial_Date.rda')
+  save(Final_Date_Training, file='~/Final_Date_Training.rda')
+  save(Final_Date, file='~/Final_Date.rda')
 
   # Calculate Returns: Daily RoC
   portfolioReturns <- na.omit(ROC(portfolioPrices, type="discrete"))

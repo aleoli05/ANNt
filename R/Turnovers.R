@@ -86,7 +86,7 @@ if (length(Portfolio)==1){
             teste=dados[i+2,3:ncol(dados)]
             excluir=names(teste)[colSums(is.na(teste)) > 0]
             teste <- teste %>%
-              select(-all_of(excluir))
+              dplyr::select(-all_of(excluir))
             if (is.na(dados[i,j])==FALSE && any(unlist(teste)==as.character(dados[i,j]))==FALSE){
               Compras[i+1,j] = as.numeric(dados[i+1,j])
             }
