@@ -90,7 +90,8 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
   # BENCHMARK
   BENCHMARK <- c("SP500")
   #Renames Columns
-
+  RM='Buffet'
+  save(RM, file='~/RM.rda')
 
   # Calculate Returns: Daily RoC
   portfolioReturns <- na.omit(ROC(portfolioPrices, type="discrete"))
@@ -121,6 +122,7 @@ Assets_series (Tickers='Current_SP500_Tickers','^GSPC', Initial_Date = Initial_D
 }
 # 2) Specify Buffet´s Portfolio, example:
 Name = c("Buffet")
+
 
 if (Serie=='First_Serie'){
   Portfolio=c("AAPL", "BAC", "KO", "AXP", "CVX", "KHC", "OXY") # PORTFOLIO´s Buffet 2022
