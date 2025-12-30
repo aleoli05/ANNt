@@ -35,7 +35,7 @@
 ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie",Initial_Date='2018-01-03',
                                Final_Date_Training='2021-12-30',
                                Final_Date='2022-08-04 ',
-                               Hidden= Hidden, Stepmax= Stepmax,
+                               Hidden= '', Stepmax= 20000,
                                Loss="MSE", Learning_Rate=0.3, Decay='No',
                                Early_Stopping = 'No', Asymmetry='Negative',
                                Skew_t='No') {
