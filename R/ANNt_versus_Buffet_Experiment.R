@@ -90,6 +90,9 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
   # BENCHMARK
   BENCHMARK <- c("SP500")
   #Renames Columns
+  Initial_Date=Initial_Date
+  Final_Date_Training=Final_Date_Training
+  Final_Date=Final_Date
   RM='Buffet'
   save(RM, file='~/RM.rda')
   save(Initial_Date, file='~/Initial_Date.rda')
