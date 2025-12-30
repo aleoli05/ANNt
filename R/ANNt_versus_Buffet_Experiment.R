@@ -49,6 +49,42 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
   download.file("https://github.com/aleoli05/ANNt/raw/main/Data_/Assets_Prices_Buffet.rda",destfile ="~/Assets_Prices_Buffet.rda")
   #Assets_series (Tickers='Current_SP500_Tickers','^GSPC', '2018-01-03', '','daily')
   load("~/Assets_Prices_Buffet.rda")
+
+  portfolioPrices_Teste = portfolio_observed
+  portfolioPrices=portfolio_observed[1:1310,]
+  View(portfolioPrices)
+
+  Datas_portfolio = rownames(as.data.frame(portfolioPrices))
+
+
+  # BENCHMARK
+  BENCHMARK <- c("SP500")
+  #Renames Columns
+
+
+  # Calculate Returns: Daily RoC
+  portfolioReturns <- na.omit(ROC(portfolioPrices, type="discrete"))
+
+  scenario.set <- portfolioReturns
+  scenario.set <- scenario.set[apply(scenario.set,1,
+                                     function(x) all(!0)),]
+  #View(scenario.set)
+  save(scenario.set,file='~/scenario.set.rda')
+
+  assets <- ncol(scenario.set)
+  scenarios <- nrow(scenario.set)
+  #scenario.set=as.zoo(scenario.set)
+  #rownames(scenario.set)=rownames(portfolioReturns)
+
+  # Plot Charts
+  cat("\n", paste0(names(scenario.set), "\n"))
+
+  #chart.Bar(scenario.set$SP500)
+  #charts.PerformanceSummary(scenario.set$SP500)
+  chart.Bar(scenario.set[,1])
+  charts.PerformanceSummary(scenario.set[,1])
+
+  #########################################
   } else {
 Assets_series (Tickers='Current_SP500_Tickers','^GSPC', Initial_Date = Initial_Date,
                   Final_Date=Final_Date,'daily')
