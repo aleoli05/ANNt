@@ -15,7 +15,7 @@
 #' @param Decay L2 regularization or weight decay, add a penalty term to the loss function. "Yes" or "No.
 #' No" is default. If  "Yes" is necessary inform the lambda or rate of regularization
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
-#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
+#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "Yes".
 #' @param Parameters was defined in paper
 #'
 #' @author Alexandre Silva de Oliveira
@@ -38,7 +38,7 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
                                Hidden= '', Stepmax= 20000,
                                Loss="MSE", Learning_Rate=0.3, Decay='No',
                                Early_Stopping = 'No', Asymmetry='Negative',
-                               Skew_t='No') {
+                               Skew_t='Yes') {
 
   options(warn=-1)
   # library(webinar.cpom)
@@ -93,6 +93,14 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
   Initial_Date=Initial_Date
   Final_Date_Training=Final_Date_Training
   Final_Date=Final_Date
+  Hidden= Hidden
+  Stepmax= Stepmax
+  Loss=Loss
+  Learning_Rate=Learning_Rate
+  Decay=Decay
+  Early_Stopping = Early_Stopping
+  Asymmetry=Asymmetry
+  Skew_t=Skew_t
   RM='Buffet'
   save(RM, file='~/RM.rda')
   save(Initial_Date, file='~/Initial_Date.rda')

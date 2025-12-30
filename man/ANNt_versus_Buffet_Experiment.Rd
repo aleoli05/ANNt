@@ -18,7 +18,7 @@ ANNt_versus_Buffet_Experiment(
   Decay = "No",
   Early_Stopping = "No",
   Asymmetry = "Negative",
-  Skew_t = "No"
+  Skew_t = "Yes"
 )
 }
 \arguments{
@@ -48,7 +48,7 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 
 \item{Asymmetry}{"Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
 
-\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
+\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "Yes".}
 
 \item{Parameters}{was defined in paper}
 }
