@@ -2,11 +2,17 @@
 #' Use artificial neural networks and t-distribution, the number of input neurons is the number of import assets
 
 
-#' @param Inicial_Date Series start Date (Must be 7 periods greater than the analyzed series)
-#' @param Date_Training Series finish training date
-#' @param Final_Date_Training Series end Date (If '' is the System Date)
+#' @param Initial_Date_Training Series start Date (Must be 7 periods greater than the analyzed series)
+#' @param Final_Date_Training Series finish training date
+#' @param Final_Date_Testing Series end Date (If '' is the System Date)
 #' @param Hidden Number of hidden neurons (If '' is the length series)
 #' @param Stepmax Number of replications per asset to train the ANN
+#' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
+#' "MADL" for Mean Absolute Directional Loss, and "GMADL" for Generalized Mean Absolute Directional Loss
+#' @param Early_Stopping = 'No' or 'Yes'. Default is 'No'. If 'Yes' is necessary inform the value
+#' @param Learning_Rate is the Artificial Neural Network learning rate
+#' @param Decay L2 regularization or weight decay, add a penalty term to the loss function. "Yes" or "No.
+#' No" is default. If  "Yes" is necessary inform the lambda or rate of regularization
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @author Alexandre Silva de Oliveira
@@ -17,6 +23,9 @@
 #' Final_Date_Testing <-c('')
 #' Hidden <- 5
 #' Stepmax <- 2500
+#' Early_Stopping = c('Yes', 0.001)
+#' Learning_Rate <- 0.3
+#' Decay <- c('Yes', 0.1)
 #' ANNt_order ('2018-01-11','2022-12-29','', 5, 2500)
 #' # Estimated processing time 30 minutes per asset
 #'
@@ -27,7 +36,9 @@
 #data.
 
 #' @export
-ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing, Hidden, Stepmax, Asymmetry='Negative', Skew_t='No') {
+ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing,
+                       Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
+                       Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 
@@ -542,7 +553,7 @@ ___________________________________________________________________
     # Estimando o n?mero de ?pocas e a taxa de aprendizagem
     epocas = Stepmax
     momento = 1
-    taxaAprendizagem = 0.3
+    taxaAprendizagem = Learning_rate
     #########################################
     for(j in 1:epocas) {
       # fed forward
@@ -562,12 +573,64 @@ ___________________________________________________________________
 
       somaSinapse1 = camadaOculta %*% pesos1
       camadaSaida = sigmoide(somaSinapse1)
-
+##################################### Loss Function #############################
       # back forward
+      if (Loss=="MSE"){
       #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
       erroCamadaSaida = saidas - camadaSaida # M?nima diferen?a
+      } else{if(Loss=="MAE"){
       mediaAbsoluta = mean(abs(erroCamadaSaida))
+      erroCamadaSaida = mediaAbsoluta
+      } else {if(Loss=="MADL"){
+      ## Implementação do MADL/GMADL
+      R_predicted = camadaSaida
+      R_observed = saidas
+      # MADL Function
+      madl_loss <- function(R_observed, R_predicted) {
+        N <- length(R_observed)
+        # Formula: MADL = (1/N) * sum((-1) * sign(R_i * R_hat_i) * abs(R_i))
+        # This penalizes incorrect direction regardless of magnitude
+        loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
+        return(loss)
+      }
+      erroCamadaSaida = madl_loss(R_observed, R_predicted)
+      } else {if(Loss=="GMADL"){
+      # GMADL Function (differentiable version, requires parameters a and b)
+      # Assuming 'a' and 'b' are predefined parameters
+      gmadl_loss <- function(R_observed, R_predicted, a = 1, b = 1) {
+        N <- length(R_observed)
+        # Sigmoid function for smoothness
+        sigmoid <- function(x) {
+          1 / (1 + exp(-x))
+        }
+        # Formula: GMADL = (1/N) * sum(- (sigmoid(a * R_i * R_hat_i) - 0.5) * |R_i|^b)
+        loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
+        return(loss)
+      }
+      erroCamadaSaida=gmadl_loss(R_observed, R_predicted, a = 1, b = 1)
+      }
+      }}}
 
+  ########### Implementação da Regularização
+  if(Decay[1]=='Yes'){
+      # Example for L2 regularization
+      # lambda is the regularization parameter
+      weights=pesos0
+      if(length(Decay)==1){ Decay=c(Decay, 0.1)}
+      lambda=as.numeric(Decay[2])
+      l2_regularization <- function(weights, lambda) {
+        return(lambda * sum(weights^2))
+      }
+
+        reg_term <- l2_regularization(weights, lambda)
+        erroCamadaSaida <-  erroCamadaSaida + reg_term
+
+  }
+      if(length(Early_Stopping)!=1){
+      if(erroCamadaSaida < as.numeric(Early_Stopping[2])){j=epocas}
+      }
+
+################################################################################
       if (ativo==ncol(dados)){
       #print(paste('Error:', mediaAbsoluta))
       }

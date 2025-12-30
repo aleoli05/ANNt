@@ -1,0 +1,94 @@
+#' ANNt_versus_Buffet_Experiment
+#' Realize the 1st time series research, Validation: Long Term Testing, defined in "Value investing or quantitative financing: portfolio decision based on a new efficient frontier concept" paper.
+#'
+#' @param Initial_Date Series start Date (Must be 7 periods greater than the analyzed series)
+#' @param Final_Date_Training Series finish training date
+#' @param Final_Date Series end Date (If '' is the System Date)
+#' @param Hidden Number of hidden neurons (If '' is the length series)
+#' @param Stepmax Number of replications per asset to train the ANN
+#' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
+#' "MADL" for Mean Absolute Directional Loss, and "GMADL" for Generalized Mean Absolute Directional Loss
+#' @param Early_Stopping = 'No' or 'Yes'. Default is 'No'. If 'Yes' is necessary inform the value
+#' @param Learning_Rate is the Artificial Neural Network learning rate
+#' @param Decay L2 regularization or weight decay, add a penalty term to the loss function. "Yes" or "No.
+#' No" is default. If  "Yes" is necessary inform the lambda or rate of regularization
+#' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
+#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
+#' @param Parameters was defined in paper
+#'
+#' @author Alexandre Silva de Oliveira
+
+#' @examples
+#' ANNt_versus_Buffet_Experiment(Initial_Date_Training='2018-01-11',
+#' Final_Date_Training='2021-12-30',
+#' Final_Date_Testing='2022-08-04 ',
+#' Hidden= Hidden, Stepmax= Stepmax,
+#' Loss="MSE", Learning_Rate=0.3, Decay='No',
+#' Early_Stopping = 'No', Asymmetry='Negative',
+#' Skew_t='No')
+#'
+#' @export
+ANNt_versus_Buffet_Experiment <- function(Initial_Date='2018-01-03',
+                               Final_Date_Training='2021-12-30',
+                               Final_Date='2022-08-04 ',
+                               Hidden= Hidden, Stepmax= Stepmax,
+                               Loss="MSE", Learning_Rate=0.3, Decay='No',
+                               Early_Stopping = 'No', Asymmetry='Negative',
+                               Skew_t='No') {
+
+
+# 1) Import the assets series, example:
+Assets_series (Tickers='Current_SP500_Tickers','^GSPC', Initial_Date = Initial_Date,
+                  Final_Date=Final_Date,'daily')
+
+# 2) Specify Buffet´s Portfolio, example:
+Name = c("Buffet")
+
+if (Serie=='First_Serie'){
+  Portfolio=c("AAPL", "BAC", "KO", "AXP", "CVX", "KHC", "OXY") # PORTFOLIO´s Buffet 2022
+  Weights=c( 0.414, 0.102, 0.073, 0.068, 0.068, 0.037, 0.033) # PORTFOLIO weights 2022
+} else {
+  #Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY", "MCO") # PORTFOLIO´s Buffet 2023
+  #Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO weights 2023
+  Portfolio=c("AAPL", "BAC", "CVX", "KO", "AXP", "KHC", "OXY") # PORTFOLIO´s Buffet 2023
+  Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038) # PORTFOLIO weights 2023
+}
+
+Specify_Pf_RM(Name,Portfolio,Weights)
+
+# 3) ANNt order generate, example:
+ANNt_order (Initial_Date_Training = Initial_Date, Final_Date_Training = Final_Date_Training,
+            Final_Date_Testing = Final_Date, Hidden= Hidden, Stepmax= Stepmax,
+            Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
+            Early_Stopping = Early_Stopping, Asymmetry='Negative', Skew_t=Skew_t)
+
+# 4) Generate portfolios, example:
+Initial_Date_Testing=as.character(as.Date(Final_Date_Training)+1)
+Gen_portfolios(7,Initial_Date_Testing = Initial_Date_Testing,
+               Final_Date_Testing = Final_Date, Rf=0.0426, 'T8')
+
+# 5) Portfolios Backtesting, example:
+Portfolio_backtesting(Date_Initial_Backtesting = Initial_Date_Testing,
+                      Date_Final_Backtesting = Final_Date)
+
+# 6) Plot Cumulative Portfolio Returns, example:
+Plot_Cumulative_Returns('')
+
+# 7) Generate Efficient Frontier of Markowitz:
+Initial_Analysis_Date=as.character(as.Date(Initial_Date_Testing-500))
+Gen_efficient_frontier(Initial_Analysis_Date = Initial_Analysis_Date,Final_Analysis_Date = Final_Date)
+#Gen_efficient_frontier('2020-01-21',Final_Analysis_Date = Final_Date)
+
+# 8) Plot the Efficient Frontier graphic:
+Plot_efficient_frontier()
+
+# 9) Plot the New Efficient Frontier:
+Plot_New_efficient_frontier()
+
+# 10) Plot the Cumulative Sum of Returns (CUSUM Graphic):
+Plot_CUSUM(1,5)
+
+# 11) Save copy of alls processed data, example:
+Backup_ANNt()
+
+}
