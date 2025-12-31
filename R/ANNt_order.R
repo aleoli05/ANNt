@@ -626,14 +626,17 @@ ___________________________________________________________________
         erroCamadaSaida <-  erroCamadaSaida + reg_term
 
   }
-      print(paste("Loss:",erroCamadaSaida))
+      if (j==epocas){print(paste("Loss:",erroCamadaSaida))}
       if(length(Early_Stopping)!=1){
         Stop=as.numeric(Early_Stopping[2])
 
-          if (class(erroCamadaSaida)=="numeric" && erroCamadaSaida!=Inf ) {
+          if (class(erroCamadaSaida)=="numeric" && (erroCamadaSaida!=Inf || is.na(erroCamadaSaida)==FALSE) ) {
             if((erroCamadaSaida < Stop)==TRUE){
               j=epocas}
-            } else {break}
+          } else {
+            print(paste("Early stop with", j, " epochs"))
+            print(paste("Loss:",erroCamadaSaida))
+            break}
       }
 
 
@@ -665,10 +668,10 @@ ___________________________________________________________________
 
     }
 ################################ Print Loss #####################################
-    print(paste("Loss:",erroCamadaSaida))
-    if(is.na(erroCamadaSaida)==TRUE){
-      print("Please Reduce the Hidden Number!")
-    }
+   # print(paste("Loss:",erroCamadaSaida))
+    #if(is.na(erroCamadaSaida)==TRUE){
+     # print("Please Reduce the Hidden Number!")
+    #}
 ################################################################################
     hist(camadaSaida,
          main = paste("Histograma Previs?es RNA Fase de Treinamento - Ativo",
