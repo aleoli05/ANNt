@@ -26,10 +26,14 @@
 #' Initial_Date='2018-01-11',
 #' Final_Date_Training='2021-12-30',
 #' Final_Date='2022-08-04 ',
-#' Hidden= Hidden, Stepmax= Stepmax,
-#' Loss="MSE", Learning_Rate=0.3, Decay='No',
-#' Early_Stopping = 'No', Asymmetry='Negative',
-#' Skew_t='No')
+#' Hidden= 5,
+#' Stepmax= 200,
+#' Loss="GMADL",
+#' Learning_Rate=0.3,
+#' Decay=c('Yes',0.1),
+#' Early_Stopping = c('Yes', 0.002),
+#' Asymmetry='Negative',
+#' Skew_t='Yes')
 #'
 #' @export
 ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie",Initial_Date='2018-01-03',
@@ -173,7 +177,7 @@ Portfolio_backtesting(Date_Initial_Backtesting = Initial_Date_Testing,
 Plot_Cumulative_Returns('')
 
 # 7) Generate Efficient Frontier of Markowitz:
-Initial_Analysis_Date=as.character(as.Date(Initial_Date_Testing-500))
+Initial_Analysis_Date=as.character(as.Date(Initial_Date_Testing)-500)
 Gen_efficient_frontier(Initial_Analysis_Date = Initial_Analysis_Date,Final_Analysis_Date = Final_Date)
 #Gen_efficient_frontier('2020-01-21',Final_Analysis_Date = Final_Date)
 

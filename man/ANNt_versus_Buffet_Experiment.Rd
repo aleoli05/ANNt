@@ -62,10 +62,14 @@ Serie="First_Serie",
 Initial_Date='2018-01-11',
 Final_Date_Training='2021-12-30',
 Final_Date='2022-08-04 ',
-Hidden= Hidden, Stepmax= Stepmax,
-Loss="MSE", Learning_Rate=0.3, Decay='No',
-Early_Stopping = 'No', Asymmetry='Negative',
-Skew_t='No')
+Hidden= 5,
+Stepmax= 200,
+Loss="GMADL",
+Learning_Rate=0.3,
+Decay=c('Yes',0.1),
+Early_Stopping = c('Yes', 0.002),
+Asymmetry='Negative',
+Skew_t='Yes')
 
 }
 \author{
