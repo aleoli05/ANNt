@@ -629,13 +629,20 @@ ___________________________________________________________________
       # print(paste("Loss:",erroCamadaSaida))
       if(length(Early_Stopping)!=1){
         Stop=as.numeric(Early_Stopping[2])
+        tryCatch(
+          expr = {
       if((erroCamadaSaida < Stop)==TRUE){
         j=epocas}
+      },
+      finally = {
+        # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
+        break
       }
-      #print(paste("Loss:",erroCamadaSaida))
-      if(is.na(erroCamadaSaida)==TRUE){
-        print("Please Reduce the Hidden Number!")
+        )
       }
+
+
+
 ################################################################################
       if (ativo==ncol(dados)){
       #print(paste('Error:', mediaAbsoluta))
@@ -662,7 +669,12 @@ ___________________________________________________________________
       pesos0 = (pesos0 * momento) + (pesosNovo0[,-(nlinhas+1)] * taxaAprendizagem)
 
     }
-
+#################################################################################
+    print(paste("Loss:",erroCamadaSaida))
+    if(is.na(erroCamadaSaida)==TRUE){
+      print("Please Reduce the Hidden Number!")
+    }
+################################################################################
     hist(camadaSaida,
          main = paste("Histograma Previs?es RNA Fase de Treinamento - Ativo",
                       xnames= nome),
