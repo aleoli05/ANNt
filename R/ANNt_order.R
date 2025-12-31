@@ -629,16 +629,11 @@ ___________________________________________________________________
       # print(paste("Loss:",erroCamadaSaida))
       if(length(Early_Stopping)!=1){
         Stop=as.numeric(Early_Stopping[2])
-        tryCatch(
-          expr = {
-      if((erroCamadaSaida < Stop)==TRUE){
-        j=epocas}
-      },
-      finally = {
-        # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
-        break
-      }
-        )
+
+          if (class(erroCamadaSaida)=="numeric" && erroCamadaSaida!=Inf ) {
+            if((erroCamadaSaida < Stop)==TRUE){
+              j=epocas}
+            } else {break}
       }
 
 
