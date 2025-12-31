@@ -632,7 +632,7 @@ ___________________________________________________________________
       if((erroCamadaSaida < Stop)==TRUE){
         j=epocas}
       }
-      print(paste("Loss:",erroCamadaSaida))
+      #print(paste("Loss:",erroCamadaSaida))
       if(is.na(erroCamadaSaida)==TRUE){
         print("Please Reduce the Hidden Number!")
       }
