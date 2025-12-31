@@ -627,10 +627,10 @@ ___________________________________________________________________
 
   }
       if (j==epocas){print(paste("Loss:",erroCamadaSaida))}
-      if(length(Early_Stopping)!=1){
+    if(length(Early_Stopping)!=1){
         Stop=as.numeric(Early_Stopping[2])
         print(paste("Loss:",erroCamadaSaida))
-          if (class(erroCamadaSaida)=="numeric" && (erroCamadaSaida!=Inf || erroCamadaSaida>10 )) {
+          if (class(erroCamadaSaida)=="numeric" && (erroCamadaSaida!=Inf || erroCamadaSaida<10 )) {
             if((erroCamadaSaida < Stop)==TRUE){
               j=epocas}
           } else {
