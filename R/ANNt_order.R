@@ -305,7 +305,7 @@ ___________________________________________________________________
                    hidden = Hidden, act.fct = "tanh", threshold = 0.1,
                    stepmax=epocas)
     # Plotagem da RNA
-
+    nn=as.matrix(sapply(nn, as.numeric))
     if(Hidden %% 2 == 0) {
       escondida = Hidden
     } else {if(Hidden >15){
