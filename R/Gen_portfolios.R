@@ -111,7 +111,9 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
 
 
   # Duração do processamento 1720/length(dados)=1.2 min)
+  if (file.exists("~/x5.rda")==TRUE){
   load("~/x5.rda") # Carrega objeto scenario.set
+  } else { x5=Rf}
   load("~/scenario.set.rda") # Carrega objeto scenario.set
   load("~/I_dataPredict.rda") # Carrega objeto scenario.set
   load("~/F_dataPredict.rda") # Carrega objeto scenario.set

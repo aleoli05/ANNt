@@ -626,7 +626,7 @@ ___________________________________________________________________
         erroCamadaSaida <-  erroCamadaSaida + reg_term
 
   }
-      # print(paste("Loss:",erroCamadaSaida))
+      print(paste("Loss:",erroCamadaSaida))
       if(length(Early_Stopping)!=1){
         Stop=as.numeric(Early_Stopping[2])
 
@@ -664,7 +664,7 @@ ___________________________________________________________________
       pesos0 = (pesos0 * momento) + (pesosNovo0[,-(nlinhas+1)] * taxaAprendizagem)
 
     }
-#################################################################################
+################################ Print Loss #####################################
     print(paste("Loss:",erroCamadaSaida))
     if(is.na(erroCamadaSaida)==TRUE){
       print("Please Reduce the Hidden Number!")
