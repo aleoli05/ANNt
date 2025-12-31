@@ -151,10 +151,14 @@ if (Serie=='First_Serie'){
 Specify_Pf_RM(Name,Portfolio,Weights)
 
 # 3) ANNt order generate, example:
+Type_ANN = 'ANNt'
+save(Type_ANN, file='~/Type_ANN.rda')
+
 ANNt_order (Initial_Date_Training = Initial_Date, Final_Date_Training = Final_Date_Training,
             Final_Date_Testing = Final_Date, Hidden= Hidden, Stepmax= Stepmax,
             Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
             Early_Stopping = Early_Stopping, Asymmetry='Negative', Skew_t=Skew_t)
+
 
 # 4) Generate portfolios, example:
 Initial_Date_Testing=as.character(as.Date(Final_Date_Training)+1)
