@@ -626,13 +626,16 @@ ___________________________________________________________________
         erroCamadaSaida <-  erroCamadaSaida + reg_term
 
   }
-      print(paste("Loss:",erroCamadaSaida))
+      # print(paste("Loss:",erroCamadaSaida))
       if(length(Early_Stopping)!=1){
         Stop=as.numeric(Early_Stopping[2])
       if((erroCamadaSaida < Stop)==TRUE){
         j=epocas}
       }
-
+      print(paste("Loss:",erroCamadaSaida))
+      if(is.na(erroCamadaSaida)==TRUE){
+        print("Please Reduce the Hidden Number!")
+      }
 ################################################################################
       if (ativo==ncol(dados)){
       #print(paste('Error:', mediaAbsoluta))
