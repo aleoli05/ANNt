@@ -15,6 +15,10 @@ Investment_Horizon(
   Periodicity,
   Hidden,
   Stepmax,
+  Loss = "MSE",
+  Learning_Rate = 0.3,
+  Decay = "No",
+  Early_Stopping = "No",
   Asymmetry = "Negative",
   Type_ANNt,
   N_Assets,
@@ -48,6 +52,16 @@ Investment_Horizon(
 \item{Hidden}{Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons.}
 
 \item{Stepmax}{Number of replications per asset to train the ANN. For a good performance, use 7500.}
+
+\item{Loss}{Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
+"MADL" for Mean Absolute Directional Loss, and "GMADL" for Generalized Mean Absolute Directional Loss}
+
+\item{Learning_Rate}{is the Artificial Neural Network learning rate}
+
+\item{Decay}{L2 regularization or weight decay, add a penalty term to the loss function. "Yes" or "No.
+No" is default. If  "Yes" is necessary inform the lambda or rate of regularization}
+
+\item{Early_Stopping}{= 'No' or 'Yes'. Default is 'No'. If 'Yes' is necessary inform the value}
 
 \item{Asymmetry}{"Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
 

@@ -143,7 +143,7 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
   dados<-scenario.set
   nAtivos = ncol(dados)
 
-  Fator_Tempo = 1808/(nrow(dados))
+  Fator_Tempo = 180/(nrow(dados))
   Unidade=' minute(s)'
   Tempo= round(Fator_Tempo*(ncol((dados))-1),2)
   if (Tempo>120){
