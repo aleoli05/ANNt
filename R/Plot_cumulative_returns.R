@@ -88,7 +88,7 @@ if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
     Eixo_X2 = c(1,25,50,75,100)
     }}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
-Eixo_X3 = str_replace(Eixo_X3,"NA","")
+Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
 Inicio_data = rownames(Comparativo2[1,])
 Fim_data = rownames(Comparativo2[nrow(Comparativo2),])
 #Fim_data = "2023-03-16"
@@ -191,7 +191,7 @@ if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
       Eixo_X2 = c(1,25,50,75,100)
     }}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
-Eixo_X3 = str_replace(Eixo_X3,"NA","")
+Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
 Inicio_data = rownames(Comparativo2[1,])
 Fim_data = rownames(Comparativo2[nrow(Comparativo2),])
 #Fim_data = "2023-03-16"

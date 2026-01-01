@@ -36,6 +36,7 @@ Backup_ANNt <- function(Investment='No'){
 
   Readme_ANNt[1:length(Inputs),1]=Inputs
   load('~/Tickers.rda')
+  load('~/tickers.rda')
   load('~/RM.rda')
   load('~/Initial_Date.rda')
   load('~/Final_Date.rda')
