@@ -93,6 +93,7 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
 
   # BENCHMARK
   BENCHMARK <- c("SP500")
+
   #Renames Columns
   Initial_Date=Initial_Date
   Final_Date_Training=Final_Date_Training
@@ -119,7 +120,8 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
                                      function(x) all(!0)),]
   #View(scenario.set)
   save(scenario.set,file='~/scenario.set.rda')
-
+  Tickers=colnames(scenario.set[-1])
+  save(Tickers, file='~/Tickers.rda')
   assets <- ncol(scenario.set)
   scenarios <- nrow(scenario.set)
   #scenario.set=as.zoo(scenario.set)

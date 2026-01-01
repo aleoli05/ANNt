@@ -2,8 +2,8 @@
 % Please edit documentation in R/ANNt_order.R
 \name{ANNt_order}
 \alias{ANNt_order}
-\title{classify assets by the probability of return exceeding a RM
-Use artificial neural networks and t-distribution, the number of input neurons is the number of import assets}
+\title{ANNt_order classify assets by the probability of return exceeding a RM
+Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets}
 \usage{
 ANNt_order(
   Initial_Date_Training,
@@ -45,20 +45,23 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 \item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 }
 \description{
-classify assets by the probability of return exceeding a RM
-Use artificial neural networks and t-distribution, the number of input neurons is the number of import assets
+ANNt_order classify assets by the probability of return exceeding a RM
+Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
 }
 \examples{
-Initial_Date_Training <-c('2018-01-11')
-Final_Date_Training <- c('2022-12-29')
-Final_Date_Testing <-c('')
-Hidden <- 5
-Stepmax <- 2500
-Early_Stopping = c('Yes', 0.001)
-Learning_Rate <- 0.3
-Decay <- c('Yes', 0.1)
-ANNt_order ('2018-01-11','2022-12-29','', 5, 2500)
-# Estimated processing time 30 minutes per asset
+ANNt_order (
+Initial_Date_Training = c('2018-01-11'),
+Final_Date_Training = c('2022-12-29'),
+Final_Date_Testing = c(''),
+Hidden = 7,
+Stepmax = 300,
+Loss = "GMADL",
+Learning_Rate = 0.3,
+Decay=c('Yes',0.1),
+Early_Stopping = c('Yes', 0.001),
+Asymmetry='Negative',
+Skew_t='Yes')
+# Estimated processing time 2 hours.
 
 }
 \author{
