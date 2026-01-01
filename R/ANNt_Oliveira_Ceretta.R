@@ -106,8 +106,8 @@ save(X11,file='~/X11.rda')
 if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax,
-              Loss="MSE", Learning_Rate=0.3, Decay='No',
-              Early_Stopping = 'No',
+              Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
+              Early_Stopping = Early_Stopping,
               Asymmetry=Asymmetry, Skew_t=Skew_t)
 } else {
   if(Type_ANN=='LSTMt'){
