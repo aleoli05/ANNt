@@ -52,6 +52,7 @@ Backup_ANNt <- function(Investment='No'){
   load('~/N_Assets.rda')
   load("~/Signal_Sharpe.rda")
   load("~/scenario.set.rda")
+  tickers=colnames(scenario.set)
   if(Signal_Sharpe==1){
     RM = "SHARPE"
   }
