@@ -86,6 +86,7 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
 
   portfolioPrices_Teste = portfolio_observed
   portfolioPrices=portfolio_observed[1:1310,]
+
   View(portfolioPrices)
 
   Datas_portfolio = rownames(as.data.frame(portfolioPrices))
@@ -120,6 +121,8 @@ ANNt_versus_Buffet_Experiment <- function(Data_Base='GitHub', Serie="First_Serie
                                      function(x) all(!0)),]
   #View(scenario.set)
   save(scenario.set,file='~/scenario.set.rda')
+  tickers=colnames(scenario.set)
+  save(tickers, file='~/tickers.rda')
   Tickers=colnames(scenario.set[-1])
   save(Tickers, file='~/Tickers.rda')
   assets <- ncol(scenario.set)
