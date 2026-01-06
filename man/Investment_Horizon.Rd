@@ -102,21 +102,41 @@ Analyzes the return of portfolios with different investment horizons
 }
 \examples{
 # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
-Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
-RM <-c('^GSPC') #RM the S&P500
-Rf <- 0
-Initial_Date <-c('2024-01-03')
-Final_Date_Training <-c('2024-06-03')
-Final_Date <-c('2024-11-20')
-Frequency <- 2
-Periodicity <- c('daily')
-Hidden <- 5
-Stepmax <- 7500
-Type_ANNt <- 'T8'
-N_Assets <- 3
-Base <- 'yahoo'
-Fun <- 'S_Out'
-Specific_Dates <- c(Sys.Date())
+####### Example 1 #######
+Specific_Dates=c('2025-09-30','2025-06-30',
+'2025-03-31','2024-12-31',
+'2024-09-30','2024-06-30',
+'2024-03-31','2023-12-31',
+'2023-09-30','2023-06-30',
+'2023-03-31','2022-12-31'
+)
+#######
+Investment_Horizon(Tickers =(
+Tickers =c('Current_SP500_Tickers')
+RM =c('^GSPC'),
+Rf = 0,
+Initial_Date =c('2018-01-03'),
+Final_Date_Training =c('2019-12-31'),
+Final_Date ='',
+Frequency = 2,
+Periodicity = c('daily'),
+Hidden = 5,
+Stepmax = 300,
+Loss="GMADL",
+Learning_Rate=0.3,
+Decay=c('Yes',0.1),
+Early_Stopping = c('Yes',0.002),
+Asymmetry='Positive',
+Type_ANNt = 'T2',
+N_Assets = 20,
+Base = 'yahoo',
+Fun = 'S_Out',
+Specific_Dates = Specific_Dates,
+Type_ANN = 'ANNt',
+Import = 'No',
+Download = 'No',
+Skew_t='Yes')
+####### Example 2 #######
 Investment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 
 }
