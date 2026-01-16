@@ -464,7 +464,7 @@ ___________________________________________________________________
       Resultados_Assim=skewness(prev)
       Media=mean(prev)
       Desvio=stdev(prev)
-      KS_test = ks.test(prev)
+      KS_test = ks.test(prev,'pnorm')
       KS_pvalue=KS_test$p.value
       SW_test = shapiro.test(prev)
       SW_pvalue=SW_test$p.value
@@ -479,7 +479,7 @@ ___________________________________________________________________
         omega=0.0
         alpha=0.0
         nu=0.0
-        KS_test = ks.test(prev)
+        KS_test = ks.test(prev,'pnorm')
         KS_pvalue=KS_test$p.value
         SW_test = shapiro.test(prev)
         SW_pvalue=SW_test$p.value
@@ -761,7 +761,7 @@ ___________________________________________________________________
       Resultados_Assim=skewness(camadaSaida)
       Media=mean(camadaSaida)
       Desvio=stdev(camadaSaida)
-      KS_test = ks.test(camadaSaida)
+      KS_test = ks.test(camadaSaida,'pnorm')
       KS_pvalue=KS_test$p.value
       SW_test = shapiro.test(camadaSaida)
       SW_pvalue=SW_test$p.value
@@ -776,7 +776,7 @@ ___________________________________________________________________
         omega=0.0
         alpha=0.0
         nu=0.0
-        KS_test = ks.test(camadaSaida)
+        KS_test = ks.test(camadaSaida,'pnorm')
         KS_pvalue=KS_test$p.value
         SW_test = shapiro.test(camadaSaida)
         SW_pvalue=SW_test$p.value
@@ -993,7 +993,7 @@ ___________________________________________________________________
           Resultados_Assim=skewness(prevPredict)
           Media=mean(prevPredict)
           Desvio=stdev(prevPredict)
-          KS_test = ks.test(prevPredict)
+          KS_test = ks.test(prevPredict,'pnorm')
           KS_pvalue=KS_test$p.value
           SW_test = shapiro.test(prevPredict)
           SW_pvalue=SW_test$p.value
@@ -1008,7 +1008,7 @@ ___________________________________________________________________
           omega=0.0
           alpha=0.0
           nu=0.0
-          KS_test = ks.test(prevPredict)
+          KS_test = ks.test(prevPredict,'pnorm')
           KS_pvalue=KS_test$p.value
           SW_test = shapiro.test(prevPredict)
           SW_pvalue=SW_test$p.value
@@ -1115,7 +1115,7 @@ ___________________________________________________________________
           Resultados_Assim=skewness(camadaSaidaPredict)
           Media=mean(camadaSaidaPredict)
           Desvio=stdev(camadaSaidaPredict)
-          KS_test = ks.test(camadaSaidaPredict)
+          KS_test = ks.test(camadaSaidaPredict,'pnorm')
           KS_pvalue=KS_test$p.value
           SW_test = shapiro.test(camadaSaidaPredict)
           SW_pvalue=SW_test$p.value
@@ -1130,7 +1130,7 @@ ___________________________________________________________________
           omega=0.0
           alpha=0.0
           nu=0.0
-          KS_test = ks.test(camadaSaidaPredict)
+          KS_test = ks.test(camadaSaidaPredict,'pnorm')
           KS_pvalue=KS_test$p.value
           SW_test = shapiro.test(camadaSaidaPredict)
           SW_pvalue=SW_test$p.value
