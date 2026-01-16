@@ -57,6 +57,11 @@ library("quantmod")
   }
   library("stats", character.only = TRUE)
 
+  if (!require("nortest", character.only = TRUE)) {
+    install.packages("nortest", dependencies = TRUE)
+  }
+  library("nortest", character.only = TRUE)
+
 print('Starting ANNt_order Command')
 
   load("~/scenario.set.rda") # Carrega objeto scenario.set
@@ -466,8 +471,8 @@ ___________________________________________________________________
       Desvio=stdev(prev)
       KS_test = ks.test(prev,'pnorm')
       KS_pvalue=KS_test$p.value
-      SW_test = shapiro.test(prev)
-      SW_pvalue=SW_test$p.value
+      AD_test = ad.test(prev)
+      AD_pvalue=AD_test$p.value
       #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
       #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
       ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
@@ -481,8 +486,8 @@ ___________________________________________________________________
         nu=0.0
         KS_test = ks.test(prev,'pnorm')
         KS_pvalue=KS_test$p.value
-        SW_test = shapiro.test(prev)
-        SW_pvalue=SW_test$p.value
+        AD_test = ad.test(prev)
+        AD_pvalue=AD_test$p.value
         ativos_fora[length(ativos_fora)+1]=ativo
 
       },
@@ -763,8 +768,8 @@ ___________________________________________________________________
       Desvio=stdev(camadaSaida)
       KS_test = ks.test(camadaSaida,'pnorm')
       KS_pvalue=KS_test$p.value
-      SW_test = shapiro.test(camadaSaida)
-      SW_pvalue=SW_test$p.value
+      AD_test = ad.test(camadaSaida)
+      AD_pvalue=AD_test$p.value
       #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
       #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
       ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
@@ -778,8 +783,8 @@ ___________________________________________________________________
         nu=0.0
         KS_test = ks.test(camadaSaida,'pnorm')
         KS_pvalue=KS_test$p.value
-        SW_test = shapiro.test(camadaSaida)
-        SW_pvalue=SW_test$p.value
+        AD_test = ad.test(camadaSaida)
+        AD_pvalue=AD_test$p.value
         ativos_fora[length(ativos_fora)+1]=ativo
       },
       warning = function(w) {
@@ -995,8 +1000,8 @@ ___________________________________________________________________
           Desvio=stdev(prevPredict)
           KS_test = ks.test(prevPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          SW_test = shapiro.test(prevPredict)
-          SW_pvalue=SW_test$p.value
+          AD_test = ad.test(prevPredict)
+          AD_pvalue=AD_test$p.value
           #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prevPredict)-1), family="ST")
           #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
           ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
@@ -1010,8 +1015,8 @@ ___________________________________________________________________
           nu=0.0
           KS_test = ks.test(prevPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          SW_test = shapiro.test(prevPredict)
-          SW_pvalue=SW_test$p.value
+          AD_test = ad.test(prevPredict)
+          AD_pvalue=AD_test$p.value
           ativos_fora[length(ativos_fora)+1]=ativo
         },
         warning = function(w) {
@@ -1117,8 +1122,8 @@ ___________________________________________________________________
           Desvio=stdev(camadaSaidaPredict)
           KS_test = ks.test(camadaSaidaPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          SW_test = shapiro.test(camadaSaidaPredict)
-          SW_pvalue=SW_test$p.value
+          AD_test = ad.test(camadaSaidaPredict)
+          AD_pvalue=AD_test$p.value
           #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
           #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
           ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
@@ -1132,8 +1137,8 @@ ___________________________________________________________________
           nu=0.0
           KS_test = ks.test(camadaSaidaPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          SW_test = shapiro.test(camadaSaidaPredict)
-          SW_pvalue=SW_test$p.value
+          AD_test = ad.test(camadaSaidaPredict)
+          AD_pvalue=AD_test$p.value
           ativos_fora[length(ativos_fora)+1]=ativo
         },
         warning = function(w) {
@@ -1229,7 +1234,7 @@ ___________________________________________________________________
     Resultados_Assim_Curtose[11,k]=alpha
     Resultados_Assim_Curtose[12,k]=nu
     Resultados_Assim_Curtose[13,k]=KS_pvalue
-    Resultados_Assim_Curtose[14,k]=SW_pvalue
+    Resultados_Assim_Curtose[14,k]=AD_pvalue
 
     dev.off() ### Salvando gr?ficos do Ativo dentro Loop
 
