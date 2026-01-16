@@ -209,7 +209,7 @@ ___________________________________________________________________
   ########################
   #### Cria??o da vari?vel de armazenamento dos resultados de assimetria e curtose
   #### Particular por Probabilidade t de Student
-  Resultados_Assim_Curtose = matrix(ncol=nAtivos-1,nrow=12,14)
+  Resultados_Assim_Curtose = matrix(ncol=nAtivos-1,nrow=14)
   Resultados_Assim_Curtose = data.frame(Resultados_Assim_Curtose)
   colnames(Resultados_Assim_Curtose)=tickers[-1]
   rownames(Resultados_Assim_Curtose) = c('Probability','Mean','Median','Stand. Dev.',
