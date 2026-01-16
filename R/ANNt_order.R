@@ -219,7 +219,7 @@ ___________________________________________________________________
   colnames(Resultados_Assim_Curtose)=tickers[-1]
   rownames(Resultados_Assim_Curtose) = c('Probability','Mean','Median','Stand. Dev.',
                                          'Kurtosis','Skewness','Minimum','Maximum',
-                                         'xi', 'omega', 'alpha', 'nu', 'KS','SW')
+                                         'xi', 'omega', 'alpha', 'nu', 'KS','AD')
   Resultados_Assim_Curtose
 
 
