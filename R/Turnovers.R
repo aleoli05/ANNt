@@ -10,6 +10,7 @@
 Turnovers<-function(Portfolio){
 
 library(dplyr)
+library(tidyselect)
   if (length(Portfolio)==1){
   if (Portfolio=='Alls'){
       Portfolio=c('MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe',
@@ -74,7 +75,7 @@ if (length(Portfolio)==1){
             test=dados[i+2,3:ncol(dados)]
             excluir=names(test)[colSums(is.na(test)) > 0]
             test <- test %>%
-              select(-all_of(excluir))
+              dplyr::select(-tidyselect::all_of(excluir))
             if (any(unlist(test)==dados[i,j])){
                 ordem=which(dados[i+2,]==dados[i,j])
                 if(as.numeric(dados[i+1,j])>as.numeric(dados[i+3,ordem])){
@@ -86,14 +87,14 @@ if (length(Portfolio)==1){
             teste=dados[i+2,3:ncol(dados)]
             excluir=names(teste)[colSums(is.na(teste)) > 0]
             teste <- teste %>%
-              dplyr::select(-all_of(excluir))
+              dplyr::select(-tidyselect::all_of(excluir))
             if (is.na(dados[i,j])==FALSE && any(unlist(teste)==as.character(dados[i,j]))==FALSE){
               Compras[i+1,j] = as.numeric(dados[i+1,j])
             }
             teste2=dados[i,3:ncol(dados)]
             excluir=names(teste2)[colSums(is.na(teste2)) > 0]
             teste2 <- teste2 %>%
-              select(-all_of(excluir))
+              dplyr::select(-tidyselect::all_of(excluir))
             if (is.na(dados[i+2,j])==FALSE && any(unlist(teste2)==as.character(dados[i+2,j]))==FALSE){
               Vendas[i+1,j] = as.numeric(dados[i+1,j])
             }
@@ -214,7 +215,7 @@ for (m in 1:length(Port)){
         test=dados[i+2,3:ncol(dados)]
         excluir=names(test)[colSums(is.na(test)) > 0]
         test <- test %>%
-          select(-all_of(excluir))
+          dplyr::select(-tidyselect::all_of(excluir))
         if (any(unlist(test)==dados[i,j])){
           ordem=which(dados[i+2,]==dados[i,j])
           if(as.numeric(dados[i+1,j])>as.numeric(dados[i+3,ordem])){
@@ -226,14 +227,14 @@ for (m in 1:length(Port)){
         teste=dados[i+2,3:ncol(dados)]
         excluir=names(teste)[colSums(is.na(teste)) > 0]
         teste <- teste %>%
-          select(-all_of(excluir))
+          dplyr::select(-tidyselect::all_of(excluir))
         if (is.na(dados[i,j])==FALSE && any(unlist(teste)==as.character(dados[i,j]))==FALSE){
           Compras[i+1,j] = as.numeric(dados[i+1,j])
         }
         teste2=dados[i,3:ncol(dados)]
         excluir=names(teste2)[colSums(is.na(teste2)) > 0]
         teste2 <- teste2 %>%
-          select(-all_of(excluir))
+          dplyr::select(-tidyselect::all_of(excluir))
         if (is.na(dados[i+2,j])==FALSE && any(unlist(teste2)==as.character(dados[i+2,j]))==FALSE){
           Vendas[i+1,j] = as.numeric(dados[i+1,j])
         }
