@@ -373,6 +373,10 @@ ___________________________________________________________________
 
     ## Previs?o
     prev = predict(nn, entradas)
+    KS_test = ks.test(prev,'pnorm')
+    KS_pvalue=KS_test$p.value
+    AD_test = ad.test(prev)
+    AD_pvalue=AD_test$p.value
 
     nome = colnames(entradas)[1]
     plot(as.vector(entradas[,1]), type="l", col= "red",
@@ -595,6 +599,10 @@ ___________________________________________________________________
 
       somaSinapse1 = camadaOculta %*% pesos1
       camadaSaida = sigmoide(somaSinapse1)
+      KS_test = ks.test(camadaSaida,'pnorm')
+      KS_pvalue=KS_test$p.value
+      AD_test = ad.test(prev)
+      AD_pvalue=AD_test$p.value
 ##################################### Loss Function #############################
       # back forward
       R_predicted = camadaSaida
@@ -908,6 +916,10 @@ ___________________________________________________________________
     ## Previs?o
     prevPredict = predict(nn, entradasPredict)
     nome = colnames(entradasPredict)[1]
+    KS_test = ks.test(prevPredict,'pnorm')
+    KS_pvalue=KS_test$p.value
+    AD_test = ad.test(camadaSaida)
+    AD_pvalue=AD_test$p.value
 
     plot(as.vector(entradasPredict[,1]), type="l", col = "red",
          main = paste("Retornos Amostra de Teste", xnames = nome))
@@ -1044,6 +1056,10 @@ ___________________________________________________________________
 
     somaSinapse1Predict = camadaOcultaPredict %*% pesos1
     camadaSaidaPredict = sigmoide(somaSinapse1Predict)
+    KS_test = ks.test(camadaSaidaPredict,'pnorm')
+    KS_pvalue=KS_test$p.value
+    AD_test = ad.test(camadaSaidaPredict)
+    AD_pvalue=AD_test$p.value
 
 
     hist(camadaSaidaPredict,
