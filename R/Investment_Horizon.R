@@ -48,7 +48,7 @@
 #' '2023-03-31','2022-12-31'
 #' )
 #' #######
-#' Investment_Horizon(Tickers =(
+#' Investment_Horizon(
 #' Tickers =c('Current_SP500_Tickers')
 #' RM =c('^GSPC'),
 #' Rf = 0,
@@ -373,7 +373,7 @@ if(Fun=='Out'){
 }
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                          Final_Date, Periodicity, Hidden=Hidenn, Stepmax,
+                          Final_Date, Periodicity, Hidden=Hidden, Stepmax,
                           Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                           Early_Stopping = Early_Stopping,
                           Asymmetry=Asymmetry, Type_ANNt,
