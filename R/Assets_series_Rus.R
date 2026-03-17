@@ -93,11 +93,11 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   ###############Exclude_ticket
   Exclude=NULL
   for (i in 1:length(Exclude_ticket)) {
-    Exclude[i]<-which(Tickers_n==Exclude_ticket[i])
+    Exclude[i]<-which(Tickers==Exclude_ticket[i])
     #Exclude<-Tickers[!Exclude_ticket]
   }
   if(length(Exclude)!=0){
-    Tickers_n=Tickers_n[-Exclude]
+    Tickers=Tickers[-Exclude]
   }
   ###############
 
