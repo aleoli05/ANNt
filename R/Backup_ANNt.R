@@ -110,6 +110,7 @@ if(Investment=='No'){
   nome_dir= str_replace(nome_dir,":","h")
   nome_dir= str_replace(nome_dir,":","m")
   nome_dir= str_replace(nome_dir,"-","_")
+  nome_dir= str_replace(nome_dir,"/","_")
 } else{
   if(Investment=='Yes'){
     load('~/RM_Nome_Backup.rda')
@@ -118,6 +119,7 @@ if(Investment=='No'){
     nome_dir= str_replace(nome_dir,":","h")
     nome_dir= str_replace(nome_dir,":","m")
     nome_dir= str_replace(nome_dir,"-","_")
+    nome_dir= str_replace(nome_dir,"/","_")
     nome_dir=paste(RM_Nome_Backup,nome_dir, sep="_")
   }
 }
