@@ -15,6 +15,7 @@
 #' No" is default. If  "Yes" is necessary inform the lambda or rate of regularization
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
+#' @param Prediction Model of prediction: "Predict" or "Forecast". "Predict" is the standard.
 #' @author Alexandre Silva de Oliveira
 
 #' @examples
@@ -42,7 +43,7 @@
 #' @export
 ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing,
                        Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
-                       Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No') {
+                       Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No', Prediction='Predict') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 
@@ -61,6 +62,10 @@ library("quantmod")
     install.packages("nortest", dependencies = TRUE)
   }
   library("nortest", character.only = TRUE)
+  if (!require("forecast", character.only = TRUE)) {
+    install.packages("forecast", dependencies = TRUE)
+  }
+  library("forecast", character.only = TRUE)
 
 print('Starting ANNt_order Command')
 
@@ -371,8 +376,12 @@ ___________________________________________________________________
     #ggsave(ARQUIVO,p1)
 
 
-    ## Previs?o
+    ## Previsao
+    if(Prediction=='Predict'){
     prev = predict(nn, entradas)
+    } else {
+      prev = forecast(nn, h=length(entradas))
+    }
     KS_test = ks.test(prev,'pnorm')
     KS_pvalue=KS_test$p.value
     AD_test = ad.test(prev)
@@ -914,7 +923,12 @@ ___________________________________________________________________
 
 
     ## Previs?o
-    prevPredict = predict(nn, entradasPredict)
+    if (Prediction=='Predict'){
+    prevPredict = predict(nn, entradasPredict)}
+    else {
+    prevPredict = forecast(nn, h=length(entradasPredict))
+    }
+
     nome = colnames(entradasPredict)[1]
     KS_test = ks.test(prevPredict,'pnorm')
     KS_pvalue=KS_test$p.value

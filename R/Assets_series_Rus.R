@@ -60,6 +60,7 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   }
   library(rusquant)
 
+  options(warn=-1)
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
