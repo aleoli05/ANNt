@@ -53,6 +53,7 @@ Backup_ANNt <- function(Investment='No'){
   load("~/Signal_Sharpe.rda")
   load("~/scenario.set.rda")
   tickers=colnames(scenario.set)
+  RM= str_replace(RM,"/","_")
   if(Signal_Sharpe==1){
     RM = "SHARPE"
   }
@@ -121,6 +122,7 @@ if(Investment=='No'){
     nome_dir= str_replace(nome_dir,"-","_")
     nome_dir= str_replace(nome_dir,"/","_")
     nome_dir=paste(RM_Nome_Backup,nome_dir, sep="_")
+    nome_dir= str_replace(nome_dir,"/","_")
   }
 }
   nome_readme=paste("Readme_ANNt_", nome_dir, sep="")
