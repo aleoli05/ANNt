@@ -67,7 +67,7 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
   }
   if(Ratio=="CVar"){
     load('~/Comparativo_Cvar_Horizon_Anual.rda')
-    Dados_teste=Comparativo_Cvar_Horizon_Anual
+    Dados_teste=Comparativo_CVar_Horizon_Anual
   }
   if(Ratio=="Rm"){
     load('~/Comparativo_Rm_Horizon_Anual.rda')
@@ -118,7 +118,7 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
   }
   if(Ratio2=="CVar"){
     load('~/Comparativo_Cvar_Horizon_Anual.rda')
-    Dados_teste2=Comparativo_Cvar_Horizon_Anual
+    Dados_teste2=Comparativo_CVar_Horizon_Anual
   }
   if(Ratio2=="Rm"){
     load('~/Comparativo_Rm_Horizon_Anual.rda')
