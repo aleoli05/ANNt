@@ -32,5 +32,5 @@ Treynor - Treynor Ratio.}
 Analyse the difference of means portfolio´s returns. Return p-value.
 }
 \examples{
-Plot_Ratio_Horizon(Ratio="Annualized_Returns")
+t_Test_Diff_Mean_Portfolios(Ratio="Treynor", Ratio2="Var", Model=1)
 }

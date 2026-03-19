@@ -14,11 +14,11 @@
 #' Beta - Covariance between portfolio and market proxy over market proxy Variance;
 #' Sortino - Sortino Ratio;
 #' Treynor - Treynor Ratio.
-#' @param Model 1 or 2 with or witout significance
+#'@param Model 1 or 2 with or witout significance
 #'
 #'@param Ratio2 Standard is NULL. If informed, can assume the metrics to analysis.
 #'@examples
-#' Plot_Ratio_Horizon(Ratio="Annualized_Returns")
+#' t_Test_Diff_Mean_Portfolios(Ratio="Treynor", Ratio2="Var", Model=1)
 
 #'@export
 t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Model=1){
