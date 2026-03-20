@@ -8,7 +8,7 @@
 Backup_ANNt <- function(Investment='No'){
   library(stringr)
   library(writexl)
-
+  options(warn=-1)
   Backup = 'Backup'
   Readme_ANNt = as.data.frame(matrix(nrow=12,ncol=1500))
   nomes=c('Inputs','Values')
