@@ -112,12 +112,14 @@ Select_Architecture<-function(
 {
   library(stringr)
   library(writexl)
-  Select_Arch_RCum_ANNt_Sharpe=matrix(nrow=length(Specific_Dates), ncol(length(Type_ANN)))
-  colnames(Select_Arch_RCum_ANNt_Sharpe)=paste('Type',"_",1:length(Type_ANN))
+  nrows=length(Specific_Dates)
+  ncols=length(Type_ANN)
+  Select_Arch_RCum_ANNt_Sharpe=matrix(nrow=nrows, ncol=ncols)
+  colnames(Select_Arch_RCum_ANNt_Sharpe)=paste('Type',"_",1:ncols)
   rownames(Select_Arch_RCum_ANNt_Sharpe)=Specific_Dates
 
-  Select_Arch_Volatility_ANNt_Sharpe=matrix(nrow=length(Specific_Dates), ncol(length(Type_ANN)))
-  colnames(Select_Arch_Volatility_ANNt_Sharpe)=paste('Type',"_",1:length(Type_ANN))
+  Select_Arch_Volatility_ANNt_Sharpe=matrix(nrow=nrows, ncol=ncols)
+  colnames(Select_Arch_Volatility_ANNt_Sharpe)=paste('Type',"_",1:ncols)
   rownames(Select_Arch_Volatility_ANNt_Sharpe)=Specific_Dates
 
   for (i in (1:length(Type_ANN))){
