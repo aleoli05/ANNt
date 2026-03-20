@@ -1,0 +1,159 @@
+#' Select_Architecture
+#'@description
+#' Analyzes the return of portfolios with different model architecture of ANN
+
+#'@param Tickers Name of the assets or "Current_SP500_Tickers" for all S&P 500 assets.
+#'@param RM Proxy of the market.
+#'@param Rf Risk free rate.
+#'@param Initial_Date Series start Date, format ('Year-Month-Day'). Assets with values not observed in the series are excluded.
+#'@param Initial_Date_Training Training series start Date.
+#'@param Final_Date End date of the treatment series.
+#'@param Frequency How many times simulate the investiment horizon.
+#'@param Periodicity should be one of “daily”, “weekly”, “monthly”.
+#'@param Hidden Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons.
+#'@param Stepmax Number of replications per asset to train the ANN. For a good performance, use 7500.
+#' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
+#' "MADL" for Mean Absolute Directional Loss, and "GMADL" for Generalized Mean Absolute Directional Loss
+#' @param Early_Stopping = 'No' or 'Yes'. Default is 'No'. If 'Yes' is necessary inform the value
+#' @param Learning_Rate is the Artificial Neural Network learning rate
+#' @param Decay L2 regularization or weight decay, add a penalty term to the loss function. "Yes" or "No.
+#' No" is default. If  "Yes" is necessary inform the lambda or rate of regularization
+#'@param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
+#'@param Type_ANNt Select type ANNt: "T1"= NNet_Signal_Traning; "T2"= NNet_t_Training; "T3"= MC_Signal_Training; "T4"= MC_t_Training; "T5"= NNet_Signal_Test; "T6"= NNet_t_Test; "T7"= MC_Signal_Test; "T8"= Type_ANNt: MC_t_Test.
+#'@param N_Assets Limit of asset numbers in the portfolio.
+#'@param Base Database to use: "yahoo" or "Rus".
+#'@param Fun Which technique to apply to generate portfolios:
+#' 'S_Out' uses the ANNt_Oliveira_Ceretta_S_Out function, this is the standard;
+#' 'Out' uses the ANNt_Oliveira_Cereta_Out function;
+#' 'S' uses the ANNt_Oliveira_Cereta_S function;
+#' 'Original' uses the ANNt_Oliveira_Ceretta function.
+#'@param Specific_Date Specific dates for the end of training. Used to define
+#'the investment horizon of portfolios from specific dates.
+#'@param Download Download asset prices for external data set or local data set. "Yes" or "No". "Yes" is the standard.
+#'@param Import Import dates from external data base after first import in each re balance. "Yes"
+#'or "No". "No" is the standard.
+#' @param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
+#' @param Type_ANN Select the network type: 'ANNt', 'LSTMt' in RNN from ANNt, or 'SKEWt' to raw excess return data
+#' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
+#' @param Continue_from Determine if continue from a Specific_Date in the data
+#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
+#' @examples
+#' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
+#' ####### Example 1 #######
+#' Specific_Dates=c('2025-09-30','2025-06-30',
+#' '2025-03-31','2024-12-31',
+#' '2024-09-30','2024-06-30',
+#' '2024-03-31','2023-12-31',
+#' '2023-09-30','2023-06-30',
+#' '2023-03-31','2022-12-31'
+#' )
+#' #######
+#' Select_Architecture(
+#' Tickers =c('Current_SP500_Tickers')
+#' RM =c('^GSPC'),
+#' Rf = 0,
+#' Initial_Date =c('2018-01-03'),
+#' Final_Date_Training =c('2019-12-31'),
+#' Final_Date ='',
+#' Frequency = 2,
+#' Periodicity = c('daily'),
+#' Hidden = c('',5, 5, 5, 5),
+#' Stepmax = c(2000, 300, 300, 300, 300),
+#' Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
+#' Learning_Rate=c(0.3, 0.3, 0.3, 0.3, 0.3),
+#' Decay=c('No', 'Yes', 'Yes', 'Yes', 'Yes'),
+#' Early_Stopping = c('No','Yes', 'Yes', 'Yes', 'Yes'),
+#' Asymmetry=c('Positive','Positive','Positive','Positive','Positive'),
+#' Type_ANNt = c('T8','T8', 'T8', 'T8', 'T8'),
+#' N_Assets = c(20,20,20,20,20),
+#' Base = 'yahoo',
+#' Fun = 'Original',
+#' Specific_Dates = Specific_Dates,
+#' Import = 'No',
+#' Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
+#' Import = 'No',
+#' Download = 'No',
+#' Skew_t='Yes')
+
+
+#' @export
+
+Select_Architecture<-function(
+  Tickers =c('Current_SP500_Tickers'),
+  RM =c('^GSPC'),
+  Rf = 0,
+  Initial_Date =c('2018-01-03'),
+  Final_Date_Training =c('2019-12-31'),
+  Final_Date ='2024-12-31',
+  Frequency = 2,
+  Periodicity = c('daily'),
+  Hidden = c('',5, 5, 5, 5),
+  Stepmax = c(2000, 300, 300, 300, 300),
+  Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
+  Learning_Rate=c(0.3, 0.3, 0.3, 0.3, 0.3),
+  Decay=c('No', 'Yes', 'Yes', 'Yes', 'Yes'),
+  Early_Stopping = c('No','Yes', 'Yes', 'Yes', 'Yes'),
+  Asymmetry=c('Positive','Positive','Positive','Positive','Positive'),
+  Type_ANNt = c('T8','T8', 'T8', 'T8', 'T8'),
+  N_Assets = c(20,20,20,20,20),
+  Base = 'yahoo',
+  Fun = 'Original' ,
+  Specific_Dates = Specific_Dates,
+  Import = 'No',
+  Exclude_ticket='',
+  Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
+  Order='Yes',
+  Continue_from='1900-01-01',
+  Download='Yes'
+)
+
+{
+  library(stringr)
+  library(writexl)
+  Select_Arch_RCum_ANNt_Sharpe=matrix(nrow=length(Specific_Dates), ncol(length(Type_ANN)))
+  colnames(Select_Arch_RCum_ANNt_Sharpe)=paste('Type',"_",1:length(Type_ANN))
+  rownames(Select_Arch_RCum_ANNt_Sharpe)=Specific_Dates
+
+  Select_Arch_Volatility_ANNt_Sharpe=matrix(nrow=length(Specific_Dates), ncol(length(Type_ANN)))
+  colnames(Select_Arch_Volatility_ANNt_Sharpe)=paste('Type',"_",1:length(Type_ANN))
+  rownames(Select_Arch_Volatility_ANNt_Sharpe)=Specific_Dates
+
+  for (i in (1:length(Type_ANN))){
+    Investment_Horizon(
+      Tickers <-Tickers,
+      RM <-RM,
+      Rf = Rf,
+      Initial_Date =Initial_Date,
+      Final_Date_Training =Final_Date_Training,
+      Final_Date =Final_Date,
+      Frequency = Frequency,
+      Periodicity = Periodicity,
+      Hidden = Hidden[i],
+      Stepmax = Stepmax[i],
+      Asymmetry=Asymmetry[i],
+      Type_ANNt = Type_ANNt[i],
+      N_Assets = N_Assets[i],
+      Base = Base,
+      Fun = Fun,
+      Specific_Dates = Specific_Dates,
+      Import = Import,
+      Exclude_ticket=Exclude_ticket,
+      Type_ANN = Type_ANN[i],
+      Order=Order,
+      Continue_from=Continue_from,
+      Download=Download
+    )
+    load('~/Comparativo_RCum_Horizon_Anual.rda')
+    load('~/Comparativo_Volatility_Horizon_Anual.rda')
+    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,wich(colnames(Comparativo_Volatility_Horizon_Anual)=='ANNt_SHARPE')]
+    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,wich(colnames(Comparativo_Volatility_Horizon_Anual)=='ANNt_SHARPE')]
+  }
+  save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
+  write_xlsx(Select_Arch_RCum_ANNt_Sharpe, "~/Select_Arch_RCum_ANNt_Sharpe.xlsx")
+  save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
+  write_xlsx(Select_Arch_Volatility_ANNt_Sharpe, "~/Select_Arch_Volatility_ANNt_Sharpe.xlsx")
+
+  t_Test_Diff_Mean_Portfolios(Select_Arch_RCum,Select_Arch_Volatility)
+}
+
+
