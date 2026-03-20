@@ -73,7 +73,10 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
     load('~/Comparativo_Rm_Horizon_Anual.rda')
     Dados_teste=Comparativo_Rm_Horizon_Anual
   }
-
+  if(Ratio=="Select_Arch_RCum"){
+    load('~/Select_Arch_RCum_ANNt_Sharpe.rda')
+    Dados_teste=Select_Arch_RCum_ANNt_Sharpe
+  }
 
 
   if(Ratio2==""){
@@ -123,6 +126,10 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
   if(Ratio2=="Rm"){
     load('~/Comparativo_Rm_Horizon_Anual.rda')
     Dados_teste2=Comparativo_Rm_Horizon_Anual
+  }
+  if(Ratio=="Select_Arch_Volatility"){
+    load('~/Select_Arch_Volatility_ANNt_Sharpe.rda')
+    Dados_teste=Select_Arch_Volatility_ANNt_Sharpe
   }
 #####
   if (Model==1){
