@@ -30,7 +30,8 @@ Select_Architecture(
   Type_ANN = c("ANNt", "ANNt", "ANNNt", "ANNt", "LSTMt"),
   Order = "Yes",
   Continue_from = "1900-01-01",
-  Download = "Yes"
+  Download = "Yes",
+  Skew_t = c("No", "Yes", "Yes", "Yes", "Yes")
 )
 }
 \arguments{
@@ -89,12 +90,12 @@ or "No". "No" is the standard.}
 
 \item{Download}{Download asset prices for external data set or local data set. "Yes" or "No". "Yes" is the standard.}
 
+\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
+
 \item{Initial_Date_Training}{Training series start Date.}
 
 \item{Specific_Date}{Specific dates for the end of training. Used to define
 the investment horizon of portfolios from specific dates.}
-
-\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 }
 \description{
 Analyzes the return of portfolios with different model architecture of ANN
@@ -111,7 +112,7 @@ Specific_Dates=c('2025-09-30','2025-06-30',
 )
 #######
 Select_Architecture(
-Tickers =c('Current_SP500_Tickers')
+Tickers =c('Current_SP500_Tickers'),
 RM =c('^GSPC'),
 Rf = 0,
 Initial_Date =c('2018-01-03'),
@@ -133,7 +134,8 @@ Fun = 'Original',
 Specific_Dates = Specific_Dates,
 Import = 'No',
 Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
-Import = 'No',
+Order = 'Yes',
 Download = 'No',
-Skew_t='Yes')
+Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
+)
 }

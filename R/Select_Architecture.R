@@ -49,7 +49,7 @@
 #' )
 #' #######
 #' Select_Architecture(
-#' Tickers =c('Current_SP500_Tickers')
+#' Tickers =c('Current_SP500_Tickers'),
 #' RM =c('^GSPC'),
 #' Rf = 0,
 #' Initial_Date =c('2018-01-03'),
@@ -71,9 +71,10 @@
 #' Specific_Dates = Specific_Dates,
 #' Import = 'No',
 #' Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
-#' Import = 'No',
+#' Order = 'Yes',
 #' Download = 'No',
-#' Skew_t='Yes')
+#' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
+#' )
 
 
 #' @export
@@ -104,7 +105,8 @@ Select_Architecture<-function(
   Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
   Order='Yes',
   Continue_from='1900-01-01',
-  Download='Yes'
+  Download='Yes',
+  Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
 )
 
 {
@@ -120,8 +122,8 @@ Select_Architecture<-function(
 
   for (i in (1:length(Type_ANN))){
     Investment_Horizon(
-      Tickers <-Tickers,
-      RM <-RM,
+      Tickers =Tickers,
+      RM =RM,
       Rf = Rf,
       Initial_Date =Initial_Date,
       Final_Date_Training =Final_Date_Training,
@@ -141,7 +143,8 @@ Select_Architecture<-function(
       Type_ANN = Type_ANN[i],
       Order=Order,
       Continue_from=Continue_from,
-      Download=Download
+      Download=Download,
+      Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')
