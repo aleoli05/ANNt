@@ -139,6 +139,7 @@ Import = 'No',
 Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
 Order = 'Yes',
 Download = 'Yes',
-Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
+Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
+Initial_Arch=1
 )
 }

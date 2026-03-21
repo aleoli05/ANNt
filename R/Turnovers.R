@@ -13,7 +13,7 @@ library(dplyr)
 library(tidyselect)
   if (length(Portfolio)==1){
   if (Portfolio=='Alls'){
-      Portfolio=c('MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe',
+      Portfolio=c('MKW','Sharpe','MF_EQ', 'MF_MKW','MF_Sharpe','ANNt_EQ','ANNt_MKW',
                   'ANNt_Sharpe')
       load('~/Weights_MF_EQ_Horizon.rda')
   }}
@@ -286,6 +286,7 @@ for (m in 1:length(Port)){
   Turnover_Alls[,2+m]=Turnover[,3]
   }
   View(Turnover_Alls)
+  save(Turnover_Alls,file='~/Turnovers_Alls.rda')
   print(Turnover_Alls)
  }
 }

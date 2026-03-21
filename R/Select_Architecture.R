@@ -74,7 +74,8 @@
 #' Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
 #' Order = 'Yes',
 #' Download = 'Yes',
-#' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
+#' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
+#' Initial_Arch=1
 #' )
 
 
@@ -152,12 +153,16 @@ Select_Architecture<-function(
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')
+    Select_Arch_RCum_ANNt_Sharpe[,i]=Comparativo_RCum_Horizon_Anual[,wich(colnames(Comparativo_RCum_Horizon_Anual)=='ANNt_SHARPE')]
     Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,wich(colnames(Comparativo_Volatility_Horizon_Anual)=='ANNt_SHARPE')]
-    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,wich(colnames(Comparativo_Volatility_Horizon_Anual)=='ANNt_SHARPE')]
+    save(i="~/Initial_Arch.rda")
+    save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
+    save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
   }
-  save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
+  #save(Initial_Arch,file="~/Initial_Arch.rda")
+  #save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
   write_xlsx(Select_Arch_RCum_ANNt_Sharpe, "~/Select_Arch_RCum_ANNt_Sharpe.xlsx")
-  save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
+  #save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
   write_xlsx(Select_Arch_Volatility_ANNt_Sharpe, "~/Select_Arch_Volatility_ANNt_Sharpe.xlsx")
 
   t_Test_Diff_Mean_Portfolios(Select_Arch_RCum,Select_Arch_Volatility)
