@@ -135,7 +135,7 @@ Specific_Dates = Specific_Dates,
 Import = 'No',
 Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
 Order = 'Yes',
-Download = 'No',
+Download = 'Yes',
 Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
 )
 }

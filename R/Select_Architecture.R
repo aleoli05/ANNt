@@ -72,7 +72,7 @@
 #' Import = 'No',
 #' Type_ANN = c('ANNt','ANNt', 'ANNNt', 'ANNt', 'LSTMt'),
 #' Order = 'Yes',
-#' Download = 'No',
+#' Download = 'Yes',
 #' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
 #' )
 
@@ -146,7 +146,7 @@ Select_Architecture<-function(
       Order=Order,
       Continue_from=Continue_from,
       Download=Download,
-      Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
+      Skew_t=Skew_t[i]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')
