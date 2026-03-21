@@ -131,13 +131,13 @@ Select_Architecture<-function(
   load('~/Select_Arch_Volatility_ANNt_Sharpe.rda')
   }
 
-  if(Hidden[i]!=''){
-    Hidden_select=as.numeric(Hidden[i])
-  }else{
-    Hidden_select=''
-  }
 
   for (i in (Initial_Arch:length(Type_ANN))){
+    if(Hidden[i]!=''){
+      Hidden_select=as.numeric(Hidden[i])
+    }else{
+      Hidden_select=''
+    }
     Investment_Horizon(
       Tickers =Tickers,
       RM =RM,
