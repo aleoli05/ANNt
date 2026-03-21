@@ -328,7 +328,7 @@ if (x==1) {
                                    case_when(tickers == "^BVSP" ~ "IBOV",
                                              tickers == "^IBVX50" ~ "IBVX50",
                                              tickers == "^GSPC" ~ "SP500",
-                                             tickers == "^J200.JO" ~ "FSTE/JSE_40",
+                                             tickers == "^J200.JO" ~ "FSTE_JSE_40",
                                              tickers == "^NSEI" ~ "NIFTY_50",
                                              tickers == "000001.SS" ~ "SSE_50",
                                              TRUE ~ as.character(tickers)))
