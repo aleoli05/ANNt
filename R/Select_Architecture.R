@@ -165,8 +165,8 @@ Select_Architecture<-function(
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')
-    Select_Arch_RCum_ANNt_Sharpe[,i]=Comparativo_RCum_Horizon_Anual[,wich(colnames(Comparativo_RCum_Horizon_Anual)=='ANNt_SHARPE')]
-    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,wich(colnames(Comparativo_Volatility_Horizon_Anual)=='ANNt_SHARPE')]
+    Select_Arch_RCum_ANNt_Sharpe[,i]=Comparativo_RCum_Horizon_Anual[,which(colnames(Comparativo_RCum_Horizon_Anual)=='ANNt_SHARPE')]
+    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,which(colnames(Comparativo_Volatility_Horizon_Anual)=='ANNt_SHARPE')]
     save(i="~/Initial_Arch.rda")
     save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
     save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
