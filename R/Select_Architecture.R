@@ -37,6 +37,7 @@
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @param Continue_from Determine if continue from a Specific_Date in the data
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
+#' @param Initial_Arch Define the Architecture that will initiated the analysis: 1, 2, 3,... Standard is 1.
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -106,7 +107,8 @@ Select_Architecture<-function(
   Order='Yes',
   Continue_from='1900-01-01',
   Download='Yes',
-  Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes')
+  Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
+  Initial_Arch=1
 )
 
 {
@@ -122,7 +124,7 @@ Select_Architecture<-function(
   colnames(Select_Arch_Volatility_ANNt_Sharpe)=paste('Type',"_",1:ncols)
   rownames(Select_Arch_Volatility_ANNt_Sharpe)=Specific_Dates
 
-  for (i in (1:length(Type_ANN))){
+  for (i in (Initial_Arch:length(Type_ANN))){
     Investment_Horizon(
       Tickers =Tickers,
       RM =RM,

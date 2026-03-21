@@ -31,7 +31,8 @@ Select_Architecture(
   Order = "Yes",
   Continue_from = "1900-01-01",
   Download = "Yes",
-  Skew_t = c("No", "Yes", "Yes", "Yes", "Yes")
+  Skew_t = c("No", "Yes", "Yes", "Yes", "Yes"),
+  Initial_Arch = 1
 )
 }
 \arguments{
@@ -91,6 +92,8 @@ or "No". "No" is the standard.}
 \item{Download}{Download asset prices for external data set or local data set. "Yes" or "No". "Yes" is the standard.}
 
 \item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
+
+\item{Initial_Arch}{Define the Architecture that will initiated the analysis: 1, 2, 3,... Standard is 1.}
 
 \item{Initial_Date_Training}{Training series start Date.}
 
