@@ -62,7 +62,7 @@
 #' Stepmax = c(2000, 300, 300, 300, 300),
 #' Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
 #' Learning_Rate=c(0.3, 0.3, 0.3, 0.3, 0.3),
-#' Decay=c('No', 'Yes', 'Yes', 'Yes', 'Yes'),
+#' Decay=c('No', c('Yes',0.05), c('Yes',0.5), c('Yes',0.5), c('Yes',0.5)),
 #' Early_Stopping = c('No','Yes', 'Yes', 'Yes', 'Yes'),
 #' Asymmetry=c('Positive','Positive','Positive','Positive','Positive'),
 #' Type_ANNt = c('T8','T8', 'T8', 'T8', 'T8'),
@@ -94,7 +94,7 @@ Select_Architecture<-function(
   Stepmax = c(2000, 300, 300, 300, 300),
   Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
   Learning_Rate=c(0.3, 0.3, 0.3, 0.3, 0.3),
-  Decay=c('No', 'Yes', 'Yes', 'Yes', 'Yes'),
+  Decay=c('No', c('Yes',0.05), c('Yes',0.5), c('Yes',0.5), c('Yes',0.5)),
   Early_Stopping = c('No','Yes', 'Yes', 'Yes', 'Yes'),
   Asymmetry=c('Positive','Positive','Positive','Positive','Positive'),
   Type_ANNt = c('T8','T8', 'T8', 'T8', 'T8'),
@@ -117,6 +117,8 @@ Select_Architecture<-function(
   library(writexl)
   nrows=length(Specific_Dates)
   ncols=length(Type_ANN)
+
+  if (Initial_Arch==1){
   Select_Arch_RCum_ANNt_Sharpe=matrix(nrow=nrows, ncol=ncols)
   colnames(Select_Arch_RCum_ANNt_Sharpe)=paste('Type',"_",1:ncols)
   rownames(Select_Arch_RCum_ANNt_Sharpe)=Specific_Dates
@@ -124,6 +126,16 @@ Select_Architecture<-function(
   Select_Arch_Volatility_ANNt_Sharpe=matrix(nrow=nrows, ncol=ncols)
   colnames(Select_Arch_Volatility_ANNt_Sharpe)=paste('Type',"_",1:ncols)
   rownames(Select_Arch_Volatility_ANNt_Sharpe)=Specific_Dates
+  }else{
+  load('~/Select_Arch_RCum_ANNt_Sharpe.rda')
+  load('~/Select_Arch_Volatility_ANNt_Sharpe.rda')
+  }
+
+  if(Hidden[i]!=''){
+    Hidden_select=as.numeric(Hidden[i])
+  }else{
+    Hidden_select=''
+  }
 
   for (i in (Initial_Arch:length(Type_ANN))){
     Investment_Horizon(
@@ -135,7 +147,7 @@ Select_Architecture<-function(
       Final_Date =Final_Date,
       Frequency = Frequency,
       Periodicity = Periodicity,
-      Hidden = Hidden[i],
+      Hidden = Hidden_select,
       Stepmax = Stepmax[i],
       Asymmetry=Asymmetry[i],
       Type_ANNt = Type_ANNt[i],
