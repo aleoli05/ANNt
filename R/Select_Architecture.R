@@ -59,7 +59,7 @@
 #' Frequency = 2,
 #' Periodicity = c('daily'),
 #' Hidden = c('',5, 5, 5, 5),
-#' Stepmax = c(2000, 300, 300, 300, 300),
+#' Stepmax = c(2000, 300, 300, 300, 32),
 #' Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
 #' Learning_Rate=c(0.3, 0.3, 0.3, 0.3, 0.3),
 #' Decay=c('No', c('Yes',0.05), c('Yes',0.5), c('Yes',0.5), c('Yes',0.5)),
