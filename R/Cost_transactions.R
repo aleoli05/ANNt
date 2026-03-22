@@ -22,7 +22,11 @@ Cost_transactions<-function(Cost=0.05){
   for (i in (2:ncol(Cost_matrix))){
     h=1
     for (j in (2:nrow(Cost_matrix))){
-      Cost_matrix[j,i]=Dados_teste[j,i]*(1-as.numeric(Turnover_Alls[j+h,i+1])*2*Cost)
+      if(Dados_teste[j,i]>=0){
+        Cost_matrix[j,i]=Dados_teste[j,i]*(1-as.numeric(Turnover_Alls[j+h,i+1])*2*Cost)
+      }else{
+        Cost_matrix[j,i]=Dados_teste[j,i]*(1+as.numeric(Turnover_Alls[j+h,i+1])*2*Cost)
+      }
       h=h+1
     }
   }
@@ -37,11 +41,13 @@ Cost_transactions<-function(Cost=0.05){
   Cost_matrix=as.data.frame(round(Cost_matrix,2))
   Cost_Medio_matrix=as.data.frame(Cost_Medio_matrix)
   save(Cost_matrix,file="~/Cost_matrix.rda")
-  t_test= colnames(as.data.frame(Cost_matrix))
+  t_test= rownames(as.data.frame(Cost_matrix))
   Cost_matrix_Tabela=as.data.frame(cbind(t_test,Cost_matrix))
   write_xlsx(Cost_matrix, "~/Cost_matrix_Tabela.xlsx")
   save(Cost_Medio_matrix,file="~/Cost_Medio_matrix.rda")
-  write_xlsx(Cost_Medio_matrix, "~/Cost_Medio_matrix.xlsx")
+  t_test2= rownames(as.data.frame(Cost_Medio_matrix))
+  Cost_Medio_matrix_Tabela=as.data.frame(cbind(t_test2,Cost_Medio_matrix))
+  write_xlsx(Cost_Medio_matrix_Tabela, "~/Cost_Medio_matrix.xlsx")
   View(Cost_matrix)
   print(Cost_Medio_matrix)
 }

@@ -117,6 +117,7 @@ Select_Architecture<-function(
   library(writexl)
   nrows=length(Specific_Dates)
   ncols=length(Type_ANN)
+  save(i="~/Initial_Arch.rda")
 
   if (Initial_Arch==1){
   Select_Arch_RCum_ANNt_Sharpe=matrix(nrow=nrows, ncol=ncols)
@@ -165,17 +166,21 @@ Select_Architecture<-function(
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')
-    Select_Arch_RCum_ANNt_Sharpe[,i]=Comparativo_RCum_Horizon_Anual[,which(colnames(Comparativo_RCum_Horizon_Anual)=='ANNt_SHARPE')]
-    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,which(colnames(Comparativo_Volatility_Horizon_Anual)=='ANNt_SHARPE')]
+    Select_Arch_RCum_ANNt_Sharpe[,i]=Comparativo_RCum_Horizon_Anual[,9]
+    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,9]
     save(i="~/Initial_Arch.rda")
     save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
     save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
   }
   #save(Initial_Arch,file="~/Initial_Arch.rda")
   #save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
-  write_xlsx(Select_Arch_RCum_ANNt_Sharpe, "~/Select_Arch_RCum_ANNt_Sharpe.xlsx")
+  t_test= rownames(as.data.frame(Select_Arch_RCum_ANNt_Sharpe))
+  Select_Arch_RCum_ANNt_Sharpe_Tabela=as.data.frame(cbind(t_test,Select_Arch_RCum_ANNt_Sharpe))
+  write_xlsx(Select_Arch_RCum_ANNt_Sharpe_Tabela, "~/Select_Arch_RCum_ANNt_Sharpe.xlsx")
   #save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
-  write_xlsx(Select_Arch_Volatility_ANNt_Sharpe, "~/Select_Arch_Volatility_ANNt_Sharpe.xlsx")
+  t_test2= rownames(as.data.frame(Select_Arch_Volatility_ANNt_Sharpe))
+  Select_Arch_Volatility_ANNt_Sharpe_Tabela=as.data.frame(cbind(t_test2,Select_Arch_Volatility_ANNt_Sharpe))
+  write_xlsx(Select_Arch_Volatility_ANNt_Sharpe_Tabela, "~/Select_Arch_Volatility_ANNt_Sharpe.xlsx")
 
   t_Test_Diff_Mean_Portfolios(Select_Arch_RCum,Select_Arch_Volatility)
 }
