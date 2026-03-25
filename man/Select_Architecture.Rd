@@ -32,7 +32,8 @@ Select_Architecture(
   Continue_from = "1900-01-01",
   Download = "Yes",
   Skew_t = c("No", "Yes", "Yes", "Yes", "Yes"),
-  Initial_Arch = 1
+  Initial_Arch = 1,
+  Bias = c("No", "No", "No", "No", "No")
 )
 }
 \arguments{
@@ -95,6 +96,8 @@ or "No". "No" is the standard.}
 
 \item{Initial_Arch}{Define the Architecture that will initiated the analysis: 1, 2, 3,... Standard is 1.}
 
+\item{Bias}{include Bias, Yes or No, with auto learning}
+
 \item{Initial_Date_Training}{Training series start Date.}
 
 \item{Specific_Date}{Specific dates for the end of training. Used to define
@@ -140,6 +143,7 @@ Type_ANN = c('ANNt','ANNt', 'ANNt', 'ANNt', 'LSTMt'),
 Order = 'Yes',
 Download = 'Yes',
 Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
-Initial_Arch=1
+Initial_Arch=1,
+Bias=c('No','No','No','No','No')
 )
 }

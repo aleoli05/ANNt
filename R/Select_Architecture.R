@@ -38,6 +38,7 @@
 #' @param Continue_from Determine if continue from a Specific_Date in the data
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Initial_Arch Define the Architecture that will initiated the analysis: 1, 2, 3,... Standard is 1.
+#' @param Bias include Bias, Yes or No, with auto learning
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -75,7 +76,8 @@
 #' Order = 'Yes',
 #' Download = 'Yes',
 #' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
-#' Initial_Arch=1
+#' Initial_Arch=1,
+#' Bias=c('No','No','No','No','No')
 #' )
 
 
@@ -109,7 +111,8 @@ Select_Architecture<-function(
   Continue_from='1900-01-01',
   Download='Yes',
   Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
-  Initial_Arch=1
+  Initial_Arch=1,
+  Bias=c('No', 'No', 'No', 'No', 'No')
 )
 
 {
@@ -162,7 +165,8 @@ Select_Architecture<-function(
       Order=Order,
       Continue_from=Continue_from,
       Download=Download,
-      Skew_t=Skew_t[i]
+      Skew_t=Skew_t[i],
+      Bias=Bias[i]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')

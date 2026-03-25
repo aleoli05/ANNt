@@ -17,7 +17,8 @@ ANNt_order(
   Early_Stopping = "No",
   Asymmetry = "Negative",
   Skew_t = "No",
-  Prediction = "Predict"
+  Prediction = "Predict",
+  Bias = "No"
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 \item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 
 \item{Prediction}{Model of prediction: "Predict" or "Forecast". "Predict" is the standard.}
+
+\item{Bias}{include Bias, Yes or No, with auto learning}
 }
 \description{
 ANNt_order classify assets by the probability of return exceeding a RM
@@ -63,7 +66,8 @@ Learning_Rate = 0.3,
 Decay=c('Yes',0.1),
 Early_Stopping = c('Yes', 0.001),
 Asymmetry='Negative',
-Skew_t='Yes')
+Skew_t='Yes',
+Bias="No")
 # Estimated processing time 2 hours.
 
 }

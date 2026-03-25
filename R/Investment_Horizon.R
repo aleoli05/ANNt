@@ -37,6 +37,7 @@
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @param Continue_from Determine if continue from a Specific_Date in the data
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
+#' @param Bias include Bias, Yes or No, with auto learning
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -87,7 +88,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Specific_Dates=Sys.Date(),
                                 Download='Yes',
                                 Import='No',Exclude_ticket='', Type_ANN='ANNt',
-                                Order='Yes', Continue_from='1900-01-01', Skew_t='No'){
+                                Order='Yes', Continue_from='1900-01-01', Skew_t='No',
+                                Bias=Bias){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -308,7 +310,7 @@ if(Fun=='S_Out'){
                               Early_Stopping = Early_Stopping,
                               Asymmetry=Asymmetry, Type_ANNt,
                               N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                              Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
+                              Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -343,7 +345,7 @@ if(Fun=='Out'){
                             Early_Stopping = Early_Stopping,
                             Asymmetry=Asymmetry, Type_ANNt,
                             N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                            Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
+                            Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -378,7 +380,7 @@ if(Fun=='S'){
                           Early_Stopping = Early_Stopping,
                           Asymmetry=Asymmetry, Type_ANNt,
                           N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                          Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
+                          Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -392,7 +394,7 @@ if(Fun=='Original'){
                         Early_Stopping = Early_Stopping,
                         Asymmetry=Asymmetry, Type_ANNt,
                         N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                        Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t)
+                        Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)

@@ -16,6 +16,8 @@
 #' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Prediction Model of prediction: "Predict" or "Forecast". "Predict" is the standard.
+#' @param Bias include Bias, Yes or No, with auto learning
+#'
 #' @author Alexandre Silva de Oliveira
 
 #' @examples
@@ -30,7 +32,8 @@
 #' Decay=c('Yes',0.1),
 #' Early_Stopping = c('Yes', 0.001),
 #' Asymmetry='Negative',
-#' Skew_t='Yes')
+#' Skew_t='Yes',
+#' Bias="No")
 
 #' # Estimated processing time 2 hours.
 #'
@@ -43,7 +46,8 @@
 #' @export
 ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing,
                        Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
-                       Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No', Prediction='Predict') {
+                       Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No', Prediction='Predict',
+                       Bias="No") {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 
@@ -305,7 +309,8 @@ ___________________________________________________________________
     library("MFDFA")
     library("DEoptim")
     library("rvest")
-
+    bias_saida=0
+    bias_hidden=0
 
     if (Hidden==''){
       Hidden=nlinhas
@@ -320,9 +325,37 @@ ___________________________________________________________________
       return (tanh(soma))
     }
     colnames(entradas)[1]= "ATIVO"
-    nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
-                   hidden = Hidden, act.fct = "tanh", threshold = 0.1,
-                   stepmax=epocas)
+    if (Decay=='No'){
+      Decay2=FALSE
+    }else{
+      Decay2=Decay[2]
+    }
+    if (Bias=="Yes"){
+      if(Early_Stopping[1]=='Yes'){
+        nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
+                       hidden = Hidden, act.fct = "tanh",
+                       threshold = Early_Stopping[2],
+                       stepmax=epocas, decay=Decay2)
+      }else{
+        nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
+                       hidden = Hidden, act.fct = "tanh",
+                       threshold = 0.1,
+                       stepmax=epocas, bias=FALSE, decay=Decay2)
+      }
+    }else{
+            if(Early_Stopping[1]=='Yes'){
+                nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
+                               hidden = Hidden, act.fct = "tanh",
+                               threshold = Early_Stopping[2],
+                               stepmax=epocas, decay=Decay2)
+            } else{
+                nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
+                               hidden = Hidden, act.fct = "tanh",
+                               threshold = 0.1,
+                               stepmax=epocas, decay=Decay2)
+            }
+      }
+
     # Plotagem da RNA
     #nn=as.matrix(sapply(nn, as.numeric))
     if(Hidden %% 2 == 0) {
@@ -551,6 +584,7 @@ ___________________________________________________________________
                     ncol = Hidden, byrow = T)
     pesos1 = matrix(runif(ncolunas*(nlinhas), min = 0, max = 1), nrow = Hidden,
                     ncol = 1, byrow = T)
+
     options(warn=-1)
     ### pesos1 com Bias na camada oculta
     #pesos1 = matrix(runif(ncolunas*(nlinhas+1), min = 0, max = 1),
@@ -589,11 +623,14 @@ ___________________________________________________________________
     epocas = Stepmax
     momento = 1
     taxaAprendizagem = Learning_Rate
+    bias_saida=0
+    bias_hidden=0
+
     #########################################
     for(j in 1:epocas) {
       # fed forward
       camadaEntrada = as.matrix(entradas)
-      somaSinapse0 = camadaEntrada %*% pesos0
+      somaSinapse0 = camadaEntrada %*% pesos0 + bias_hidden
       camadaOculta = sigmoide(somaSinapse0)
 
       ### Introduzindo Bias na segunda camada
@@ -606,7 +643,7 @@ ___________________________________________________________________
       #camadaOculta = as.matrix(camadaOculta)
 
 
-      somaSinapse1 = camadaOculta %*% pesos1
+      somaSinapse1 = camadaOculta %*% pesos1 + bias_saida
       camadaSaida = sigmoide(somaSinapse1)
       KS_test = ks.test(camadaSaida,'pnorm')
       KS_pvalue=KS_test$p.value
@@ -694,6 +731,10 @@ ___________________________________________________________________
       deltaSaidaXPeso = deltaSaida %*% pesos1Transposta
       deltaCamadaOculta = deltaSaidaXPeso * sigmoideDerivada(camadaOculta)
 
+      if (Bias=='Yes'){
+          bias_saída = bias_saida + sum(deltaSaida)* taxaAprendizagem
+          bias_hidden = bias_hidden + sum(deltaCamadaOculta) * taxaAprendizagem
+      }
       # (backpropagation)
       # Atualiza??o dos pesos da camada de sa?da at? a oculta
       camadaOcultaTransposta = t(camadaOculta)
