@@ -56,7 +56,8 @@ Assets_series_Rus <- function(Tickers, RM, Initial_Date, Final_Date, Periodicity
   library(DEoptim)
   inst_pacote <- require(rusquant)
   if (inst_pacote == FALSE) {
-    install.packages("rusquant")
+    library(remotes)
+    remotes::install.github("arbuzovv/rusquant")
   }
   library(rusquant)
 
