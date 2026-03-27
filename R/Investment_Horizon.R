@@ -73,7 +73,8 @@
 #' Type_ANN = 'ANNt',
 #' Import = 'No',
 #' Download = 'No',
-#' Skew_t='Yes')
+#' Skew_t='Yes',
+#' Bias='No')
 #' ####### Example 2 #######
 #' Investment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 #'
@@ -89,7 +90,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Download='Yes',
                                 Import='No',Exclude_ticket='', Type_ANN='ANNt',
                                 Order='Yes', Continue_from='1900-01-01', Skew_t='No',
-                                Bias=Bias){
+                                Bias='No'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()

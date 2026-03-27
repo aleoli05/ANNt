@@ -325,36 +325,19 @@ ___________________________________________________________________
       return (tanh(soma))
     }
     colnames(entradas)[1]= "ATIVO"
-    if (Decay=='No'){
-      Decay2=FALSE
-    }else{
-      Decay2=Decay[2]
-    }
-    if (Bias=="Yes"){
+
       if(Early_Stopping[1]=='Yes'){
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
                        hidden = Hidden, act.fct = "tanh",
                        threshold = Early_Stopping[2],
-                       stepmax=epocas, decay=Decay2)
+                       stepmax=epocas)
       }else{
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
                        hidden = Hidden, act.fct = "tanh",
                        threshold = 0.1,
-                       stepmax=epocas, bias=FALSE, decay=Decay2)
+                       stepmax=epocas, bias=FALSE)
       }
-    }else{
-            if(Early_Stopping[1]=='Yes'){
-                nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
-                               hidden = Hidden, act.fct = "tanh",
-                               threshold = Early_Stopping[2],
-                               stepmax=epocas, decay=Decay2)
-            } else{
-                nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
-                               hidden = Hidden, act.fct = "tanh",
-                               threshold = 0.1,
-                               stepmax=epocas, decay=Decay2)
-            }
-      }
+
 
     # Plotagem da RNA
     #nn=as.matrix(sapply(nn, as.numeric))
