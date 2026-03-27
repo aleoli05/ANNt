@@ -118,7 +118,7 @@ Specific_Dates=c('2025-09-30','2025-06-30',
 )
 #######
 Investment_Horizon(
-Tickers =c('Current_SP500_Tickers')
+Tickers =c('Current_SP500_Tickers'),
 RM =c('^GSPC'),
 Rf = 0,
 Initial_Date =c('2018-01-03'),

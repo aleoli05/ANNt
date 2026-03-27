@@ -82,6 +82,7 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
       RC[1]=log(1+X[1])
       for(i in 2:T){
         RC[i]=RC[i-1]+log(1+X[i])
+        if (is.nan(RC[i])){RC[i]=0}
       }
       AR = RC[T]^(252/T)-1
     }
