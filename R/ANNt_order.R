@@ -335,7 +335,7 @@ ___________________________________________________________________
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
                        hidden = Hidden, act.fct = "tanh",
                        threshold = 0.1,
-                       stepmax=epocas, bias=FALSE)
+                       stepmax=epocas)
       }
 
 

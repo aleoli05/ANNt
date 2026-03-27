@@ -38,6 +38,7 @@
 #' @param Continue_from Determine if continue from a Specific_Date in the data
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Bias include Bias, Yes or No, with auto learning
+#' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -74,7 +75,8 @@
 #' Import = 'No',
 #' Download = 'No',
 #' Skew_t='Yes',
-#' Bias='No')
+#' Bias='No',
+#' Return_Cumulative='Total')
 #' ####### Example 2 #######
 #' Investment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 #'
@@ -90,7 +92,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Download='Yes',
                                 Import='No',Exclude_ticket='', Type_ANN='ANNt',
                                 Order='Yes', Continue_from='1900-01-01', Skew_t='No',
-                                Bias='No'){
+                                Bias='No', Return_Cumulative='Total'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -266,6 +268,7 @@ for (i in (C_from:Frequency)){
     Inicio = as.character(Fim_Train-treino)
     Inicio_Test = as.character(Fim_Train+1)
 
+
     if(length(which(rownames(as.data.frame(scenario.set))==Inicio_Test))==0){
       while(length(which(rownames(as.data.frame(scenario.set))==Inicio_Test))==0){
         dia=as.Date(Inicio_Test)
@@ -288,7 +291,11 @@ for (i in (C_from:Frequency)){
           }}
 
         Fim_Train= as.character(Fim_Train)
-        }
+  }
+
+  if (Return_Cumulative=='Rebalanced' & i>C_from){
+    Final_Date=Fim_Train
+  }
 
   if (Import =='No'){
     if(length(which(rownames(scenario_ajustado)==Inicio))==0){
