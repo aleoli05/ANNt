@@ -39,6 +39,7 @@
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Initial_Arch Define the Architecture that will initiated the analysis: 1, 2, 3,... Standard is 1.
 #' @param Bias include Bias, Yes or No, with auto learning
+#' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -77,7 +78,8 @@
 #' Download = 'Yes',
 #' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
 #' Initial_Arch=1,
-#' Bias=c('No','No','No','No','No')
+#' Bias=c('No','No','No','No','No'),
+#' Return_Cumulative =c('Total','Total','Total','Total','Total')
 #' )
 
 
@@ -112,7 +114,8 @@ Select_Architecture<-function(
   Download='Yes',
   Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
   Initial_Arch=1,
-  Bias=c('No', 'No', 'No', 'No', 'No')
+  Bias=c('No', 'No', 'No', 'No', 'No'),
+  Return_Cumulative =c('Total','Total','Total','Total','Total')
 )
 
 {
@@ -166,7 +169,8 @@ Select_Architecture<-function(
       Continue_from=Continue_from,
       Download=Download,
       Skew_t=Skew_t[i],
-      Bias=Bias[i]
+      Bias=Bias[i],
+      Return_Cumulative =Return_Cumulative[i]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')

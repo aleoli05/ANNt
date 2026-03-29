@@ -33,7 +33,8 @@ Select_Architecture(
   Download = "Yes",
   Skew_t = c("No", "Yes", "Yes", "Yes", "Yes"),
   Initial_Arch = 1,
-  Bias = c("No", "No", "No", "No", "No")
+  Bias = c("No", "No", "No", "No", "No"),
+  Return_Cumulative = c("Total", "Total", "Total", "Total", "Total")
 )
 }
 \arguments{
@@ -98,6 +99,8 @@ or "No". "No" is the standard.}
 
 \item{Bias}{include Bias, Yes or No, with auto learning}
 
+\item{Return_Cumulative}{'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.}
+
 \item{Initial_Date_Training}{Training series start Date.}
 
 \item{Specific_Date}{Specific dates for the end of training. Used to define
@@ -144,6 +147,7 @@ Order = 'Yes',
 Download = 'Yes',
 Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
 Initial_Arch=1,
-Bias=c('No','No','No','No','No')
+Bias=c('No','No','No','No','No'),
+Return_Cumulative =c('Total','Total','Total','Total','Total')
 )
 }
