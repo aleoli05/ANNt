@@ -2,11 +2,12 @@
 #'@description
 #' Return with weights of the portfolio selected. It is necessary to run the Investiment_Horizon command before.
 #'@param Portfolio: MF_EQ; MF_MKW; MKW; ANNt_EQ; ANNt_MKW; Sharpe; MF_Sharpe or ANNt_Sharpe
+#'@param Until_Date Period´s length to plot.
 #'@examples
 #' Weights_Investment_Horizon(Portfolio='Sharpe')
 
 #'@export
-Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
+Weights_Investment_Horizon <-function(Portfolio='Sharpe', Until_Date=''){
 
   ydev=dev.list()
   if(class(ydev)!="NULL"){
@@ -54,6 +55,25 @@ Weights_Investment_Horizon <-function(Portfolio='Sharpe'){
               hist=Weights_ANNt_Sharpe_Horizon
               View(Weights_ANNt_Sharpe_Horizon)
             }
+
+  ######
+  if(Until_Date ==('')){
+    #Until_Date = Final_Date_Testing
+    Until_Date = hist[nrow(hist)-1,1]
+  }
+
+  if(length(which(hist[,1]==Until_Date))==0){
+    while(length(which(hist[,1]==Until_Date))==0){
+      dia=as.Date(Until_Date)
+      new_day=dia+1
+      Until_Date = as.character(new_day)
+    }
+  }
+
+  hist = hist[1:(which(hist[,1]==Until_Date)+1),]
+  Weights=hist
+  View(Weights)
+  ####
   library(dplyr)
   options(warn=-1)
   Histograma = NULL

@@ -4,9 +4,11 @@
 \alias{Weights_Investment_Horizon}
 \title{Weights_Investment_Horizon}
 \usage{
-Weights_Investment_Horizon(Portfolio = "Sharpe")
+Weights_Investment_Horizon(Portfolio = "Sharpe", Until_Date = "")
 }
 \arguments{
+\item{Until_Date}{Period´s length to plot.}
+
 \item{Portfolio:}{MF_EQ; MF_MKW; MKW; ANNt_EQ; ANNt_MKW; Sharpe; MF_Sharpe or ANNt_Sharpe}
 }
 \description{
