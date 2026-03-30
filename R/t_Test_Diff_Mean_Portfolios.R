@@ -75,12 +75,15 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
   }
   if(Ratio=="Select_Arch_RCum"){
     load('~/Select_Arch_RCum_ANNt_Sharpe.rda')
-    Dados_teste=Select_Arch_RCum_ANNt_Sharpe
+    Dados_teste=as.data.frame(Select_Arch_RCum_ANNt_Sharpe)
   }
 
 
   if(Ratio2==""){
-    Dados_teste2=matrix(nrow=nrow(Dados_teste),ncol=ncol(Dados_teste) )
+
+    #Dados_teste2=matrix(nrow=nrow(Dados_teste),ncol=ncol(Dados_teste) )
+    Linhas_Colunas=as.numeric(ncol(Dados_teste))
+    Dados_teste2 = matrix(nrow=Linhas_Colunas, ncol=Linhas_Colunas)
     Dados_teste2[]=0
   }
   if(Ratio2=="RCum"){
@@ -129,11 +132,12 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
   }
   if(Ratio=="Select_Arch_Volatility"){
     load('~/Select_Arch_Volatility_ANNt_Sharpe.rda')
-    Dados_teste=Select_Arch_Volatility_ANNt_Sharpe
+    Dados_teste2=Select_Arch_Volatility_ANNt_Sharpe
   }
 #####
   if (Model==1){
-    Comparativo_t_test = matrix(nrow=ncol(Dados_teste), ncol=ncol(Dados_teste))
+    Linhas_Colunas=as.numeric(ncol(Dados_teste))
+    Comparativo_t_test = matrix(nrow=Linhas_Colunas, ncol=Linhas_Colunas)
     col_names=colnames(Dados_teste)
     colnames(Comparativo_t_test)=col_names
     rownames(Comparativo_t_test)=colnames(Dados_teste)
@@ -166,7 +170,8 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
 
   ######
 if (Model==2){
-  Comparativo_t_test = matrix(nrow=ncol(Dados_teste), ncol=2*ncol(Dados_teste))
+  Linhas=as.numeric(ncol(Dados_teste))
+  Comparativo_t_test = matrix(nrow=Linhas, ncol=2*Linhas)
   col_names=colnames(Dados_teste)
   Insert=rep('',2*ncol(Dados_teste))
   for(i in 1:length(col_names)){

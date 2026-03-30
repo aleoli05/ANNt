@@ -10,7 +10,7 @@ Select_Architecture(
   Rf = 0,
   Initial_Date = c("2018-01-03"),
   Final_Date_Training = c("2019-12-31"),
-  Final_Date = "2024-12-31",
+  Final_Date = "",
   Frequency = 2,
   Periodicity = c("daily"),
   Hidden = c("", 5, 5, 5, 5),
