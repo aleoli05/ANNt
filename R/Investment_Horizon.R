@@ -293,7 +293,7 @@ for (i in (C_from:Frequency)){
         Fim_Train= as.character(Fim_Train)
   }
 
-  if (Return_Cumulative=='Rebalanced' & i>C_from){
+  if ((Return_Cumulative=='Rebalanced' & i>C_from)==TRUE){
     Final_Date=Fim_Train
   }
 

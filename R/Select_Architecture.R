@@ -139,9 +139,9 @@ Select_Architecture<-function(
   }
 
 
-  for (i in (Initial_Arch:length(Type_ANN))){
-    if(Hidden[i]!=''){
-      Hidden_select=as.numeric(Hidden[i])
+  for (i_arch in (Initial_Arch:length(Type_ANN))){
+    if(Hidden[i_arch]!=''){
+      Hidden_select=as.numeric(Hidden[i_arch])
     }else{
       Hidden_select=''
     }
@@ -155,29 +155,31 @@ Select_Architecture<-function(
       Frequency = Frequency,
       Periodicity = Periodicity,
       Hidden = Hidden_select,
-      Stepmax = Stepmax[i],
-      Asymmetry=Asymmetry[i],
-      Type_ANNt = Type_ANNt[i],
-      N_Assets = N_Assets[i],
+      Stepmax = Stepmax[i_arch],
+      Asymmetry=Asymmetry[i_arch],
+      Type_ANNt = Type_ANNt[i_arch],
+      N_Assets = N_Assets[i_arch],
       Base = Base,
       Fun = Fun,
       Specific_Dates = Specific_Dates,
       Import = Import,
       Exclude_ticket=Exclude_ticket,
-      Type_ANN = Type_ANN[i],
+      Type_ANN = Type_ANN[i_arch],
       Order=Order,
       Continue_from=Continue_from,
       Download=Download,
-      Skew_t=Skew_t[i],
-      Bias=Bias[i],
-      Return_Cumulative =Return_Cumulative[i]
+      Skew_t=Skew_t[i_arch],
+      Bias=Bias[i_arch],
+      Return_Cumulative =Return_Cumulative[i_arch]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')
     Continue_from='1900-01-01'
-    Select_Arch_RCum_ANNt_Sharpe[,i]=Comparativo_RCum_Horizon_Anual[,9]
-    Select_Arch_Volatility_ANNt_Sharpe[,i]=Comparativo_Volatility_Horizon_Anual[,9]
-    save(i, file="~/Initial_Arch.rda")
+    Download='No'
+    Select_Arch_RCum_ANNt_Sharpe[,i_arch]=Comparativo_RCum_Horizon_Anual[,9]
+    Select_Arch_Volatility_ANNt_Sharpe[,i_arch]=Comparativo_Volatility_Horizon_Anual[,9]
+    Initial_Arch=i_arch
+    save(Initial_Arch, file="~/Initial_Arch.rda")
     save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
     save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
   }

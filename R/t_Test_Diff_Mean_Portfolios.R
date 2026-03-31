@@ -13,7 +13,8 @@
 #' Alpha - Jensen's Alpha;
 #' Beta - Covariance between portfolio and market proxy over market proxy Variance;
 #' Sortino - Sortino Ratio;
-#' Treynor - Treynor Ratio.
+#' Treynor - Treynor Ratio;
+#' Select_Arch_RCum - Select ANN's architecture.
 #'@param Model 1 or 2 with or witout significance
 #'
 #'@param Ratio2 Standard is NULL. If informed, can assume the metrics to analysis.
@@ -75,7 +76,7 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
   }
   if(Ratio=="Select_Arch_RCum"){
     load('~/Select_Arch_RCum_ANNt_Sharpe.rda')
-    Dados_teste=as.data.frame(Select_Arch_RCum_ANNt_Sharpe)
+    Dados_teste=as.matrix(Select_Arch_RCum_ANNt_Sharpe)
   }
 
 
@@ -130,7 +131,11 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
     load('~/Comparativo_Rm_Horizon_Anual.rda')
     Dados_teste2=Comparativo_Rm_Horizon_Anual
   }
-  if(Ratio=="Select_Arch_Volatility"){
+  if(Ratio2=="Select_Arch_RCum"){
+    load('~/Select_Arch_RCum_ANNt_Sharpe.rda')
+    Dados_teste2=as.data.frame(Select_Arch_RCum_ANNt_Sharpe)
+  }
+  if(Ratio2=="Select_Arch_Volatility"){
     load('~/Select_Arch_Volatility_ANNt_Sharpe.rda')
     Dados_teste2=Select_Arch_Volatility_ANNt_Sharpe
   }

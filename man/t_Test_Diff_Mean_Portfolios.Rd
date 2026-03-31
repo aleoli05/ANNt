@@ -22,7 +22,8 @@ Sharpe - Sharpe Ratio;
 Alpha - Jensen's Alpha;
 Beta - Covariance between portfolio and market proxy over market proxy Variance;
 Sortino - Sortino Ratio;
-Treynor - Treynor Ratio.}
+Treynor - Treynor Ratio;
+Select_Arch_RCum - Select ANN's architecture.}
 
 \item{Ratio2}{Standard is NULL. If informed, can assume the metrics to analysis.}
 
