@@ -78,10 +78,10 @@ if (length(Portfolio)==1){
               dplyr::select(-tidyselect::all_of(excluir))
             if (any(unlist(test)==dados[i,j])){
                 ordem=which(dados[i+2,]==dados[i,j])
-                if(as.numeric(dados[i+1,j])>as.numeric(dados[i+3,ordem])){
-                   Compras[i+1,j] = as.numeric(dados[i+1,j])-as.numeric(dados[i+3,ordem])
+                if(as.numeric(dados[i+1,j])>as.numeric(dados[i+3,ordem[1]])){
+                   Compras[i+1,j] = as.numeric(dados[i+1,j])-as.numeric(dados[i+3,ordem[1]])
                   }else{
-                     Vendas[i+1,j] = as.numeric(dados[i+3,ordem])-as.numeric(dados[i+1,j])
+                     Vendas[i+1,j] = as.numeric(dados[i+3,ordem[1]])-as.numeric(dados[i+1,j])
                     }
             }
             teste=dados[i+2,3:ncol(dados)]
