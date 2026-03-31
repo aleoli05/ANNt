@@ -115,7 +115,7 @@ Select_Architecture<-function(
   Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
   Initial_Arch=1,
   Bias=c('No', 'No', 'No', 'No', 'No'),
-  Return_Cumulative =c('Total','Total','Total','Total','Total')
+  Return_Cumulative ='Total'
 )
 
 {
@@ -170,7 +170,7 @@ Select_Architecture<-function(
       Download=Download,
       Skew_t=Skew_t[i_arch],
       Bias=Bias[i_arch],
-      Return_Cumulative =Return_Cumulative[i_arch]
+      Return_Cumulative =Return_Cumulative
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')

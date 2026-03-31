@@ -76,7 +76,7 @@ t_Test_Diff_Mean_Portfolios<-function(Ratio="Annualized_Returns", Ratio2="", Mod
   }
   if(Ratio=="Select_Arch_RCum"){
     load('~/Select_Arch_RCum_ANNt_Sharpe.rda')
-    Dados_teste=as.matrix(Select_Arch_RCum_ANNt_Sharpe)
+    Dados_teste=data.matrix(Select_Arch_RCum_ANNt_Sharpe)
   }
 
 
