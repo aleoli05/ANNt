@@ -127,11 +127,11 @@ Select_Architecture<-function(
 
   if (Initial_Arch==1){
   Select_Arch_RCum_ANNt_Sharpe=matrix(nrow=nrows, ncol=ncols)
-  colnames(Select_Arch_RCum_ANNt_Sharpe)=paste('Type',"_",1:ncols)
+  colnames(Select_Arch_RCum_ANNt_Sharpe)=paste('Type',"",1:ncols)
   rownames(Select_Arch_RCum_ANNt_Sharpe)=Specific_Dates
 
   Select_Arch_Volatility_ANNt_Sharpe=matrix(nrow=nrows, ncol=ncols)
-  colnames(Select_Arch_Volatility_ANNt_Sharpe)=paste('Type',"_",1:ncols)
+  colnames(Select_Arch_Volatility_ANNt_Sharpe)=paste('Type',1:ncols)
   rownames(Select_Arch_Volatility_ANNt_Sharpe)=Specific_Dates
   }else{
   load('~/Select_Arch_RCum_ANNt_Sharpe.rda')
@@ -185,6 +185,13 @@ Select_Architecture<-function(
   }
   #save(Initial_Arch,file="~/Initial_Arch.rda")
   #save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
+  Medias=round(colMeans(Select_Arch_RCum_ANNt_Sharpe),2)
+  Desvios=round(apply(Select_Arch_RCum_ANNt_Sharpe,2,sd),2)
+  Sharpe_R=round(Medias/Desvios,2)
+  Select_Arch_RCum_ANNt_Sharpe=rbind(Select_Arch_RCum_ANNt_Sharpe,Means=Medias)
+  Select_Arch_RCum_ANNt_Sharpe=rbind(Select_Arch_RCum_ANNt_Sharpe,Std_Dev=Desvios)
+  Select_Arch_RCum_ANNt_Sharpe=rbind(Select_Arch_RCum_ANNt_Sharpe,Return_per_Risk=Sharpe_R)
+  View(Select_Arch_RCum_ANNt_Sharpe)
   t_test= rownames(as.data.frame(Select_Arch_RCum_ANNt_Sharpe))
   Select_Arch_RCum_ANNt_Sharpe_Tabela=as.data.frame(cbind(t_test,Select_Arch_RCum_ANNt_Sharpe))
   write_xlsx(Select_Arch_RCum_ANNt_Sharpe_Tabela, "~/Select_Arch_RCum_ANNt_Sharpe.xlsx")
@@ -193,7 +200,7 @@ Select_Architecture<-function(
   Select_Arch_Volatility_ANNt_Sharpe_Tabela=as.data.frame(cbind(t_test2,Select_Arch_Volatility_ANNt_Sharpe))
   write_xlsx(Select_Arch_Volatility_ANNt_Sharpe_Tabela, "~/Select_Arch_Volatility_ANNt_Sharpe.xlsx")
 
-  t_Test_Diff_Mean_Portfolios(Select_Arch_RCum,Select_Arch_Volatility)
+  #t_Test_Diff_Mean_Portfolios('Select_Arch_RCum','Select_Arch_Volatility')
 }
 
 
