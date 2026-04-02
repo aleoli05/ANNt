@@ -327,9 +327,10 @@ ___________________________________________________________________
     colnames(entradas)[1]= "ATIVO"
 
       if(Early_Stopping[1]=='Yes'){
+        Stop2=as.numeric(Early_Stopping[2])
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
                        hidden = Hidden, act.fct = "tanh",
-                       threshold = Early_Stopping[2],
+                       threshold = Stop2,
                        stepmax=epocas)
       }else{
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
