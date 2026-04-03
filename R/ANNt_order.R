@@ -325,7 +325,7 @@ ___________________________________________________________________
       return (tanh(soma))
     }
     colnames(entradas)[1]= "ATIVO"
-
+        Stop2=0.1
       if(Early_Stopping[1]=='Yes'){
         Stop2=as.numeric(Early_Stopping[2])
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,

@@ -79,7 +79,7 @@
 #' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
 #' Initial_Arch=1,
 #' Bias=c('No','No','No','No','No'),
-#' Return_Cumulative =c('Total','Total','Total','Total','Total')
+#' Return_Cumulative ='Total'
 #' )
 
 
