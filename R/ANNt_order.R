@@ -629,7 +629,7 @@ ___________________________________________________________________
 
       somaSinapse1 = camadaOculta %*% pesos1 + bias_saida
       camadaSaida = sigmoide(somaSinapse1)
-      KS_test = ks.test(camadaSaida,'pnorm')
+      KS_test = ks.test(prev,'pnorm')
       KS_pvalue=KS_test$p.value
       AD_test = ad.test(prev)
       AD_pvalue=AD_test$p.value
