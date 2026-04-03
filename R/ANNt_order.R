@@ -639,8 +639,9 @@ ___________________________________________________________________
       R_observed = saidas
       if (Loss=="MSE"){
       #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
-      erroCamadaSaida = saidas - camadaSaida # M?nima diferen?a
+      erroCamadaSaida = mean((saidas - camadaSaida)^2) # M?nima diferen?a
       } else{if(Loss=="MAE"){
+        erroCamadaSaida = saidas - camadaSaida
       mediaAbsoluta = mean(abs(erroCamadaSaida))
       erroCamadaSaida = mediaAbsoluta
       } else {if(Loss=="MADL"){
@@ -689,6 +690,7 @@ ___________________________________________________________________
       if (j==epocas){print(paste("Loss:",erroCamadaSaida))}
     if(length(Early_Stopping)!=1){
         Stop=as.numeric(Early_Stopping[2])
+        #View(erroCamadaSaida)
         #print(paste("Loss:",erroCamadaSaida))
           if (class(erroCamadaSaida)=="numeric" && (erroCamadaSaida<10 )) {
             if((erroCamadaSaida < Stop)==TRUE){

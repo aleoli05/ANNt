@@ -64,7 +64,7 @@
 #' Stepmax = c(2000, 300, 300, 300, 32),
 #' Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
 #' Learning_Rate=c(0.3, 0.3, 0.3, 0.3, 0.3),
-#' Decay=c('No', c('Yes',0.05), c('Yes',0.5), c('Yes',0.5), c('Yes',0.5)),
+#' Decay=c('No', c('Yes',0.1), c('Yes',0.1), c('Yes',0.1), c('Yes',0.1)),
 #' Early_Stopping = c('No','No', 'No', 'No', c('Yes', 0.001)),
 #' Asymmetry=c('Positive','Positive','Positive','Positive','Positive'),
 #' Type_ANNt = c('T8','T8', 'T8', 'T8', 'T8'),
@@ -182,7 +182,7 @@ Select_Architecture<-function(
     Download='No'
     Select_Arch_RCum_ANNt_Sharpe[,i_arch]=Comparativo_RCum_Horizon_Anual[,9]
     Select_Arch_Volatility_ANNt_Sharpe[,i_arch]=Comparativo_Volatility_Horizon_Anual[,9]
-    Initial_Arch=i_arch
+    Initial_Arch=i_arch+1
     save(Initial_Arch, file="~/Initial_Arch.rda")
     save(Select_Arch_RCum_ANNt_Sharpe,file="~/Select_Arch_RCum_ANNt_Sharpe.rda")
     save(Select_Arch_Volatility_ANNt_Sharpe,file="~/Select_Arch_Volatility_ANNt_Sharpe.rda")
