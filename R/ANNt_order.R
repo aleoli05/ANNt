@@ -776,7 +776,7 @@ ___________________________________________________________________
 ################################################################################
 #### Teste se soma ou subrai o sd na assimetria (Padrão=soma se (standart error) = Assimetria negativa)
     if (Asymmetry=="Negative") {
-          if (mean(camadaSaida)>0) {
+          if ((mean(camadaSaida)>0)==TRUE) {
             ProbabilidadeTmedia =pt(0.0,
                                     df=length(camadaSaida)-1,ncp = se, lower.tail=FALSE)
            # cat("Right asymmetric density (Negative)")
@@ -786,7 +786,7 @@ ___________________________________________________________________
             #cat("Left asymmetric density (Positive)")
           }
     }else {if(Asymmetry=='Positive'){
-      if (mean(camadaSaida)>0) {
+      if ((mean(camadaSaida)>0)==TRUE) {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(camadaSaida)-1,ncp = -se, lower.tail=FALSE)
         # cat("Right asymmetric density (Negative)")
