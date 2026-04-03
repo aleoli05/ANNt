@@ -743,6 +743,7 @@ ___________________________________________________________________
      #    main = paste("Histograma Previs?es RNA Fase de Treinamento - Ativo",
       #                xnames= nome),
        #  xlab = paste("Retorno Excedente sobre", xnames = "RM"))
+    save(camadaSaida,file='~/camadaSaida.rda')
     mean(camadaSaida)
     median(camadaSaida)
     sd(camadaSaida)
