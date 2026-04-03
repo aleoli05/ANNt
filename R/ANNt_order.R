@@ -739,10 +739,10 @@ ___________________________________________________________________
      # print("Please Reduce the Hidden Number!")
     #}
 ################################################################################
-    hist(camadaSaida,
-         main = paste("Histograma Previs?es RNA Fase de Treinamento - Ativo",
-                      xnames= nome),
-         xlab = paste("Retorno Excedente sobre", xnames = "RM"))
+    #hist(camadaSaida,
+     #    main = paste("Histograma Previs?es RNA Fase de Treinamento - Ativo",
+      #                xnames= nome),
+       #  xlab = paste("Retorno Excedente sobre", xnames = "RM"))
     mean(camadaSaida)
     median(camadaSaida)
     sd(camadaSaida)
