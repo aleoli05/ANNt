@@ -330,7 +330,7 @@ ___________________________________________________________________
         Stop2=as.numeric(Early_Stopping[2])
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
                        hidden = Hidden, act.fct = "tanh",
-                       threshold = Stop2,
+                       threshold = 0.1,
                        stepmax=epocas)
       }else{
         nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
