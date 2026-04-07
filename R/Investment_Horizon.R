@@ -106,7 +106,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
 
 Horizon=Import
 Exclude = Exclude_ticket
-RM_Nome_Backup=paste(RM,Loss,Type_ANNt,FUN,Type_ANN,sep='_')
+RM_Nome_Backup=paste(RM,Loss,Type_ANNt,Fun,Type_ANN,sep='_')
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 #load('~/Horizon.rda')
 if(Download=='Yes'){
