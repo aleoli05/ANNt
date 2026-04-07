@@ -17,6 +17,7 @@
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Prediction Model of prediction: "Predict" or "Forecast". "Predict" is the standard.
 #' @param Bias include Bias, Yes or No, with auto learning
+#' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #'
 #' @author Alexandre Silva de Oliveira
 
@@ -33,7 +34,9 @@
 #' Early_Stopping = c('Yes', 0.001),
 #' Asymmetry='Negative',
 #' Skew_t='Yes',
-#' Bias="No")
+#' Bias="No",
+#' Order_Only='No'
+#' )
 
 #' # Estimated processing time 2 hours.
 #'
@@ -47,7 +50,7 @@
 ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing,
                        Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
                        Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No', Prediction='Predict',
-                       Bias="No") {
+                       Bias="No", Order_Only='No') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 
@@ -399,6 +402,10 @@ ___________________________________________________________________
     } else {
       prev = forecast(nn, h=length(entradas))
     }
+    if ((Order_Only='Yes')==TRUE){
+      prev=entradas
+    }
+
     KS_test = ks.test(prev,'pnorm')
     KS_pvalue=KS_test$p.value
     AD_test = ad.test(prev)
@@ -743,6 +750,9 @@ ___________________________________________________________________
      #    main = paste("Histograma Previs?es RNA Fase de Treinamento - Ativo",
       #                xnames= nome),
        #  xlab = paste("Retorno Excedente sobre", xnames = "RM"))
+    if ((Order_Only='Yes')==TRUE){
+      CamadaSaida=entradas
+    }
     save(camadaSaida,file='~/camadaSaida.rda')
     mean(camadaSaida)
     median(camadaSaida)
@@ -949,7 +959,6 @@ ___________________________________________________________________
     nlinhasPredict <- nrow(entradasPredict)
     ncolunasPredict <- ncol(entradasPredict)
 
-
     ## Previs?o
     if (Prediction=='Predict'){
     prevPredict = predict(nn, entradasPredict)}
@@ -957,10 +966,13 @@ ___________________________________________________________________
     prevPredict = forecast(nn, h=length(entradasPredict))
     }
 
+    if ((Order_Only='Yes')==TRUE){
+      prevPredict=entradasPredict
+    }
     nome = colnames(entradasPredict)[1]
     KS_test = ks.test(prevPredict,'pnorm')
     KS_pvalue=KS_test$p.value
-    AD_test = ad.test(camadaSaida)
+    AD_test = ad.test(prevPredict)
     AD_pvalue=AD_test$p.value
 
     plot(as.vector(entradasPredict[,1]), type="l", col = "red",
@@ -1098,6 +1110,10 @@ ___________________________________________________________________
 
     somaSinapse1Predict = camadaOcultaPredict %*% pesos1
     camadaSaidaPredict = sigmoide(somaSinapse1Predict)
+
+    if ((Order_Only='Yes')==TRUE){
+      camadaSaidaPredict=camadaEntradaPredict
+    }
     KS_test = ks.test(camadaSaidaPredict,'pnorm')
     KS_pvalue=KS_test$p.value
     AD_test = ad.test(camadaSaidaPredict)

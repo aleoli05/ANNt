@@ -33,7 +33,8 @@ Investment_Horizon(
   Continue_from = "1900-01-01",
   Skew_t = "No",
   Bias = "No",
-  Return_Cumulative = "Total"
+  Return_Cumulative = "Total",
+  Order_Only = "No"
 )
 }
 \arguments{
@@ -98,6 +99,8 @@ or "No". "No" is the standard.}
 
 \item{Return_Cumulative}{'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.}
 
+\item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
+
 \item{Initial_Date_Training}{Training series start Date.}
 
 \item{Specific_Date}{Specific dates for the end of training. Used to define
@@ -143,7 +146,9 @@ Import = 'No',
 Download = 'No',
 Skew_t='Yes',
 Bias='No',
-Return_Cumulative='Total')
+Return_Cumulative='Total',
+Order_Only='No'
+)
 ####### Example 2 #######
 Investment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 

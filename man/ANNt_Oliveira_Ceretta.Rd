@@ -28,7 +28,8 @@ ANNt_Oliveira_Ceretta(
   Type_ANN = "ANNt",
   Order = "Yes",
   Skew_t = "No",
-  Bias = "No"
+  Bias = "No",
+  Order_Only = "No"
 )
 }
 \arguments{
@@ -78,6 +79,8 @@ or "No". "Yes" is the standard.}
 \item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 
 \item{Bias}{include Bias, Yes or No, with auto learning}
+
+\item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
 
 \item{Initial_Date_Training}{Training series start Date}
 }

@@ -26,6 +26,7 @@
 #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Bias include Bias, Yes or No, with auto learning
+#' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #'@examples
 #'Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #'RM <-c('^GSPC') #RM the S&P500
@@ -46,7 +47,8 @@ ANNt_Oliveira_Ceretta_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_
                                       Early_Stopping = 'No',
                                       Asymmetry='Negative', Type_ANNt='T4',
                                       N_Assets, Base='yahoo', Import='Yes', Exclude_ticket='', Type_ANN='ANNt',
-                                      Order='Yes', Skew_t='No', Bias='No'){
+                                      Order='Yes', Skew_t='No', Bias='No',
+                                      Order_Only='No'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
@@ -107,7 +109,8 @@ if(Type_ANN=='ANNt'){
   ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax,
               Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
               Early_Stopping = Early_Stopping,
-              Asymmetry=Asymmetry, Skew_t=Skew_t, Bias=Bias)
+              Asymmetry=Asymmetry, Skew_t=Skew_t, Bias=Bias,
+              Order_Only='No')
 } else {
   if(Type_ANN=='LSTMt'){
     LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,

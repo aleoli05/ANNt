@@ -16,7 +16,7 @@ Select_Architecture(
   Hidden = c("", 5, 5, 5, 5),
   Stepmax = c(2000, 300, 300, 300, 300),
   Loss = c("MSE", "MAE", "MADL", "GMADL", "GMADL"),
-  Learning_Rate = c(0.3, 0.3, 0.3, 0.3, 0.3),
+  Learning_Rate = c(0.3, 0.01, 0.3, 0.3, 0.01),
   Decay = c("No", c("Yes", 0.05), c("Yes", 0.5), c("Yes", 0.5), c("Yes", 0.5)),
   Early_Stopping = c("No", "Yes", "Yes", "Yes", "Yes"),
   Asymmetry = c("Positive", "Positive", "Positive", "Positive", "Positive"),
@@ -34,7 +34,8 @@ Select_Architecture(
   Skew_t = c("No", "Yes", "Yes", "Yes", "Yes"),
   Initial_Arch = 1,
   Bias = c("No", "No", "No", "No", "No"),
-  Return_Cumulative = "Total"
+  Return_Cumulative = "Total",
+  Order_Only = "No"
 )
 }
 \arguments{
@@ -101,6 +102,8 @@ or "No". "No" is the standard.}
 
 \item{Return_Cumulative}{'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.}
 
+\item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
+
 \item{Initial_Date_Training}{Training series start Date.}
 
 \item{Specific_Date}{Specific dates for the end of training. Used to define
@@ -148,6 +151,7 @@ Download = 'Yes',
 Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
 Initial_Arch=1,
 Bias=c('No','No','No','No','No'),
-Return_Cumulative ='Total'
+Return_Cumulative ='Total',
+Order_Only='No'
 )
 }

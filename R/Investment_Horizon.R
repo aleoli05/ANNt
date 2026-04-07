@@ -39,6 +39,7 @@
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
+#' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -76,7 +77,9 @@
 #' Download = 'No',
 #' Skew_t='Yes',
 #' Bias='No',
-#' Return_Cumulative='Total')
+#' Return_Cumulative='Total',
+#' Order_Only='No'
+#' )
 #' ####### Example 2 #######
 #' Investment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 #'
@@ -92,7 +95,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Download='Yes',
                                 Import='No',Exclude_ticket='', Type_ANN='ANNt',
                                 Order='Yes', Continue_from='1900-01-01', Skew_t='No',
-                                Bias='No', Return_Cumulative='Total'){
+                                Bias='No', Return_Cumulative='Total',
+                                Order_Only='No'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -102,7 +106,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
 
 Horizon=Import
 Exclude = Exclude_ticket
-RM_Nome_Backup=paste(RM,Loss,Type_ANNt,Type_ANN,sep='_')
+RM_Nome_Backup=paste(RM,Loss,Type_ANNt,FUN,Type_ANN,sep='_')
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 #load('~/Horizon.rda')
 if(Download=='Yes'){
@@ -319,7 +323,8 @@ if(Fun=='S_Out'){
                               Early_Stopping = Early_Stopping,
                               Asymmetry=Asymmetry, Type_ANNt,
                               N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                              Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
+                              Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
+                              Order_Only='No')
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -354,7 +359,8 @@ if(Fun=='Out'){
                             Early_Stopping = Early_Stopping,
                             Asymmetry=Asymmetry, Type_ANNt,
                             N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                            Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
+                            Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
+                            Order_Only='No')
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -389,7 +395,8 @@ if(Fun=='S'){
                           Early_Stopping = Early_Stopping,
                           Asymmetry=Asymmetry, Type_ANNt,
                           N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                          Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
+                          Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
+                          Order_Only='No')
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -403,7 +410,8 @@ if(Fun=='Original'){
                         Early_Stopping = Early_Stopping,
                         Asymmetry=Asymmetry, Type_ANNt,
                         N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
-                        Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias)
+                        Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
+                        Order_Only='No')
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)

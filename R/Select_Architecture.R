@@ -40,6 +40,7 @@
 #' @param Initial_Arch Define the Architecture that will initiated the analysis: 1, 2, 3,... Standard is 1.
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
+#' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -79,7 +80,8 @@
 #' Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
 #' Initial_Arch=1,
 #' Bias=c('No','No','No','No','No'),
-#' Return_Cumulative ='Total'
+#' Return_Cumulative ='Total',
+#' Order_Only='No'
 #' )
 
 
@@ -97,7 +99,7 @@ Select_Architecture<-function(
   Hidden = c('',5, 5, 5, 5),
   Stepmax = c(2000, 300, 300, 300, 300),
   Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
-  Learning_Rate=c(0.3, 0.3, 0.3, 0.3, 0.3),
+  Learning_Rate=c(0.3, 0.01, 0.3, 0.3, 0.01),
   Decay=c('No', c('Yes',0.05), c('Yes',0.5), c('Yes',0.5), c('Yes',0.5)),
   Early_Stopping = c('No','Yes', 'Yes', 'Yes', 'Yes'),
   Asymmetry=c('Positive','Positive','Positive','Positive','Positive'),
@@ -115,7 +117,8 @@ Select_Architecture<-function(
   Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
   Initial_Arch=1,
   Bias=c('No', 'No', 'No', 'No', 'No'),
-  Return_Cumulative ='Total'
+  Return_Cumulative ='Total',
+  Order_Only='No'
 )
 
 {
@@ -174,7 +177,8 @@ Select_Architecture<-function(
       Download=Download,
       Skew_t=Skew_t[i_arch],
       Bias=Bias[i_arch],
-      Return_Cumulative =Return_Cumulative
+      Return_Cumulative =Return_Cumulative,
+      Order_Only=Order_Only[i_arch]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')

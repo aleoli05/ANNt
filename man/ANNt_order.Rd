@@ -18,7 +18,8 @@ ANNt_order(
   Asymmetry = "Negative",
   Skew_t = "No",
   Prediction = "Predict",
-  Bias = "No"
+  Bias = "No",
+  Order_Only = "No"
 )
 }
 \arguments{
@@ -49,6 +50,8 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 \item{Prediction}{Model of prediction: "Predict" or "Forecast". "Predict" is the standard.}
 
 \item{Bias}{include Bias, Yes or No, with auto learning}
+
+\item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
 }
 \description{
 ANNt_order classify assets by the probability of return exceeding a RM
@@ -67,7 +70,9 @@ Decay=c('Yes',0.1),
 Early_Stopping = c('Yes', 0.001),
 Asymmetry='Negative',
 Skew_t='Yes',
-Bias="No")
+Bias="No",
+Order_Only='No'
+)
 # Estimated processing time 2 hours.
 
 }
