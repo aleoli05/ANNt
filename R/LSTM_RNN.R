@@ -53,7 +53,10 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
     install_keras()
   }
   if (!requireNamespace("tensorflow", quietly = TRUE)) {
-    install_keras()
+    #install_keras()
+    install.packages('tensorflow')
+    library(tensorflow)
+    install_tensorflow(extra_packages = c('pandas','matplotlib','keras'))
   }
   library(tensorflow)
   require(keras)
