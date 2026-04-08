@@ -44,10 +44,10 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
                      View_Metrics='TRUE',
                      Verbose=1){
   require(quantmod)
-  require(keras)
+  #require(keras3)
   require(reticulate)
   library(quantmod)
-  library(keras)
+  #library(keras3)
   library(reticulate)
   if (!requireNamespace("tensorflow", quietly = TRUE)) {
     install_keras()
@@ -56,7 +56,8 @@ LSTM_RNN <- function(Tickers='AAPL', Lookback=8, Initial_Date_Training=c('2018-0
     install_keras()
   }
   library(tensorflow)
-
+  require(keras)
+  require(keras3)
   lookback=Lookback
   if(Import=='Yes'){
         RM='^GSPC'
