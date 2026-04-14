@@ -2644,13 +2644,13 @@ Plot_Annualized_RCum_Horizon <-function(){
 
   View(Comparativo_RCum_Horizon_Anual)
   ######### Contador de Vitorias #################################################
-
+  load('~/Return_Cumulative.rda')
   Base_Dif=t(Comparativo_RCum_Horizon_Anual)
-  nc = ncol(Base_Dif)+2
+  nc = ncol(Base_Dif)+3
   nr = nrow(Base_Dif)+1
   Analyzis=matrix(nrow=nr,ncol=nc)
   rownames(Analyzis)=c(rownames(Base_Dif),'Max_RCum')
-  cnames=c(colnames(Base_Dif),'Vitories','Mean_Excedent')
+  cnames=c(colnames(Base_Dif),'Vitories','Mean_Excedent','RCum')
   colnames(Analyzis)=cnames
   n=which(rownames(Analyzis)==Compare)
   Compar = Comparativo_RCum_Horizon_Anual[,n]
@@ -2666,6 +2666,11 @@ Plot_Annualized_RCum_Horizon <-function(){
     }
     Analyzis[i,j+1]=Vitories
     Analyzis[i,j+2]=round(mean(Analyzis[i,1:ncol(Base_Dif)]),2)
+    if (Return_Cumulative=='Rebalanced'){
+      Analyzis[i,j+3]=round((prod(Analyzis[i,1:ncol(Base_Dif)]+1)-1),2)
+    }else{
+      Analyzis[i,j+3]=round((prod(Analyzis[i,1:ncol(Base_Dif)]+1)-1)/nrow(Base_Dif),2)
+    }
   }
   for(j in 1:(ncol(Base_Dif)+2)){
     Analyzis[nrow(Analyzis),j]=rownames(Analyzis)[which.max(Analyzis[,j])]
