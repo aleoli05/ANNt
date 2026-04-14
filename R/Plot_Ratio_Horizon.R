@@ -2667,12 +2667,12 @@ Plot_Annualized_RCum_Horizon <-function(){
     Analyzis[i,j+1]=Vitories
     Analyzis[i,j+2]=round(mean(Analyzis[i,1:ncol(Base_Dif)]),2)
     if (Return_Cumulative=='Rebalanced'){
-      Analyzis[i,j+3]=round((prod(Analyzis[i,1:ncol(Base_Dif)]+1)-1),2)
+      Analyzis[i,j+3]=round((prod(Analyzis[i,1:ncol(Base_Dif)]/100+1)-1),2)
     }else{
-      Analyzis[i,j+3]=round((prod(Analyzis[i,1:ncol(Base_Dif)]+1)-1)/nrow(Base_Dif),2)
+      Analyzis[i,j+3]=round((prod(Analyzis[i,1:ncol(Base_Dif)]/100+1)-1)/nrow(Base_Dif),2)
     }
   }
-  for(j in 1:(ncol(Base_Dif)+2)){
+  for(j in 1:(ncol(Base_Dif)+3)){
     Analyzis[nrow(Analyzis),j]=rownames(Analyzis)[which.max(Analyzis[,j])]
   }
   Analyzis=data.frame(Analyzis)
