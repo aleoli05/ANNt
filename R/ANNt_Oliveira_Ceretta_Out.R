@@ -79,6 +79,11 @@ x4 = N_Assets
 save(x4, file='~/x4.rda')
 Initial_Date_Testing <- c('')
 Final_Date_Testing <- c('')
+if(Initial_Date_Testing==('')){
+  D = which(rownames(scenario.set)==Final_Date_Training)
+  Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
+}
+
 Rf <- Rf
 save(Rf, file='~/Rf.rda')
 x5 = Rf
