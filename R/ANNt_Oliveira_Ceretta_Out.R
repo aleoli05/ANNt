@@ -124,10 +124,9 @@ if(Type_ANN=='ANNt'){
     }}}}
 Gen_portfolios('n_Assets',Initial_Date,Final_Date_Training,Rf, Type_ANNt)
 
-if(Initial_Date_Testing==('')){
-  D = which(rownames(scenario.set)==Final_Date_Training)
-  Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
-}
+D = which(rownames(scenario.set)==Final_Date_Training)
+Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
+
 Out_of_sample(Initial_Date_Testing,'')
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')
@@ -139,6 +138,9 @@ Plot_New_efficient_frontier()
 }
 Sys.sleep((15))
 Plot_CUSUM('','')
+save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')
+Final_Date_Testing=Final_Date
+save(Final_Date_Testing, file='~/Final_Date_Testing.rda')
 save(Final_Date, file='~/Final_Date.rda')
 Backup_ANNt()
 }

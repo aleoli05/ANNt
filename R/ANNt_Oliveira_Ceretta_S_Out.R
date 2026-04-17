@@ -457,6 +457,9 @@ Plot_New_efficient_frontier()
 }
 Sys.sleep((15))
 Plot_CUSUM('','')
+save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')
+Final_Date_Testing=Final_Date
+save(Final_Date_Testing, file='~/Final_Date_Testing.rda')
 save(Final_Date, file='~/Final_Date.rda')
 Signal_Sharpe=1
 save(Signal_Sharpe,file="~/Signal_Sharpe.rda")
