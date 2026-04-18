@@ -446,10 +446,16 @@ save(scenario.set, file="~/scenario.set.rda")
 
 Rf=Rf*100
 Gen_portfolios(N_Assets='n_Assets',Initial_Date_Testing=Initial_Date,Final_Date_Testing=Final_Date_Training,'x5', type_ANNt=Type_ANNt)
-D = which(rownames(scenario.set)==Final_Date_Training)
-Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D+1,])
+
+load('~/scenario.set.rda')
+load('~/Final_Date_Training.rda')
+D_Out = which(rownames(as.data.frame(scenario.set))==Final_Date_Training)
+Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D_Out+1,])
 save(Initial_Date_Testing, file='~/ Initial_Date_Testing.rda')
-Out_of_sample(Initial_Date_Testing,'')
+print(paste("Initial_Date_Testing: ", Initial_Date_Testing, sep=''))
+load('~/Initial_Date_Testing.rda')
+
+Out_of_sample(Initial_Date_Out=Initial_Date_Testing,'')
 Portfolio_backtesting('','')
 Plot_Cumulative_Returns('')
 if(Order=='Yes'){
