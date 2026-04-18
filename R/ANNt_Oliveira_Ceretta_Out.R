@@ -128,7 +128,7 @@ load('~/scenario.set.rda')
 load('~/Final_Date_Training.rda')
 D_Out = which(rownames(as.data.frame(scenario.set))==Final_Date_Training)
 Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D_Out+1,])
-save(Initial_Date_Testing, file='~/ Initial_Date_Testing.rda')
+save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')
 print(paste("Initial_Date_Testing: ", Initial_Date_Testing, sep=''))
 load('~/Initial_Date_Testing.rda')
 
