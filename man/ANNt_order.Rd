@@ -9,6 +9,7 @@ ANNt_order(
   Initial_Date_Training,
   Final_Date_Training,
   Final_Date_Testing,
+  N_Lags = 5,
   Hidden,
   Stepmax,
   Loss = "MSE",
@@ -28,6 +29,8 @@ ANNt_order(
 \item{Final_Date_Training}{Series finish training date}
 
 \item{Final_Date_Testing}{Series end Date (If '' is the System Date)}
+
+\item{N_Lags}{Number of lags used in the input layer}
 
 \item{Hidden}{Number of hidden neurons (If '' is the length series)}
 
@@ -62,6 +65,7 @@ ANNt_order (
 Initial_Date_Training = c('2018-01-11'),
 Final_Date_Training = c('2022-12-29'),
 Final_Date_Testing = c(''),
+N_Lags=5,
 Hidden = 7,
 Stepmax = 300,
 Loss = "GMADL",

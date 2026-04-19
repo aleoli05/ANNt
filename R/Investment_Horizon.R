@@ -10,6 +10,7 @@
 #'@param Final_Date End date of the treatment series.
 #'@param Frequency How many times simulate the investiment horizon.
 #'@param Periodicity should be one of “daily”, “weekly”, “monthly”.
+#' @param N_Lags Number of lags used in the input layer
 #'@param Hidden Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons.
 #'@param Stepmax Number of replications per asset to train the ANN. For a good performance, use 7500.
 #' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
@@ -60,6 +61,7 @@
 #' Final_Date ='',
 #' Frequency = 2,
 #' Periodicity = c('daily'),
+#' N_Lags = 5,
 #' Hidden = 5,
 #' Stepmax = 300,
 #' Loss="GMADL",
@@ -86,7 +88,7 @@
 
 #' @export
 Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
-                                Final_Date, Frequency, Periodicity, Hidden, Stepmax,
+                                Final_Date, Frequency, Periodicity, N_Lags=5, Hidden, Stepmax,
                                 Loss="MSE", Learning_Rate=0.3, Decay='No',
                                 Early_Stopping = 'No',
                                 Asymmetry='Negative', Type_ANNt,
@@ -319,7 +321,7 @@ for (i in (C_from:Frequency)){
 load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Final_Date_Training=Fim_Train,
-                              Final_Date, Periodicity, Hidden=Hidden, Stepmax,
+                              Final_Date, Periodicity, N_Lags=N_Lags, Hidden=Hidden, Stepmax,
                               Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                               Early_Stopping = Early_Stopping,
                               Asymmetry=Asymmetry, Type_ANNt,
@@ -355,7 +357,7 @@ if(Fun=='S_Out'){
 }
 if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                            Final_Date, Periodicity, Hidden=Hidden, Stepmax,
+                            Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
                             Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                             Early_Stopping = Early_Stopping,
                             Asymmetry=Asymmetry, Type_ANNt,
@@ -391,7 +393,7 @@ if(Fun=='Out'){
 }
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                          Final_Date, Periodicity, Hidden=Hidden, Stepmax,
+                          Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
                           Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                           Early_Stopping = Early_Stopping,
                           Asymmetry=Asymmetry, Type_ANNt,
@@ -406,7 +408,7 @@ if(Fun=='S'){
 }
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                        Final_Date, Periodicity, Hidden=Hidden, Stepmax,
+                        Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
                         Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                         Early_Stopping = Early_Stopping,
                         Asymmetry=Asymmetry, Type_ANNt,

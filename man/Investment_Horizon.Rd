@@ -13,6 +13,7 @@ Investment_Horizon(
   Final_Date,
   Frequency,
   Periodicity,
+  N_Lags = 5,
   Hidden,
   Stepmax,
   Loss = "MSE",
@@ -51,6 +52,8 @@ Investment_Horizon(
 \item{Frequency}{How many times simulate the investiment horizon.}
 
 \item{Periodicity}{should be one of “daily”, “weekly”, “monthly”.}
+
+\item{N_Lags}{Number of lags used in the input layer}
 
 \item{Hidden}{Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons.}
 
@@ -129,6 +132,7 @@ Final_Date_Training =c('2019-12-31'),
 Final_Date ='',
 Frequency = 2,
 Periodicity = c('daily'),
+N_Lags = 5,
 Hidden = 5,
 Stepmax = 300,
 Loss="GMADL",

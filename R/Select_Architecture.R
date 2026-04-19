@@ -10,6 +10,7 @@
 #'@param Final_Date End date of the treatment series.
 #'@param Frequency How many times simulate the investiment horizon.
 #'@param Periodicity should be one of “daily”, “weekly”, “monthly”.
+#' @param N_Lags Number of lags used in the input layer
 #'@param Hidden Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons.
 #'@param Stepmax Number of replications per asset to train the ANN. For a good performance, use 7500.
 #' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
@@ -61,6 +62,7 @@
 #' Final_Date ='',
 #' Frequency = 2,
 #' Periodicity = c('daily'),
+#' N_Lags = 5,
 #' Hidden = c('',5, 5, 5, 5),
 #' Stepmax = c(2000, 300, 300, 300, 32),
 #' Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
@@ -96,6 +98,7 @@ Select_Architecture<-function(
   Final_Date ='',
   Frequency = 2,
   Periodicity = c('daily'),
+  N_Lags = c(5, 5, 5, 5, 5),
   Hidden = c('',5, 5, 5, 5),
   Stepmax = c(2000, 300, 300, 300, 300),
   Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),
@@ -157,6 +160,7 @@ Select_Architecture<-function(
       Final_Date =Final_Date,
       Frequency = Frequency,
       Periodicity = Periodicity,
+      N_Lags = N_Lags[i_arch],
       Hidden = Hidden_select,
       Stepmax = Stepmax[i_arch],
       Loss=Loss[i_arch],

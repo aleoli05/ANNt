@@ -13,6 +13,7 @@ ANNt_Oliveira_Ceretta_S_Out(
   Final_Date_Training,
   Final_Date,
   Periodicity,
+  N_Lags = 5,
   Hidden,
   Stepmax,
   Loss = "MSE",
@@ -44,6 +45,8 @@ ANNt_Oliveira_Ceretta_S_Out(
 \item{Final_Date}{End date of the treatment series}
 
 \item{Periodicity}{should be one of “daily”, “weekly”, “monthly”}
+
+\item{N_Lags}{Number of lags used in the input layer}
 
 \item{Hidden}{Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons}
 
@@ -95,6 +98,7 @@ Initial_Date <-c('2018-01-03')
 Final_Date_Training <- c('2022-12-29')
 Final_Date <-c('')
 Periodicity <- c('daily')
+N_Lags <- 5
 Hidden <- 5
 Stepmax <- 7500
 Type_ANNt <- 'T8'

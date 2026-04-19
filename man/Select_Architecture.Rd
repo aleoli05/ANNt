@@ -13,6 +13,7 @@ Select_Architecture(
   Final_Date = "",
   Frequency = 2,
   Periodicity = c("daily"),
+  N_Lags = c(5, 5, 5, 5, 5),
   Hidden = c("", 5, 5, 5, 5),
   Stepmax = c(2000, 300, 300, 300, 300),
   Loss = c("MSE", "MAE", "MADL", "GMADL", "GMADL"),
@@ -52,6 +53,8 @@ Select_Architecture(
 \item{Frequency}{How many times simulate the investiment horizon.}
 
 \item{Periodicity}{should be one of “daily”, “weekly”, “monthly”.}
+
+\item{N_Lags}{Number of lags used in the input layer}
 
 \item{Hidden}{Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons.}
 
@@ -132,6 +135,7 @@ Final_Date_Training =c('2019-12-31'),
 Final_Date ='',
 Frequency = 2,
 Periodicity = c('daily'),
+N_Lags = 5,
 Hidden = c('',5, 5, 5, 5),
 Stepmax = c(2000, 300, 300, 300, 32),
 Loss=c("MSE","MAE", "MADL", "GMADL", 'GMADL'),

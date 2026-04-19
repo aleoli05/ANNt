@@ -7,6 +7,7 @@
 #'@param Initial_Date_Training Training series start Date
 #'@param Final_Date End date of the treatment series
 #'@param Periodicity should be one of “daily”, “weekly”, “monthly”
+#' @param N_Lags Number of lags used in the input layer
 #'@param Hidden Number of hidden neurons (If ” is the length series). For a good performance use '' to form a square input x hidden matrix of neurons
 #'@param Stepmax Number of replications per asset to train the ANN. For a good performance, use 7500
 #' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
@@ -36,6 +37,7 @@
 #'Final_Date_Training <- c('2022-12-29')
 #'Final_Date <-c('')
 #'Periodicity <- c('daily')
+#'N_Lags <- 5
 #'Hidden <- 5
 #'Stepmax <- 7500
 #'Type_ANNt <- 'T8'
@@ -43,7 +45,7 @@
 #'ANNt_Oliveira_Ceretta(c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', 0, '2018-01-03', '2022-12-29', '', 'daily',5,7500,'T8',3)
 #'@export
 ANNt_Oliveira_Ceretta <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Training,
-                                  Final_Date, Periodicity, Hidden, Stepmax,
+                                  Final_Date, Periodicity, N_Lags=5, Hidden, Stepmax,
                                   Loss="MSE", Learning_Rate=0.3, Decay='No',
                                   Early_Stopping = 'No',
                                   Asymmetry='Negative', Type_ANNt='T4',
@@ -109,7 +111,7 @@ save(X11,file='~/X11.rda')
 
 if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
-  ANNt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax,
+  ANNt_order ('', '', '', N_Lags=N_Lags,Hidden=Hidden, Stepmax=Stepmax,
               Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
               Early_Stopping = Early_Stopping,
               Asymmetry=Asymmetry, Skew_t=Skew_t, Bias=Bias,

@@ -5,6 +5,7 @@
 #' @param Initial_Date_Training Series start Date (Must be 7 periods greater than the analyzed series)
 #' @param Final_Date_Training Series finish training date
 #' @param Final_Date_Testing Series end Date (If '' is the System Date)
+#' @param N_Lags Number of lags used in the input layer
 #' @param Hidden Number of hidden neurons (If '' is the length series)
 #' @param Stepmax Number of replications per asset to train the ANN
 #' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
@@ -26,6 +27,7 @@
 #' Initial_Date_Training = c('2018-01-11'),
 #' Final_Date_Training = c('2022-12-29'),
 #' Final_Date_Testing = c(''),
+#' N_Lags=5,
 #' Hidden = 7,
 #' Stepmax = 300,
 #' Loss = "GMADL",
@@ -48,6 +50,7 @@
 
 #' @export
 ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing,
+                       N_Lags=5,
                        Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
                        Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No', Prediction='Predict',
                        Bias="No", Order_Only='No') {
@@ -253,7 +256,8 @@ ___________________________________________________________________
     dat_r <- data.frame(dados2[ativo], Lag(dados[,1],1))
     colnames(dat_r)[2]="RM"
 
-    defasagem = 5
+
+    defasagem = N_Lags
     for (i in 1:defasagem){
       dat_r[i+2] = Lag(dat_r[1],i)
     }
@@ -328,15 +332,18 @@ ___________________________________________________________________
       return (tanh(soma))
     }
     colnames(entradas)[1]= "ATIVO"
+    selecao_1=paste("V", 2+1:N_Lags, sep='')
+    selecao_2=paste(selecao_1,collapse='+')
+    formula=paste('ATIVO~RM',selecao_2,sep='+')
         Stop2=0.1
       if(Early_Stopping[1]=='Yes'){
         Stop2=as.numeric(Early_Stopping[2])
-        nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
+        nn= neuralnet( formula, data=entradas,
                        hidden = Hidden, act.fct = "tanh",
                        threshold = 0.1,
                        stepmax=epocas)
       }else{
-        nn= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
+        nn= neuralnet( formula, data=entradas,
                        hidden = Hidden, act.fct = "tanh",
                        threshold = 0.1,
                        stepmax=epocas)
@@ -350,7 +357,7 @@ ___________________________________________________________________
     } else {if(Hidden >15){
         escondida =Hidden+1
         } else {escondida = Hidden}}
-    nnplot= neuralnet( ATIVO ~ RM + V3 + V4 + V5 + V6 + V7, data=entradas,
+    nnplot= neuralnet( formula, data=entradas,
                        hidden = escondida, act.fct = "tanh", threshold = 0.1,
                        stepmax=epocas)
 
@@ -541,11 +548,14 @@ ___________________________________________________________________
 
     colnames(entradas)[1]=paste("(",ativo-1,") ",colnames(dados2[ativo]), sep="")
     colnames(entradas)[2]=paste(colnames(dados2[1]),"-1",sep="")
-    colnames(entradas)[3]=paste(colnames(dados2[ativo]),"-1",sep="")
-    colnames(entradas)[4]=paste(colnames(dados2[ativo]),"-2",sep="")
-    colnames(entradas)[5]=paste(colnames(dados2[ativo]),"-3",sep="")
-    colnames(entradas)[6]=paste(colnames(dados2[ativo]),"-4",sep="")
-    colnames(entradas)[7]=paste(colnames(dados2[ativo]),"-5",sep="")
+    for (n_lag in (1:N_Lags)){
+      colnames(entradas)[n_lag+2]=paste(colnames(dados2[ativo]),"-",n_lag,sep="")
+    }
+    #colnames(entradas)[3]=paste(colnames(dados2[ativo]),"-1",sep="")
+    #colnames(entradas)[4]=paste(colnames(dados2[ativo]),"-2",sep="")
+    #colnames(entradas)[5]=paste(colnames(dados2[ativo]),"-3",sep="")
+    #colnames(entradas)[6]=paste(colnames(dados2[ativo]),"-4",sep="")
+    #colnames(entradas)[7]=paste(colnames(dados2[ativo]),"-5",sep="")
 
     View(entradas)
 
