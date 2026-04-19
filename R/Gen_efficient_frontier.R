@@ -15,6 +15,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   library(tibble)
   library(timetk)
   library(writexl)
+  library(Matrix)
   options(warn=-1)
   ### Long Term Analysis
   load('~/scenario.set.rda')
@@ -257,7 +258,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
 
     nAtivos  <-  ncol(retornosAtivos)
     portfolio <- solve.QP(
-      Dmat <- cov(retornosAtivos),                        # matriz D
+      Dmat <- as.matrix(nearPD(cov(retornosAtivos))$mat),                        # matriz D
       dvec <- rep(0, times = nAtivos),                    # vetor  d
       Amat <- t(rbind(retorno = colMeans(retornosAtivos), # matriz A de restri??es
                       orcamento = rep(1, nAtivos),
