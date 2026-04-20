@@ -485,7 +485,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
     weight_GMV = pesos_todosPredict
   }else{
     EPR=colMeans(TodosAtivosPredict)
-    COV=nearPD(var(TodosAtivosPredict)$mat)
+    COV=nearPD(cov(TodosAtivosPredict)$mat)
     GMV=globalMin.portfolio(EPR,COV)
     GMV_Return = GMV$er
     GMV_sd = GMV$sd
