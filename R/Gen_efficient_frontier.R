@@ -258,7 +258,7 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
 
     nAtivos  <-  ncol(retornosAtivos)
     portfolio <- solve.QP(
-      Dmat <- as.matrix(nearPD(cov(retornosAtivos)$mat)),                        # matriz D
+      Dmat <- nearPD(as.matrix(cov(retornosAtivos)))$mat,                        # matriz D
       dvec <- rep(0, times = nAtivos),                    # vetor  d
       Amat <- t(rbind(retorno = colMeans(retornosAtivos), # matriz A de restri??es
                       orcamento = rep(1, nAtivos),
