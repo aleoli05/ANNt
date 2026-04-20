@@ -458,7 +458,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   # Carteira de pesos iguais
   PesosComparativos = c(rep(1/n_assets,n_assets))
-  save(C_Net_T_Comparativa, file='~/C_Net_T_Comparativa.rda')
+  save(C_Net_T_comparativa, file='~/C_Net_T_comparativa.rda')
   save(PesosComparativos, file='~/PesosComparativos.rda')
   Media_C_Net_T_Comparativa = as.matrix(C_Net_T_comparativa) %*% PesosComparativos
 
