@@ -149,7 +149,8 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   # GMV - Global Minimum Variance
   if(nrow(TodosAtivosPredict)>ncol(TodosAtivosPredict)){
   EPR=colMeans(TodosAtivosPredict)
-  COV=as.amatrix(nearPD(cov(TodosAtivosPredict)$mat))
+  save(TodosAtivosPredict, file='~/TodosAtivosPredict.rda')
+  COV=as.amatrix(nearPD(cov(as.data.frame(TodosAtivosPredict))$mat))
   #COV=var(TodosAtivosPredict)
   GMV=globalMin.portfolio(EPR,COV)
   GMV_Return = GMV$er
