@@ -112,6 +112,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   library(MFDFA)
   library(DEoptim)
   library(IntroCompFinR)
+  library(Matrix)
   options(warn=-1)
 
   ##############################################################################
@@ -148,7 +149,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   # GMV - Global Minimum Variance
   if(nrow(TodosAtivosPredict)>ncol(TodosAtivosPredict)){
   EPR=colMeans(TodosAtivosPredict)
-  COV=var(TodosAtivosPredict)
+  COV=nearPD(var(TodosAtivosPredict)$mat)
   GMV=globalMin.portfolio(EPR,COV)
   GMV_Return = GMV$er
   GMV_sd = GMV$sd

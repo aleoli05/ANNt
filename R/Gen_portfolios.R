@@ -62,6 +62,7 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf
   library(MFDFA)
   library(DEoptim)
   library(IntroCompFinR)
+  library(Matrix)
 
   #load('~/Rf.rda')
 
@@ -484,7 +485,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
     weight_GMV = pesos_todosPredict
   }else{
     EPR=colMeans(TodosAtivosPredict)
-    COV=var(TodosAtivosPredict)
+    COV=nearPD(var(TodosAtivosPredict)$mat)
     GMV=globalMin.portfolio(EPR,COV)
     GMV_Return = GMV$er
     GMV_sd = GMV$sd
