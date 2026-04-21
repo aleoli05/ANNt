@@ -413,6 +413,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   library(Matrix)
 
   assets= ncol(all.returns)
+  save(all.returns, file='~/all.returns.rda')
   #H <- cov(all.returns)
   H <- nearPD(as.matrix(cov(all.returns)))$mat
   f <- rep(0, assets)
