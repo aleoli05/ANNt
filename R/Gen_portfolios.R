@@ -414,16 +414,23 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   assets= ncol(all.returns)
   save(all.returns, file='~/all.returns.rda')
-  #H <- cov(all.returns)
-  H <- nearPD(as.matrix(cov(all.returns)))$mat
+  H <- cov(all.returns)
+  #H <- nearPD(as.matrix(cov(all.returns)))$mat
   f <- rep(0, assets)
   Aeq <- rep(1, assets)
   beq <- 1
   lb <- rep(0, assets)
   ub <- rep(1, assets)
 
-  soluction <- quadprog(H, f, NULL, NULL, Aeq, beq, lb, ub)
-  pesos_todosPredict <- round(soluction$x, 4)
+  tryCatch({
+    soluction <- quadprog(H, f, NULL, NULL, Aeq, beq, lb, ub)
+    pesos_todosPredict <- round(soluction$x, 4)
+      if(any(is.na(pesos_todosPredict))==TRUE){
+        pesos_todosPredict<-lb
+      }
+    }, error=function(e){
+      pesos_todosPredict<-lb
+    })
   pesos_todosPredict
 
 
