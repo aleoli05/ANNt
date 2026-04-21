@@ -434,9 +434,14 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
         pesos_todosPredict = GMV$weights
       }
     }, error=function(e){
-      pesos_todosPredict<-lb
+      EPR=colMeans(all.returns)
+      COV=nearPD(as.matrix(cov(all.returns)))$mat
+      GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
+      GMV_Return = GMV$er
+      GMV_sd = GMV$sd
+      pesos_todosPredict = GMV$weights
     })
-  pesos_todosPredict
+  #pesos_todosPredict
 
 
   #ts=as.ts(all.returns[11:nrow(all.returns),])
@@ -511,8 +516,27 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
 
   # Carteira RNA NNet dist T com pesos de Markovitz  para Comparação
-  pesos_MarkovitzNNet_T <- round(tseries::portfolio.optim(
-    as.matrix(C_Net_T_comparativa))$pw, 4)
+  tryCatch({
+    pesos_MarkovitzNNet_T <- round(tseries::portfolio.optim(
+      as.matrix(C_Net_T_comparativa))$pw, 4)
+    if(any(is.na(pesos_MarkovitzNNet_T))==TRUE){
+      EPR=colMeans(C_Net_T_comparativa)
+      COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
+      GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
+      GMV_Return = GMV$er
+      GMV_sd = GMV$sd
+      pesos_MarkovitzNNet_T  = GMV$weights
+    }
+  }, error=function(e){
+    EPR=colMeans(C_Net_T_comparativa)
+    COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
+    GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
+    GMV_Return = GMV$er
+    GMV_sd = GMV$sd
+    pesos_MarkovitzNNet_T  = GMV$weights
+  })
+
+
   Ret_Medio_RNA_T_Mkv = as.matrix(C_Net_T_comparativa) %*% pesos_MarkovitzNNet_T
 
   # Weight extract

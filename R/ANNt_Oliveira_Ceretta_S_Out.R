@@ -123,6 +123,7 @@ x3 = Stepmax
 save(x3, file='~/x3.rda')
 x4 = N_Assets
 save(x4, file='~/x4.rda')
+save(Type_ANN, file='~/Type_ANN.rda')
 Initial_Date_Testing <- c('')
 Final_Date_Testing <- c('')
 Rf <- Rf

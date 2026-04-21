@@ -130,6 +130,7 @@ Rf <- Rf
 save(Rf,file='~/Rf.rda')
 x5 = Rf
 save(x5, file='~/x5.rda')
+save(Type_ANN, file='~/Type_ANN.rda')
 Initial_Analysis_Date <- c('')
 Final_Analysis_Date <- c('')
 
