@@ -646,7 +646,8 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
           nAtivos  <-  ncol(retornosAtivos)
           portfolio <- solve.QP(
-            Dmat <- cov(retornosAtivos),                        # matriz D
+            Dmat <- nearPD(as.matrix(cov(retornosAtivos)))$mat,
+            #Dmat <- cov(retornosAtivos),                        # matriz D
             dvec <- rep(0, times = nAtivos),                    # vetor  d
             Amat <- t(rbind(retorno = colMeans(retornosAtivos), # matriz A de restri??es
                             orcamento = rep(1, nAtivos),
