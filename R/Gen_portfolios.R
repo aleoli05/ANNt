@@ -426,7 +426,12 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
     soluction <- quadprog(H, f, NULL, NULL, Aeq, beq, lb, ub)
     pesos_todosPredict <- round(soluction$x, 4)
       if(any(is.na(pesos_todosPredict))==TRUE){
-        pesos_todosPredict<-lb
+        EPR=colMeans(all.returns)
+        COV=nearPD(as.matrix(cov(all.returns)))$mat
+        GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
+        GMV_Return = GMV$er
+        GMV_sd = GMV$sd
+        pesos_todosPredict = GMV$weights
       }
     }, error=function(e){
       pesos_todosPredict<-lb
@@ -496,7 +501,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
     EPR=colMeans(TodosAtivosPredict)
     save(TodosAtivosPredict, file='~/TodosAtivosPredict.rda')
     COV=nearPD(as.matrix(cov(TodosAtivosPredict)))$mat
-    GMV=globalMin.portfolio(EPR,COV)
+    GMV=globalMin.portfolio(EPR,COV, shorts=FALSE)
     GMV_Return = GMV$er
     GMV_sd = GMV$sd
     weight_GMV = GMV$weights}
