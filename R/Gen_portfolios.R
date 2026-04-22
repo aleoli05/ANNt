@@ -513,27 +513,26 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
 
   ##############################################################################
-
-
   # Carteira RNA NNet dist T com pesos de Markovitz  para Comparação
+  save(C_Net_T_comparativa, file='~/C_Net_T_comparativa.rda')
   tryCatch({
     pesos_MarkovitzNNet_T <- round(tseries::portfolio.optim(
       as.matrix(C_Net_T_comparativa))$pw, 4)
-    if(any(is.na(pesos_MarkovitzNNet_T))==TRUE){
+        if(any(is.na(pesos_MarkovitzNNet_T))==TRUE){
+          EPR=colMeans(C_Net_T_comparativa)
+          COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
+          GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
+          GMV_Return = GMV$er
+          GMV_sd = GMV$sd
+          pesos_MarkovitzNNet_T  = GMV$weights
+        }
+    }, error=function(e){
       EPR=colMeans(C_Net_T_comparativa)
       COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
       GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
       GMV_Return = GMV$er
       GMV_sd = GMV$sd
       pesos_MarkovitzNNet_T  = GMV$weights
-    }
-  }, error=function(e){
-    EPR=colMeans(C_Net_T_comparativa)
-    COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
-    GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
-    GMV_Return = GMV$er
-    GMV_sd = GMV$sd
-    pesos_MarkovitzNNet_T  = GMV$weights
   })
 
 
