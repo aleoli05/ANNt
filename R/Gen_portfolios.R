@@ -878,7 +878,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
 ##################################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 #}, error=function(e){
-  if ((length(weight_Sharpe_MF)!=ncol(C_MFractal)) | (class(weight_Sharpe_MF)='numeric')){
+  if ((length(weight_Sharpe_MF)!=ncol(C_MFractal)) | (class(weight_Sharpe_MF)=='numeric')){
           pesosCarteira <- function(retornosAtivos, retornoAlvo) {
             ## Argumentos:
             # retornosAtivos - conjunto de dados dos retornos dos ativos
@@ -1104,7 +1104,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   ##################################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 #}, error=function(e){
-  if ((length(weight_Sharpe_RNA_t)!=ncol(C_Net_T_comparativa)) | (class(weight_Sharpe_RNA_t)='numeric')){
+  if ((length(weight_Sharpe_RNA_t)!=ncol(C_Net_T_comparativa)) | (class(weight_Sharpe_RNA_t)=='numeric')){
   pesosCarteira <- function(retornosAtivos, retornoAlvo) {
     ## Argumentos:
     # retornosAtivos - conjunto de dados dos retornos dos ativos
