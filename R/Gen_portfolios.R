@@ -872,6 +872,11 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   weight_test_MF <- round(weight_test_MF,4)
   weight_Sharpe_MF= weight_test_MF[which(weight_test_MF !=0)]
 
+  if(length(weight_test_RNAt)==ncol(C_Net_T_comparativa)){
+    weight_Sharpe_MF
+  }else{
+    weight_Sharpe_MF=weight_Sharpe_MF[1,]
+  }
   # Weight extract
   Weight_Sharpe_MF <- t(as.data.frame(weight_Sharpe_MF))
   colnames(Weight_Sharpe_MF)<-str_replace(colnames(Weight_Sharpe_MF),'w.','')
@@ -954,7 +959,11 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   weight_test_RNAt <- round(weight_test_RNAt,4)
   weight_Sharpe_RNA_t= weight_test_RNAt[which(weight_test_RNAt !=0)]
   weight_Sharpe_RNA_t
-
+  if(length(weight_test_RNAt)==ncol(C_Net_T_comparativa)){
+    weight_Sharpe_RNA_t
+  }else{
+    weight_Sharpe_RNA_t=  weight_Sharpe_RNA_t[1,]
+  }
   # Weight extract
   Weight_ANNt_Sharpe <- t(as.data.frame(weight_Sharpe_RNA_t))
   colnames(Weight_ANNt_Sharpe)<-str_replace(colnames(Weight_ANNt_Sharpe),'w.','')
