@@ -966,7 +966,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
           mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
           sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
           weight_Sharpe_MF = pesos_front[sHARPEMAX,]
-
+          weight_Sharpe_MF= weight_Sharpe_MF[which(weight_Sharpe_MF !=0)]
 #})
 }
 
@@ -1191,8 +1191,8 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
   sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
-  Weight_ANNt_Sharpe= pesos_front[sHARPEMAX,]
-
+  weight_Sharpe_RNA_t= pesos_front[sHARPEMAX,]
+  weight_Sharpe_RNA_t= weight_Sharpe_RNA_t[which(weight_Sharpe_RNA_t!=0)]
 #})
 }
 
