@@ -840,7 +840,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   all.returns.MF <- as.matrix(C_MFractal)
   save(all.returns.MF, file='~/all.returns.MF.rda')
 
-tryCatch({
+#tryCatch({
   ## set up portfolio with objetive and constraints
   n.assets.MF <- length(colnames(all.returns.MF))
   port.sec.MF <- portfolio.spec(assets = colnames(all.returns.MF))
@@ -874,15 +874,11 @@ tryCatch({
   weight_test_MF <- round(weight_test_MF,4)
   weight_Sharpe_MF= weight_test_MF[which(weight_test_MF !=0)]
 
-  if(length(weight_test_MF)==ncol(C_MFractal)){
-    weight_Sharpe_MF
-  }else{
-    weight_Sharpe_MF=weight_Sharpe_MF[1,]
-  }
   # Weight extract
 
 ##################################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-}, error=function(e){
+#}, error=function(e){
+  if ((length(weight_Sharpe_MF)!=ncol(C_MFractal)) | (class(weight_Sharpe_MF)='numeric')){
           pesosCarteira <- function(retornosAtivos, retornoAlvo) {
             ## Argumentos:
             # retornosAtivos - conjunto de dados dos retornos dos ativos
@@ -971,8 +967,8 @@ tryCatch({
           sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
           weight_Sharpe_MF = pesos_front[sHARPEMAX,]
 
-})
-
+#})
+}
 
 
 
@@ -1061,7 +1057,7 @@ tryCatch({
   ### Retornos carteira Sharpe RNAt
   all.returns_RNA_t <- as.matrix(C_Net_T_comparativa)
 
-tryCatch({
+#tryCatch({
   ## set up portfolio with objetive and constraints
   n.assets.RNAt <- length(colnames(all.returns_RNA_t))
 
@@ -1095,14 +1091,20 @@ tryCatch({
   weight_test_RNAt <- round(weight_test_RNAt,4)
   weight_Sharpe_RNA_t= weight_test_RNAt[which(weight_test_RNAt !=0)]
   weight_Sharpe_RNA_t
-  if(length(weight_test_RNAt)==ncol(C_Net_T_comparativa)){
-    weight_Sharpe_RNA_t
-  }else{
-    weight_Sharpe_RNA_t=  weight_Sharpe_RNA_t[1,]
-  }
+
+
+
+
+
+
+
+
+
+
 
   ##################################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-}, error=function(e){
+#}, error=function(e){
+  if ((length(weight_Sharpe_RNA_t)!=ncol(C_Net_T_comparativa)) | (class(weight_Sharpe_RNA_t)='numeric')){
   pesosCarteira <- function(retornosAtivos, retornoAlvo) {
     ## Argumentos:
     # retornosAtivos - conjunto de dados dos retornos dos ativos
@@ -1191,8 +1193,8 @@ tryCatch({
   sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
   Weight_ANNt_Sharpe= pesos_front[sHARPEMAX,]
 
-})
-
+#})
+}
 
 
 
