@@ -838,6 +838,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   ##################################################################
   all.returns.MF <- as.matrix(C_MFractal)
+  save(all.returns.MF, file='~/all.returns.MF.rda')
   ## set up portfolio with objetive and constraints
   n.assets.MF <- length(colnames(all.returns.MF))
   port.sec.MF <- portfolio.spec(assets = colnames(all.returns.MF))
@@ -880,8 +881,11 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   print(Weight_Sharpe_MF)
 
   ### Retornos carteira Sharpe MF_DFA Multifractal
+  if(class(weight_test_MF)=='numeric'){
   RetornoMedioMaxIS_MFractal = as.matrix(C_MFractal)%*% weight_test_MF
-
+  }else{
+    RetornoMedioMaxIS_MFractal = as.matrix(C_MFractal)%*% weight_test_MF[1,]
+  }
   ################################################################################
   ### Carteira Sharpe RNAt
   ##############################################################################
@@ -958,8 +962,11 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   print(paste('[7] Weights of the ANNt_SHARPE Portfolio:'))
   print(Weight_ANNt_Sharpe)
 
+  if(class(weight_test_MF)=='numeric'){
   RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt
-
+  }else{
+    RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt[1,]
+  }
 
   #####
   #############################################################################
