@@ -382,8 +382,33 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   #   print(Pesos_MFractal_2)
 
   # Carteira de Markovitz de Minima Variância M_Fractal
-  Pesos_MFractal_Mkv <- round(tseries::portfolio.optim(as.matrix(C_MFractal))$pw, 4)
+  save(C_MFractal, file='~/C_MFractal.rda')
+  tryCatch({
+    Pesos_MFractal_Mkv <- round(tseries::portfolio.optim(as.matrix(C_MFractal))$pw, 4)
+
+    if(any(is.na(Pesos_MFractal_Mkv))==TRUE){
+      EPR=colMeans(C_MFractal)
+      COV=nearPD(as.matrix(cov(C_MFractal)))$mat
+      GMV_MF=globalMin.portfolio(EPR,COV, shorts = FALSE)
+      GMV_Return_MF = GMV$er
+      GMV_sd_MF = GMV$sd
+      Pesos_MFractal_Mkv  = GMV_MF$weights
+    }
+  }, error=function(e){
+    EPR=colMeans(C_MFractal)
+    COV=nearPD(as.matrix(cov(C_MFractal)))$mat
+    GMV_MF=globalMin.portfolio(EPR,COV, shorts = FALSE)
+    GMV_Return_MF = GMV$er
+    GMV_sd_MF = GMV$sd
+    Pesos_MFractal_Mkv  = GMV_MF$weights
+  })
+
+
+
+
+
   Ret_C_MFractal = as.matrix(C_MFractal)%*% Pesos_MFractal_Mkv
+
 
   # Weight extract
   C_Pesos_MFractal_Mkv = data.frame(colnames(C_MFractal),Pesos_MFractal_Mkv)
@@ -521,18 +546,18 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
         if(any(is.na(pesos_MarkovitzNNet_T))==TRUE){
           EPR=colMeans(C_Net_T_comparativa)
           COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
-          GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
-          GMV_Return = GMV$er
-          GMV_sd = GMV$sd
-          pesos_MarkovitzNNet_T  = GMV$weights
+          GMV_Net=globalMin.portfolio(EPR,COV, shorts = FALSE)
+          GMV_Return_Net = GMV$er
+          GMV_sd_Net = GMV$sd
+          pesos_MarkovitzNNet_T  = GMV_Net$weights
         }
     }, error=function(e){
       EPR=colMeans(C_Net_T_comparativa)
       COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
-      GMV=globalMin.portfolio(EPR,COV, shorts = FALSE)
-      GMV_Return = GMV$er
-      GMV_sd = GMV$sd
-      pesos_MarkovitzNNet_T  = GMV$weights
+      GMV_Net=globalMin.portfolio(EPR,COV, shorts = FALSE)
+      GMV_Return_Net = GMV$er
+      GMV_sd_Net = GMV$sd
+      pesos_MarkovitzNNet_T  = GMV_Net$weights
   })
 
 
