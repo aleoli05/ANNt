@@ -881,7 +881,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   print(Weight_Sharpe_MF)
 
   ### Retornos carteira Sharpe MF_DFA Multifractal
-  if(class(weight_test_MF)=='numeric'){
+  if(length(weight_test_MF)==ncol(C_MFractal)){
   RetornoMedioMaxIS_MFractal = as.matrix(C_MFractal)%*% weight_test_MF
   }else{
     RetornoMedioMaxIS_MFractal = as.matrix(C_MFractal)%*% weight_test_MF[1,]
@@ -962,7 +962,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   print(paste('[7] Weights of the ANNt_SHARPE Portfolio:'))
   print(Weight_ANNt_Sharpe)
 
-  if(class(weight_test_MF)=='numeric'){
+  if(length(weight_test_RNAt)==ncol(C_Net_T_comparativa)){
   RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt
   }else{
     RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt[1,]
