@@ -371,6 +371,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   C_MFractal = C_MFractal[Datas1Predict,]
   save(C_MFractal,file='~/CMFractal.rda')
   Pesos_MFractal = c(rep(1/n_assets,n_assets))
+  save(Pesos_MFractal, file='~/Pesos_MFractal.rda')
   Ret_C_MFractal_EQ = as.matrix(C_MFractal) %*% Pesos_MFractal
 
   # Weight extract
