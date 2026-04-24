@@ -369,6 +369,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   C_MFractal = as.data.frame(scenario.set) %>%
     dplyr::select(which((colnames(scenario.set) %in% Carteira_MFractal)))
   C_MFractal = C_MFractal[Datas1Predict,]
+  save(C_MFractal,file='~/CMFractal.rda')
   Pesos_MFractal = c(rep(1/n_assets,n_assets))
   Ret_C_MFractal_EQ = as.matrix(C_MFractal) %*% Pesos_MFractal
 
