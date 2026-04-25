@@ -956,7 +956,7 @@ tryCatch({
           pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
 
 
-          Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
+          Medias_set.returns <- as.matrix(t(apply(all.returns.MF, 2, mean)))
           mu = Medias_set.returns
           retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
@@ -1048,7 +1048,7 @@ tryCatch({
     pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
 
 
-    Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
+    Medias_set.returns <- as.matrix(t(apply(all.returns.MF, 2, mean)))
     mu = Medias_set.returns
     retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
@@ -1263,7 +1263,7 @@ tryCatch({
   pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
 
 
-  Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
+  Medias_set.returns <- as.matrix(t(apply(all.returns_RNA_t, 2, mean)))
   mu = Medias_set.returns
   retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
@@ -1355,7 +1355,7 @@ tryCatch({
     pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
 
 
-    Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
+    Medias_set.returns <- as.matrix(t(apply(all.returns_RNA_t, 2, mean)))
     mu = Medias_set.returns
     retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
 
