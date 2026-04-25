@@ -499,6 +499,17 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   print(Pesos_MFractal_Mkv2)
 
   CarteiraComparativa = colnames(Type_ANNt[1:n_assets])
+  ##################### Verificacao de tickers incorretos
+  lista_nomes=colnames(Type_ANNt)
+  tem_numero <- grepl("[0-9]", lista_nomes)
+  if(length(tem_numero)!=0){
+    teste=lista_nomes[tem_numero]
+    nomes_errados=which(CarteiraComparativa==teste)
+    nomes_scenarios=colnames(scenario.set)
+    correcao=nomes_scenarios[nomes_errados+1]
+    CarteiraComparativa[nomes_errados]=correcao
+  }
+  #####################
   C_Net_T_comparativa = as.data.frame(scenario.set) %>%
     dplyr::select(which((colnames(scenario.set) %in% CarteiraComparativa)))
   C_Net_T_comparativa = C_Net_T_comparativa[Datas1Predict,]
