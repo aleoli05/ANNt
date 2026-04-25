@@ -1158,7 +1158,7 @@ tryCatch({
   ### Retornos carteira Sharpe RNAt
   all.returns_RNA_t <- as.matrix(C_Net_T_comparativa)
 
-#tryCatch({
+tryCatch({
   ## set up portfolio with objetive and constraints
   n.assets.RNAt <- length(colnames(all.returns_RNA_t))
 
@@ -1193,9 +1193,98 @@ tryCatch({
   weight_Sharpe_RNA_t= weight_test_RNAt[which(weight_test_RNAt !=0)]
   weight_Sharpe_RNA_t
 
+################################################################################
+  if ((length(weight_Sharpe_RNA_t)!=ncol(C_Net_T_comparativa)) | (class(weight_Sharpe_RNA_t)!='numeric')){
+    pesosCarteira <- function(retornosAtivos, retornoAlvo) {
+      ## Argumentos:
+      # retornosAtivos - conjunto de dados dos retornos dos ativos
+      # retornoAlvo - o retorno-alvo da carteira
+
+      ##  A fun??o solve.QP() do pacote quadprog implementa o m?todo dual de Goldfarb e Idnani (1982, 1983)
+      ##  para a solu??o do problema de otimiza??o quadr?tica na forma
+      ##  min(-d'b + 1/2 b' Db) com as restri??es A'T b >= b0.
+
+      ## Para detalhes, veja D. Goldfarb and A. Idnani (1983). "A numerically stable dual method for solving strictly convex #quadratic programs". Mathematical Programming, 27, 1-33.
+
+      ## A solu??o aqui s?o os pesos que minimizam o risco para o retorno em 'retornoAlvo'
+
+      if(!require("quadprog")) install.packages("quadprog")
+      suppressMessages(suppressWarnings(library(quadprog)))
+
+      nAtivos  <-  ncol(retornosAtivos)
+      portfolio <- solve.QP(
+        Dmat <- nearPD(as.matrix(cov(retornosAtivos)))$mat,
+        #Dmat <- cov(retornosAtivos),                        # matriz D
+        dvec <- rep(0, times = nAtivos),                    # vetor  d
+        Amat <- t(rbind(retorno = colMeans(retornosAtivos), # matriz A de restri??es
+                        orcamento = rep(1, nAtivos),
+                        longa = diag(nAtivos))),
+        bvec <- c(retorno = retornoAlvo,                    # vetor  b0
+                  orcamento = 1,
+                  longa = rep(0, times = nAtivos)),
+        meq = 2)                                            # as primeiro meq restri??es s?o igualdades
+
+      pesos  <-  portfolio$solution # vetor contendo a solu??o do problema
+      pesos
+    }
 
 
 
+    fronteiraCarteira <- function(retornosAtivos, nPontos = 40) {
+      # Quantidade de ativos
+      nAtivos <- ncol(retornosAtivos)
+      # Retornos-alvo
+      mu <- colMeans(retornosAtivos)
+      retornoAlvo <- seq(min(mu), max(mu), length = nPontos)
+      # Pesos ?timos
+      pesos <- rep(0, nAtivos)
+      pesos[which.min(mu)] <- 1
+      for (i in 2:(nPontos-1)) {
+        novosPesos <- pesosCarteira(retornosAtivos, retornoAlvo[i])
+        pesos <- rbind(pesos, novosPesos)
+      }
+      novosPesos <- rep(0, nAtivos)
+      novosPesos[which.max(mu)] <- 1
+      pesos <- rbind(pesos, novosPesos)
+      pesos <- round(pesos, 4)
+      colnames(pesos) <- colnames(retornosAtivos)
+      rownames(pesos) <- 1:nPontos
+
+      # Valor do retorno
+      pesos
+    }
+
+
+    retornosAtivos = C_Net_T_comparativa
+
+
+    pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=500)
+
+
+    Medias_set.returns <- as.matrix(t(apply(all.returns, 2, mean)))
+    mu = Medias_set.returns
+    retornoAlvos  <-  seq(min(mu), max(mu), length = nrow(pesos_front))
+
+    riscosAlvo  <-  NULL
+    for (i in 1:nrow(pesos_front)) {
+      novoRiscoAlvo  <-  sqrt(pesos_front[i, ] %*%
+                                cov(retornosAtivos) %*%
+                                pesos_front[i, ])
+      riscosAlvo  <-  c(riscosAlvo, novoRiscoAlvo)
+    }
+
+    rf=(1+Rf)^(1/252)-1
+    S_=tan((retornoAlvos-rf)/riscosAlvo)
+
+    fronteiraEficiente <- data.frame(risco=riscosAlvo, retorno=retornoAlvos, Sharpe = S_)
+    sHARPEMAX = which(fronteiraEficiente$Sharpe==max(fronteiraEficiente$Sharpe))
+
+    mean_sharpe=fronteiraEficiente$retorno[sHARPEMAX]
+    sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
+    weight_Sharpe_RNA_t= pesos_front[sHARPEMAX,]
+    weight_Sharpe_RNA_t= weight_Sharpe_RNA_t[which(weight_Sharpe_RNA_t!=0)]
+
+  }
 
 
 
@@ -1204,8 +1293,8 @@ tryCatch({
 
 
   ##################################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-#}, error=function(e){
-  if ((length(weight_Sharpe_RNA_t)!=ncol(C_Net_T_comparativa)) | (class(weight_Sharpe_RNA_t)!='numeric')){
+}, error=function(e){
+
   pesosCarteira <- function(retornosAtivos, retornoAlvo) {
     ## Argumentos:
     # retornosAtivos - conjunto de dados dos retornos dos ativos
@@ -1294,8 +1383,8 @@ tryCatch({
   sd_sharpe=fronteiraEficiente$risco[sHARPEMAX]
   weight_Sharpe_RNA_t= pesos_front[sHARPEMAX,]
   weight_Sharpe_RNA_t= weight_Sharpe_RNA_t[which(weight_Sharpe_RNA_t!=0)]
-#})
-}
+})
+
 
 
 
