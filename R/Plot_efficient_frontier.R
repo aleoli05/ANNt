@@ -280,7 +280,8 @@ text(x=0, y=(1+Rf)^(1/252)-1,
      cex = 0.6,
      adj = -0.2
 )
-points(sd_sharpe,mean_sharpe, col="darkgray", pch = 19)
+points(sd_sharpe,mean_sharpe, col="darkgray", pch = 19)  # Período real de analise
+points(sd(SHARPE), mean(SHARPE), col="darkgray", pch=19) # Periodo de teste pode ser Out
 #text(sd_sharpe,mean_sharpe,
 #     labels = "SHARPE",
 #     col="darkgray",
@@ -290,13 +291,13 @@ points(sd_sharpe,mean_sharpe, col="darkgray", pch = 19)
 #)
 colnames(as.data.frame(Comparativo_RETORNOS)[,1])
 points(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]), col="black", pch = 19)
-text(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]),
-     labels = colnames(as.data.frame(Comparativo_RETORNOS)[1]),
-     col="black",
-     cex = 0.6,
-     font=2,
-     adj = -0.2
-)
+#text(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]),
+#     labels = colnames(as.data.frame(Comparativo_RETORNOS)[1]),
+#     col="black",
+#     cex = 0.6,
+#     font=2,
+#     adj = -0.2
+#)
 #points(sd(RetornoMedioMaxIS),Media_RetornoMedioMaxIS, col="red")
 #text(sd(RetornoMedioMaxIS),Media_RetornoMedioMaxIS,
 #     labels = "Sharpe",
@@ -304,7 +305,8 @@ text(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]),
 #     cex = 0.6,
 #     adj = -0.2
 #)
-points(sd_MKW, mean_MKW, col="brown", pch=19)
+#points(sd_MKW, mean_MKW, col="brown", pch=19)
+points(sd(MARKOWITZ), mean(MARKOWITZ), col="brown", pch=19)
 #text(sd(MARKOWITZ),mean(MARKOWITZ),
 #     labels = "MARKOWITZ",
 #     col="brown",
@@ -313,21 +315,21 @@ points(sd_MKW, mean_MKW, col="brown", pch=19)
 #     adj = -0.2
 #)
 points(sd(ANNt_SHARPE),mean(ANNt_SHARPE), col="darkgreen", pch=19)
-text(sd(ANNt_SHARPE),mean(ANNt_SHARPE),
-     labels = ANN_SHARPE,
-     col="darkgreen",
-     font=2,
-     cex = 0.6,
-     adj = -0.2
-)
+#text(sd(ANNt_SHARPE),mean(ANNt_SHARPE),
+#     labels = ANN_SHARPE,
+#     col="darkgreen",
+#     font=2,
+#     cex = 0.6,
+#     adj = -0.2
+#)
 points(x=GMV_sd,y=GMV_Return, col="orange", pch=19)
-text(x=GMV_sd, y=GMV_Return,
-     labels = "GMV",
-     col="orange",
-     font = 2,
-     cex = 0.6,
-     adj = 1.2
-)
+#text(x=GMV_sd, y=GMV_Return,
+#     labels = "GMV",
+#     col="orange",
+#     font = 2,
+#     cex = 0.6,
+#     adj = 1.2
+#)
 
 legend(x="topright",
        #legend=c(colnames(as.data.frame(Comparativo_RETORNOS)[1]), "MF_SHARPE", "ANNt_EQ" , "ANNt_MKW","ANNt_SHARPE",
