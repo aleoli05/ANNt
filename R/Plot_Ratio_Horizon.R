@@ -65,6 +65,7 @@ Plot_Annualized_Returns_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_RCum_Horizon_Anual[is.na(Comparativo_RCum_Horizon_Anual)] = 0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_RETORNOS_Horizon_Anual[,1])
   nline = nrow(Comparativo_RETORNOS_Horizon_Anual)
@@ -345,6 +346,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Volatility_Horizon_Anual[is.na(Comparativo_Volatility_Horizon_Anual)] = 0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Volatility_Horizon_Anual[,1])
   nline = nrow(Comparativo_Volatility_Horizon_Anual)
@@ -628,6 +630,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Sharpe_Horizon_Anual[is.na(Comparativo_Sharpe_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Sharpe_Horizon_Anual[,1])
   nline = nrow(Comparativo_Sharpe_Horizon_Anual)
@@ -909,6 +912,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Alpha_Horizon_Anual[is.na(Comparativo_Alpha_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Alpha_Horizon_Anual[,1])
   nline = nrow(Comparativo_Alpha_Horizon_Anual)
@@ -1192,6 +1196,7 @@ Plot_Annualized_Beta_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Beta_Horizon_Anual[is.naComparativo_Beta_Horizon_Anual]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Beta_Horizon_Anual[,1])
   nline = nrow(Comparativo_Beta_Horizon_Anual)
@@ -1475,6 +1480,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Sortino_Horizon_Anual[is.na(Comparativo_Sortino_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Sortino_Horizon_Anual[,1])
   nline = nrow(Comparativo_Sortino_Horizon_Anual)
@@ -1759,6 +1765,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Treynor_Horizon_Anual[is.na(Comparativo_Treynor_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Treynor_Horizon_Anual[,1])
   nline = nrow(Comparativo_Treynor_Horizon_Anual)
@@ -2043,6 +2050,7 @@ Plot_Annualized_Var_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Var_Horizon_Anual[is.na(Comparativo_Var_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Var_Horizon_Anual[,1])
   nline = nrow(Comparativo_Var_Horizon_Anual)
@@ -2326,6 +2334,7 @@ Plot_Annualized_CVar_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_CVar_Horizon_Anual[is.na(Comparativo_CVar_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_CVar_Horizon_Anual[,1])
   nline = nrow(Comparativo_CVar_Horizon_Anual)
@@ -2667,9 +2676,9 @@ Plot_Annualized_RCum_Horizon <-function(){
     Analyzis[i,j+1]=Vitories
     Analyzis[i,j+2]=round(mean(Analyzis[i,1:ncol(Base_Dif)]),2)
     if (Return_Cumulative=='Rebalanced'){
-      Analyzis[i,j+3]=round((prod(Base_Dif[i,1:ncol(Base_Dif)]/100+1)-1),2)
+      Analyzis[i,j+3]=round((prod(Base_Dif[i,1:ncol(Base_Dif)]/100+1)-1)*100,2)
     }else{
-      Analyzis[i,j+3]=round((prod(Base_Dif[i,1:ncol(Base_Dif)]/100+1)-1)/nrow(Base_Dif),2)
+      Analyzis[i,j+3]=round((((prod(Base_Dif[i,1:ncol(Base_Dif)]/100+1))^(1/ncol(Base_Dif)))-1)*100,2)
     }
   }
   for(j in 1:(ncol(Base_Dif)+3)){
@@ -2897,6 +2906,7 @@ Plot_Annualized_Rm_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_Rm_Horizon_Anual[is.na(Comparativo_Rm_Horizon_Anual)]=0
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
