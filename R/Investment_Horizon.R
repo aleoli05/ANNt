@@ -302,8 +302,9 @@ for (i in (C_from:Frequency)){
   }
 
   if ((Return_Cumulative=='Rebalanced' & i>C_from)==TRUE){
-    if(i>2){
-    Final_Date=as.Date.character(Specific_Dates[i-1])
+    if(i>1){
+    Final_Date=Specific_Dates[i-1]
+    save(Final_Date,'~/Final_Date_new.rda')
   }}
 
   if (Import =='No'){

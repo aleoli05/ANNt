@@ -1527,6 +1527,10 @@ tryCatch({
   Weights_All <- matrix(ncol=60, nrow=22)
   Weights_All <- as.data.frame((Weights_All))
   Weights_All [1,1] <- 'PORTFOLIOS'
+  Weights_All [1,2] <- 'Initial_Date_ Generate'
+  Weights_All [1,3] <- Initial_Date_Testing
+  Weights_All [1,4] <- 'Final_Date_Generate'
+  Weights_All [1,3] <- Final_Date_Testing
   Weights_All [1,2] <- 'ASSETS'
   Weights_All [2,1] <- 'MARKOWITZ'
   for(k in (1:ncol(Pesos_C_Markov2))){
