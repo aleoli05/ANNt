@@ -85,8 +85,10 @@ if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
   }else{
   if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
   }else{
-    Eixo_X2 = c(1,25,50,75,100)
-    }}}
+  if(nrow(Comparativo)<100 & nrow(Comparativo)>=50) {Eixo_X2 = c(1, 20, 40, 60, 80, 100)
+  }else{
+      Eixo_X2 = c(1,10,20,30,40,50)
+    }}}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
 Inicio_data = rownames(Comparativo2[1,])

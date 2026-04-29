@@ -321,7 +321,7 @@ for (i in (C_from:Frequency)){
 load('~/Tickers_1.rda')
 if(Fun=='S_Out'){
   ANNt_Oliveira_Ceretta_S_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Final_Date_Training=Fim_Train,
-                              Final_Date, Periodicity, N_Lags=N_Lags, Hidden=Hidden, Stepmax,
+                              Final_Date=Final_Date, Periodicity, N_Lags=N_Lags, Hidden=Hidden, Stepmax,
                               Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                               Early_Stopping = Early_Stopping,
                               Asymmetry=Asymmetry, Type_ANNt,
@@ -357,7 +357,7 @@ if(Fun=='S_Out'){
 }
 if(Fun=='Out'){
   ANNt_Oliveira_Ceretta_Out(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                            Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
+                            Final_Date=Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
                             Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                             Early_Stopping = Early_Stopping,
                             Asymmetry=Asymmetry, Type_ANNt,
@@ -393,7 +393,7 @@ if(Fun=='Out'){
 }
 if(Fun=='S'){
   ANNt_Oliveira_Ceretta_S(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                          Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
+                          Final_Date=Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
                           Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                           Early_Stopping = Early_Stopping,
                           Asymmetry=Asymmetry, Type_ANNt,
@@ -408,7 +408,7 @@ if(Fun=='S'){
 }
 if(Fun=='Original'){
   ANNt_Oliveira_Ceretta(Tickers=Tickers_1, RM, Rf, Initial_Date=Inicio, Fim_Train,
-                        Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
+                        Final_Date=Final_Date, Periodicity, N_Lags=N_Lags,Hidden=Hidden, Stepmax,
                         Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
                         Early_Stopping = Early_Stopping,
                         Asymmetry=Asymmetry, Type_ANNt,
