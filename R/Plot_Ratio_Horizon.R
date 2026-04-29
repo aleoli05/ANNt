@@ -1196,7 +1196,7 @@ Plot_Annualized_Beta_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
-  Comparativo_Beta_Horizon_Anual[is.naComparativo_Beta_Horizon_Anual]=0
+  Comparativo_Beta_Horizon_Anual[is.na(Comparativo_Beta_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Beta_Horizon_Anual[,1])
   nline = nrow(Comparativo_Beta_Horizon_Anual)
