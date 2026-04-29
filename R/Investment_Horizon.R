@@ -304,7 +304,7 @@ for (i in (C_from:Frequency)){
   if ((Return_Cumulative=='Rebalanced' & i>C_from)==TRUE){
     if(i>1){
     Final_Date=Specific_Dates[i-1]
-    save(Final_Date,'~/Final_Date_new.rda')
+    save(Final_Date,file='~/Final_Date_new.rda')
   }}
 
   if (Import =='No'){
@@ -881,6 +881,7 @@ save(Until_Date, file="~/Until_Date.rda")
 }
 
 Plot_Returns_Annualized_Horizon()
+Plot_Cumulative_Returns_Horizon('')
 ################################################################################
 Backup_ANNt(Investment='Yes')
 
