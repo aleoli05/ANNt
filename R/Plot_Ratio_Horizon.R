@@ -65,7 +65,7 @@ Plot_Annualized_Returns_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
-  Comparativo_RCum_Horizon_Anual[is.na(Comparativo_RCum_Horizon_Anual)] = 0
+  Comparativo_RETORNOS_Horizon_Anual[is.na(Comparativo_RETORNOS_Horizon_Anual)] = 0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_RETORNOS_Horizon_Anual[,1])
   nline = nrow(Comparativo_RETORNOS_Horizon_Anual)
@@ -2906,13 +2906,13 @@ Plot_Annualized_Rm_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
-  Comparativo_Rm_Horizon_Anual[is.na(Comparativo_Rm_Horizon_Anual)]=0
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
   }else{print('Starting Plot_Ratio_Horizon Command')}
   dev.capabilities()
 
+  Comparativo_Rm_Horizon_Anual[is.na(Comparativo_Rm_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Rm_Horizon_Anual[,1])
   nline = nrow(Comparativo_Rm_Horizon_Anual)
