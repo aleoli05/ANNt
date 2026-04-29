@@ -302,8 +302,9 @@ for (i in (C_from:Frequency)){
   }
 
   if ((Return_Cumulative=='Rebalanced' & i>C_from)==TRUE){
-    Final_Date=Fim_Train
-  }
+    if(i>2){
+    Final_Date=as.Date.character(Specific_Dates[i-1])
+  }}
 
   if (Import =='No'){
     if(length(which(rownames(scenario_ajustado)==Inicio))==0){
