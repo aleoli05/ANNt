@@ -451,11 +451,11 @@ scenario.set=Portfolio_with_RM_Original
 save(scenario.set, file="~/scenario.set.rda")
 
 Rf=Rf*100
-Gen_portfolios('n_Assets',Initial_Date_Testing,'','x5', Type_ANNt)
-Portfolio_backtesting('','')
+Gen_portfolios('n_Assets',Initial_Date_Testing,Final_Date,'x5', Type_ANNt)
+Portfolio_backtesting('',Final_Date)
 Plot_Cumulative_Returns('')
 if(Order=='Yes'){
-Gen_efficient_frontier('','')
+Gen_efficient_frontier('',Final_Date)
 Plot_efficient_frontier()
 Sys.sleep((15))
 Plot_New_efficient_frontier()

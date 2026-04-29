@@ -136,11 +136,11 @@ print('***********************************************')
 print(paste("Initial_Date_Testing out of sample: ", Initial_Date_Testing, sep=''))
 load('~/Initial_Date_Testing.rda')
 
-Out_of_sample(Initial_Date_Testing,'')
-Portfolio_backtesting('','')
+Out_of_sample(Initial_Date_Testing,Final_Date) # Modificada dada final de ''
+Portfolio_backtesting('',Final_Date) # Modificada dada final de ''
 Plot_Cumulative_Returns('')
 if(Order=='Yes'){
-Gen_efficient_frontier('','')
+Gen_efficient_frontier('',Final_Date) # Modificada dada final de ''
 Plot_efficient_frontier()
 Sys.sleep((15))
 Plot_New_efficient_frontier()

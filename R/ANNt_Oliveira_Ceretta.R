@@ -126,11 +126,11 @@ if(Type_ANN=='ANNt'){
       SKEWt_order ('', '', '', Asymmetry=Asymmetry,
                    Plot='No', Skew_t=Skew_t)
     }}}}
-Gen_portfolios('n_Assets',Initial_Date_Testing,'',Rf, Type_ANNt)
-Portfolio_backtesting('','')
+Gen_portfolios('n_Assets',Initial_Date_Testing,Final_Date,Rf, Type_ANNt)
+Portfolio_backtesting('',Final_Date)
 Plot_Cumulative_Returns('')
 if(Order=='Yes'){
-Gen_efficient_frontier('','')
+Gen_efficient_frontier('',Final_Date)
 Plot_efficient_frontier()
 Sys.sleep((15))
 Plot_New_efficient_frontier()
