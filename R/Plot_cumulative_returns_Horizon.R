@@ -24,10 +24,10 @@ library(stringr)
   Comparativo_inverso=Comparativo_RCum_Horizon_Anual[nrow(Comparativo_RCum_Horizon_Anual):1,]
   Comparativo=Comparativo_inverso
   for (i in (2:nrow(Comparativo_RCum_Horizon_Anual))){
-    if (Return_Cumulative='Rebalanced'){
-    Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo_inverso[i-1,]/100)-1)*100
+    if (Return_Cumulative=='Rebalanced'){
+    Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo[i-1,]/100)-1)*100
     } else{
-    Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo_inverso[i-1,]/100)^(1/i) -1)*100
+    Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo[i-1,]/100)^(1/2) -1)*100
     }
   }
 attach(as.data.frame(Comparativo))
