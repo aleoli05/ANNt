@@ -99,6 +99,7 @@ Retornos=TestComparativo[,1]
 Periodos=TestComparativo$Eixo
 s = TestComparativo$MARKOWITZ
 u = TestComparativo$SHARPE
+v = TestComparativo$MF_EQ
 z = TestComparativo$MF_MKW
 p = TestComparativo$MF_SHARPE
 w = TestComparativo$ANNt_EQ
@@ -115,6 +116,7 @@ plot(Periodos, Retornos,
      ylim = c(min(Comparativo), max(Comparativo)))
 lines(s, col = c("brown"))
 lines(u, col = c("gray"))
+lines(v, col = c("yellow"))
 lines(z, col = c("red"))
 lines(p, col = c("purple"))
 lines(w, col = c("blue"))
@@ -150,7 +152,7 @@ title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 Contador_MF_DFA = matrix(nrow=149)
 legend("topleft",
        #"bottomright",
-       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                   ANN_EQ,
                   ANN_MKW, ANN_SHARPE),
        cex = 0.8,
@@ -158,7 +160,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red",
+       col = c("black", "brown", "gray", "red", "yellow",
                "purple","blue",
                        "green",
                       "darkgreen"))
@@ -202,6 +204,7 @@ Retornos=TestComparativo[,1]
 Periodos=TestComparativo$Eixo
 s = TestComparativo$MARKOWITZ
 u = TestComparativo$SHARPE
+v = TestComparativo$MF_EQ
 z = TestComparativo$MF_MKW
 p = TestComparativo$MF_SHARPE
 w = TestComparativo$ANNt_EQ
@@ -218,6 +221,7 @@ plot(Periodos, Retornos,
      ylim = c(min(Comparativo), max(Comparativo)))
 lines(s, col = c("brown"))
 lines(u, col = c("gray"))
+lines(v, col = c("yellow"))
 lines(z, col = c("red"))
 lines(p, col = c("purple"))
 lines(w, col = c("blue"))
@@ -253,7 +257,7 @@ title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 Contador_MF_DFA = matrix(nrow=149)
 legend("topleft",
        #"bottomright",
-       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                   ANN_EQ,
                   ANN_MKW, ANN_SHARPE),
        cex = 0.6,
@@ -261,7 +265,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red",
+       col = c("black", "brown", "gray", "red", "yellow",
                "purple",
                "blue",
                 "green",

@@ -21,9 +21,27 @@ library(stringr)
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+
   Comparativo_inverso=Comparativo_RCum_Horizon_Anual[nrow(Comparativo_RCum_Horizon_Anual):1,]
   Comparativo=Comparativo_inverso
-  for (i in (2:nrow(Comparativo_RCum_Horizon_Anual))){
+  if(Until_Date ==('')){
+    #Until_Date = Final_Date_Testing
+    Until_Date = rownames(Comparativo[nrow(Comparativo),])
+  }
+
+  if(length(which(rownames(Comparativo)==Until_Date))==0){
+    while(length(which(rownames(Comparativo)==Until_Date))==0){
+      dia=as.Date(Until_Date)
+      new_day=dia-1
+      Until_Date = as.character(new_day)
+    }
+  }
+
+  Corte= which(rownames(as.data.frame(Comparativo))==as.Date(Until_Date))
+  Coparativo_Backup = Comparativo
+  Comparativo=Comparativo[Corte:nrow(Comparativo),]
+
+  for (i in (2:nrow(Comparativo))){
     if (Return_Cumulative=='Rebalanced'){
     Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo[i-1,]/100)-1)*100
     } else{
@@ -52,22 +70,6 @@ nline = nrow(Comparativo)
   #Comparativo=Comparativo
 #  Corte=as.numeric(nrow(as.data.frame(Comparativo)))
 
-if(Until_Date ==('')){
-  #Until_Date = Final_Date_Testing
-  Until_Date = rownames(Comparativo[nrow(Comparativo),])
-}
-
-if(length(which(rownames(Comparativo)==Until_Date))==0){
-  while(length(which(rownames(Comparativo)==Until_Date))==0){
-    dia=as.Date(Until_Date)
-    new_day=dia-1
-    Until_Date = as.character(new_day)
-  }
-}
-
-Corte= which(rownames(as.data.frame(Comparativo))==as.Date(Until_Date))
-Coparativo_Backup = Comparativo
-Comparativo=Comparativo[1:Corte,]
 
 
 
@@ -112,6 +114,7 @@ Retornos=TestComparativo[,1]
 Periodos=TestComparativo$Eixo
 s = TestComparativo$MARKOWITZ
 u = TestComparativo$SHARPE
+v = TestComparativo$MF_EQ
 z = TestComparativo$MF_MKW
 p = TestComparativo$MF_SHARPE
 w = TestComparativo$ANNt_EQ
@@ -129,6 +132,7 @@ plot(Periodos, Retornos,
 lines(s, col = c("brown"))
 lines(u, col = c("gray"))
 lines(z, col = c("red"))
+lines(v, col = c("yellow"))
 lines(p, col = c("purple"))
 lines(w, col = c("blue"))
 lines(t, col = c("green"))
@@ -163,7 +167,7 @@ title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 Contador_MF_DFA = matrix(nrow=149)
 legend("topleft",
        #"bottomright",
-       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                   ANN_EQ,
                   ANN_MKW, ANN_SHARPE),
        cex = 0.8,
@@ -171,7 +175,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red",
+       col = c("black", "brown", "gray", "red", "yellow",
                "purple","blue",
                        "green",
                       "darkgreen"))
@@ -215,6 +219,7 @@ Retornos=TestComparativo[,1]
 Periodos=TestComparativo$Eixo
 s = TestComparativo$MARKOWITZ
 u = TestComparativo$SHARPE
+v = TestComparativo$MF_EQ
 z = TestComparativo$MF_MKW
 p = TestComparativo$MF_SHARPE
 w = TestComparativo$ANNt_EQ
@@ -231,6 +236,7 @@ plot(Periodos, Retornos,
      ylim = c(min(Comparativo), max(Comparativo)))
 lines(s, col = c("brown"))
 lines(u, col = c("gray"))
+lines(v, col = c("yellow"))
 lines(z, col = c("red"))
 lines(p, col = c("purple"))
 lines(w, col = c("blue"))
@@ -266,7 +272,7 @@ title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 Contador_MF_DFA = matrix(nrow=149)
 legend("topleft",
        #"bottomright",
-       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+       legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                   ANN_EQ,
                   ANN_MKW, ANN_SHARPE),
        cex = 0.6,
@@ -274,7 +280,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red",
+       col = c("black", "brown", "gray", "red", "yellow",
                "purple",
                "blue",
                 "green",
