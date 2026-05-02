@@ -26,13 +26,13 @@ library(stringr)
   Comparativo=Comparativo_inverso
   if(Until_Date ==('')){
     #Until_Date = Final_Date_Testing
-    Until_Date = rownames(Comparativo[nrow(Comparativo),])
+    Until_Date = rownames(Comparativo[1,])
   }
 
   if(length(which(rownames(Comparativo)==Until_Date))==0){
     while(length(which(rownames(Comparativo)==Until_Date))==0){
       dia=as.Date(Until_Date)
-      new_day=dia-1
+      new_day=dia+1
       Until_Date = as.character(new_day)
     }
   }
