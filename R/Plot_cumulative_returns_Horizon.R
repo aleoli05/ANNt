@@ -26,7 +26,7 @@ library(stringr)
   Comparativo=Comparativo_inverso
   if(Until_Date ==('')){
     #Until_Date = Final_Date_Testing
-    Until_Date = rownames(Comparativo[1,])
+    Until_Date = as.character(rownames(as.data.frame(Comparativo[1,])))
   }
 
   if(length(which(rownames(Comparativo)==Until_Date))==0){
