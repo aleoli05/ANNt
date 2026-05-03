@@ -24,9 +24,11 @@ library(stringr)
 
   Comparativo_inverso=Comparativo_RCum_Horizon_Anual[nrow(Comparativo_RCum_Horizon_Anual):1,]
   Comparativo=Comparativo_inverso
+  Comparz
   if(Until_Date ==('')){
     #Until_Date = Final_Date_Testing
-    Until_Date = as.character(rownames(as.data.frame(Comparativo[1,])))
+    Comparativo = as.data.frame(Comparativo)
+    Until_Date = as.character(rownames(Comparativo[1,]))
   }
 
   if(length(which(rownames(Comparativo)==Until_Date))==0){
@@ -131,8 +133,8 @@ plot(Periodos, Retornos,
      ylim = c(min(Comparativo), max(Comparativo)))
 lines(s, col = c("brown"))
 lines(u, col = c("gray"))
-lines(z, col = c("red"))
 lines(v, col = c("yellow"))
+lines(z, col = c("red"))
 lines(p, col = c("purple"))
 lines(w, col = c("blue"))
 lines(t, col = c("green"))
@@ -175,7 +177,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red", "yellow",
+       col = c("black", "brown", "gray", "yellow", "red",
                "purple","blue",
                        "green",
                       "darkgreen"))
@@ -280,7 +282,7 @@ legend("topleft",
        #bty = "o",
        bty = "n",
        lwd = 3,
-       col = c("black", "brown", "gray", "red", "yellow",
+       col = c("black", "brown", "gray", "yellow", "red",
                "purple",
                "blue",
                 "green",
