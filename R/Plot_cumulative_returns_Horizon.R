@@ -52,8 +52,8 @@ library(stringr)
     }
   }
 Comparativo_inverso = as.data.frame(Comparativo_inverso)
-Compararativo_inverso$BEST = colnames(Comparativo_inverso)[max.col(Comparativo_inverso)]
-Compararativo_inverso$CUM_BEST = colnames(Comparativo)[max.col(Comparativo)]
+Comparativo_inverso$BEST = colnames(Comparativo_inverso)[max.col(Comparativo_inverso)]
+Comparativo_inverso$CUM_BEST = colnames(Comparativo)[max.col(Comparativo)]
 View(Comparativo_inverso)
 
 attach(as.data.frame(Comparativo), warn.conflits=FALSE)
