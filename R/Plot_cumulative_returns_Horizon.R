@@ -24,7 +24,7 @@ library(stringr)
 
   Comparativo_inverso=Comparativo_RCum_Horizon_Anual[nrow(Comparativo_RCum_Horizon_Anual):1,]
   Comparativo=Comparativo_inverso
-  Comparz
+
   if(Until_Date ==('')){
     #Until_Date = Final_Date_Testing
     Comparativo = as.data.frame(Comparativo)
