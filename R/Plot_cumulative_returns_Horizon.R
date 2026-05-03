@@ -43,7 +43,7 @@ library(stringr)
   Coparativo_Backup = Comparativo
   Comparativo_inverso=Comparativo_inverso[Corte:nrow(Comparativo),]
   Comparativo=Comparativo[Corte:nrow(Comparativo),]
-View(Comparativo)
+#View(Comparativo)
   for (i in (2:nrow(Comparativo))){
     if (Return_Cumulative=='Rebalanced'){
     Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo[i-1,]/100)-1)*100
@@ -51,12 +51,12 @@ View(Comparativo)
     Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo[i-1,]/100)^(1/2) -1)*100
     }
   }
+Comparativo_inverso = as.data.frame(Comparativo_inverso)
+Compararativo_inverso$BEST = colnames(Comparativo_inverso)[max.col(Comparativo_inverso)]
+Compararativo_inverso$CUM_BEST = colnames(Comparativo)[max.col(Comparativo)]
+View(Comparativo_inverso)
 
-Comparativo_Acumulado= Comparativo
-print(Comparativo_Acumulado)
-save(Comparativo_Acumulado, file='~/Comparativo_Acumulado.rda')
-
-attach(as.data.frame(Comparativo))
+attach(as.data.frame(Comparativo), warn.conflits=FALSE)
 
   ydev=dev.list()
   if(class(ydev)!="NULL"){
@@ -215,8 +215,13 @@ if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
   }else{
     if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
     }else{
-      Eixo_X2 = c(1,25,50,75,100)
-    }}}
+      if(nrow(Comparativo)<100 & nrow(Comparativo)>=50) {Eixo_X2 = c(1, 20, 40, 60, 80, 100)
+      }else{
+        Eixo_X2 = c(1,10,20,30,40,50)
+        if(nrow(Comparativo)<50 & nrow(Comparativo)>=25) {Eixo_X2 = c(1, 10, 20, 30, 40, 50)
+        }else{
+          Eixo_X2 = c(1,5,10,15,20,25)
+        }}}}}
 Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
 Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
 Inicio_data = rownames(Comparativo2[1,])
@@ -294,6 +299,11 @@ legend("topleft",
                 "green",
                "darkgreen"))
 save(Until_Date, file="~/Until_Date.rda")
-
+detach(as.data.frame(Comparativo))
+Comparativo_Acumulado_Inv= Comparativo
+Comparativo_Periodico_Inv = Comparativo_inverso
+print(round(Comparativo_Acumuladom2))
+save(Comparativo_Acumulado_Inv, file='~/Comparativo_Acumulado_Inv.rda')
+save(Comparativo_Periodico_Inv, file='~/Comparativo_Periodico_Inv.rda')
 
 }
