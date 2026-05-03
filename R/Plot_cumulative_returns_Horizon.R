@@ -41,8 +41,9 @@ library(stringr)
 
   Corte= which(rownames(as.data.frame(Comparativo))==as.Date(Until_Date))
   Coparativo_Backup = Comparativo
+  Comparativo_inverso=Comparativo_inverso[Corte:nrow(Comparativo),]
   Comparativo=Comparativo[Corte:nrow(Comparativo),]
-
+View(Comparativo)
   for (i in (2:nrow(Comparativo))){
     if (Return_Cumulative=='Rebalanced'){
     Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo[i-1,]/100)-1)*100
@@ -50,6 +51,11 @@ library(stringr)
     Comparativo[i,]=((1+Comparativo_inverso[i,]/100)*(1+Comparativo[i-1,]/100)^(1/2) -1)*100
     }
   }
+
+Comparativo_Acumulado= Comparativo
+print(Comparativo_Acumulado)
+save(Comparativo_Acumulado, file='~/Comparativo_Acumulado.rda')
+
 attach(as.data.frame(Comparativo))
 
   ydev=dev.list()
