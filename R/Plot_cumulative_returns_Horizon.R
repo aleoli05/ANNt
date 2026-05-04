@@ -303,7 +303,13 @@ detach(as.data.frame(Comparativo))
 Comparativo_Acumulado_Inv= Comparativo
 Comparativo_Periodico_Inv = Comparativo_inverso
 print(round(Comparativo_Acumulado_Inv,2))
+
+Comparativo_Acumulado_Inv2=data.frame(rownames(as.data.frame(Comparativo_Acumulado_Inv)),as.data.frame(Comparativo_Acumulado_Inv))
+write_xlsx(as.data.frame(Comparativo_Acumulado_Inv2), "~/Comparativo_Acumulado_Inv.xlsx")
 save(Comparativo_Acumulado_Inv, file='~/Comparativo_Acumulado_Inv.rda')
+
+Comparativo_Periodico_Inv2=data.frame(rownames(as.data.frame(Comparativo_Periodico_Inv)),as.data.frame(Comparativo_Periodico_Inv))
+write_xlsx(as.data.frame(Comparativo_Periodico_Inv2), "~/Comparativo_Periodico_Inv.xlsx")
 save(Comparativo_Periodico_Inv, file='~/Comparativo_Periodico_Inv.rda')
 
 }
