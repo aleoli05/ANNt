@@ -302,7 +302,7 @@ save(Until_Date, file="~/Until_Date.rda")
 detach(as.data.frame(Comparativo))
 Comparativo_Acumulado_Inv= Comparativo
 Comparativo_Periodico_Inv = Comparativo_inverso
-print(round(Comparativo_Acumulado,2))
+print(round(Comparativo_Acumulado_Inv,2))
 save(Comparativo_Acumulado_Inv, file='~/Comparativo_Acumulado_Inv.rda')
 save(Comparativo_Periodico_Inv, file='~/Comparativo_Periodico_Inv.rda')
 
