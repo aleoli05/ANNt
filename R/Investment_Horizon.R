@@ -105,6 +105,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
   }else{print('Starting Investment_Horizon Command')}
   dev.capabilities()
 
+  library (readxl)
+  library(writexl)
 
 Horizon=Import
 Exclude = Exclude_ticket

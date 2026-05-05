@@ -10,7 +10,8 @@
 Plot_Cumulative_Returns_Horizon <- function(Until_Date) {
 
 ##############################################################################
-
+library (readxl)
+library(writexl)
 library(stringr)
   load('~/Comparativo_RCum_Horizon_Anual.rda')
   load('~/Return_Cumulative.rda')
