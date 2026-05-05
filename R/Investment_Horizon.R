@@ -581,9 +581,6 @@ colnames(Comparativo_Alpha_Horizon_Anual)= rownames(Summary_Backtest)
 rownames(Comparativo_Treynor_Horizon_Anual)=Inicio_Teste_Datas
 colnames(Comparativo_Treynor_Horizon_Anual)= rownames(Summary_Backtest)
 
-
-write_xlsx(portfolio_observed2, "~/Assets_Prices_Observed.xlsx")
-
 save(Comparativo_Rm_Horizon_Anual, file='~/Comparativo_Rm_Horizon_Anual.rda')
 Comparativo_Rm_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Rm_Horizon_Anual)),as.data.frame(Comparativo_Rm_Horizon_Anual))
 write_xlsx(as.data.frame(Comparativo_Rm_Horizon_Anual2), "~/Comparativo_Rm_Horizon_Anual.xlsx")
