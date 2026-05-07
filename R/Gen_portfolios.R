@@ -505,8 +505,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   if(length(tem_numero)!=0){
     teste=lista_nomes[tem_numero]
     nomes_errados=which(CarteiraComparativa==teste)
-    nomes_scenarios=colnames(scenario.set)
-    correcao=nomes_scenarios[nomes_errados+1]
+    correcao=Type_ANNt[n_assets+1]
     CarteiraComparativa[nomes_errados]=correcao
   }
   #####################
