@@ -503,9 +503,9 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   tem_numero <- grepl("[0-9]", CarteiraComparativa)
   if(length(tem_numero)!=0){
-    teste=lista_nomes[tem_numero]
+    teste=CarteiraComparativa[tem_numero]
     nomes_errados=which(CarteiraComparativa==teste)
-    correcao=Type_ANNt[n_assets+1]
+    correcao=colnames(Type_ANNt[n_assets+1])
     CarteiraComparativa[nomes_errados]=correcao
   }
 
