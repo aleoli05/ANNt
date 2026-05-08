@@ -303,11 +303,13 @@ for (i in (C_from:Frequency)){
         Fim_Train= as.character(Fim_Train)
   }
 
-  if ((Return_Cumulative=='Rebalanced' & i>C_from)==TRUE){
-    if(i>1){
+  #if ((Return_Cumulative=='Rebalanced' & i>C_from)==TRUE){
+  if ((Return_Cumulative=='Rebalanced'& i>1)==TRUE){
+    #if(i>1){
     Final_Date=Specific_Dates[i-1]
     save(Final_Date,file='~/Final_Date_new.rda')
-  }}
+  #}
+  }
 
   if (Import =='No'){
     if(length(which(rownames(scenario_ajustado)==Inicio))==0){
