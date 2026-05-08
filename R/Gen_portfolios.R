@@ -515,8 +515,8 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   # Carteira de pesos iguais
   PesosComparativos = c(rep(1/n_assets,n_assets))
 
-  if (length(C_Net_T_comparativa)!=length(Pesos)){
-    CarteiraComparativa[length(Pesos)]=Type_ANNt[n_assets+1]
+  if (length(C_Net_T_comparativa)!=length(PesosComparativos)){
+    CarteiraComparativa[length(PesosComparativos)]=Type_ANNt[n_assets+1]
   }
 
   save(CarteiraComparativa, file='~/CarteiraComparativa.rda')
