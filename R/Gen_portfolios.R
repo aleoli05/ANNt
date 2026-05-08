@@ -500,8 +500,8 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   CarteiraComparativa = colnames(Type_ANNt[1:n_assets])
   ##################### Verificacao de tickers incorretos
-  lista_nomes=colnames(Type_ANNt)
-  tem_numero <- grepl("[0-9]", lista_nomes)
+
+  tem_numero <- grepl("[0-9]", CarteiraComparativa)
   if(length(tem_numero)!=0){
     teste=lista_nomes[tem_numero]
     nomes_errados=which(CarteiraComparativa==teste)
@@ -515,8 +515,8 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   # Carteira de pesos iguais
   PesosComparativos = c(rep(1/n_assets,n_assets))
 
-  if (length(C_Net_T_comparativa)!=length(PesosComparativos)){
-    CarteiraComparativa[length(PesosComparativos)]=Type_ANNt[n_assets+1]
+  if (length(CarteiraComparativa)!=length(PesosComparativos)){
+    CarteiraComparativa[length(PesosComparativos)]=colnames(Type_ANNt[n_assets+1])
   }
 
   save(CarteiraComparativa, file='~/CarteiraComparativa.rda')
