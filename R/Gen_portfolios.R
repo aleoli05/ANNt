@@ -508,15 +508,26 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
     correcao=Type_ANNt[n_assets+1]
     CarteiraComparativa[nomes_errados]=correcao
   }
+
   #####################
+
+
+  # Carteira de pesos iguais
+  PesosComparativos = c(rep(1/n_assets,n_assets))
+
+  if (length(C_Net_T_comparativa)!=length(Pesos)){
+    CarteiraComparativa[length(Pesos)]=Type_ANNt[n_assets+1]
+  }
+
+  save(CarteiraComparativa, file='~/CarteiraComparativa.rda')
+
   C_Net_T_comparativa = as.data.frame(scenario.set) %>%
     dplyr::select(which((colnames(scenario.set) %in% CarteiraComparativa)))
   C_Net_T_comparativa = C_Net_T_comparativa[Datas1Predict,]
 
-  # Carteira de pesos iguais
-  PesosComparativos = c(rep(1/n_assets,n_assets))
   save(C_Net_T_comparativa, file='~/C_Net_T_comparativa.rda')
   save(PesosComparativos, file='~/PesosComparativos.rda')
+
   Media_C_Net_T_Comparativa = as.matrix(C_Net_T_comparativa) %*% PesosComparativos
 
 
