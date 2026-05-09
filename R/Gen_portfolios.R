@@ -500,8 +500,8 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
 
   CarteiraComparativa = colnames(Type_ANNt[1:n_assets])
   ##################### Verificacao de tickers incorretos
-
-  tem_numero <- grepl("[0-9]", CarteiraComparativa)
+  #tem_numero <- grepl("[0-9]", CarteiraComparativa)
+  tem_numero <- grepl("^V\\d+$", CarteiraComparativa)
   if(length(tem_numero)!=0){
     teste=CarteiraComparativa[tem_numero]
     nomes_errados=which(CarteiraComparativa==teste)
