@@ -269,7 +269,8 @@ Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
   load('~/Comparativo_Treynor_Horizon_Anual.rda')
   y=which(Specific_Dates==Continue_from)
   x=y+1
-  Tempo=rownames(Comparativo_RETORNOS_Horizon_Anual)
+  Comparativo_RETORNOS_Horizon_Anual=as.data.frame(Comparativo_RETORNOS_Horizon_Anual)
+  Tempo=as.character(rownames(Comparativo_RETORNOS_Horizon_Anual))
 }
 ######################################
 for (i in (C_from:Frequency)){
@@ -558,8 +559,9 @@ write_xlsx(as.data.frame(Weights_MF_Sharpe_Horizon), "~/Weights_MF_Sharpe_Horizo
 save(Weights_ANNt_Sharpe_Horizon,file='~/Weights_ANNt_Sharpe_Horizon.rda')
 write_xlsx(as.data.frame(Weights_ANNt_Sharpe_Horizon), "~/Weights_ANNt_Sharpe_Horizon.xlsx")
 #############################################
-
+Tempo = gsub('X.','',Tempo)
 Inicio_Teste_Datas = Tempo
+
 rownames(Comparativo_Rm_Horizon_Anual)=Inicio_Teste_Datas
 colnames(Comparativo_Rm_Horizon_Anual)= rownames(Summary_Backtest)
 rownames(Comparativo_RETORNOS_Horizon_Anual)=Inicio_Teste_Datas
