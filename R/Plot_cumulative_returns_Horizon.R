@@ -1,13 +1,22 @@
 #' Plot_Cumulative_Returns_Horizon
 #' Present Cumulative Returns Graph for all investment horizon
 #'@param Until_Date if '' is the sys.Date()
+#'@param Legend_position:
+#'topleft;
+#'topright;
+#'bottomleft;
+#'bottomrigh;
+#'bottom;
+#'top;
+#'left;
+#'right.
 #'@examples
 #'Until_Date <- '2023-09-15'
 #'Plot_Cumulative_Returns_Horizon('')
 
 
 #'@export
-Plot_Cumulative_Returns_Horizon <- function(Until_Date) {
+Plot_Cumulative_Returns_Horizon <- function(Until_Date, Legend_position="topleft") {
 
 ##############################################################################
 library (readxl)
@@ -174,7 +183,7 @@ title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 
 ## Contador de vit?rias Buffet
 Contador_MF_DFA = matrix(nrow=149)
-legend("topleft",
+legend(paste(Legend_position),
        #"bottomright",
        legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                   ANN_EQ,
@@ -284,7 +293,7 @@ title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
 
 ## Contador de vit?rias Buffet
 Contador_MF_DFA = matrix(nrow=149)
-legend("topleft",
+legend(paste(Legend_position),
        #"bottomright",
        legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                   ANN_EQ,

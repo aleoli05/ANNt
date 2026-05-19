@@ -5,10 +5,19 @@
 \title{Plot_Cumulative_Returns
 Present Cumulative Returns Graph}
 \usage{
-Plot_Cumulative_Returns(Until_Date)
+Plot_Cumulative_Returns(Until_Date, Legend_position = "topleft")
 }
 \arguments{
 \item{Until_Date}{if '' is the sys.Date()}
+
+\item{Legend_position:}{topleft;
+topright;
+bottomleft;
+bottomrigh;
+bottom;
+top;
+left;
+right.}
 }
 \description{
 Plot_Cumulative_Returns

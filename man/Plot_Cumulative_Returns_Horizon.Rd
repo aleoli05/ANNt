@@ -5,10 +5,19 @@
 \title{Plot_Cumulative_Returns_Horizon
 Present Cumulative Returns Graph for all investment horizon}
 \usage{
-Plot_Cumulative_Returns_Horizon(Until_Date)
+Plot_Cumulative_Returns_Horizon(Until_Date, Legend_position = "topleft")
 }
 \arguments{
 \item{Until_Date}{if '' is the sys.Date()}
+
+\item{Legend_position:}{topleft;
+topright;
+bottomleft;
+bottomrigh;
+bottom;
+top;
+left;
+right.}
 }
 \description{
 Plot_Cumulative_Returns_Horizon
