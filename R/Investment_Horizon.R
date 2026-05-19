@@ -908,6 +908,7 @@ save(Until_Date, file="~/Until_Date.rda")
 
 Plot_Returns_Annualized_Horizon()
 Plot_Cumulative_Returns_Horizon('')
+Portfolio_backtesting_Inv('', '')
 ################################################################################
 Backup_ANNt(Investment='Yes')
 
