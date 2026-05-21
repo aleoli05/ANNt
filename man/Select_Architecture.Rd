@@ -36,7 +36,8 @@ Select_Architecture(
   Initial_Arch = 1,
   Bias = c("No", "No", "No", "No", "No"),
   Return_Cumulative = "Total",
-  Order_Only = "No"
+  Order_Only = c("No", "No", "No", "No", "No"),
+  Convolution = c("Neutral", "Neutral", "Neutral", "Neutral", "Neutral")
 )
 }
 \arguments{
@@ -107,6 +108,8 @@ or "No". "No" is the standard.}
 
 \item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
 
+\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)}
+
 \item{Initial_Date_Training}{Training series start Date.}
 
 \item{Specific_Date}{Specific dates for the end of training. Used to define
@@ -156,6 +159,7 @@ Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
 Initial_Arch=1,
 Bias=c('No','No','No','No','No'),
 Return_Cumulative ='Total',
-Order_Only='No'
+Order_Only=c('No', 'No', 'No', 'No', 'No'),
+Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral')
 )
 }

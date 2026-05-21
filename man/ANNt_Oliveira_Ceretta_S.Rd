@@ -30,7 +30,8 @@ ANNt_Oliveira_Ceretta_S(
   Order = "Yes",
   Skew_t = "No",
   Bias = "No",
-  Order_Only = "No"
+  Order_Only = "No",
+  Convolution = "Neutral"
 )
 }
 \arguments{
@@ -84,6 +85,8 @@ or "No". "Yes" is the standard.}
 \item{Bias}{include Bias, Yes or No, with auto learning}
 
 \item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
+
+\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)}
 
 \item{Initial_Date_Training}{Training series start Date}
 }

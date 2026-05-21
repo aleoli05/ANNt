@@ -19,6 +19,7 @@
 #' @param Prediction Model of prediction: "Predict" or "Forecast". "Predict" is the standard.
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
+#' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)
 #'
 #' @author Alexandre Silva de Oliveira
 
@@ -37,7 +38,8 @@
 #' Asymmetry='Negative',
 #' Skew_t='Yes',
 #' Bias="No",
-#' Order_Only='No'
+#' Order_Only='No',
+#' Convolution = 'Neutral'
 #' )
 
 #' # Estimated processing time 2 hours.
@@ -53,7 +55,7 @@ ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Te
                        N_Lags=5,
                        Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
                        Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No', Prediction='Predict',
-                       Bias="No", Order_Only='No') {
+                       Bias="No", Order_Only='No', Convolution='Neutral') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 
@@ -277,6 +279,30 @@ ___________________________________________________________________
     I_data = which(rownames(dat_r)==Inicio_data)
     F_data = which(rownames(dat_r)==Fim_data)
     entradas = as.matrix(dat_r[I_data:F_data,])
+    if(Convolution=='Tendecy'){
+      for (i in nrow(entradas)){
+        contagem<=apply(entradas[i,],function(x) sum(x<0, na.rm=TRUE) )
+        if(contagem>3){
+          entradas[i,]=ifelse(entradas[i,]>0,0,entradas[i,])
+        } else{
+          if(contagem<3){
+            entradas[i,]=ifelse(entradas[i,]<0,0,entradas[i,])
+          }
+        }
+      }
+    }
+    if(Convolution=='Inverse'){
+      for (i in nrow(entradas)){
+        contagem<=apply(entradas[i,],function(x) sum(x<0, na.rm=TRUE) )
+        if(contagem>3){
+          entradas[i,]=ifelse(entradas[i,]<0,0,entradas[i,])
+        }else{
+          if(contagem<3){
+            entradas[i,]=ifelse(entradas[i,]>0,0,entradas[i,])
+          }
+        }
+      }
+    }
     saidas = as.matrix(dat_r[(I_data+1):(F_data+1),1])
 
 

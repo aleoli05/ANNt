@@ -42,6 +42,7 @@
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
+#' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -83,7 +84,8 @@
 #' Initial_Arch=1,
 #' Bias=c('No','No','No','No','No'),
 #' Return_Cumulative ='Total',
-#' Order_Only='No'
+#' Order_Only=c('No', 'No', 'No', 'No', 'No'),
+#' Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral')
 #' )
 
 
@@ -121,7 +123,8 @@ Select_Architecture<-function(
   Initial_Arch=1,
   Bias=c('No', 'No', 'No', 'No', 'No'),
   Return_Cumulative ='Total',
-  Order_Only='No'
+  Order_Only=c('No', 'No', 'No', 'No', 'No'),
+  Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral')
 )
 
 {
@@ -182,7 +185,8 @@ Select_Architecture<-function(
       Skew_t=Skew_t[i_arch],
       Bias=Bias[i_arch],
       Return_Cumulative =Return_Cumulative,
-      Order_Only=Order_Only[i_arch]
+      Order_Only=Order_Only[i_arch],
+      Convolution=Convolution[i_arch]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')

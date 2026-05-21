@@ -20,7 +20,8 @@ ANNt_order(
   Skew_t = "No",
   Prediction = "Predict",
   Bias = "No",
-  Order_Only = "No"
+  Order_Only = "No",
+  Convolution = "Neutral"
 )
 }
 \arguments{
@@ -55,6 +56,8 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 \item{Bias}{include Bias, Yes or No, with auto learning}
 
 \item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
+
+\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)}
 }
 \description{
 ANNt_order classify assets by the probability of return exceeding a RM
@@ -75,7 +78,8 @@ Early_Stopping = c('Yes', 0.001),
 Asymmetry='Negative',
 Skew_t='Yes',
 Bias="No",
-Order_Only='No'
+Order_Only='No',
+Convolution = 'Neutral'
 )
 # Estimated processing time 2 hours.
 

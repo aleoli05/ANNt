@@ -35,7 +35,8 @@ Investment_Horizon(
   Skew_t = "No",
   Bias = "No",
   Return_Cumulative = "Total",
-  Order_Only = "No"
+  Order_Only = "No",
+  Convolution = "Neutral"
 )
 }
 \arguments{
@@ -103,6 +104,8 @@ or "No". "No" is the standard.}
 \item{Return_Cumulative}{'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.}
 
 \item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
+
+\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)}
 
 \item{Initial_Date_Training}{Training series start Date.}
 
