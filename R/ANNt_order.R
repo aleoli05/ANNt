@@ -19,7 +19,7 @@
 #' @param Prediction Model of prediction: "Predict" or "Forecast". "Predict" is the standard.
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
-#' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)
+#' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
 #'
 #' @author Alexandre Silva de Oliveira
 
@@ -279,9 +279,9 @@ ___________________________________________________________________
     I_data = which(rownames(dat_r)==Inicio_data)
     F_data = which(rownames(dat_r)==Fim_data)
     entradas = as.matrix(dat_r[I_data:F_data,])
-    if(Convolution=='Tendecy'){
+    if(Convolution=='Trend'){
       for (i in nrow(entradas)){
-        contagem<=apply(entradas[i,],function(x) sum(x<0, na.rm=TRUE) )
+        contagem<=sum(entradas[i,]<0, na.rm=TRUE)
         if(contagem>3){
           entradas[i,]=ifelse(entradas[i,]>0,0,entradas[i,])
         } else{
@@ -291,9 +291,9 @@ ___________________________________________________________________
         }
       }
     }
-    if(Convolution=='Inverse'){
+    if(Convolution=='Reverse'){
       for (i in nrow(entradas)){
-        contagem<=apply(entradas[i,],function(x) sum(x<0, na.rm=TRUE) )
+        contagem<=sum(entradas[i,]<0, na.rm=TRUE)
         if(contagem>3){
           entradas[i,]=ifelse(entradas[i,]<0,0,entradas[i,])
         }else{

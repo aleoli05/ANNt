@@ -57,7 +57,7 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 
 \item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
 
-\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)}
+\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 }
 \description{
 ANNt_order classify assets by the probability of return exceeding a RM

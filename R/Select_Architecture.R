@@ -42,7 +42,7 @@
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
-#' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)
+#' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######

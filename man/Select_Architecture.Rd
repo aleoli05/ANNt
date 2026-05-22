@@ -108,7 +108,7 @@ or "No". "No" is the standard.}
 
 \item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
 
-\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Tendency, Neutral, Inverse)}
+\item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 
 \item{Initial_Date_Training}{Training series start Date.}
 
