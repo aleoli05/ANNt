@@ -281,7 +281,7 @@ ___________________________________________________________________
     entradas = as.matrix(dat_r[I_data:F_data,])
     if(Convolution=='Trend'){
       comprimento=(ncol(entradas)-1)/2
-      for (i in nrow(entradas)){
+      for (i in 1:nrow(entradas)){
         contagem=sum(entradas[i,2:ncol(entradas)]<0, na.rm=TRUE)
         if(contagem>comprimento){
           entradas[i,2:ncol(entradas)]=ifelse(entradas[i,2:ncol(entradas)]>0,0,entradas[i,2:ncol(entradas)])
@@ -294,7 +294,7 @@ ___________________________________________________________________
     }
     if(Convolution=='Reverse'){
       comprimento=(ncol(entradas)-1)/2
-      for (i in nrow(entradas)){
+      for (i in 1:nrow(entradas)){
         contagem=sum(entradas[i,2:ncol(entradas)]<0, na.rm=TRUE)
         if(contagem>comprimento){
           entradas[i,2:ncol(entradas)]=ifelse(entradas[i,2:ncol(entradas)]<0,0,entradas[i,2:ncol(entradas)])

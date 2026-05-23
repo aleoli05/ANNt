@@ -29,6 +29,7 @@ load('~/Classificacao_MFractal.rda')
 load('~/Comparativo_RETORNOS.rda')
 load('~/Initial_Analysis_Date.rda')
 load('~/Final_Analysis_Date.rda')
+load('~/Type_ANNt.rda')
 
 ydev=dev.list()
 if(class(ydev)!="NULL"){
@@ -53,7 +54,9 @@ xn = NULL
 xn[1]=-0.02
 for (i in 2:20){xn[i] = x1*i}
 yn= (mean_sharpe-((1+Rf)^(1/252)-1))/sd_sharpe*xn +((1+Rf)^(1/252)-1)
-
+#Tipo=paste('~/',Type_ANNt[1],'.rda', sep='')
+#Tipo_2=assign(load(Tipo))
+#limiteX = Type_ANNt
 ########################################################################################
 ydev=dev.list()
 if(class(ydev)!="NULL"){
@@ -167,7 +170,7 @@ plot(Base_Palomar[4,],Base_Palomar[1,],
      family="A",
      #cex.lab = 0.8,
      #cex.axis = 0.8,
-     xlim = c(0.4, 0.560))
+     xlim = c(0.4, max(Base_Palomar[4,])+0.032))
 title("New Efficient Frontier (NEF) for the ",RM)
 title(main = paste(
   xlab= Inicio_data,"/", xlab= Fim_data),
