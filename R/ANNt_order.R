@@ -284,10 +284,10 @@ ___________________________________________________________________
       for (i in nrow(entradas)){
         contagem=sum(entradas[i,2:ncol(entradas)]<0, na.rm=TRUE)
         if(contagem>comprimento){
-          entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]>0,0,entradas[i,])
+          entradas[i,2:ncol(entradas)]=ifelse(entradas[i,2:ncol(entradas)]>0,0,entradas[i,])
         } else{
           if(contagem<comprimento){
-            entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]<0,0,entradas[i,])
+            entradas[i,2:ncol(entradas)]=ifelse(entradas[i,2:ncol(entradas)]<0,0,entradas[i,])
           }
         }
       }
@@ -297,10 +297,10 @@ ___________________________________________________________________
       for (i in nrow(entradas)){
         contagem=sum(entradas[i,2:ncol(entradas)]<0, na.rm=TRUE)
         if(contagem>comprimento){
-          entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]<0,0,entradas[i,])
+          entradas[i,2:ncol(entradas)]=ifelse(entradas[i,2:ncol(entradas)]<0,0,entradas[i,])
         }else{
           if(contagem<comprimento){
-            entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]>0,0,entradas[i,])
+            entradas[i,2:ncol(entradas)]=ifelse(entradas[i,2:ncol(entradas)]>0,0,entradas[i,])
           }
         }
       }
