@@ -280,27 +280,27 @@ ___________________________________________________________________
     F_data = which(rownames(dat_r)==Fim_data)
     entradas = as.matrix(dat_r[I_data:F_data,])
     if(Convolution=='Trend'){
-      comprimento=ncol(entradas)/2
+      comprimento=(ncol(entradas)-1)/2
       for (i in nrow(entradas)){
-        contagem=sum(entradas[i,]<0, na.rm=TRUE)
+        contagem=sum(entradas[i,2:ncol(entradas)]<0, na.rm=TRUE)
         if(contagem>comprimento){
-          entradas[i,]=ifelse(entradas[i,]>0,0,entradas[i,])
+          entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]>0,0,entradas[i,])
         } else{
           if(contagem<comprimento){
-            entradas[i,]=ifelse(entradas[i,]<0,0,entradas[i,])
+            entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]<0,0,entradas[i,])
           }
         }
       }
     }
     if(Convolution=='Reverse'){
-      comprimento=ncol(entradas)/2
+      comprimento=(ncol(entradas)-1)/2
       for (i in nrow(entradas)){
-        contagem=sum(entradas[i,]<0, na.rm=TRUE)
+        contagem=sum(entradas[i,2:ncol(entradas)]<0, na.rm=TRUE)
         if(contagem>comprimento){
-          entradas[i,]=ifelse(entradas[i,]<0,0,entradas[i,])
+          entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]<0,0,entradas[i,])
         }else{
           if(contagem<comprimento){
-            entradas[i,]=ifelse(entradas[i,]>0,0,entradas[i,])
+            entradas[i,]=ifelse(entradas[i,2:ncol(entradas)]>0,0,entradas[i,])
           }
         }
       }
