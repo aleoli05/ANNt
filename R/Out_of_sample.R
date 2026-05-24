@@ -288,7 +288,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
       (as.matrix(RetornoMedioMaxIS_RNAt[i,])+1)-1
   }
 
-  colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_MF", "MF_MKW", "MF_SHARPE",
+  colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                            "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
   rownames(Comparativo) = rownames(as.data.frame(PosCovidSP500))
 
