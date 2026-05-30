@@ -1,4 +1,5 @@
-#' Learning_Curve classify assets by the probability of return exceeding a RM
+#' Learning_Curve239,2
+#'  classify assets by the probability of return exceeding a RM
 #' Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
 
 
@@ -239,8 +240,8 @@ ___________________________________________________________________
                                          'xi', 'omega', 'alpha', 'nu', 'KS','AD')
   Resultados_Assim_Curtose
 
-  Training_Error = list()
-  Testing_Error = list()
+  Training_Error = matrix(ncol=Stepmax, nrow=ncol(scenario.set)-1)
+  Testing_Error = matrix(ncol=Stepmax, nrow=ncol(scenario.set)-1)
   ################################################################################
   #####################################Envelope###################################
   ################################################################################
@@ -664,6 +665,10 @@ ___________________________________________________________________
     bias_saida=0
     bias_hidden=0
 
+    I_dataPredict = F_data+1
+    F_dataPredict = nrow(dat_r)-1
+    entradasPredict = as.matrix(dat_r[I_dataPredict:F_dataPredict,])
+    saidasPredict = as.matrix(dat_r[(I_dataPredict+1):(F_dataPredict+1),1])
     #########################################
     for(j in 1:epocas) {
       # fed forward
@@ -756,7 +761,22 @@ ___________________________________________________________________
       }
 
 
-      Training_Error[j]=erroCamadaSaida
+      Training_Error[k,j]=erroCamadaSaida
+
+      camadaEntradaPredict = as.matrix(entradasPredict)
+      somaSinapse0Predict = camadaEntradaPredict %*% pesos0
+      camadaOcultaPredict = sigmoide(somaSinapse0Predict)
+
+
+      somaSinapse1Predict = camadaOcultaPredict %*% pesos1
+      camadaSaidaPredict = sigmoide(somaSinapse1Predict)
+
+
+      if (Loss=="MSE"){
+        #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
+        erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2) # M?nima diferen?a
+        Testing_Error[k,j]=erroCamadaSaidaPredict
+      }
       ################################################################################
       if (ativo==ncol(dados)){
         #print(paste('Error:', mediaAbsoluta))
@@ -1587,6 +1607,8 @@ ___________________________________________________________________
   names2[1]='Ticker'
   colnames(Summary_ANNt_xls)<-names2
   write_xlsx(Summary_ANNt_xls, nome_Summary_ANNt)
+  save(Training_Error,file='Training_Error.dra')
+  save(Testing_Error,file='Testing_Error.dra')
   ###############################
 
 }

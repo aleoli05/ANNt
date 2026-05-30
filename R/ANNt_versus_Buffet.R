@@ -19,7 +19,7 @@ Weights=c( 0.441, 0.089, 0.079, 0.075, 0.074, 0.038, 0.038, 0.023) # PORTFOLIO w
 Specify_Pf_RM(Name,Portfolio,Weights)
 
 # 3) ANNt order generate, example:
-ANNt_order ('2018-01-11', '2021-12-30','2022-08-04 ', '', 5000)
+ANNt_order ('2018-01-11', '2021-12-30','2022-08-04', Hidden='', Stepmax=5000)
 
 # 4) Generate portfolios, example:
 Gen_portfolios(5,'2020-01-21','2022-08-04',0, 'T8')

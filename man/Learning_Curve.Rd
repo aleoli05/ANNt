@@ -2,7 +2,8 @@
 % Please edit documentation in R/Learning_Curve.R
 \name{Learning_Curve}
 \alias{Learning_Curve}
-\title{Learning_Curve classify assets by the probability of return exceeding a RM
+\title{Learning_Curve239,2
+ classify assets by the probability of return exceeding a RM
 Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets}
 \usage{
 Learning_Curve(
@@ -60,7 +61,8 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 \item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 }
 \description{
-Learning_Curve classify assets by the probability of return exceeding a RM
+Learning_Curve239,2
+ classify assets by the probability of return exceeding a RM
 Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
 }
 \examples{
