@@ -1,5 +1,5 @@
 #' Learning_Curve239,2
-#'  classify assets by the probability of return exceeding a RM
+#'  classify assets by the probability of return exceeding a RM and present the Learning Curve
 #' Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
 
 
@@ -25,16 +25,16 @@
 #' @author Alexandre Silva de Oliveira
 
 #' @examples
-#' ANNt_order (
+#' Learning_Curve (
 #' Initial_Date_Training = c('2018-01-11'),
 #' Final_Date_Training = c('2022-12-29'),
 #' Final_Date_Testing = c(''),
 #' N_Lags=5,
 #' Hidden = 7,
 #' Stepmax = 300,
-#' Loss = "GMADL",
+#' Loss = "MSE",
 #' Learning_Rate = 0.3,
-#' Decay=c('Yes',0.1),
+#' Decay=c('N),
 #' Early_Stopping = c('Yes', 0.001),
 #' Asymmetry='Negative',
 #' Skew_t='Yes',
@@ -826,7 +826,8 @@ ___________________________________________________________________
     ########################### Chart Learning Curve ###########################
 
     Comparativo2 = as.data.frame(Training_Error, Testing_Error)
-    ATIVO=colnames(scenario.set[,ativo])
+    NomesATIVO=colnames(scenario.set)
+    ATIVO=NomesATIVO[ativo]
     Learning_asset=paste('~/Graphic_Learning_',ATIVO,'.png', sep='')
     png(file=Learning_asset, width=1920, height=1920, res=296, family = "A")
     par(#mfrow=c(2,2),
@@ -838,17 +839,19 @@ ___________________________________________________________________
     par(family="A", cex=0.8)
 
 
-    plot(Training_Error[,j], type='l', col='red',
-         xlab ='Stepmax', ylab='Error', main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
-    lines(Testing_Error[,j], col='blue')
+    plot(Training_Error[k,], type='l', col='red',
+         xlab ='Stepmax', ylab='Error',
+         ylim = c(min(Training_Error[k,]), max(Training_Error[k,]+0.05)),
+         main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
+    lines(Testing_Error[k,], col='blue')
     legend("topright", legend=c('Training Error', 'Testing Error'),
            col=c('red', 'blue'), lty=1)
 
     dev.off()
 
-    plot(Training_Error[,j], type='l', col='red',
+    plot(Training_Error[k,], type='l', col='red',
          xlab ='Stepmax', ylab='Error', main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
-    lines(Testing_Error[,j], col='blue')
+    lines(Testing_Error[k,], col='blue')
     legend("topright", legend=c('Training Error', 'Testing Error'),
            col=c('red', 'blue'), lty=1)
 
@@ -1652,8 +1655,8 @@ ___________________________________________________________________
   names2[1]='Ticker'
   colnames(Summary_ANNt_xls)<-names2
   write_xlsx(Summary_ANNt_xls, nome_Summary_ANNt)
-  save(Training_Error,file='Training_Error.dra')
-  save(Testing_Error,file='Testing_Error.dra')
+  save(Training_Error,file='~/Training_Error.rda')
+  save(Testing_Error,file='~/Testing_Error.rda')
   ###############################
 
 }

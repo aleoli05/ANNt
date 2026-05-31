@@ -3,7 +3,7 @@
 \name{Learning_Curve}
 \alias{Learning_Curve}
 \title{Learning_Curve239,2
- classify assets by the probability of return exceeding a RM
+ classify assets by the probability of return exceeding a RM and present the Learning Curve
 Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets}
 \usage{
 Learning_Curve(
@@ -62,29 +62,8 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 }
 \description{
 Learning_Curve239,2
- classify assets by the probability of return exceeding a RM
+ classify assets by the probability of return exceeding a RM and present the Learning Curve
 Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
-}
-\examples{
-ANNt_order (
-Initial_Date_Training = c('2018-01-11'),
-Final_Date_Training = c('2022-12-29'),
-Final_Date_Testing = c(''),
-N_Lags=5,
-Hidden = 7,
-Stepmax = 300,
-Loss = "GMADL",
-Learning_Rate = 0.3,
-Decay=c('Yes',0.1),
-Early_Stopping = c('Yes', 0.001),
-Asymmetry='Negative',
-Skew_t='Yes',
-Bias="No",
-Order_Only='No',
-Convolution = 'Neutral'
-)
-# Estimated processing time 2 hours.
-
 }
 \author{
 Alexandre Silva de Oliveira

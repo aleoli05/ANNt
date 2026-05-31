@@ -239,8 +239,6 @@ ___________________________________________________________________
                                          'xi', 'omega', 'alpha', 'nu', 'KS','AD')
   Resultados_Assim_Curtose
 
-  Training_Error = list()
-  Testing_Error = list()
   ################################################################################
   #####################################Envelope###################################
   ################################################################################
@@ -756,7 +754,7 @@ ___________________________________________________________________
       }
 
 
-      Training_Error[j]=erroCamadaSaida
+
 ################################################################################
       if (ativo==ncol(dados)){
       #print(paste('Error:', mediaAbsoluta))
@@ -1158,12 +1156,6 @@ ___________________________________________________________________
     somaSinapse1Predict = camadaOcultaPredict %*% pesos1
     camadaSaidaPredict = sigmoide(somaSinapse1Predict)
 
-
-    #if (Loss=="MSE"){
-    #  #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
-    #  erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2) # M?nima diferen?a
-    #  Testing_Error[k]=erroCamadaSaidaPredict
-     #}
 
     if ((Order_Only='Yes')==TRUE){
       camadaSaidaPredict=camadaEntradaPredict
