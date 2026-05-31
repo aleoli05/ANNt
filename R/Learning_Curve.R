@@ -777,6 +777,47 @@ ___________________________________________________________________
         erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2) # M?nima diferen?a
         Testing_Error[k,j]=erroCamadaSaidaPredict
       }
+
+
+    ########################### Chart Learning Curve ###########################
+
+      Comparativo2 = as.data.frame(Training_Error, Testing_Error)
+
+      Learning_asset=paste('~/Graphic_Learning_',ATIVO,'.png', sep='')
+      png(file=Learning_asset, width=1920, height=1920, res=296, family = "A")
+      par(#mfrow=c(2,2),
+        #mar=c(2,2,2,2),
+        oma=c(1,2,1,1))
+
+      library("ggplot2")
+      windowsFonts(A=windowsFont("Times New Roman"))
+      par(family="A", cex=0.8)
+
+
+      plot(Training_Error, type='l', col='red',
+           xlab ='Stepmax', ylab='Error', main='Learning Curve')
+      lines(Testing_Error, col='blue')
+      legend("topright", legend=c('Training Error', 'Testing Error'),
+             col=c('red', 'blue'), lty=1)
+
+      dev.off()
+
+      plot(Training_Error, type='l', col='red',
+           xlab ='Stepmax', ylab='Error', main='Learning Curve')
+      lines(Testing_Error, col='blue')
+      legend("topright", legend=c('Training Error', 'Testing Error'),
+             col=c('red', 'blue'), lty=1)
+      ################################################################################
+
+
+
+
+
+
+
+
+
+
       ################################################################################
       if (ativo==ncol(dados)){
         #print(paste('Error:', mediaAbsoluta))
