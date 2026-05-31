@@ -779,34 +779,7 @@ ___________________________________________________________________
       }
 
 
-    ########################### Chart Learning Curve ###########################
 
-      Comparativo2 = as.data.frame(Training_Error, Testing_Error)
-      ATIVO=colnames(scenario.set[,ativo])
-      Learning_asset=paste('~/Graphic_Learning_',ATIVO,'.png', sep='')
-      png(file=Learning_asset, width=1920, height=1920, res=296, family = "A")
-      par(#mfrow=c(2,2),
-        #mar=c(2,2,2,2),
-        oma=c(1,2,1,1))
-
-      library("ggplot2")
-      windowsFonts(A=windowsFont("Times New Roman"))
-      par(family="A", cex=0.8)
-
-
-      plot(Training_Error, type='l', col='red',
-           xlab ='Stepmax', ylab='Error', main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
-      lines(Testing_Error, col='blue')
-      legend("topright", legend=c('Training Error', 'Testing Error'),
-             col=c('red', 'blue'), lty=1)
-
-      dev.off()
-
-      plot(Training_Error, type='l', col='red',
-           xlab ='Stepmax', ylab='Error', main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
-      lines(Testing_Error, col='blue')
-      legend("topright", legend=c('Training Error', 'Testing Error'),
-             col=c('red', 'blue'), lty=1)
       ################################################################################
 
 
@@ -848,6 +821,37 @@ ___________________________________________________________________
       pesos0 = (pesos0 * momento) + (pesosNovo0[,-(nlinhas+1)] * taxaAprendizagem)
 
     }
+
+    #################################################################################
+    ########################### Chart Learning Curve ###########################
+
+    Comparativo2 = as.data.frame(Training_Error, Testing_Error)
+    ATIVO=colnames(scenario.set[,ativo])
+    Learning_asset=paste('~/Graphic_Learning_',ATIVO,'.png', sep='')
+    png(file=Learning_asset, width=1920, height=1920, res=296, family = "A")
+    par(#mfrow=c(2,2),
+      #mar=c(2,2,2,2),
+      oma=c(1,2,1,1))
+
+    library("ggplot2")
+    windowsFonts(A=windowsFont("Times New Roman"))
+    par(family="A", cex=0.8)
+
+
+    plot(Training_Error[,j], type='l', col='red',
+         xlab ='Stepmax', ylab='Error', main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
+    lines(Testing_Error[,j], col='blue')
+    legend("topright", legend=c('Training Error', 'Testing Error'),
+           col=c('red', 'blue'), lty=1)
+
+    dev.off()
+
+    plot(Training_Error[,j], type='l', col='red',
+         xlab ='Stepmax', ylab='Error', main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
+    lines(Testing_Error[,j], col='blue')
+    legend("topright", legend=c('Training Error', 'Testing Error'),
+           col=c('red', 'blue'), lty=1)
+
     ################################ Print Loss #####################################
     # print(paste("Loss:",erroCamadaSaida))
     #if(is.na(erroCamadaSaida)==TRUE){
