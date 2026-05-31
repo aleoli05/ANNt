@@ -23,9 +23,9 @@
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
 #'
 #' @author Alexandre Silva de Oliveira
-
+#'
 #' @examples
-#' Learning_Curve (
+#' Learning_Curve(
 #' Initial_Date_Training = c('2018-01-11'),
 #' Final_Date_Training = c('2022-12-29'),
 #' Final_Date_Testing = c(''),
@@ -33,8 +33,8 @@
 #' Hidden = 7,
 #' Stepmax = 300,
 #' Loss = "MSE",
-#' Learning_Rate = 0.3,
-#' Decay=c('N),
+#' Learning_Rate = 0.001,
+#' Decay=c('Yes', 0.001),
 #' Early_Stopping = c('Yes', 0.001),
 #' Asymmetry='Negative',
 #' Skew_t='Yes',
@@ -42,7 +42,6 @@
 #' Order_Only='No',
 #' Convolution = 'Neutral'
 #' )
-
 #' # Estimated processing time 2 hours.
 #'
 #Portfolio optimization system using Artificial Neural Networks.
@@ -841,7 +840,7 @@ ___________________________________________________________________
 
     plot(Training_Error[k,], type='l', col='red',
          xlab ='Stepmax', ylab='Error',
-         ylim = c(min(Training_Error[k,]), max(Training_Error[k,]+0.05)),
+         ylim = c(min(Training_Error[k,]-0.03), max(Training_Error[k,]+0.05)),
          main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
     lines(Testing_Error[k,], col='blue')
     legend("topright", legend=c('Training Error', 'Testing Error'),
@@ -850,7 +849,9 @@ ___________________________________________________________________
     dev.off()
 
     plot(Training_Error[k,], type='l', col='red',
-         xlab ='Stepmax', ylab='Error', main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
+         xlab ='Stepmax', ylab='Error',
+         ylim = c(min(Training_Error[k,]-0.03), max(Training_Error[k,]+0.05)),
+         main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
     lines(Testing_Error[k,], col='blue')
     legend("topright", legend=c('Training Error', 'Testing Error'),
            col=c('red', 'blue'), lty=1)
