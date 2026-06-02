@@ -240,7 +240,11 @@ ___________________________________________________________________
   Resultados_Assim_Curtose
 
   Training_Error = matrix(ncol=Stepmax, nrow=ncol(scenario.set)-1)
+  NOMES_ERROR=colnames(scenario.set)
+  NOMES_ERROR=NOMES_ERROR[2:length(NOMES_ERROR)]
+  rownames(Training_Error)=NOMES_ERROR
   Testing_Error = matrix(ncol=Stepmax, nrow=ncol(scenario.set)-1)
+  rownames(Testing_Error)=NOMES_ERROR
   ################################################################################
   #####################################Envelope###################################
   ################################################################################
@@ -712,7 +716,7 @@ ___________________________________________________________________
           loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
           return(loss)
         }
-        erroCamadaSaida = madl_loss(R_observed, R_predicted)
+        erroCamadaSaida = madl_loss(saidas , camadaSaida)
       } else {if(Loss=="GMADL"){
         # GMADL Function (differentiable version, requires parameters a and b)
         # Assuming 'a' and 'b' are predefined parameters
@@ -726,7 +730,7 @@ ___________________________________________________________________
           loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
           return(loss)
         }
-        erroCamadaSaida=gmadl_loss(R_observed, R_predicted, a = 1, b = 1)
+        erroCamadaSaida=gmadl_loss(saidas , camadaSaida, a = 1, b = 1)
       }
       }}}
 
@@ -774,9 +778,39 @@ ___________________________________________________________________
       if (Loss=="MSE"){
         #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
         erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2) # M?nima diferen?a
-        Testing_Error[k,j]=erroCamadaSaidaPredict
-      }
 
+      }else{if(Loss=="MAE"){
+        erroCamadaSaidaPredict = saidasPredict - camadaSaidaPredict
+        mediaAbsoluta = mean(abs(erroCamadaSaidaPredict))
+        erroCamadaSaidaPredict = mediaAbsoluta
+      } else {if(Loss=="MADL"){
+        ## Implementação do MADL/GMADL
+        # MADL Function
+        madl_loss <- function(R_observed, R_predicted) {
+          N <- length(R_observed)
+          # Formula: MADL = (1/N) * sum((-1) * sign(R_i * R_hat_i) * abs(R_i))
+          # This penalizes incorrect direction regardless of magnitude
+          loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
+          return(loss)
+        }
+        erroCamadaSaidaPredict = madl_loss(saidasPredict , camadaSaidaPredict)
+      } else {if(Loss=="GMADL"){
+        # GMADL Function (differentiable version, requires parameters a and b)
+        # Assuming 'a' and 'b' are predefined parameters
+        gmadl_loss <- function(R_observed, R_predicted, a = 1, b = 1) {
+          N <- length(R_observed)
+          # Sigmoid function for smoothness
+          sigmoid <- function(x) {
+            1 / (1 + exp(-x))
+          }
+          # Formula: GMADL = (1/N) * sum(- (sigmoid(a * R_i * R_hat_i) - 0.5) * |R_i|^b)
+          loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
+          return(loss)
+        }
+        erroCamadaSaidaPredict=gmadl_loss(saidasPredict , camadaSaidaPredict, a = 1, b = 1)
+      }
+      }}}
+      Testing_Error[k,j]=erroCamadaSaidaPredict
 
 
       ################################################################################
