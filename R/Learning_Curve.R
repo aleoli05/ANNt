@@ -1,7 +1,7 @@
-#' Learning_Curve239,2
+#' Learning_Curve
 #'  classify assets by the probability of return exceeding a RM and present the Learning Curve
 #' Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
-
+#' the graphs are save in the document past
 
 #' @param Initial_Date_Training Series start Date (Must be 7 periods greater than the analyzed series)
 #' @param Final_Date_Training Series finish training date
@@ -870,11 +870,14 @@ ___________________________________________________________________
     library("ggplot2")
     windowsFonts(A=windowsFont("Times New Roman"))
     par(family="A", cex=0.8)
-
+    minim=min(Training_Error[k,],Testing_Error[k,])-0.03
+    if(is.infinite(minim)==TRUE){minim=-0.3}
+    maxim= max(Training_Error[k,]+0.03)
+    if(is.infinite(maxim)==TRUE){maxim=1}
 
     plot(Training_Error[k,], type='l', col='red',
          xlab ='Stepmax', ylab='Error',
-         ylim = c((min(Training_Error[k,],Testing_Error[k,])-0.03), max(Training_Error[k,]+0.03)),
+         ylim = c(minim, maxim),
          main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
     lines(Testing_Error[k,], col='blue')
     legend("topright", legend=c('Training Error', 'Testing Error'),
@@ -884,7 +887,7 @@ ___________________________________________________________________
 
     plot(Training_Error[k,], type='l', col='red',
          xlab ='Stepmax', ylab='Error',
-         ylim = c(min(Training_Error[k,]-0.03), max(Training_Error[k,]+0.05)),
+         ylim = c(minim, maxim),
          main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
     lines(Testing_Error[k,], col='blue')
     legend("topright", legend=c('Training Error', 'Testing Error'),
@@ -1693,5 +1696,14 @@ ___________________________________________________________________
   save(Training_Error,file='~/Training_Error.rda')
   save(Testing_Error,file='~/Testing_Error.rda')
   ###############################
+  dev.off()
+
+  plot(Training_Error[k,], type='l', col='red',
+       xlab ='Stepmax', ylab='Error',
+       ylim = c(minim, maxim),
+       main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
+  lines(Testing_Error[k,], col='blue')
+  legend("topright", legend=c('Training Error', 'Testing Error'),
+         col=c('red', 'blue'), lty=1)
 
 }
