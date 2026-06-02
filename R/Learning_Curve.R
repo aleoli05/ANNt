@@ -874,7 +874,7 @@ ___________________________________________________________________
 
     plot(Training_Error[k,], type='l', col='red',
          xlab ='Stepmax', ylab='Error',
-         ylim = c(min(Training_Error[k,]-0.03), max(Training_Error[k,]+0.05)),
+         ylim = c((pmin(Training_Error[k,],Testing_Error[k,])-0.03), max(Training_Error[k,]+0.05)),
          main=paste('Learning Curve: ',ATIVO," with Stepmax:", Stepmax))
     lines(Testing_Error[k,], col='blue')
     legend("topright", legend=c('Training Error', 'Testing Error'),
