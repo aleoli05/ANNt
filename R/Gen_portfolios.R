@@ -392,16 +392,16 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
       EPR=colMeans(C_MFractal)
       COV=nearPD(as.matrix(cov(C_MFractal)))$mat
       GMV_MF=globalMin.portfolio(EPR,COV, shorts = FALSE)
-      GMV_Return_MF = GMV$er
-      GMV_sd_MF = GMV$sd
+      GMV_Return_MF = GMV_MF$er
+      GMV_sd_MF = GMV_MF$sd
       Pesos_MFractal_Mkv  = GMV_MF$weights
     }
   }, error=function(e){
     EPR=colMeans(C_MFractal)
     COV=nearPD(as.matrix(cov(C_MFractal)))$mat
     GMV_MF=globalMin.portfolio(EPR,COV, shorts = FALSE)
-    GMV_Return_MF = GMV$er
-    GMV_sd_MF = GMV$sd
+    GMV_Return_MF = GMV_MF$er
+    GMV_sd_MF = GMV_MF$sd
     Pesos_MFractal_Mkv  = GMV_MF$weights
   })
 
@@ -570,24 +570,24 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
           EPR=colMeans(C_Net_T_comparativa)
           COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
           GMV_Net=globalMin.portfolio(EPR,COV, shorts = FALSE)
-          GMV_Return_Net = GMV$er
-          GMV_sd_Net = GMV$sd
+          GMV_Return_Net = GMV_Net$er
+          GMV_sd_Net = GMV_Net$sd
           pesos_MarkovitzNNet_T  = GMV_Net$weights
         }
     }, error=function(e){
       EPR=colMeans(C_Net_T_comparativa)
       COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
       GMV_Net=globalMin.portfolio(EPR,COV, shorts = FALSE)
-      GMV_Return_Net = GMV$er
-      GMV_sd_Net = GMV$sd
+      GMV_Return_Net = GMV_Net$er
+      GMV_sd_Net = GMV_Net$sd
       pesos_MarkovitzNNet_T  = GMV_Net$weights
     }, finnaly = {
       if (exists('pesos_MarkovitzNNet_T')==FALSE){
         EPR=colMeans(C_Net_T_comparativa)
         COV=nearPD(as.matrix(cov(C_Net_T_comparativa)))$mat
         GMV_Net=globalMin.portfolio(EPR,COV, shorts = FALSE)
-        GMV_Return_Net = GMV$er
-        GMV_sd_Net = GMV$sd
+        GMV_Return_Net = GMV_Net$er
+        GMV_sd_Net = GMV_Net$sd
         pesos_MarkovitzNNet_T  = GMV_Net$weights
           }
   })
