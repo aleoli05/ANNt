@@ -127,8 +127,16 @@ save(scenario.set,file='~/scenario.set.rda')
 # 3) ANNt order generate, example:
 ## 1° Time Series
 #ANNt_order ('2018-01-11', '2021-12-30','2022-08-04', '', 7000)
+if(Term=='Short_Term'){
+  Initial_Date_Training='2018-01-11'
+  Final_Date_Training='2021-12-30'
+}
 ## 2° Time Series
-ANNt_order ('2018-08-21', '2022-08-11','2023-03-17', Hidden='', Stepmax=20000)
+if(Term=='Long_Term'){
+  Initial_Date_Training='2018-08-21'
+  Final_Date_Training='2020-09-01'
+}
+ANNt_order (Initial_Date_Training, Final_Date_Training,'2023-03-17', Hidden='', Stepmax=20000)
 
 
 load("~/T8.rda") # Carrega objeto scenario.set
