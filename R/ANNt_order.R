@@ -1,4 +1,4 @@
-#' ANNt_order classify assets by the probability of return exceeding a RM
+#' ANNt_order classify assets by the Probability of return exceeding a RM
 #' Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
 
 
@@ -14,11 +14,13 @@
 #' @param Learning_Rate is the Artificial Neural Network learning rate
 #' @param Decay L2 regularization or weight decay, add a penalty term to the loss function. "Yes" or "No.
 #' No" is default. If  "Yes" is necessary inform the lambda or rate of regularization
-#' @param Asymmetry "Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
-#' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
+#' @param Asymmetry "Negative" or "Positive". Shifts the Probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"
+#' @param Skew_t Incorporate skew parameter in the Probability: "Yes" or "No". Default is "No".
+#' Second instruction: If central parameter is "Median" or "xi". Default is "Median".
+#' Third instruction: Number of deviation consider in matrix Probability. Default is 1.
 #' @param Prediction Model of prediction: "Predict" or "Forecast". "Predict" is the standard.
 #' @param Bias include Bias, Yes or No, with auto learning
-#' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
+#' @param Order_Only disability the ANN and only order the historic Probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
 #'
 #' @author Alexandre Silva de Oliveira
@@ -36,7 +38,7 @@
 #' Decay=c('Yes',0.1),
 #' Early_Stopping = c('Yes', 0.001),
 #' Asymmetry='Negative',
-#' Skew_t='Yes',
+#' Skew_t=c('Yes','Mean',1),
 #' Bias="No",
 #' Order_Only='No',
 #' Convolution = 'Neutral'
@@ -58,6 +60,9 @@ ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Te
                        Bias="No", Order_Only='No', Convolution='Neutral') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
+if ((length(Skew_t)==1) & (Skew_t[1]=='Yes')){
+  Skew_t=c('Yes',"Median",1)
+}
 
 library("quantmod")
   if (!require("sn", character.only = TRUE)) {
@@ -231,13 +236,21 @@ ___________________________________________________________________
   ########################
   #### Cria??o da vari?vel de armazenamento dos resultados de assimetria e curtose
   #### Particular por Probabilidade t de Student
-  Resultados_Assim_Curtose = matrix(ncol=nAtivos-1,nrow=14)
-  Resultados_Assim_Curtose = data.frame(Resultados_Assim_Curtose)
-  colnames(Resultados_Assim_Curtose)=tickers[-1]
-  rownames(Resultados_Assim_Curtose) = c('Probability','Mean','Median','Stand. Dev.',
+  Resultados_Assim_Curtose_Training = matrix(ncol=nAtivos-1,nrow=18)
+  Resultados_Assim_Curtose_Training = data.frame(Resultados_Assim_Curtose_Training)
+  colnames(Resultados_Assim_Curtose_Training)=tickers[-1]
+  rownames(Resultados_Assim_Curtose_Training) = c('Probability','Mean','Median','Stand. Dev.',
+                                                 'Kurtosis','Skewness','Minimum','Maximum',
+                                                 'xi', 'omega', 'alpha', 'nu', 'KS','AD',
+                                                 'Dev_Left', 'Dev_Right','Prob_Left','Prob_Right')
+  Resultados_Assim_Curtose_Testing = matrix(ncol=nAtivos-1,nrow=18)
+  Resultados_Assim_Curtose_Testing = data.frame(Resultados_Assim_Curtose_Testing)
+  colnames(Resultados_Assim_Curtose_Testing)=tickers[-1]
+  rownames(Resultados_Assim_Curtose_Testing) = c('Probability','Mean','Median','Stand. Dev.',
                                          'Kurtosis','Skewness','Minimum','Maximum',
-                                         'xi', 'omega', 'alpha', 'nu', 'KS','AD')
-  Resultados_Assim_Curtose
+                                         'xi', 'omega', 'alpha', 'nu', 'KS','AD',
+                                         'Dev_Left', 'Dev_Right','Prob_Left','Prob_Right')
+  Resultados_Assim_Curtose_Testing
 
   ################################################################################
   #####################################Envelope###################################
@@ -251,6 +264,24 @@ ___________________________________________________________________
     omega=0.0
     alpha=0.0
     nu=0.0
+    ProbabilidadeTmedia=0.0
+    Dev_Left=0.0
+    Dev_Right=0.0
+    Prob_Left=0.0
+    Prob_Right=0.0
+    ProbabilidadeTmedia_1=0.0
+    Dev_Left_1=0.0
+    Dev_Right_1=0.0
+    Prob_Left_1=0.0
+    Prob_Right_1=0.0
+    xi_1=0.0
+    omega_1=0.0
+    alpha_1=0.0
+    nu_1=0.0
+    KS_test_1 = 0.0
+    KS_pvalue_1=0.0
+    AD_test_1 = 0.0
+    AD_pvalue_1=0.0
     # Calculo das defasagens para cada ativo
 
 
@@ -534,7 +565,7 @@ ___________________________________________________________________
         #print(paste("Left asymmetric density (Positive)"))
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
@@ -552,9 +583,45 @@ ___________________________________________________________________
       KS_pvalue=KS_test$p.value
       AD_test = ad.test(prev)
       AD_pvalue=AD_test$p.value
+      if(Skew_t[2]=='Median'){
+      Median = median(prev)
+      Side_Left = prev[prev < Median]
+      Side_Right = prev[prev >= Median]
+      Dev_Left = sd(Side_Left)
+      Dev_Right = sd(Side_Right)
+      Return_Dev_Left = Median-as.numeric(Skew_t[3])*Dev_Left
+      Return_Dev_Right = Median + as.numeric(Skew_t[3])*Dev_Right
       #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
       #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-      ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      }
+
+      if(Skew_t[2]=='xi'){
+        Prob_esquerda = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu)
+        Prob_direita = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail=FALSE)
+        integral = function(x){
+          meu_dp = c(xi, omega, alpha)
+          (x-xi)^2*sn::dst(x, xi=xi, omega=omega, alpha=alpha,nu=nu)
+        }
+        integral_LE=integrate(integral, lower=-Inf, upper=xi)$value
+        integral_LD=integrate(integral, lower=xi, upper=Inf)$value
+        variancia_esquerda = integral_LE/Prob_esquerda
+        variancia_direita = integral_LD/Prob_direita
+        Dev_Left = sqrt(variancia_esquerda)
+        Dev_Right = sqrt(variancia_direita)
+        Return_Dev_Left = xi-as.numeric(Skew_t[3])*Dev_Left
+        Return_Dev_Right = xi+as.numeric(Skew_t[3])*Dev_Right
+        #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
+        #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+        ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      }
+
+
+
         },
       error = function(e) {
         # Código a ser executado se ocorrer um erro
@@ -563,6 +630,10 @@ ___________________________________________________________________
         omega=0.0
         alpha=0.0
         nu=0.0
+        Dev_Left=0
+        Dev_Right=0
+        Prob_Left=0
+        Prob_Right=0
         KS_test = ks.test(prev,'pnorm')
         KS_pvalue=KS_test$p.value
         AD_test = ad.test(prev)
@@ -577,6 +648,8 @@ ___________________________________________________________________
         # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
       }
       )
+
+
     }
     #ProbabilidadeTmedia =pt(mean(prev),
     #                    df=length(prev)-1,lower.tail=TRUE)
@@ -852,7 +925,7 @@ ___________________________________________________________________
         #cat("Left asymmetric density (Positive)")
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
@@ -870,10 +943,55 @@ ___________________________________________________________________
       KS_pvalue=KS_test$p.value
       AD_test = ad.test(camadaSaida)
       AD_pvalue=AD_test$p.value
+      if (Skew_t[2]=='Median'){
+      Median = median(camadaSaida)
+      Side_Left = camadaSaida[camadaSaida < Median]
+      Side_Right = camadaSaida[camadaSaida >= Median]
+      Dev_Left_1 = sd(Side_Left)
+      Dev_Right_1 = sd(Side_Right)
+      Return_Dev_Left_1 = Median-as.numeric(Skew_t[3])*Dev_Left_1
+      Return_Dev_Right_1 = Median + as.numeric(Skew_t[3])*Dev_Right_1
+      ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      Prob_Left_1 = pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      Prob_Right_1 = pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      }
       #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
       #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-      ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-        },
+      if(Skew_t[2]=='xi'){
+        Prob_esquerda = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu)
+        Prob_direita = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail=FALSE)
+        integral = function(x){
+          meu_dp = c(xi, omega, alpha)
+          (x-xi)^2*sn::dst(x, xi=xi, omega=omega, alpha=alpha,nu=nu)
+        }
+        integral_LE=integrate(integral, lower=-Inf, upper=xi)$value
+        integral_LD=integrate(integral, lower=xi, upper=Inf)$value
+        variancia_esquerda = integral_LE/Prob_esquerda
+        variancia_direita = integral_LD/Prob_direita
+        Dev_Left_1 = sqrt(variancia_esquerda)
+        Dev_Right_1 = sqrt(variancia_direita)
+        Return_Dev_Left_1 = xi-as.numeric(Skew_t[3])*Dev_Left_1
+        Return_Dev_Right_1 = xi+as.numeric(Skew_t[3])*Dev_Right_1
+        #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
+        #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+        ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        Prob_Left_1 = pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        Prob_Right_1 = pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      }
+
+
+
+      ProbabilidadeTmedia_1 =ProbabilidadeTmedia
+      xi_1=xi
+      omega_1=omega
+      alpha_1=alpha
+      nu_1=nu
+      KS_test_1 = KS_test
+      KS_pvalue_1=KS_pvalue
+      AD_test_1 = AD_test
+      AD_pvalue_1=AD_pvalue
+
+              },
       error = function(e) {
         # Código a ser executado se ocorrer um erro
         ProbabilidadeTmedia =0.0
@@ -886,6 +1004,19 @@ ___________________________________________________________________
         AD_test = ad.test(camadaSaida)
         AD_pvalue=AD_test$p.value
         ativos_fora[length(ativos_fora)+1]=ativo
+        ProbabilidadeTmedia_1 =0.0
+        xi_1=0.0
+        omega_1=0.0
+        alpha_1=0.0
+        nu_1=0.0
+        KS_test_1 = KS_test
+        KS_pvalue_1=KS_pvalue
+        AD_test_1 = AD_test
+        AD_pvalue_1=AD_pvalue
+        Dev_Left_1=0.0
+        Dev_Right_1=0.0
+        Prob_Left_1=0.0
+        Prob_Right_1=0.0
       },
       warning = function(w) {
         # (Opcional) Código a ser executado se ocorrer um aviso (warning)
@@ -894,6 +1025,9 @@ ___________________________________________________________________
         # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
       }
       )
+
+
+
     }
 ################################################################################
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
@@ -1095,7 +1229,7 @@ ___________________________________________________________________
         #cat("Left asymmetric density (Positive)")
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
@@ -1113,10 +1247,21 @@ ___________________________________________________________________
           KS_pvalue=KS_test$p.value
           AD_test = ad.test(prevPredict)
           AD_pvalue=AD_test$p.value
+          if (Skew_t[2]=='Median'){
+          Median = median(prevPredict)
+          Side_Left = prevPredict[prevPredict < Median]
+          Side_Right = prevPredict[prevPredict >= Median]
+          Dev_Left = sd(Side_Left)
+          Dev_Right = sd(Side_Right)
+          Return_Dev_Left = Median-as.numeric(Skew_t[3])*Dev_Left
+          Return_Dev_Right = Median+as.numeric(Skew_t[3])*Dev_Right
           #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prevPredict)-1), family="ST")
           #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-          ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-        },
+          ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          }
+          },
         error = function(e) {
           # Código a ser executado se ocorrer um erro
           ProbabilidadeTmedia=0.0
@@ -1129,6 +1274,11 @@ ___________________________________________________________________
           AD_test = ad.test(prevPredict)
           AD_pvalue=AD_test$p.value
           ativos_fora[length(ativos_fora)+1]=ativo
+          Dev_Left=0
+          Dev_Right=0
+          Prob_Left=0
+          Prob_Right=0
+
         },
         warning = function(w) {
         # (Opcional) Código a ser executado se ocorrer um aviso (warning)
@@ -1226,7 +1376,7 @@ ___________________________________________________________________
         print(paste("Left asymmetric density (Positive)"))
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
@@ -1244,10 +1394,44 @@ ___________________________________________________________________
           KS_pvalue=KS_test$p.value
           AD_test = ad.test(camadaSaidaPredict)
           AD_pvalue=AD_test$p.value
+          if(Skew_t[2]=='Median'){
+          Median = median(CamadaSaidaPredict)
+          Side_Left = CamadaSaidaPredict[CamadaSaidaPredict < Median]
+          Side_Right = CamadaSaidaPredict[CamadaSaidaPredict >= Median]
+          Dev_Left = sd(Side_Left)
+          Dev_Right = sd(Side_Right)
+          Return_Dev_Left = Median-as.numeric(Skew_t[3])*Dev_Left
+          Return_Dev_Right = Median+as.numeric(Skew_t[3])*Dev_Right
           #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
           #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-          ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-        },
+          ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          }
+          if(Skew_t[2]=='xi'){
+            Prob_esquerda = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu)
+            Prob_direita = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail=FALSE)
+            integral = function(x){
+              meu_dp = c(xi, omega, alpha)
+              (x-xi)^2*sn::dst(x, xi=xi, omega=omega, alpha=alpha,nu=nu)
+            }
+            integral_LE=integrate(integral, lower=-Inf, upper=xi, rel.tol=1e-4)$value
+            integral_LD=integrate(integral, lower=xi, upper=Inf)$value
+            variancia_esquerda = integral_LE/Prob_esquerda
+            variancia_direita = integral_LD/Prob_direita
+            Dev_Left = sqrt(variancia_esquerda)
+            Dev_Right = sqrt(variancia_direita)
+            Return_Dev_Left = xi-as.numeric(Skew_t[3])*Dev_Left
+            Return_Dev_Right = xi+as.numeric(Skew_t[3])*Dev_Right
+            #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
+            #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
+            ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+            Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+            Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+          }
+
+
+          },
         error = function(e) {
           # Código a ser executado se ocorrer um erro
           ProbabilidadeTmedia=0.0
@@ -1255,11 +1439,16 @@ ___________________________________________________________________
           omega=0.0
           alpha=0.0
           nu=0.0
+          Dev_Left=0
+          Dev_Right=0
+          Prob_Left=0
+          Prob_Right=0
           KS_test = ks.test(camadaSaidaPredict,'pnorm')
           KS_pvalue=KS_test$p.value
           AD_test = ad.test(camadaSaidaPredict)
           AD_pvalue=AD_test$p.value
           ativos_fora[length(ativos_fora)+1]=ativo
+
         },
         warning = function(w) {
         # (Opcional) Código a ser executado se ocorrer um aviso (warning)
@@ -1268,6 +1457,9 @@ ___________________________________________________________________
         # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
         }
       )
+
+
+
     }
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                 df=length(camadaSaida)-1, lower.tail = TRUE)
@@ -1341,20 +1533,44 @@ ___________________________________________________________________
     ResProbPosPredict[1,k]= ProbPos
     ResProbTPosPredict[1,k]= ProbabilidadeTmedia
 
-    Resultados_Assim_Curtose[1,k]=ProbabilidadeTmedia
-    Resultados_Assim_Curtose[2,k]=mean(camadaSaidaPredict)
-    Resultados_Assim_Curtose[3,k]=median(camadaSaidaPredict)
-    Resultados_Assim_Curtose[4,k]=sd(camadaSaidaPredict)
-    Resultados_Assim_Curtose[5,k]=kurtosis(camadaSaidaPredict)
-    Resultados_Assim_Curtose[6,k]=skewness(camadaSaidaPredict)
-    Resultados_Assim_Curtose[7,k]=min(camadaSaidaPredict)
-    Resultados_Assim_Curtose[8,k]=max(camadaSaidaPredict)
-    Resultados_Assim_Curtose[9,k]=xi
-    Resultados_Assim_Curtose[10,k]=omega
-    Resultados_Assim_Curtose[11,k]=alpha
-    Resultados_Assim_Curtose[12,k]=nu
-    Resultados_Assim_Curtose[13,k]=KS_pvalue
-    Resultados_Assim_Curtose[14,k]=AD_pvalue
+    Resultados_Assim_Curtose_Training[1,k]=ProbabilidadeTmedia_1
+    Resultados_Assim_Curtose_Training[2,k]=mean(camadaSaida)
+    Resultados_Assim_Curtose_Training[3,k]=median(camadaSaida)
+    Resultados_Assim_Curtose_Training[4,k]=sd(camadaSaida)
+    Resultados_Assim_Curtose_Training[5,k]=kurtosis(camadaSaida)
+    Resultados_Assim_Curtose_Training[6,k]=skewness(camadaSaida)
+    Resultados_Assim_Curtose_Training[7,k]=min(camadaSaida)
+    Resultados_Assim_Curtose_Training[8,k]=max(camadaSaida)
+    Resultados_Assim_Curtose_Training[9,k]=xi_1
+    Resultados_Assim_Curtose_Training[10,k]=omega_1
+    Resultados_Assim_Curtose_Training[11,k]=alpha_1
+    Resultados_Assim_Curtose_Training[12,k]=nu_1
+    Resultados_Assim_Curtose_Training[13,k]=KS_pvalue_1
+    Resultados_Assim_Curtose_Training[14,k]=AD_pvalue_1
+    Resultados_Assim_Curtose_Training[15,k]= Dev_Left_1
+    Resultados_Assim_Curtose_Training[16,k]= Dev_Right_1
+    Resultados_Assim_Curtose_Training[17,k]= Prob_Left_1
+    Resultados_Assim_Curtose_Training[18,k]= Prob_Right_1
+
+
+    Resultados_Assim_Curtose_Testing[1,k]=ProbabilidadeTmedia
+    Resultados_Assim_Curtose_Testing[2,k]=mean(camadaSaidaPredict)
+    Resultados_Assim_Curtose_Testing[3,k]=median(camadaSaidaPredict)
+    Resultados_Assim_Curtose_Testing[4,k]=sd(camadaSaidaPredict)
+    Resultados_Assim_Curtose_Testing[5,k]=kurtosis(camadaSaidaPredict)
+    Resultados_Assim_Curtose_Testing[6,k]=skewness(camadaSaidaPredict)
+    Resultados_Assim_Curtose_Testing[7,k]=min(camadaSaidaPredict)
+    Resultados_Assim_Curtose_Testing[8,k]=max(camadaSaidaPredict)
+    Resultados_Assim_Curtose_Testing[9,k]=xi
+    Resultados_Assim_Curtose_Testing[10,k]=omega
+    Resultados_Assim_Curtose_Testing[11,k]=alpha
+    Resultados_Assim_Curtose_Testing[12,k]=nu
+    Resultados_Assim_Curtose_Testing[13,k]=KS_pvalue
+    Resultados_Assim_Curtose_Testing[14,k]=AD_pvalue
+    Resultados_Assim_Curtose_Testing[15,k]= Dev_Left
+    Resultados_Assim_Curtose_Testing[16,k]= Dev_Right
+    Resultados_Assim_Curtose_Testing[17,k]= Prob_Left
+    Resultados_Assim_Curtose_Testing[18,k]= Prob_Right
 
     dev.off() ### Salvando gr?ficos do Ativo dentro Loop
 
@@ -1506,10 +1722,15 @@ ___________________________________________________________________
 ###############################################################################
   # Statistic Summary
   ## Train NNet
-  order(as.matrix(Resultados_Assim_Curtose[1,]))
-  nomes = colnames(Resultados_Assim_Curtose)
-  prob = data.frame(t(Resultados_Assim_Curtose))
-  Summary_ANNt = arrange(prob, desc(Probability))
+  order(as.matrix(Resultados_Assim_Curtose_Training[1,]))
+  nomes = colnames(Resultados_Assim_Curtose_Training)
+  prob = data.frame(t(Resultados_Assim_Curtose_Training))
+  Summary_ANNt_Training = arrange(prob, desc(Probability))
+  ## Test NNet
+  order(as.matrix(Resultados_Assim_Curtose_Testing[1,]))
+  nomes = colnames(Resultados_Assim_Curtose_Testing)
+  prob = data.frame(t(Resultados_Assim_Curtose_Testing))
+  Summary_ANNt_Testing = arrange(prob, desc(Probability))
 
 
 
@@ -1537,9 +1758,9 @@ ___________________________________________________________________
 #View(T8)
 
 Assets_ANNt_Order = T8
-rownames(Assets_ANNt_Order)='Probability'
+rownames(Assets_ANNt_Order)='Probability_Testing'
 View(Assets_ANNt_Order)
-View(Summary_ANNt)
+View(Summary_ANNt_Testing)
 print(Assets_ANNt_Order)
 save(Assets_ANNt_Order,file='~/Assets_ANNt_Order.rda')
 nome_asset= str_replace(Final_Date_Testing,"-","_")
@@ -1547,7 +1768,8 @@ nome_asset= str_replace(nome_asset,"-","_")
 nome_asset= str_replace(nome_asset,":","_")
 nome_asset= str_replace(nome_asset,":","_")
 nome_Asset_order=paste("~/Assets_ANNt_Order_",nome_asset,".xlsx", sep="")
-nome_Summary_ANNt=paste("~/Summary_ANNt_",nome_asset,".xlsx", sep="")
+nome_Summary_ANNt_Training=paste("~/Summary_ANNt_Training_",nome_asset,".xlsx", sep="")
+nome_Summary_ANNt_Testing=paste("~/Summary_ANNt_Testing_",nome_asset,".xlsx", sep="")
   save(Initial_Date_Training, file='~/Initial_Date_Training.rda')
   save(Final_Date_Training, file='~/Final_Date_Training.rda')
 
@@ -1560,7 +1782,8 @@ nome_Summary_ANNt=paste("~/Summary_ANNt_",nome_asset,".xlsx", sep="")
   save(Stepmax, file='~/Stepmax.rda')
   save(I_dataPredict,file='~/I_dataPredict.rda')
   save(F_dataPredict,file='~/F_dataPredict.rda')
-  save(Summary_ANNt,file='~/Summary_ANNt.rda')
+  save(Summary_ANNt_Training,file='~/Summary_ANNt_Training.rda')
+  save(Summary_ANNt_Testing,file='~/Summary_ANNt_Testing.rda')
   save(ResProbTPosPredict,file='~/ResProbTPosPredict.rda')
   save(T1,file='~/T1.rda')
   save(T2,file='~/T2.rda')
@@ -1574,11 +1797,19 @@ nome_Summary_ANNt=paste("~/Summary_ANNt_",nome_asset,".xlsx", sep="")
 
 write_xlsx(Assets_ANNt_Order, nome_Asset_order)
 
-Summary_ANNt_xls=data.frame(rownames(Summary_ANNt),Summary_ANNt)
-names2=colnames(Summary_ANNt_xls)
+Summary_ANNt_Training_xls=data.frame(rownames(Summary_ANNt_Training),Summary_ANNt_Training)
+names2=colnames(Summary_ANNt_Training_xls)
 names2[1]='Ticker'
-colnames(Summary_ANNt_xls)<-names2
-write_xlsx(Summary_ANNt_xls, nome_Summary_ANNt)
+colnames(Summary_ANNt_Training_xls)<-names2
+write_xlsx(Summary_ANNt_Training_xls, nome_Summary_ANNt_Training)
+
+Summary_ANNt_Testing_xls=data.frame(rownames(Summary_ANNt_Testing),Summary_ANNt_Testing)
+names2=colnames(Summary_ANNt_Testing_xls)
+names2[1]='Ticker'
+colnames(Summary_ANNt_Testing_xls)<-names2
+write_xlsx(Summary_ANNt_Testing_xls, nome_Summary_ANNt_Testing)
   ###############################
+
+
 
 }

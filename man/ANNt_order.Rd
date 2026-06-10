@@ -2,7 +2,7 @@
 % Please edit documentation in R/ANNt_order.R
 \name{ANNt_order}
 \alias{ANNt_order}
-\title{ANNt_order classify assets by the probability of return exceeding a RM
+\title{ANNt_order classify assets by the Probability of return exceeding a RM
 Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets}
 \usage{
 ANNt_order(
@@ -47,20 +47,22 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 
 \item{Early_Stopping}{= 'No' or 'Yes'. Default is 'No'. If 'Yes' is necessary inform the value}
 
-\item{Asymmetry}{"Negative" or "Positive". Shifts the probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
+\item{Asymmetry}{"Negative" or "Positive". Shifts the Probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
 
-\item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
+\item{Skew_t}{Incorporate skew parameter in the Probability: "Yes" or "No". Default is "No".
+Second instruction: If central parameter is "Median" or "xi". Default is "Median".
+Third instruction: Number of deviation consider in matrix Probability. Default is 1.}
 
 \item{Prediction}{Model of prediction: "Predict" or "Forecast". "Predict" is the standard.}
 
 \item{Bias}{include Bias, Yes or No, with auto learning}
 
-\item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
+\item{Order_Only}{disability the ANN and only order the historic Probability to outperformed the benchmark}
 
 \item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 }
 \description{
-ANNt_order classify assets by the probability of return exceeding a RM
+ANNt_order classify assets by the Probability of return exceeding a RM
 Use Artificial Neural Networks (ANN) and t-distribution, the number of ANN is the number of import assets
 }
 \examples{
@@ -76,7 +78,7 @@ Learning_Rate = 0.3,
 Decay=c('Yes',0.1),
 Early_Stopping = c('Yes', 0.001),
 Asymmetry='Negative',
-Skew_t='Yes',
+Skew_t=c('Yes','Mean',1),
 Bias="No",
 Order_Only='No',
 Convolution = 'Neutral'
