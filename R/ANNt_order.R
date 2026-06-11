@@ -38,7 +38,7 @@
 #' Decay=c('Yes',0.1),
 #' Early_Stopping = c('Yes', 0.001),
 #' Asymmetry='Negative',
-#' Skew_t=c('Yes','Mean',1),
+#' Skew_t=c('Yes','Median',1),
 #' Bias="No",
 #' Order_Only='No',
 #' Convolution = 'Neutral'
