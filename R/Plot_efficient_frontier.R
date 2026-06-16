@@ -1,10 +1,11 @@
 #' Plot_efficient_frontier
 #' Generate the efficient frontier graph
 #' @param No require parameters
+#' @param ANNt_Prob Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".
 #' @examples
 #' Plot_efficient_frontier()
 #' @export
-Plot_efficient_frontier <- function(){
+Plot_efficient_frontier <- function(ANNt_Prob='No'){
 
 
 
@@ -33,9 +34,19 @@ load('~/sd_MKW.rda')
 load('~/mean_MKW.rda')
 load('~/RM.rda')
 load('~/Type_ANN.rda')
+if (ANNt_Prob[1]=='Yes'){
+  load('~/mean_R_Asset_Prob.rda')
+  load('~/sd_R_Asset_Prob.rda')
+  Media_ANNt_MAX=mean(Comparativo_RETORNOS[,10])
+  Sd_ANNt_MAX=sd(Comparativo_RETORNOS[,10])
+  Media_ANNt_PROB=mean(Comparativo_RETORNOS[,11])
+  Sd_ANNt_PROB=sd(Comparativo_RETORNOS[,11])
+}
 ANN_EQ = paste(Type_ANN,'_EQ', sep='')
 ANN_MKW = paste(Type_ANN,'_MKW', sep='')
 ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
 ydev=dev.list()
 if(class(ydev)!="NULL"){
@@ -130,6 +141,8 @@ if(max(riscosAlvo)<0.01){
 }else {
   limite_min_x=0.001
   limite_max_x=0.055}
+
+if (ANNt_Prob[1]=='No'){
 png(file="~/Efficiente_frontier.png", width=1920, height=1200, res=296, family = "A")
 
 plot(Base_Palomar[2,],Base_Palomar[1,],
@@ -570,7 +583,508 @@ legend(x="topright",
        cex = 0.6
 )
 
+} else {
 
+
+
+
+
+
+
+
+
+
+
+
+  ##############################################################################
+  ## With ANNt_Prob
+  ##############################################################################
+
+  png(file="~/Efficiente_frontier.png", width=1920, height=1200, res=296, family = "A")
+
+  plot(Base_Palomar[2,],Base_Palomar[1,],
+       ylab="Return", xlab="Standard Deviation",
+       col= "lightgray",
+       family="A",
+       #col= cores,
+       #cex.lab = 0.8,
+       #cex.axis = 0.8,
+       xlim = c(limite_min_x, limite_max_x))
+  #title("Efficient Frontier", line =1.5)
+  title(paste("Efficient Frontier for the ",RM,":", N_Assets, "Assets"),line = 1.5)
+  title(main = paste(
+    xlab= Inicio_data,"/", xlab= Fim_data),
+    #xlab= Inicio_data,"/", xlab= "2023-03-17"),
+    line = 0.5,
+    cex = 0.5,
+    font.main = 1)
+  # text(x=Base_Palomar[2,],y=Base_Palomar[1,],
+  #   labels = colnames(Base_Palomar),
+  #  col=cores,
+  # cex = 0.6,
+  #adj = -0.2)
+  lines(x=riscosAlvo, y= retornoAlvos)
+  #points(Mkw[2,],Mkw[1,],#,main="Fronteira Eficiente por Desvio",
+  #       #ylab="Retorno", xlab="Desvio-Padr?o",
+  #       col="brown",
+  #       #xlim = c(0.01, 0.07))
+  #)
+  #text(x=Mkw[2,],y=Mkw[1,],
+  #     labels = colnames(Mkw),
+  #     col="brown",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(Sharpe[2,],Sharpe[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="black",
+         #xlim = c(0.01, 0.07))
+  )
+  #text(x=Sharpe[2,],y=Sharpe[1,],
+  #     labels = colnames(Sharpe),
+  #     col="darkblue",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  #points(max_i_sharpe_[,492],max_i_sharpe_[,491],#,main="Fronteira Eficiente por Desvio",
+  #ylab="Retorno", xlab="Desvio-Padr?o",
+  #       col="red",
+  #xlim = c(0.01, 0.07))
+  #)
+  #text(x=max_i_sharpe_[,492],y=max_i_sharpe_[,491],
+  #     labels = colnames(Sharpe),
+  #     col="red",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(MF[2,],MF[1,],#,main="Efficient Frontier",
+         #ylab="Return", xlab="Standard Deviation",
+         col="purple",
+         #xlim = c(0.01, 0.07))
+  )
+  #text(x=MF[2,],y=MF[1,],
+  #     labels = colnames(MF),
+  #     col="red",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(MF_MKW),mean(MF_MKW),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="red",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(MF_MKW), y=mean(MF_MKW),
+  #     labels = "MF_MKW",
+  #     col="red",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(MF_SHARPE),mean(MF_SHARPE),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="purple",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(MF_SHARPE), y=mean(MF_SHARPE),
+  #     labels = "MF_SHARPE",
+  #     col="purple",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(ANNt_EQ),mean(ANNt_EQ),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="blue",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(ANNt_EQ), y=mean(ANNt_EQ),
+  #     labels = "ANNt_EQ",
+  #     col="blue",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(ANNt_MKW),mean(ANNt_MKW),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="green",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(ANNt_MKW), y=mean(ANNt_MKW),
+  #     labels = "ANNt_MKW",
+  #     col="green",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(RNAt[2,],RNAt[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="darkgreen",
+         #xlim = c(0.01, 0.07))
+  )
+  #text(x=RNAt[2,],y=RNAt[1,],
+  #     labels = colnames(RNAt),
+  #     col="darkgreen",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+
+  lines(x=xn,y=yn,
+        #,main="Fronteira Eficiente por Desvio",
+        #ylab="Retorno", xlab="Desvio-Padr?o",
+        col="black",
+        #xlim = c(0.01, 0.07),
+        lty=1
+  )
+  text(x=0, y=(1+Rf)^(1/252)-1,
+       labels = "RF",
+       col="black",
+       font = 2,
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(sd_sharpe,mean_sharpe, col="darkgray", pch = 19)  # Período real de analise
+  points(sd(SHARPE), mean(SHARPE), col="darkgray", pch=19) # Periodo de teste pode ser Out
+  #text(sd_sharpe,mean_sharpe,
+  #     labels = "SHARPE",
+  #     col="darkgray",
+  #     cex = 0.6,
+  #     font=2,
+  #     adj = -0.2
+  #)
+  colnames(as.data.frame(Comparativo_RETORNOS)[,1])
+  points(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]), col="black", pch = 19)
+  #text(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]),
+  #     labels = colnames(as.data.frame(Comparativo_RETORNOS)[1]),
+  #     col="black",
+  #     cex = 0.6,
+  #     font=2,
+  #     adj = -0.2
+  #)
+  #points(sd(RetornoMedioMaxIS),Media_RetornoMedioMaxIS, col="red")
+  #text(sd(RetornoMedioMaxIS),Media_RetornoMedioMaxIS,
+  #     labels = "Sharpe",
+  #     col="red",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  #points(sd_MKW, mean_MKW, col="brown", pch=19)
+  points(sd(MARKOWITZ), mean(MARKOWITZ), col="brown", pch=19)
+  #text(sd(MARKOWITZ),mean(MARKOWITZ),
+  #     labels = "MARKOWITZ",
+  #     col="brown",
+  #     cex = 0.6,
+  #     font =2,
+  #     adj = -0.2
+  #)
+  points(sd(ANNt_SHARPE),mean(ANNt_SHARPE), col="darkgreen", pch=19)
+  #text(sd(ANNt_SHARPE),mean(ANNt_SHARPE),
+  #     labels = ANN_SHARPE,
+  #     col="darkgreen",
+  #     font=2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(x=GMV_sd,y=GMV_Return, col="orange", pch=19)
+  #text(x=GMV_sd, y=GMV_Return,
+  #     labels = "GMV",
+  #     col="orange",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = 1.2
+  #)
+
+  points(x=Sd_ANNt_MAX,y=Media_ANNt_MAX,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="lightblue",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=Sd_ANNt_PROB,y=Media_ANNt_PROB,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=sd_R_Asset_Prob,y=mean_R_Asset_Prob,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold",
+  )
+  legend(x="topright",
+         #legend=c(colnames(as.data.frame(Comparativo_RETORNOS)[1]), "MF_SHARPE", "ANNt_EQ" , "ANNt_MKW","ANNt_SHARPE",
+         #        "MARKOWITZ","SHARPE"),
+         legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+                    ANN_EQ,
+                    ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB, "GMV"),
+         text.font=2,
+         #text.col = c("black","red","blue","green","darkgreen", "brown", "darkblue"),
+         text.col=c("black", "brown", "darkgray", "red", "purple","blue",  "green",
+                    "darkgreen","lightblue", "gold","orange"),
+         pch = 19,
+         #col=c("black","red","blue","green","darkgreen", "brown", "darkblue"),
+         col=c("black", "brown", "darkgray", "red", "purple","blue",  "green",
+               "darkgreen","lightblue", "gold","orange"),
+         bty = "n",
+         cex = 0.6
+  )
+
+  dev.off()
+
+
+
+  ############################################################################################
+
+  windowsFonts(A=windowsFont("Times New Roman"))
+  par(family="A")
+  par(mfrow=c(1,1), mar=c(4,4,2.5,1), oma=c(1,2,2,1))
+  plot(Base_Palomar[2,],Base_Palomar[1,],
+       ylab="Return", xlab="Standard Deviation",
+       col= "lightgray",
+       family="A",
+       #col= cores,
+       #cex.lab = 0.8,
+       #cex.axis = 0.8,
+       xlim = c(limite_min_x, limite_max_x))
+  #title("Efficient Frontier", line =1.5)
+  title(paste("Efficient Frontier for the ",RM,":", N_Assets, "Assets"),line = 1.5)
+  title(main = paste(
+    xlab= Inicio_data,"/", xlab= Fim_data),
+    #xlab= Inicio_data,"/", xlab= "2023-03-17"),
+    line = 0.5,
+    cex = 0.5,
+    font.main = 1)
+  # text(x=Base_Palomar[2,],y=Base_Palomar[1,],
+  #   labels = colnames(Base_Palomar),
+  #  col=cores,
+  # cex = 0.6,
+  #adj = -0.2)
+  lines(x=riscosAlvo, y= retornoAlvos)
+  #points(Mkw[2,],Mkw[1,],#,main="Fronteira Eficiente por Desvio",
+  #       #ylab="Retorno", xlab="Desvio-Padr?o",
+  #       col="brown",
+  #       #xlim = c(0.01, 0.07))
+  #)
+  #text(x=Mkw[2,],y=Mkw[1,],
+  #     labels = colnames(Mkw),
+  #     col="brown",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(Sharpe[2,],Sharpe[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="black",
+         #xlim = c(0.01, 0.07))
+  )
+  #text(x=Sharpe[2,],y=Sharpe[1,],
+  #     labels = colnames(Sharpe),
+  #     col="darkblue",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  #points(max_i_sharpe_[,492],max_i_sharpe_[,491],#,main="Fronteira Eficiente por Desvio",
+  #ylab="Retorno", xlab="Desvio-Padr?o",
+  #       col="red",
+  #xlim = c(0.01, 0.07))
+  #)
+  #text(x=max_i_sharpe_[,492],y=max_i_sharpe_[,491],
+  #     labels = colnames(Sharpe),
+  #     col="red",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(MF[2,],MF[1,],#,main="Efficient Frontier",
+         #ylab="Return", xlab="Standard Deviation",
+         col="purple",
+         #xlim = c(0.01, 0.07))
+  )
+  #text(x=MF[2,],y=MF[1,],
+  #     labels = colnames(MF),
+  #     col="red",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(MF_MKW),mean(MF_MKW),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="red",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(MF_MKW), y=mean(MF_MKW),
+  #     labels = "MF_MKW",
+  #     col="red",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(MF_SHARPE),mean(MF_SHARPE),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="purple",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(MF_SHARPE), y=mean(MF_SHARPE),
+  #     labels = "MF_SHARPE",
+  #     col="purple",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(ANNt_EQ),mean(ANNt_EQ),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="blue",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(ANNt_EQ), y=mean(ANNt_EQ),
+  #     labels = "ANNt_EQ",
+  #     col="blue",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(ANNt_MKW),mean(ANNt_MKW),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="green",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  #text(x=sd(ANNt_MKW), y=mean(ANNt_MKW),
+  #     labels = "ANNt_MKW",
+  #     col="green",
+  #     font = 2,
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(RNAt[2,],RNAt[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="darkgreen",
+         #xlim = c(0.01, 0.07))
+  )
+  #text(x=RNAt[2,],y=RNAt[1,],
+  #     labels = colnames(RNAt),
+  #     col="darkgreen",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+
+  lines(x=xn,y=yn,
+        #,main="Fronteira Eficiente por Desvio",
+        #ylab="Retorno", xlab="Desvio-Padr?o",
+        col="black",
+        #xlim = c(0.01, 0.07),
+        lty=1
+  )
+  text(x=0, y=(1+Rf)^(1/252)-1,
+       labels = "RF",
+       col="black",
+       font = 2,
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(sd_sharpe,mean_sharpe, col="darkgray", pch = 19)
+  #text(sd_sharpe,mean_sharpe,
+  #     labels = "SHARPE",
+  #     col="darkgray",
+  #     cex = 0.6,
+  #     font=2,
+  #     adj = -0.2
+  #)
+  colnames(as.data.frame(Comparativo_RETORNOS)[,1])
+  points(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]), col="black", pch = 19)
+  text(sd(Comparativo_RETORNOS[,1]),mean(Comparativo_RETORNOS[,1]),
+       labels = colnames(as.data.frame(Comparativo_RETORNOS)[1]),
+       col="black",
+       cex = 0.6,
+       font=2,
+       adj = -0.2
+  )
+  #points(sd(RetornoMedioMaxIS),Media_RetornoMedioMaxIS, col="red")
+  #text(sd(RetornoMedioMaxIS),Media_RetornoMedioMaxIS,
+  #     labels = "Sharpe",
+  #     col="red",
+  #     cex = 0.6,
+  #     adj = -0.2
+  #)
+  points(sd(MARKOWITZ),mean(MARKOWITZ), col="brown", pch=19)
+  #text(sd(MARKOWITZ),mean(MARKOWITZ),
+  #     labels = "MARKOWITZ",
+  #     col="brown",
+  #     cex = 0.6,
+  #     font =2,
+  #     adj = -0.2
+  #)
+  points(sd(ANNt_SHARPE),mean(ANNt_SHARPE), col="darkgreen", pch=19)
+  text(sd(ANNt_SHARPE),mean(ANNt_SHARPE),
+       labels = ANN_SHARPE,
+       col="darkgreen",
+       font=2,
+       cex = 0.6,
+       adj = -0.2
+  )
+
+  points(x=GMV_sd,y=GMV_Return, col="orange", pch=19)
+  text(x=GMV_sd, y=GMV_Return,
+       labels = "GMV",
+       col="orange",
+       font = 2,
+       cex = 0.6,
+       adj = 1.2
+  )
+  points(x=Sd_ANNt_MAX,y=Media_ANNt_MAX,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="lightblue",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=Sd_ANNt_PROB,y=Media_ANNt_PROB,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=sd_R_Asset_Prob,y=mean_R_Asset_Prob,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold",
+  )
+
+  legend(x="topright",
+         #legend=c(colnames(as.data.frame(Comparativo_RETORNOS)[1]), "MF_SHARPE", "ANNt_EQ" , "ANNt_MKW","ANNt_SHARPE",
+         #        "MARKOWITZ","SHARPE"),
+         legend = c(RM, "MARKOWITZ", "SHARPE", "MF_MKW", "MF_SHARPE",
+                    ANN_EQ,
+                    ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB, "GMV"),
+         text.font=2,
+         #text.col = c("black","red","blue","green","darkgreen", "brown", "darkblue"),
+         text.col=c("black", "brown", "darkgray", "red", "purple","blue",  "green",
+                    "darkgreen","lightblue", "gold","orange"),
+         pch = 19,
+         #col=c("black","red","blue","green","darkgreen", "brown", "darkblue"),
+         col=c("black", "brown", "darkgray", "red", "purple","blue",  "green",
+               "darkgreen","lightblue", "gold","orange"),
+         bty = "n",
+         cex = 0.6
+  )
+
+  ##############################################################################
+
+}
 
 
 }

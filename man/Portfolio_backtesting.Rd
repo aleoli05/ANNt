@@ -5,12 +5,18 @@
 \title{Portfolio_backtesting
 Realize the portfolio backtest.}
 \usage{
-Portfolio_backtesting(Date_Initial_Backtesting, Date_Final_Backtesting)
+Portfolio_backtesting(
+  Date_Initial_Backtesting,
+  Date_Final_Backtesting,
+  ANNt_Prob = "No"
+)
 }
 \arguments{
 \item{Date_Initial_Backtesting}{Date initial of the backtest}
 
 \item{Date_Final_Backtesting}{Date final of the backtest}
+
+\item{ANNt_Prob}{Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".}
 }
 \description{
 Portfolio_backtesting

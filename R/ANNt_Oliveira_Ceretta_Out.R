@@ -29,6 +29,7 @@
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
 #'@examples
 #'Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #'RM <-c('^GSPC') #RM the S&P500
@@ -51,7 +52,7 @@ ANNt_Oliveira_Ceretta_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_
                                       Asymmetry='Negative', Type_ANNt='T4',
                                       N_Assets, Base='yahoo', Import='Yes', Exclude_ticket='', Type_ANN='ANNt',
                                       Order='Yes', Skew_t='No', Bias='No',
-                                      Order_Only='No', Convolution='Neutral'){
+                                      Order_Only='No', Convolution='Neutral',ANNt_Prob='No'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
@@ -126,7 +127,7 @@ if(Type_ANN=='ANNt'){
       SKEWt_order ('', '', '', Asymmetry=Asymmetry,
                    Plot='No', Skew_t=Skew_t)
     }}}}
-Gen_portfolios('n_Assets',Initial_Date,Final_Date_Training,Rf, Type_ANNt)
+Gen_portfolios('n_Assets',Initial_Date,Final_Date_Training,Rf, Type_ANNt, ANNt_Prob=ANNt_Prob)
 
 load('~/scenario.set.rda')
 load('~/Final_Date_Training.rda')
@@ -137,14 +138,14 @@ print('***********************************************')
 print(paste("Initial_Date_Testing out of sample: ", Initial_Date_Testing, sep=''))
 load('~/Initial_Date_Testing.rda')
 
-Out_of_sample(Initial_Date_Testing,Final_Date) # Modificada dada final de ''
-Portfolio_backtesting('',Final_Date) # Modificada dada final de ''
-Plot_Cumulative_Returns('')
+Out_of_sample(Initial_Date_Testing,Final_Date, ANNt_Prob=ANNt_Prob) # Modificada dada final de ''
+Portfolio_backtesting('',Final_Date, ANNt_Prob=ANNt_Prob) # Modificada dada final de ''
+Plot_Cumulative_Returns('',ANNt_Prob=ANNt_Prob)
 if(Order=='Yes'){
 Gen_efficient_frontier('',Final_Date) # Modificada dada final de ''
-Plot_efficient_frontier()
+Plot_efficient_frontier(ANNt_Prob=ANNt_Prob)
 Sys.sleep((15))
-Plot_New_efficient_frontier()
+Plot_New_efficient_frontier(ANNt_Prob=ANNt_Prob)
 }
 Sys.sleep((15))
 Plot_CUSUM('','')

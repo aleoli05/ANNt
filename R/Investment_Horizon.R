@@ -42,6 +42,7 @@
 #' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -99,7 +100,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Import='No',Exclude_ticket='', Type_ANN='ANNt',
                                 Order='Yes', Continue_from='1900-01-01', Skew_t='No',
                                 Bias='No', Return_Cumulative='Total',
-                                Order_Only='No', Convolution='Neutral'){
+                                Order_Only='No', Convolution='Neutral',
+                               ANNt_Prob=ANNt_Prob){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -335,7 +337,8 @@ if(Fun=='S_Out'){
                               Asymmetry=Asymmetry, Type_ANNt,
                               N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                               Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
-                              Order_Only='No', Convolution=Convolution)
+                              Order_Only='No', Convolution=Convolution,
+                              ANNt_Prob=ANNt_Prob)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -371,7 +374,8 @@ if(Fun=='Out'){
                             Asymmetry=Asymmetry, Type_ANNt,
                             N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                             Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
-                            Order_Only='No', Convolution=Convolution)
+                            Order_Only='No', Convolution=Convolution,
+                            ANNt_Prob=ANNt_Prob)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -407,7 +411,8 @@ if(Fun=='S'){
                           Asymmetry=Asymmetry, Type_ANNt,
                           N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                           Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
-                          Order_Only='No', Convolution=Convolution)
+                          Order_Only='No', Convolution=Convolution,
+                          ANNt_Prob=ANNt_Prob)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -422,7 +427,8 @@ if(Fun=='Original'){
                         Asymmetry=Asymmetry, Type_ANNt,
                         N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                         Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
-                        Order_Only='No', Convolutio=Convolution)
+                        Order_Only='No', Convolutio=Convolution,
+                        ANNt_Prob=ANNt_Prob)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)

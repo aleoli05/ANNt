@@ -5,9 +5,11 @@
 \title{Plot_efficient_frontier
 Generate the efficient frontier graph}
 \usage{
-Plot_efficient_frontier()
+Plot_efficient_frontier(ANNt_Prob = "No")
 }
 \arguments{
+\item{ANNt_Prob}{Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".}
+
 \item{No}{require parameters}
 }
 \description{

@@ -5,10 +5,11 @@
 #' The selection of assets must occur from right to left, as indicated by the arrow.
 #' Allows you to select the assets that should be included in the portfolio to obtain high performance.
 #' @param () No require parameters
+#' @param ANNt_Prob Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".
 #' @examples
 #' Plot_New_efficient_frontier()
 #' @export
-Plot_New_efficient_frontier<-function(){
+Plot_New_efficient_frontier<-function(ANNt_Prob='No'){
 
 #### Fronteira Eficiente de Probabilidade
 #### Cores dos gr?ficos
@@ -30,7 +31,16 @@ load('~/Comparativo_RETORNOS.rda')
 load('~/Initial_Analysis_Date.rda')
 load('~/Final_Analysis_Date.rda')
 load('~/Type_ANNt.rda')
-
+if (ANNt_Prob[1]=='Yes'){
+  load('~/Prob_ANNt_Max_Prob_Portfolio.rda')
+  load('~/Prob_ANNt_Max_Prob.rda')
+  load('~/Prob_ANNt_weights_Max_Ret.rda')
+  load('~/Retornos_Asset_Prob.rda')
+  Media_ANNt_MAX=mean(Comparativo_RETORNOS[,10])
+  Media_ANNt_PROB=mean(Comparativo_RETORNOS[,11])
+  Retornos_Asset_Prob=as.data.frame(Retornos_Asset_Prob)
+  Prob_ANNt_Max_Prob=as.data.frame(Prob_ANNt_Max_Prob)
+}
 ydev=dev.list()
 if(class(ydev)!="NULL"){
   dev.off()
@@ -66,7 +76,7 @@ op <- par(new = TRUE)
 windowsFonts(A=windowsFont("Times New Roman"))
 par(family="A")
 
-
+if(ANNt_Prob=='No'){
 png(file="~/New_Efficient_Frontier.png", width=1920, height=1200, res=296, family = "A")
 plot(Base_Palomar[4,],Base_Palomar[1,],
      ylab="Return", xlab="Return Probability > Return Benchmark",
@@ -252,8 +262,240 @@ legend(x="topleft",
        bty = "n",
        cex = 0.6
 )
+} else{
 
+################################################################################
+# ANNt_Prob='Yes'
+################################################################################
+  png(file="~/New_Efficient_Frontier.png", width=1920, height=1200, res=296, family = "A")
+  plot(Base_Palomar[4,],Base_Palomar[1,],
+       ylab="Return", xlab="Return Probability > Return Benchmark",
+       col="lightgrey",
+       family="A",
+       #cex.lab = 0.8,
+       #cex.axis = 0.8,
+       xlim = c(0.4, max(Base_Palomar[4,])+0.032))
+  title("New Efficient Frontier (NEF) for the ",RM)
+  title(main = paste(
+    xlab= Inicio_data,"/", xlab= Fim_data),
+    #xlab= Inicio_data,"/", xlab= "2023-03-17"),
+    line = 0.5,
+    cex = 0.5,
+    font.main = 1)
+  #text(x=Base_Palomar[4,],y=Base_Palomar[1,],
+  #    labels = colnames(Base_Palomar),
+  #   col=cores,
+  #  cex = 0.6,
+  # adj = -0.2)
+  points(Mkw[4,],Mkw[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="brown",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=Mkw[4,],y=Mkw[1,],
+       labels = colnames(Mkw),
+       col="brown",
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(Sharpe[4,],Sharpe[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="darkblue",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=Sharpe[4,],y=Sharpe[1,],
+       labels = colnames(Sharpe),
+       col="darkblue",
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(MF[4,],MF[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="red",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=MF[4,],y=MF[1,],
+       labels = colnames(MF),
+       col="red",
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(RNAt[4,],RNAt[1,],#,main="Eficient Frontier for Desviation",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="darkgreen",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=RNAt[4,],y=RNAt[1,],
+       labels = colnames(RNAt),
+       col="darkgreen",
+       cex = 0.6,
+       adj = -0.2
+  )
+  lines(x=c(rep(max(Base_Palomar[4,]), length(yn))),y=yn,
+        #,main="Fronteira Eficiente por Desvio",
+        #ylab="Retorno", xlab="Desvio-Padr?o",
+        col="black",
+        #xlim = c(0.01, 0.07),
+        lty=1
+  )
+  points(x=Prob_ANNt_weights_Max_Ret,y=Media_ANNt_MAX,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="lightblue",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=Prob_ANNt_Max_Prob_Portfolio,y=Media_ANNt_PROB,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=unlist(Prob_ANNt_Max_Prob),y=unlist(Retornos_Asset_Prob),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold"
+  )
 
+  text(x=(max(Base_Palomar[4,])+0.02), y=mean(Base_Palomar[1,])+0.0002,
+       labels = "NEF",
+       col="black",
+       cex = 0.6,
+       adj = 0
+  )
 
+  arrows(x0 = (max(Base_Palomar[4,])+0.03), y0 = mean(Base_Palomar[1,]),
+         x1 = max(Base_Palomar[4,]), y1 = mean(Base_Palomar[1,]),
+         length = 0.1)
+  legend(x="topleft",
+         legend=c("SP500", "MF_SHARPE", "ANNt",
+                  "MARKOWITZ","SHARPE", "ANNt_MAX", "ANNt_PROB"),
+         text.col = c("black","red","darkgreen", "brown", "darkblue", "lightblue", "gold"),
+         pch = 1,
+         col=c("black","red","darkgreen", "brown", "darkblue", "lightblue", "gold"),
+         bty = "n",
+         cex = 0.6
+  )
+  dev.off()
+
+  ################################################################################
+
+  op <- par(new = TRUE)
+  windowsFonts(A=windowsFont("Times New Roman"))
+  par(family="A")
+
+  plot(Base_Palomar[4,],Base_Palomar[1,],
+       ylab="Return", xlab="Return Probability > Return Benchmark",
+       col="lightgrey",
+       family="A",
+       #cex.lab = 0.8,
+       #cex.axis = 0.8,
+       xlim = c(0.4, max(Base_Palomar[4,])+0.032))
+  title("New Efficient Frontier (NEF) for the ",RM)
+  title(main = paste(
+    xlab= Inicio_data,"/", xlab= Fim_data),
+    #xlab= Inicio_data,"/", xlab= "2023-03-17"),
+    line = 0.5,
+    cex = 0.5,
+    font.main = 1)
+  #text(x=Base_Palomar[4,],y=Base_Palomar[1,],
+  #    labels = colnames(Base_Palomar),
+  #   col=cores,
+  #  cex = 0.6,
+  # adj = -0.2)
+  points(Mkw[4,],Mkw[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="brown",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=Mkw[4,],y=Mkw[1,],
+       labels = colnames(Mkw),
+       col="brown",
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(Sharpe[4,],Sharpe[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="darkblue",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=Sharpe[4,],y=Sharpe[1,],
+       labels = colnames(Sharpe),
+       col="darkblue",
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(MF[4,],MF[1,],#,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="red",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=MF[4,],y=MF[1,],
+       labels = colnames(MF),
+       col="red",
+       cex = 0.6,
+       adj = -0.2
+  )
+  points(RNAt[4,],RNAt[1,],#,main="Eficient Frontier for Desviation",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="darkgreen",
+         #xlim = c(0.01, 0.07))
+  )
+  text(x=RNAt[4,],y=RNAt[1,],
+       labels = colnames(RNAt),
+       col="darkgreen",
+       cex = 0.6,
+       adj = -0.2
+  )
+  lines(x=c(rep(max(Base_Palomar[4,]), length(yn))),y=yn,
+        #,main="Fronteira Eficiente por Desvio",
+        #ylab="Retorno", xlab="Desvio-Padr?o",
+        col="black",
+        #xlim = c(0.01, 0.07),
+        lty=1
+  )
+  points(x=Prob_ANNt_weights_Max_Ret,y=Media_ANNt_MAX,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="lightblue",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=Prob_ANNt_Max_Prob_Portfolio,y=Media_ANNt_PROB,
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold",
+         #xlim = c(0.01, 0.07),
+         pch=19
+  )
+  points(x=unlist(Prob_ANNt_Max_Prob),y=unlist(Retornos_Asset_Prob),
+         #,main="Fronteira Eficiente por Desvio",
+         #ylab="Retorno", xlab="Desvio-Padr?o",
+         col="gold"
+  )
+
+  text(x=(max(Base_Palomar[4,])+0.02), y=mean(Base_Palomar[1,])+0.0002,
+       labels = "NEF",
+       col="black",
+       cex = 0.6,
+       adj = 0
+  )
+
+  arrows(x0 = (max(Base_Palomar[4,])+0.03), y0 = mean(Base_Palomar[1,]),
+         x1 = max(Base_Palomar[4,]), y1 = mean(Base_Palomar[1,]),
+         length = 0.1)
+  legend(x="topleft",
+         legend=c("SP500", "MF_SHARPE", "ANNt",
+                  "MARKOWITZ","SHARPE", "ANNt_MAX", "ANNt_PROB"),
+         text.col = c("black","red","darkgreen", "brown", "darkblue", "lightblue", "gold"),
+         pch = 1,
+         col=c("black","red","darkgreen", "brown", "darkblue", "lightblue", "gold"),
+         bty = "n",
+         cex = 0.6
+  )
+
+}
+###############################################################################
 
 }

@@ -13,6 +13,7 @@
 #' "T6"= NNet_t_Test;
 #' "T7"= MC_Signal_Test;
 #' "T8"= Type_ANNt: MC_t_Test
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
 #' @author Alexandre Silva de Oliveira
 #' @examples
 #' N_Assets <- 3
@@ -20,10 +21,12 @@
 #' Final_Date_Testing <- c('')
 #' Rf <- 0
 #' type_ANNt <- 'T8'
+#' ANNt_Prob <- c('Yes', 0.5, 170, 500)
 #' # Generate assets portfolio (maximum N assets specified)
 #' Gen_portfolios(3,'2023-01-03','',0,'T8')
 #'
-Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf, type_ANNt){
+Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing,
+                          Rf, type_ANNt, ANNt_Prob='No'){
 
 
   library(quantmod)
@@ -494,8 +497,10 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   print(paste('[1] weights of the MARKOWITZ Portfolio:'))
   print(Pesos_C_Markov2)
 
+  print(paste('[2] Weights of the MF-EQ Portfolio:'))
+  print(Pesos_MFractal_2)
 
-  print(paste('[2] Weights of the MF_MKW Portfolio:'))
+  print(paste('[3] Weights of the MF_MKW Portfolio:'))
   print(Pesos_MFractal_Mkv2)
 
   CarteiraComparativa = colnames(Type_ANNt[1:n_assets])
@@ -537,7 +542,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   Pesos_ANNt_Eq2<- round(t(matrix(Pesos_ANNt_Eq1[,2])),4)
   colnames(Pesos_ANNt_Eq2) <- Pesos_ANNt_Eq1[,1]
   rownames(Pesos_ANNt_Eq2)<-'Weight'
-  print(paste('[3] Weights of the ANNt_EQ Portfolio:'))
+  print(paste('[4] Weights of the ANNt_EQ Portfolio:'))
   print(Pesos_ANNt_Eq2)
 
 
@@ -601,7 +606,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   Pesos_ANNt_Mkv2<- t(matrix(Pesos_ANNt_Mkv1[,2]))
   colnames(Pesos_ANNt_Mkv2) <- Pesos_ANNt_Mkv1[,1]
   rownames(Pesos_ANNt_Mkv2)<-'Weight'
-  print(paste('[4] Weights of the ANNt_MKW Portfolio:'))
+  print(paste('[5] Weights of the ANNt_MKW Portfolio:'))
   print(Pesos_ANNt_Mkv2)
 
 
@@ -830,7 +835,7 @@ if ((ncol(TodosAtivosPredict)<nrow(TodosAtivosPredict))==TRUE){
   colnames(Weight_Sharpe_1)<-str_replace(colnames(Weight_Sharpe_1),'w.','')
   rownames(Weight_Sharpe_1)<-'Weight'
 
-  print(paste('[5] Weights of the SHARPE Portfolio:'))
+  print(paste('[6] Weights of the SHARPE Portfolio:'))
   print(Weight_Sharpe_1)
   #weight
   ### Retornos carteira Sharpe todos os ativos
@@ -1135,7 +1140,7 @@ tryCatch({
   colnames(Weight_Sharpe_MF)<-str_replace(colnames(Weight_Sharpe_MF),'w.','')
   rownames(Weight_Sharpe_MF)<-'Weight'
 
-  print(paste('[6] Weights of the MF_SHARPE Portfolio:'))
+  print(paste('[7] Weights of the MF_SHARPE Portfolio:'))
   print(Weight_Sharpe_MF)
 
   ### Retornos carteira Sharpe MF_DFA Multifractal
@@ -1401,61 +1406,17 @@ tryCatch({
 
   }
 
-
-
-
-
-
-
-  ##################################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ######################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
   # Weight extract
   Weight_ANNt_Sharpe <- t(as.data.frame(weight_Sharpe_RNA_t))
   colnames(Weight_ANNt_Sharpe)<-str_replace(colnames(Weight_ANNt_Sharpe),'w.','')
   rownames(Weight_ANNt_Sharpe)<-'Weight'
-  print(paste('[7] Weights of the ANNt_SHARPE Portfolio:'))
+  print(paste('[8] Weights of the ANNt_SHARPE Portfolio:'))
   print(Weight_ANNt_Sharpe)
 
   if(length(weight_test_RNAt)==ncol(C_Net_T_comparativa)){
-  RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt
+    RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt
   }else{
     RetornoMedioMaxIS_RNAt = as.matrix(C_Net_T_comparativa)%*% weight_test_RNAt[1,]
   }
@@ -1463,9 +1424,209 @@ tryCatch({
   #####
   #############################################################################
 
+
+
+
+
+  ##################################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+### ANNt_Prob
+
+  ################################################################################
+  if(ANNt_Prob[1]=='Yes' & length(ANNt_Prob)==1){
+    ANNt_Prob <- c('Yes', 0.5, N_Assets, 500)
+    }
+
+  if (ANNt_Prob[1]=='Yes') {
+      Lambda = as.numeric(ANNt_Prob[2])
+      Num_Assets= as.numeric(ANNt_Prob[3])
+      nOptions= as.numeric(ANNt_Prob[4])
+  # 1. Carregar o pacote para otimização quadrática
+  if(!require(quadprog)) install.packages("quadprog")
+  library(quadprog)
+  library(Matrix)
+  library(splines)
+  library(ggplot2)
+  library(dplyr)
+
+  load('~/Summary_ANNt_Training.rda')
+  load('~/Summary_ANNt_Testing.rda')
+  load('~/scenario.set.rda')
+  # 2. Configurando o problema (Maximizar: Retorno - lambda * Variância)
+  # Na notação matricial da solve.QP: min 0.5 * w' Dmat w - dvec' w
+  #Dmat <- 2 * lambda * matriz_cov
+  #dvec <- retornos
+
+  if (type_ANNt=="T4"){
+    Ativos=rownames(Summary_ANNt_Training)
+    P=Summary_ANNt_Training[1:Num_Assets,c(17,1,18)]
+  }
+  if (type_ANNt=="T8"){
+    Ativos=rownames(Summary_ANNt_Testing)
+    P=Summary_ANNt_Testing[1:Num_Assets,c(17,1,18)]
+  }
+  Ativos=Ativos[1:Num_Assets]
+  R = as.data.frame(all.returns) %>%
+    dplyr::select(which((colnames(all.returns) %in% Ativos)))
+  #R=R1[6:which(rownames(R1)=='2022-12-29'),]
+  #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+
+  Nomes_ordem = rownames(P)
+  R=R[,Nomes_ordem]
+  #P=1-P
+
+
+  matriz_quadrada <- matrix(0, nrow = Num_Assets, ncol = Num_Assets-3)
+
+  # 3. Inserir a matriz original nas 3 primeiras linhas da nova matriz
+  P2<- cbind(P,matriz_quadrada)
+  Dmat <- -as.matrix(P2)
+  retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
+
+  pesosCarteira <- function(retornosAtivos, retornoAlvo) {
+
+    if(!require("quadprog")) install.packages("quadprog")
+    suppressMessages(suppressWarnings(library(quadprog)))
+
+    nAtivos  <-  Num_Assets
+
+    portfolio <- solve.QP(
+      Dmat <- 2*Lambda*nearPD(as.matrix(Dmat))$mat,
+      #Dmat <- cov(retornosAtivos),                        # matriz D
+      #dvec <- rep(0, times = nAtivos)/Lambda,                    # vetor  d
+      dvec <- colMeans(R),
+      Amat <- t(rbind(retorno = colMeans(retornosAtivos), # matriz A de restri??es
+                      orcamento = rep(1, nAtivos),
+                      longa = diag(nAtivos))),
+      bvec <- c(retorno = retornoAlvo,                    # vetor  b0
+                orcamento = 1,
+                longa = rep(0, times = nAtivos)),
+      meq = 2)                                            # as primeiro meq restri??es s?o igualdades
+
+    pesos  <-  portfolio$solution # vetor contendo a solu??o do problema
+    pesos
+  }
+  fronteiraCarteira <- function(retornosAtivos, nPontos = nPoints) {
+    # Quantidade de ativos
+    nAtivos <- ncol(retornosAtivos)
+    # Retornos-alvo
+    mu <- colMeans(R)
+    retornoAlvo <- seq(min(mu), max(mu), length = nPontos)
+    # Pesos ?timos
+    pesos <- rep(0, nAtivos)
+    pesos[which.min(mu)] <- 1
+    for (i in 2:(nPontos-1)) {
+      novosPesos <- pesosCarteira(retornosAtivos, retornoAlvo[i])
+      pesos <- rbind(pesos, novosPesos)
+    }
+    novosPesos <- rep(0, nAtivos)
+    novosPesos[which.max(mu)] <- 1
+    pesos <- rbind(pesos, novosPesos)
+    pesos <- round(pesos, 4)
+    colnames(pesos) <- colnames(retornosAtivos)
+    rownames(pesos) <- 1:nPontos
+    # Valor do retorno
+    pesos
+  }
+  retornosAtivos = R
+  pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+
+  Retornos_Carteiras= as.matrix(pesos_front) %*%colMeans(R)
+  Prob_Carteiras=as.matrix(pesos_front) %*%P[,2]
+
+  ANNt_weights_Max_Ret =pesos_front[which.max(Retornos_Carteiras),]
+  Prob_ANNt_weights_Max_Ret = P[,2] %*% ANNt_weights_Max_Ret
+  Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
+  ANNt_weights_Max_Ret <- ANNt_weights_Max_Ret[ANNt_weights_Max_Ret>0]
+  Weight_ANNt_MAX=as.data.frame(t(as.data.frame(ANNt_weights_Max_Ret)))
+  #ANNt_weights_Max_Ret
+  print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
+  print(ANNt_weights_Max_Ret)
+
+  Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+  R_Asset_Max=as.data.frame(R[,Nomes_Ret])
+  Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
+
+  ANNt_weights_Max_Prob =pesos_front[which.max(Prob_Carteiras),]
+  Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+  Prob_ANNt_weights_Max_Prob = as.matrix(P[,2]) %*% as.vector(ANNt_weights_Max_Prob)
+  Prob_ANNt_Max_Prob = P[Nomes_Prob,2]
+  Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
+  Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
+  ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[ANNt_weights_Max_Prob>0]
+  Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+  Prob_ANNt_Max_Prob = P[Nomes_Prob,2]
+  Weight_ANNt_PROB=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+  print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
+  print(ANNt_weights_Max_Prob)
+
+
+  Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+  #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
+  #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
+  R_Asset_Prob = as.data.frame(R[, Asset_Prob])
+  Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
+  Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 2]
+  Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
+  Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
+
+  Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(ANNt_weights_Max_Prob)
+  mean_R_Asset_Prob=colMeans(R_Asset_Prob)
+  sd_R_Asset_Prob=sapply(R_Asset_Prob, sd, na.rm = TRUE)
+
+    }
+  ############################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   # Geração da Matriz de comparação dos Retornos
+  scenario.set=as.data.frame(scenario.set)
   RM <- colnames(scenario.set[1])
-  Comparativo_RETORNOS = matrix(nrow=length(Ret_C_MFractal), ncol=9)
+  Comparativo_RETORNOS = matrix(nrow=nrow(C_MFractal), ncol=9)
+  #Comparativo_RETORNOS[,6] = RetornoMedioMean_Variance_Mkv
+  colnames(Comparativo_RETORNOS)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                                    "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+
+  if (ANNt_Prob[1]=='Yes'){
+  Comparativo_RETORNOS = matrix(nrow=nrow(C_MFractal), ncol=11)
+  colnames(Comparativo_RETORNOS)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                                      "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE",
+                                      'ANNt_MAX','ANNt_PROB')
+  Comparativo_RETORNOS[,10] = Return_ANNt_Max_Ret
+  Comparativo_RETORNOS[,11] = Return_ANNt_Max_Prob
+  }
   Comparativo_RETORNOS[,1] = PosCovidSP500
   Comparativo_RETORNOS[,2] = RetornoMedioMArkovitz
   Comparativo_RETORNOS[,3] = RetornoMedioMaxIS
@@ -1476,9 +1637,7 @@ tryCatch({
   Comparativo_RETORNOS[,8] = Ret_Medio_RNA_T_Mkv
   Comparativo_RETORNOS[,9] = RetornoMedioMaxIS_RNAt
 
-  #Comparativo_RETORNOS[,6] = RetornoMedioMean_Variance_Mkv
-  colnames(Comparativo_RETORNOS)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
-                                    "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+
   rownames(Comparativo_RETORNOS) = rownames(PosCovidSP500)
   Datas_Comparativo_RETORNOS = rownames(as.data.frame(Comparativo_RETORNOS))
   Comparativos_RETORNOS_Df = mutate(as.data.frame(Datas_Comparativo_RETORNOS),
@@ -1491,6 +1650,25 @@ tryCatch({
   #
   # Geração da Matriz de comparação dos Retornos Acumulados
   Comparativo = matrix(nrow=length(Ret_C_MFractal), ncol=9)
+  colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                           "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+  if (ANNt_Prob[1]=='Yes'){
+    Comparativo = matrix(nrow=length(Ret_C_MFractal), ncol=11)
+    colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                             "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE", 'ANNt_MAX',
+                             'ANNt_PROB')
+    Comparativo[1,10] = Return_ANNt_Max_Ret [1,]
+    Comparativo[1,11] = Return_ANNt_Max_Prob[1,]
+
+      for(i in 2:length(PosCovidSP500)) {
+        Comparativo[i,10] = (as.matrix(Comparativo[i-1,10])+1)*
+          (as.matrix(Return_ANNt_Max_Ret[i,])+1)-1
+        Comparativo[i,11] = (as.matrix(Comparativo[i-1,11])+1)*
+          (as.matrix(Return_ANNt_Max_Prob[i,])+1)-1
+      }
+
+  }
+
   Comparativo[1,1] = PosCovidSP500[1,]
   Comparativo[1,2] = RetornoMedioMArkovitz[1,]
   Comparativo[1,3] = RetornoMedioMaxIS[1,]
@@ -1520,10 +1698,10 @@ tryCatch({
       (as.matrix(Ret_Medio_RNA_T_Mkv[i,])+1)-1
     Comparativo[i,9] = (as.matrix(Comparativo[i-1,9])+1)*
       (as.matrix(RetornoMedioMaxIS_RNAt[i,])+1)-1
+
   }
 
-  colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
-                           "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+
   rownames(Comparativo) = rownames(as.data.frame(PosCovidSP500))
 
   save(Comparativo,file='~/Comparativo.rda')
@@ -1535,6 +1713,9 @@ tryCatch({
 
   #### Matrix of weights
   Weights_All <- matrix(ncol=60, nrow=22)
+  if (ANNt_Prob[1]=='Yes'){
+    Weights_All <- matrix(ncol=60, nrow=26)
+  }
   Weights_All <- as.data.frame((Weights_All))
   Weights_All [1,1] <- 'PORTFOLIOS'
   Weights_All [1,2] <- 'Initial_Date_ Generate'
@@ -1582,7 +1763,23 @@ tryCatch({
     Weights_All[16,k+1]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
     Weights_All[17,k+1]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
   }
+  if (ANNt_Prob[1]=='Yes'){
+    Weights_All [18,1] <- 'ANNt_MAX'
+    for(k in (1:ncol(Weight_ANNt_MAX))){
+      Weights_All[18,k+1]=data.frame(colnames(Weight_ANNt_MAX))[k,]
+      Weights_All[19,k+1]=round(data.frame(Weight_ANNt_MAX)[k],2)
+    }
+    Weights_All [20,1] <- 'ANNt_PROB'
+    for(k in (1:ncol(Weight_ANNt_PROB))){
+      Weights_All[20,k+1]=data.frame(colnames(Weight_ANNt_PROB))[k,]
+      Weights_All[21,k+1]=round(data.frame(Weight_ANNt_PROB)[k],2)
+    }
+  }
+
+
+
   Rf=Rf*100
+
   save(mean_sharpe,file="~/mean_sharpe.rda")
   save(sd_sharpe,file="~/sd_sharpe.rda")
   save(weight_test,file="~/weight_test.rda")
@@ -1607,6 +1804,17 @@ tryCatch({
   save(Weight_Sharpe_1,file='~/Weight_Sharpe_1.rda')
   save(Weight_Sharpe_MF,file='~/Weight_Sharpe_MF.rda')
   save(Weight_ANNt_Sharpe,file='~/Weight_ANNt_Sharpe.rda')
+  if(ANNt_Prob[1]=='Yes'){
+  save(Retornos_Asset_Prob, file='~/Retornos_Asset_Prob.rda')
+  save(Prob_ANNt_Max_Prob_Portfolio, file='~/Prob_ANNt_MAx_Prob_Portfolio.rda')
+  save(Prob_ANNt_weights_Max_Ret, file='~/Prob_ANNt_weights_Max_Ret.rda')
+  save(Prob_ANNt_Max_Prob, file='~/Prob_ANNt_Max_Prob.rda')
+  save(mean_R_Asset_Prob, file='~/mean_R_Asset_Prob.rda')
+  save(sd_R_Asset_Prob, file='~/sd_R_Asset_Prob.rda')
+  save(R_Asset_Prob, file='~/R_Asset_Prob.rda')
+  save(Weight_ANNt_MAX,file='~/Weight_ANNt_MAX.rda')
+  save(Weight_ANNt_PROB,file='~/Weight_ANNt_PROB.rda')
+  }
   save(sd_MKW, file='~/sd_MKW.rda')
   save(mean_MKW, file='~/mean_MKW.rda')
 

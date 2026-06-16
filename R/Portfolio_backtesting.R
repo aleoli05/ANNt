@@ -3,13 +3,16 @@
 #'
 #' @param Date_Initial_Backtesting Date initial of the backtest
 #' @param Date_Final_Backtesting Date final of the backtest
+#' @param ANNt_Prob Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".
+#'
 #' @examples
 #' Date_Initial_Backtesting =''
 #' Date_Final_Backtesting =''
 #' Portfolio_backtesting('', '')
 #'
 #' @export
-Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtesting) {
+Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtesting,
+                                  ANNt_Prob='No') {
 
   library(dplyr)
   library(writexl)
@@ -67,6 +70,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   Media_SHARPE = mean(SHARPE)
   Media_MF_SHARPE = mean(MF_SHARPE)
   Media_ANNt_SHARPE = mean(ANNt_SHARPE)
+  if (ANNt_Prob=='Yes'){
+    Media_ANNt_Max_Ret=mean(ANNt_MAX)
+    Media_ANNt_Max_Prob=mean(ANNt_PROB)
+  }
 
   # Vari?ncias
   AVERAGE_Return = function(X) {
@@ -222,6 +229,15 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
 
   # Tabela de resultados
   sumbacktest <- matrix(nrow=9, ncol=11)
+  rownames(sumbacktest)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                            "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE")
+  if (ANNt_Prob=='Yes'){
+    sumbacktest <- matrix(nrow=11, ncol=11)
+    rownames(sumbacktest)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                              "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE", 'ANNt_MAR','ANNt_PROB')
+    sumbacktest[10,1]= round(Media_ANNt_Max_Ret,4)*100
+    sumbacktest[11,1]= round(Media_ANNt_Max_Prob,4)*100
+  }
   sumbacktest[1,1]= round(Media_SP500,4)*100
   sumbacktest[2,1]= round(Media_MARKOWITZ,4)*100
   sumbacktest[3,1]= round(Media_SHARPE,4)*100
@@ -234,6 +250,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   #sumbacktest[6,1]= round(Media_Ret_Mean_Var,4)*100
 
 
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,2]= round(AVERAGE_Return(ANNt_MAX),4)*100
+    sumbacktest[11,2]= round(AVERAGE_Return(ANNt_PROB),4)*100
+  }
   sumbacktest[1,2]= round(AVERAGE_Return(Comparativo_RETORNOS[,1]),4)*100
   sumbacktest[2,2]= round(AVERAGE_Return(MARKOWITZ),4)*100
   sumbacktest[3,2]= round(AVERAGE_Return(SHARPE),4)*100
@@ -256,6 +276,11 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[8,3]= round(CUMULATIVE_Return(ANNt_MKW),4)*100
   sumbacktest[9,3]= round(CUMULATIVE_Return(ANNt_SHARPE),4)*100
   #sumbacktest[6,3]= round(CUMULATIVE_Return(RetornoMedioMean_Variance_Mkv),4)*100
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,3]= round(CUMULATIVE_Return(ANNt_MAX),4)*100
+    sumbacktest[11,3]= round(CUMULATIVE_Return(ANNt_PROB),4)*100
+  }
+
 
 
   sumbacktest[1,4]= round(ANNUALIZED_VOLATILITY(Comparativo_RETORNOS[,1]),4)*100
@@ -268,7 +293,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[8,4]= round(ANNUALIZED_VOLATILITY(ANNt_MKW),4)*100
   sumbacktest[9,4]= round(ANNUALIZED_VOLATILITY(ANNt_SHARPE),4)*100
   #sumbacktest[6,4]= round(ANNUALIZED_VOLATILITY(RetornoMedioMean_Variance_Mkv),4)*100
-
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,4]= round(ANNUALIZED_VOLATILITY(ANNt_MAX),4)*100
+    sumbacktest[11,4]= round(ANNUALIZED_VOLATILITY(ANNt_PROB),4)*100
+  }
 
   sumbacktest[1,5]= round(Var_95_(Comparativo_RETORNOS[,1]),4)*100
   sumbacktest[2,5]= round(Var_95_(MARKOWITZ),4)*100
@@ -280,6 +308,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[8,5]= round(Var_95_(ANNt_MKW),4)*100
   sumbacktest[9,5]= round(Var_95_(ANNt_SHARPE),4)*100
   #sumbacktest[6,5]= round(Var_95_(RetornoMedioMean_Variance_Mkv),4)*100
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,5]= round(Var_95_(ANNt_MAX),4)*100
+    sumbacktest[11,5]= round(Var_95_(ANNt_PROB),4)*100
+  }
 
 
   sumbacktest[1,6]= round(CVar_95(Comparativo_RETORNOS[,1]),4)*100
@@ -292,7 +324,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[8,6]= round(CVar_95(ANNt_MKW),4)*100
   sumbacktest[9,6]= round(CVar_95(ANNt_SHARPE),4)*100
   #sumbacktest[6,6]= round(CVar_95(RetornoMedioMean_Variance_Mkv),4)*100
-
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,6]= round(CVar_95(ANNt_MAX),4)*100
+    sumbacktest[11,6]= round(CVar_95(ANNt_PROB),4)*100
+  }
 
   sumbacktest[1,7]= round(IS(Comparativo_RETORNOS[,1]),2)
   sumbacktest[2,7]= round(IS(MARKOWITZ),2)
@@ -304,7 +339,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[8,7]= round(IS(ANNt_MKW),2)
   sumbacktest[9,7]= round(IS(ANNt_SHARPE),2)
   #sumbacktest[6,7]= round(IS(RetornoMedioMean_Variance_Mkv),4)
-
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,7]= round(IS(ANNt_MAX),4)*100
+    sumbacktest[11,7]= round(IS(ANNt_PROB),4)*100
+  }
 
   sumbacktest[1,8]= round(SortinoRatio_my(Comparativo_RETORNOS[,1]),2)
   sumbacktest[2,8]= round(SortinoRatio_my(MARKOWITZ),2)
@@ -315,7 +353,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[7,8]= round(SortinoRatio_my(ANNt_EQ),2)
   sumbacktest[8,8]= round(SortinoRatio_my(ANNt_MKW),2)
   sumbacktest[9,8]= round(SortinoRatio_my(ANNt_SHARPE),2)
-
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,8]= round(SortinoRatio_my(ANNt_MAX),4)*100
+    sumbacktest[11,8]= round(SortinoRatio_my(ANNt_PROB),4)*100
+  }
 
   sumbacktest[1,9]= round(Beta(Comparativo_RETORNOS[,1], Comparativo_RETORNOS[,1]),2)
   sumbacktest[2,9]= round(Beta(MARKOWITZ, Comparativo_RETORNOS[,1]),2)
@@ -326,7 +367,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[7,9]= round(Beta(ANNt_EQ, Comparativo_RETORNOS[,1]),2)
   sumbacktest[8,9]= round(Beta(ANNt_MKW, Comparativo_RETORNOS[,1]),2)
   sumbacktest[9,9]= round(Beta(ANNt_SHARPE, Comparativo_RETORNOS[,1]),2)
-
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,9]= round(Beta(ANNt_MAX, Comparativo_RETORNOS[,1]),2)
+    sumbacktest[11,9]= round(Beta(ANNt_PROB, Comparativo_RETORNOS[,1]),2)
+  }
 
   sumbacktest[1,10]= round(Alfa(Comparativo_RETORNOS[,1], Comparativo_RETORNOS[,1])*100,2)
   sumbacktest[2,10]= round(Alfa(MARKOWITZ, Comparativo_RETORNOS[,1])*100,2)
@@ -337,6 +381,10 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[7,10]= round(Alfa(ANNt_EQ, Comparativo_RETORNOS[,1])*100,2)
   sumbacktest[8,10]= round(Alfa(ANNt_MKW, Comparativo_RETORNOS[,1])*100,2)
   sumbacktest[9,10]= round(Alfa(ANNt_SHARPE, Comparativo_RETORNOS[,1])*100,2)
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,10]= round(Alfa(ANNt_MAX, Comparativo_RETORNOS[,1])*100,2)
+    sumbacktest[11,10]= round(Alfa(ANNt_PROB, Comparativo_RETORNOS[,1])*100,2)
+  }
 
   sumbacktest[1,11]= round(ITreynor(Comparativo_RETORNOS[,1], Comparativo_RETORNOS[,1])*100,2)
   sumbacktest[2,11]= round(ITreynor(MARKOWITZ, Comparativo_RETORNOS[,1])*100,2)
@@ -347,11 +395,13 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   sumbacktest[7,11]= round(ITreynor(ANNt_EQ, Comparativo_RETORNOS[,1])*100,2)
   sumbacktest[8,11]= round(ITreynor(ANNt_MKW, Comparativo_RETORNOS[,1])*100,2)
   sumbacktest[9,11]= round(ITreynor(ANNt_SHARPE, Comparativo_RETORNOS[,1])*100,2)
-
+  if (ANNt_Prob=='Yes'){
+    sumbacktest[10,11]= round(ITreynor(ANNt_MAX, Comparativo_RETORNOS[,1])*100,2)
+    sumbacktest[11,11]= round(ITreynor(ANNt_PROB, Comparativo_RETORNOS[,1])*100,2)
+  }
   #rownames(sumbacktest)= c("MF_MKV", RM, "ANNt_EQ", "MARKOWITZ", "ANNt_MKV",
    #                        "SHARPE", "MF_SHARPE", "ANNt_SHARPE")
-  rownames(sumbacktest)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
-                            "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE")
+
   colnames(sumbacktest) = c("Average Return (% p.d.)","Annualized Return (% p.a.)",
                             "Cumulative Return (% p.p.)", "Annualized Volatility (% p.a.)",
                             "VaR 95% (% p.d.)", "CVaR 95% (% p.d.)",

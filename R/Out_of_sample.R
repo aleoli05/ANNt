@@ -6,14 +6,14 @@
 #' @export
 #' @param Initial_Date_Out Initial Date Out-of-sample
 #' @param Final_Date_Out Final Date Out-of-sample
-#'
+#' @param ANNt_Prob Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".
 #' @examples
 #' Initial_Date_Out <- c('2023-08-03')
 #' Final_Date_Out <- c('')
 #' # Generate performs out-of-sample
 #' Out_of_sample('2023-08-03','')
 #'
-Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
+Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
 
 
   # Duração do processamento 1720/length(dados)=1.2 min)
@@ -36,6 +36,10 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   load('~/Weight_ANNt_Sharpe.rda')
   load('~/Pesos_MFractal_2.rda')
   load("~/N_Assets.rda")
+  if (ANNt_Prob[1]=='Yes'){
+    load('~/Weight_ANNt_MAX.rda')
+    load('~/Weight_ANNt_PROB.rda')
+  }
 
   scenario.set = data.frame(scenario.set)
   if(Initial_Date_Out==('')){
@@ -228,10 +232,60 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   #####
   #############################################################################
   #############################################################################
+  if (ANNt_Prob[1]=='Yes'){
+  ################################################################################
+  ### Carteira Sharpe MAX
+  ##############################################################################
+  ## Optmization
 
+  Carteira_ANNt_MAX = colnames(Weight_ANNt_MAX)
+  rownames(Weight_ANNt_MAX)='Weight'
+  C_ANNt_MAX = as.data.frame(scenario.set) %>%
+    dplyr::select(which((colnames(scenario.set) %in% Carteira_ANNt_MAX)))
+  C_ANNt_MAX = C_ANNt_MAX[Datas1Predict,]
+  Return_ANNt_Max_Ret = as.matrix(C_ANNt_MAX)%*% as.numeric(Weight_ANNt_MAX[1,])
+  print(paste('[9] weights of the ANNt_MAX Portfolio:'))
+  print(Weight_ANNt_MAX)
+
+  #####
+  #############################################################################
+  #############################################################################
+  ################################################################################
+  ### Carteira Sharpe PROB
+  ##############################################################################
+  ## Optmization
+
+  Carteira_ANNt_PROB = colnames(Weight_ANNt_PROB)
+  rownames(Weight_ANNt_PROB)='Weight'
+  C_ANNt_PROB = as.data.frame(scenario.set) %>%
+    dplyr::select(which((colnames(scenario.set) %in% Carteira_ANNt_PROB)))
+  C_ANNt_PROB = C_ANNt_PROB[Datas1Predict,]
+  Retornos_Asset_Prob=colMeans(C_ANNt_PROB)
+  Return_ANNt_Max_Prob= as.matrix(C_ANNt_PROB)%*% as.numeric(Weight_ANNt_PROB[1,])
+  print(paste('[10] weights of the ANNt_PROB Portfolio:'))
+  print(Weight_ANNt_PROB)
+  mean_R_Asset_Prob=colMeans(C_ANNt_PROB)
+  sd_R_Asset_Prob=sapply(C_ANNt_PROB, sd, na.rm = TRUE)
+  #####
+  #############################################################################
+  #############################################################################
+  }
   # Geração da Matriz de comparação dos Retornos
+  scenario.set=as.data.frame(scenario.set)
   RM <- colnames(scenario.set[1])
   Comparativo_RETORNOS = matrix(nrow=length(Ret_C_MFractal), ncol=9)
+  #Comparativo_RETORNOS[,6] = RetornoMedioMean_Variance_Mkv
+  colnames(Comparativo_RETORNOS)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                                    "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+
+  if (ANNt_Prob[1]=='Yes'){
+    Comparativo_RETORNOS = matrix(nrow=length(Ret_C_MFractal), ncol=11)
+    colnames(Comparativo_RETORNOS)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                                      "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE",
+                                      'ANNt_MAX','ANNt_PROB')
+    Comparativo_RETORNOS[,10] = Return_ANNt_Max_Ret
+    Comparativo_RETORNOS[,11] = Return_ANNt_Max_Prob
+  }
   Comparativo_RETORNOS[,1] = PosCovidSP500
   Comparativo_RETORNOS[,2] = RetornoMedioMArkovitz
   Comparativo_RETORNOS[,3] = RetornoMedioMaxIS
@@ -242,9 +296,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   Comparativo_RETORNOS[,8] = Ret_Medio_RNA_T_Mkv
   Comparativo_RETORNOS[,9] = RetornoMedioMaxIS_RNAt
 
-  #Comparativo_RETORNOS[,6] = RetornoMedioMean_Variance_Mkv
-  colnames(Comparativo_RETORNOS)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
-                                    "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+
   rownames(Comparativo_RETORNOS) = rownames(PosCovidSP500)
   Datas_Comparativo_RETORNOS = rownames(as.data.frame(Comparativo_RETORNOS))
   Comparativos_RETORNOS_Df = mutate(as.data.frame(Datas_Comparativo_RETORNOS),
@@ -257,6 +309,25 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   #
   # Geração da Matriz de comparação dos Retornos Acumulados
   Comparativo = matrix(nrow=length(Ret_C_MFractal), ncol=9)
+  colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                           "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+  if (ANNt_Prob[1]=='Yes'){
+    Comparativo = matrix(nrow=length(Ret_C_MFractal), ncol=11)
+    colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                             "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE", 'ANNt_MAX',
+                             'ANNt_PROB')
+    Comparativo[1,10] = Return_ANNt_Max_Ret [1,]
+    Comparativo[1,11] = Return_ANNt_Max_Prob[1,]
+
+    for(i in 2:length(PosCovidSP500)) {
+      Comparativo[i,10] = (as.matrix(Comparativo[i-1,10])+1)*
+        (as.matrix(Return_ANNt_Max_Ret[i,])+1)-1
+      Comparativo[i,11] = (as.matrix(Comparativo[i-1,11])+1)*
+        (as.matrix(Return_ANNt_Max_Prob[i,])+1)-1
+    }
+
+  }
+
   Comparativo[1,1] = PosCovidSP500[1,]
   Comparativo[1,2] = RetornoMedioMArkovitz[1,]
   Comparativo[1,3] = RetornoMedioMaxIS[1,]
@@ -286,14 +357,14 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
       (as.matrix(Ret_Medio_RNA_T_Mkv[i,])+1)-1
     Comparativo[i,9] = (as.matrix(Comparativo[i-1,9])+1)*
       (as.matrix(RetornoMedioMaxIS_RNAt[i,])+1)-1
+
   }
 
-  colnames(Comparativo)= c(RM,"MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
-                           "ANNt_EQ", "ANNt_MKW", "ANNt_SHARPE")
+
   rownames(Comparativo) = rownames(as.data.frame(PosCovidSP500))
 
   save(Comparativo,file='~/Comparativo.rda')
-  #save(Rf,file='~/Rf.rda')
+  save(Rf,file='~/Rf.rda')
 
   Comparativo_Df = mutate(as.data.frame(Datas_Comparativo_RETORNOS),
                           as.data.frame(Comparativo))
@@ -301,8 +372,15 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
 
   #### Matrix of weights
   Weights_All <- matrix(ncol=60, nrow=22)
+  if (ANNt_Prob[1]=='Yes'){
+    Weights_All <- matrix(ncol=60, nrow=26)
+  }
   Weights_All <- as.data.frame((Weights_All))
   Weights_All [1,1] <- 'PORTFOLIOS'
+  Weights_All [1,2] <- 'Initial_Date_ Generate'
+  Weights_All [1,3] <- Initial_Date_Testing
+  Weights_All [1,4] <- 'Final_Date_Generate'
+  Weights_All [1,3] <- Final_Date_Testing
   Weights_All [1,2] <- 'ASSETS'
   Weights_All [2,1] <- 'MARKOWITZ'
   for(k in (1:ncol(Pesos_C_Markov2))){
@@ -344,6 +422,21 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
     Weights_All[16,k+1]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
     Weights_All[17,k+1]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
   }
+  if (ANNt_Prob[1]=='Yes'){
+    Weights_All [18,1] <- 'ANNt_MAX'
+    for(k in (1:ncol(Weight_ANNt_MAX))){
+      Weights_All[18,k+1]=data.frame(colnames(Weight_ANNt_MAX))[k,]
+      Weights_All[19,k+1]=round(data.frame(Weight_ANNt_MAX)[k],2)
+    }
+    Weights_All [20,1] <- 'ANNt_PROB'
+    for(k in (1:ncol(Weight_ANNt_PROB))){
+      Weights_All[20,k+1]=data.frame(colnames(Weight_ANNt_PROB))[k,]
+      Weights_All[21,k+1]=round(data.frame(Weight_ANNt_PROB)[k],2)
+    }
+  }
+
+  mean_MKW=mean(as.data.frame(Comparativo_RETORNOS)$MARKOWITZ)
+  sd_MKW=sd(as.data.frame(Comparativo_RETORNOS)$MARKOWITZ)
   sd_sharpe = sd(as.data.frame(Comparativo_RETORNOS)$SHARPE)
   mean_sharpe = mean(as.data.frame(Comparativo_RETORNOS)$SHARPE)
 
@@ -371,10 +464,20 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out){
   save(Weight_Sharpe_1,file='~/Weight_Sharpe_1.rda')
   save(Weight_Sharpe_MF,file='~/Weight_Sharpe_MF.rda')
   save(Weight_ANNt_Sharpe,file='~/Weight_ANNt_Sharpe.rda')
+  if(ANNt_Prob[1]=='Yes'){
+    save(mean_R_Asset_Prob, file='~/mean_R_Asset_Prob.rda')
+    save(sd_R_Asset_Prob, file='~/sd_R_Asset_Prob.rda')
+    save(C_ANNt_PROB, file='~/C_ANNt_PROB.rda')
+    save(Retornos_Asset_Prob,file='~/Retornos_Asset_Prob.rda')
+    save(Weight_ANNt_MAX,file='~/Weight_ANNt_MAX.rda')
+    save(Weight_ANNt_PROB,file='~/Weight_ANNt_PROB.rda')
+  }
+  save(sd_MKW, file='~/sd_MKW.rda')
+  save(mean_MKW, file='~/mean_MKW.rda')
 
   write_xlsx(as.data.frame(Weights_All), "~/Weights_All.xlsx")
 
   View(Weights_All)
-  #View(Comparativo_RETORNOS)
+  View(Comparativo_RETORNOS)
 
 }

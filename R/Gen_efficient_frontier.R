@@ -85,6 +85,22 @@ Gen_efficient_frontier<-function(Initial_Analysis_Date,Final_Analysis_Date){
   colnames(Betas_set)<-'Betas'
   Betas_set <- t(Betas_set)
   }
+  Ordem_Nomes = colnames(PosCovid_set.returns)
+  Ordem_Nomes =Ordem_Nomes[-1]
+  Nomes_colunas=colnames(ResProbTPosPredict)
+
+  Ausentes=Nomes_colunas[!Nomes_colunas %in% Ordem_Nomes]
+  if (length(Ausentes)>0){
+  Ausente=which(Ordem_Nomes==Ordem_Nomes[!Ordem_Nomes %in% Nomes_colunas])
+  #Ausente= which(Nomes_colunas==Nomes_colunas[!Nomes_colunas %in% Ordem_Nomes])
+  #Substituto_Ausente=Nomes_colunas[!Nomes_colunas %in% Ordem_Nomes]
+  Substituto_Ausente=Ordem_Nomes[!Ordem_Nomes %in% Nomes_colunas]
+  Nomes_colunas[Ausente]=Substituto_Ausente
+  #Ordem_Nomes[Ausente]=Substituto_Ausente
+  colnames(ResProbTPosPredict)=Nomes_colunas
+  #colnames(PosCovid_set.returns)=Ordem_Nomes
+  }
+  ResProbTPosPredict = ResProbTPosPredict[,Ordem_Nomes]
 
   Medias_set.returns <- as.matrix(t(apply(PosCovid_set.returns[,-1], 2, mean)))
 

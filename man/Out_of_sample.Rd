@@ -4,12 +4,14 @@
 \alias{Out_of_sample}
 \title{Out of Sample}
 \usage{
-Out_of_sample(Initial_Date_Out, Final_Date_Out)
+Out_of_sample(Initial_Date_Out, Final_Date_Out, ANNt_Prob = "No")
 }
 \arguments{
 \item{Initial_Date_Out}{Initial Date Out-of-sample}
 
 \item{Final_Date_Out}{Final Date Out-of-sample}
+
+\item{ANNt_Prob}{Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".}
 }
 \description{
 Performs an out-of-sample run with the weights defined within the sample.
