@@ -26,7 +26,7 @@
 #'or "No". "Yes" is the standard.
 #'@param Exclude_ticket Deletes any ticket from the ticket list that you want to remove for some reason
 #' @param Type_ANN Select the network type: 'ANNt', 'LSTMt' in RNN from ANNt, or 'SKEWt' to raw excess return data
-#' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
+#' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database
 #' @param Skew_t Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
@@ -461,8 +461,15 @@ Gen_efficient_frontier('',Final_Date)
 Plot_efficient_frontier(ANNt_Prob=ANNt_Prob)
 Sys.sleep((15))
 Plot_New_efficient_frontier(ANNt_Prob=ANNt_Prob)
-Sys.sleep((15))
 }
+Sys.sleep((15))
+
+
+if(ANNt_Prob[1]=='Yes'){
+  Plot_NEF_New(N_Assets=ANNt_Prob[3],Initial_Date_Testing=Initial_Date_Testing,
+               Final_Date_Testing=Final_Date,type_ANNt=Type_ANNt)
+}
+
 Plot_CUSUM('','')
 save(Final_Date, file='~/Final_Date.rda')
 Signal_Sharpe=1

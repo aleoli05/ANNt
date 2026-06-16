@@ -183,6 +183,20 @@ Comparativo_Beta_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_Alpha_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 
+# Geração da Matriz de comparação dos Retornos
+if(ANNt_Prob[1]=='Yes'){
+Comparativo_Rm_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_RETORNOS_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_RCum_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Volatility_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Var_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_CVar_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Sharpe_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Sortino_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Beta_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Alpha_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+}
 
 #### Matrix of weights
 

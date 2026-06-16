@@ -79,7 +79,7 @@ or "No". "Yes" is the standard.}
 
 \item{Type_ANN}{Select the network type: 'ANNt', 'LSTMt' in RNN from ANNt, or 'SKEWt' to raw excess return data}
 
-\item{Order}{If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database #' @param Order If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database}
+\item{Order}{If "Yes" processes the asset selection, if "No" uses the already processed assets available in the database}
 
 \item{Skew_t}{Incorporate skew parameter in the probability: "Yes" or "No". Default is "No".}
 

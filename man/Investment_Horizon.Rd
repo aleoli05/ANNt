@@ -36,7 +36,8 @@ Investment_Horizon(
   Bias = "No",
   Return_Cumulative = "Total",
   Order_Only = "No",
-  Convolution = "Neutral"
+  Convolution = "Neutral",
+  ANNt_Prob = ANNt_Prob
 )
 }
 \arguments{
@@ -106,6 +107,8 @@ or "No". "No" is the standard.}
 \item{Order_Only}{disability the ANN and only order the historic probability to outperformed the benchmark}
 
 \item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
+
+\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
 
 \item{Initial_Date_Training}{Training series start Date.}
 

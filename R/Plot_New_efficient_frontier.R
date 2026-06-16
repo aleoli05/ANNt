@@ -76,7 +76,7 @@ op <- par(new = TRUE)
 windowsFonts(A=windowsFont("Times New Roman"))
 par(family="A")
 
-if(ANNt_Prob=='No'){
+if(ANNt_Prob[1]=='No'){
 png(file="~/New_Efficient_Frontier.png", width=1920, height=1200, res=296, family = "A")
 plot(Base_Palomar[4,],Base_Palomar[1,],
      ylab="Return", xlab="Return Probability > Return Benchmark",

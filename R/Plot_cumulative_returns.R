@@ -73,7 +73,7 @@ Coparativo_Backup = Comparativo
 Comparativo=Comparativo[1:Corte,]
 
 
-if (ANNt_Prob=='No'){
+if (ANNt_Prob[1]=='No'){
 png(file="~/Graphic_Cumulative_Returns.png", width=1920, height=1920, res=296, family = "A")
 par(#mfrow=c(2,2),
   #mar=c(2,2,2,2),

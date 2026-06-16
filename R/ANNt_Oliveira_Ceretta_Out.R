@@ -148,6 +148,11 @@ Sys.sleep((15))
 Plot_New_efficient_frontier(ANNt_Prob=ANNt_Prob)
 }
 Sys.sleep((15))
+if(ANNt_Prob[1]=='Yes'){
+  Plot_NEF_New(N_Assets=ANNt_Prob[3],Initial_Date_Testing=Initial_Date_Testing,
+               Final_Date_Testing=Final_Date,type_ANNt=Type_ANNt)
+}
+
 Plot_CUSUM('','')
 save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')
 Final_Date_Testing=Final_Date
