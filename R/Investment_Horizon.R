@@ -264,7 +264,7 @@ Weights_ANNt_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
 
-if (ANNt[1]=='Yes'){
+if (ANNt_Prob[1]=='Yes'){
   Weights_ANNt_MAX_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
   Weights_ANNt_MAX_Horizon <- as.data.frame((Weights_ANNt_MAX_Horizon))
   Weights_ANNt_MAX_Horizon [1,1] <- 'ANNt_MAX PORTFOLIOS'
