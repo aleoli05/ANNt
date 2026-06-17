@@ -1491,7 +1491,17 @@ tryCatch({
     nAtivos  <-  Num_Assets
 
     portfolio <- solve.QP(
-      Dmat <- 2*Lambda*nearPD(as.matrix(Dmat))$mat,
+
+      #######
+      eig <- eigen(Dmat),
+      # Substitui autovalores negativos por 1e-8
+      eig$values <- pmax(eig$values, 1e-8),
+      Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors),
+
+      ##########
+
+
+      Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat,
       #Dmat <- cov(retornosAtivos),                        # matriz D
       #dvec <- rep(0, times = nAtivos)/Lambda,                    # vetor  d
       dvec <- colMeans(R),
