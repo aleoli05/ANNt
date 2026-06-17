@@ -69,6 +69,11 @@ Plot_NEF_New <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf,
   library(Matrix)
 
   #load('~/Rf.rda')
+  if(class(N_Assets)=='character'){
+    N_Assets=as.numeric(N_Assets)
+    Lambda=as.numeric(Lambda)
+    nPoints=as.numeric(nPoints)
+  }
 
 
   if(type_ANNt=='T1'){
