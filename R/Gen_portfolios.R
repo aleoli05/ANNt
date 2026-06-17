@@ -1440,7 +1440,7 @@ tryCatch({
   if (ANNt_Prob[1]=='Yes') {
       Lambda = as.numeric(ANNt_Prob[2])
       Num_Assets= as.numeric(ANNt_Prob[3])
-      nPOints= as.numeric(ANNt_Prob[4])
+      nPoints= as.numeric(ANNt_Prob[4])
   # 1. Carregar o pacote para otimização quadrática
   if(!require(quadprog)) install.packages("quadprog")
   library(quadprog)
@@ -1481,6 +1481,13 @@ tryCatch({
   # 3. Inserir a matriz original nas 3 primeiras linhas da nova matriz
   P2<- cbind(P,matriz_quadrada)
   Dmat <- -as.matrix(P2)
+  #######
+  eig <- eigen(Dmat)
+  # Substitui autovalores negativos por 1e-8
+  eig$values <- pmax(eig$values, 1e-8)
+  Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+
+  ##########
   retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
 
   pesosCarteira <- function(retornosAtivos, retornoAlvo) {
@@ -1491,15 +1498,6 @@ tryCatch({
     nAtivos  <-  Num_Assets
 
     portfolio <- solve.QP(
-
-      #######
-      eig <- eigen(Dmat),
-      # Substitui autovalores negativos por 1e-8
-      eig$values <- pmax(eig$values, 1e-8),
-      Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors),
-
-      ##########
-
 
       Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat,
       #Dmat <- cov(retornosAtivos),                        # matriz D
