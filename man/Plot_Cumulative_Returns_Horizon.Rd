@@ -5,10 +5,16 @@
 \title{Plot_Cumulative_Returns_Horizon
 Present Cumulative Returns Graph for all investment horizon}
 \usage{
-Plot_Cumulative_Returns_Horizon(Until_Date, Legend_position = "topleft")
+Plot_Cumulative_Returns_Horizon(
+  Until_Date,
+  Legend_position = "topleft",
+  ANNt_Prob = "Yes"
+)
 }
 \arguments{
 \item{Until_Date}{if '' is the sys.Date()}
+
+\item{ANNt_Prob}{Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".}
 
 \item{Legend_position:}{topleft;
 topright;

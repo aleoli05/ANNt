@@ -5,11 +5,13 @@
 \title{Turnovers
 It measures portfolio turnover}
 \usage{
-Turnovers(Portfolio)
+Turnovers(Portfolio, ANNt_Prob)
 }
 \arguments{
+\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
+
 \item{Portfolios:}{Specify the portfolios or type 'Alls' for all.
-Portfolios:'MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe','ANNt_Sharpe',}
+Portfolios:'MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe','ANNt_Sharpe', 'ANNt_MAX', 'ANNt_PROB'}
 }
 \description{
 Turnovers

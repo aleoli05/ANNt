@@ -10,13 +10,14 @@
 #'top;
 #'left;
 #'right.
+#' @param ANNt_Prob Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".
 #'@examples
 #'Until_Date <- '2023-09-15'
 #'Plot_Cumulative_Returns_Horizon('')
 
 
 #'@export
-Plot_Cumulative_Returns_Horizon <- function(Until_Date, Legend_position="topleft") {
+Plot_Cumulative_Returns_Horizon <- function(Until_Date, Legend_position="topleft", ANNt_Prob='Yes') {
 
 ##############################################################################
 library (readxl)
@@ -89,7 +90,7 @@ nline = nrow(Comparativo)
 #  Corte=as.numeric(nrow(as.data.frame(Comparativo)))
 
 
-
+if (ANNt_Prob[1]=='No'){
 
 png(file="~/Graphic_Cumulative_Returns_Horizon.png", width=1920, height=1920, res=296, family = "A")
 par(#mfrow=c(2,2),
@@ -308,6 +309,236 @@ legend(paste(Legend_position),
                "blue",
                 "green",
                "darkgreen"))
+
+
+} else {
+  ##########################################################################
+  ### With ANNt_Prob
+  ##########################################################################
+  png(file="~/Graphic_Cumulative_Returns.png", width=1920, height=1920, res=296, family = "A")
+  par(#mfrow=c(2,2),
+    #mar=c(2,2,2,2),
+    oma=c(1,2,1,1))
+
+  library("ggplot2")
+  windowsFonts(A=windowsFont("Times New Roman"))
+  par(family="A", cex=0.8)
+
+  Eixo = c(1:nrow(Comparativo))
+  Eixo_X = rownames(as.data.frame(Comparativo))
+  Comparativo2 = as.data.frame(Comparativo)
+  #Eixo_X2 = c(1,
+  #            round(nrow(Comparativo)/4,0),
+  #            round(nrow(Comparativo)/2,0),
+  #            round(nrow(Comparativo)*3/4,0),
+  #            nrow(Comparativo))
+  if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
+  #} else{Eixo_X2 = c(1, 50, 100, 149)}
+  }else{
+    if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+    }else{
+      if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
+      }else{
+        if(nrow(Comparativo)<100 & nrow(Comparativo)>=50) {Eixo_X2 = c(1, 20, 40, 60, 80, 100)
+        }else{
+          Eixo_X2 = c(1,10,20,30,40,50)
+        }}}}
+  Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
+  Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
+  Inicio_data = rownames(Comparativo2[1,])
+  Fim_data = rownames(Comparativo2[nrow(Comparativo2),])
+  #Fim_data = "2023-03-16"
+  TestComparativo = cbind(as.data.frame(Comparativo), Eixo)
+  Retornos=TestComparativo[,1]
+  Periodos=TestComparativo$Eixo
+  s = TestComparativo$MARKOWITZ
+  u = TestComparativo$SHARPE
+  v = TestComparativo$MF_EQ
+  z = TestComparativo$MF_MKW
+  p = TestComparativo$MF_SHARPE
+  w = TestComparativo$ANNt_EQ
+  t = TestComparativo$ANNt_MKW
+  q = TestComparativo$ANNt_SHARPE
+  b = TestComparativo$ANNt_MAX
+  c = TestComparativo$ANNt_PROB
+  plot(Periodos, Retornos,
+       family="A",
+       type ="l",
+       xaxt = "n",
+       ylab = "Cumulative Returns",
+       xlab = "Period",
+       las =1,
+       #xaxp = c(1,nline, 5),
+       ylim = c(min(Comparativo), max(Comparativo)))
+  lines(s, col = c("brown"))
+  lines(u, col = c("gray"))
+  lines(v, col = c("yellow"))
+  lines(z, col = c("red"))
+  lines(p, col = c("purple"))
+  lines(w, col = c("blue"))
+  lines(t, col = c("green"))
+  lines(q, col = c("darkgreen"))
+  lines(b, col = c("black"), lty=3, lwd=2)
+  lines(c, col = c("black"), lty=5, lwd=2)
+  axis(1, at=(Eixo_X2), label = Eixo_X3)
+  axis(4, las=1)
+  #abline(h=-0.4, lty=3)
+  #abline(h=-0.2, lty=3)
+  #abline(h= 0.0, lty=3)
+  #abline(h= 0.2, lty=3)
+  #abline(h= 0.4, lty=3)
+  #abline(h= 0.6, lty=3)
+  #abline(h= 0.8, lty=3)
+  #abline(v=nline/1, lty=3)
+  #abline(v=nline/2, lty=3)
+  #abline(v=nline*3/4, lty=3)
+  #abline(v=nline/4, lty=3)
+  #abline(v=1, lty=3)
+  grid(nx = NULL, ny = NULL, lty =3, lwd = 1, col = "gray")
+  #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
+  #title(main = paste("Comparativo           ",
+  #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
+  title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
+  #title(main = paste(
+  # xlab= Inicio_data,"/", xlab= Fim_data),
+  #line = 0.5,
+  #cex = 0.5,
+  #font.main = 1)
+
+
+  ## Contador de vit?rias Buffet
+  Contador_MF_DFA = matrix(nrow=149)
+  legend(paste(Legend_position),
+         #"bottomright",
+         legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                    ANN_EQ,
+                    ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
+         cex = 0.6,
+         lty = c(1,1,1,1,1,1,1,1,1,3,5),
+         #bty = "o",
+         bty = "n",
+         lwd = 3,
+         col = c("black", "brown", "gray", "yellow", "red",
+                 "purple",
+                 "blue",
+                 "green",
+                 "darkgreen", "black",'black'))
+
+
+  dev.off()
+  ################################################################################
+  #Presentation
+  par(#mfrow=c(2,2),
+    #mar=c(2,2,2,2),
+    oma=c(1,1,1,1))
+
+  library("ggplot2")
+  windowsFonts(A=windowsFont("Times New Roman"))
+  par(family="A", cex=0.8)
+
+  Eixo = c(1:nrow(Comparativo))
+  Eixo_X = rownames(as.data.frame(Comparativo))
+  Comparativo2 = as.data.frame(Comparativo)
+  #Eixo_X2 = c(1,
+  #            round(nrow(Comparativo)/4,0),
+  #            round(nrow(Comparativo)/2,0),
+  #            round(nrow(Comparativo)*3/4,0),
+  #            nrow(Comparativo))
+  if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
+  #} else{Eixo_X2 = c(1, 50, 100, 149)}
+  }else{
+    if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
+    }else{
+      if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
+      }else{
+        Eixo_X2 = c(1,25,50,75,100)
+      }}}
+  Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
+  Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
+  Inicio_data = rownames(Comparativo2[1,])
+  Fim_data = rownames(Comparativo2[nrow(Comparativo2),])
+  #Fim_data = "2023-03-16"
+  TestComparativo = cbind(as.data.frame(Comparativo), Eixo)
+  Retornos=TestComparativo[,1]
+  Periodos=TestComparativo$Eixo
+  s = TestComparativo$MARKOWITZ
+  u = TestComparativo$SHARPE
+  v = TestComparativo$MF_EQ
+  z = TestComparativo$MF_MKW
+  p = TestComparativo$MF_SHARPE
+  w = TestComparativo$ANNt_EQ
+  t = TestComparativo$ANNt_MKW
+  q = TestComparativo$ANNt_SHARPE
+  b = TestComparativo$ANNt_MAX
+  c = TestComparativo$ANNt_PROB
+  plot(Periodos, Retornos,
+       family="A",
+       type ="l",
+       xaxt = "n",
+       ylab = "Cumulative Returns",
+       xlab = "Period",
+       las =1,
+       #xaxp = c(1,nline, 5),
+       ylim = c(min(Comparativo), max(Comparativo)))
+  lines(s, col = c("brown"))
+  lines(u, col = c("gray"))
+  lines(v, col = c("yellow"))
+  lines(z, col = c("red"))
+  lines(p, col = c("purple"))
+  lines(w, col = c("blue"))
+  lines(t, col = c("green"))
+  lines(q, col = c("darkgreen"))
+  lines(b, col = c("black"), lty=3, lwd=2)
+  lines(c, col = c("black"), lty=5, lwd=2)
+  axis(1, at=(Eixo_X2), label = Eixo_X3)
+  axis(4, las=1)
+  #abline(h=-0.4, lty=3)
+  #abline(h=-0.2, lty=3)
+  #abline(h= 0.0, lty=3)
+  #abline(h= 0.2, lty=3)
+  #abline(h= 0.4, lty=3)
+  #abline(h= 0.6, lty=3)
+  #abline(h= 0.8, lty=3)
+  #abline(v=nline/1, lty=3)
+  #abline(v=nline/2, lty=3)
+  #abline(v=nline*3/4, lty=3)
+  #abline(v=nline/4, lty=3)
+  #abline(v=1, lty=3)
+  grid(nx = NULL, ny = NULL, lty =3, lwd = 1, col = "gray")
+  #title(main = "Carteiras RNAt e MF-DFA com 5 Ativos", font.main = 1, line = 1.5)
+  #title(main = paste("Comparativo           ",
+  #                 xlab= Inicio_data,"/", xlab= Fim_data), font.main=1, line=1.5)
+  title(paste("ANNt and Others Portfolios for the ",RM,":", N_Assets, "Assets"))
+  #title(main = paste(
+  # xlab= Inicio_data,"/", xlab= Fim_data),
+  #line = 0.5,
+  #cex = 0.5,
+  #font.main = 1)
+
+
+  ## Contador de vit?rias Buffet
+  Contador_MF_DFA = matrix(nrow=149)
+  legend(paste(Legend_position),
+         #"bottomright",
+         legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                    ANN_EQ,
+                    ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
+         cex = 0.6,
+         lty = c(1,1,1,1,1,1,1,1,1,3,5),
+         #bty = "o",
+         bty = "n",
+         lwd = 3,
+         col = c("black", "brown", "gray", "yellow", "red",
+                 "purple",
+                 "blue",
+                 "green",
+                 "darkgreen", "black",'black'))
+  save(Until_Date, file="~/Until_Date.rda")
+
+  ##########################################################################
+}
+
+
 save(Until_Date, file="~/Until_Date.rda")
 detach(as.data.frame(Comparativo))
 Comparativo_Acumulado_Inv= Comparativo

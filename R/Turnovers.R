@@ -1,20 +1,26 @@
 #' Turnovers
 #' It measures portfolio turnover
 #' @param Portfolios: Specify the portfolios or type 'Alls' for all.
-#' Portfolios:'MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe','ANNt_Sharpe',
+#' Portfolios:'MF_EQ', 'MF_MKW','MKW','ANNt_EQ','ANNt_MKW','Sharpe','MF_Sharpe','ANNt_Sharpe', 'ANNt_MAX', 'ANNt_PROB'
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
 #' @examples
 #' Turnovers('Alls')
 
 #' @export
 
-Turnovers<-function(Portfolio){
+Turnovers<-function(Portfolio, ANNt_Prob){
 
 library(dplyr)
 library(tidyselect)
   if (length(Portfolio)==1){
   if (Portfolio=='Alls'){
+    if(ANNt_Prob[1]=='No'){
       Portfolio=c('MKW','Sharpe','MF_EQ', 'MF_MKW','MF_Sharpe','ANNt_EQ','ANNt_MKW',
                   'ANNt_Sharpe')
+     } else {
+        Portfolio=c('MKW','Sharpe','MF_EQ', 'MF_MKW','MF_Sharpe','ANNt_EQ','ANNt_MKW',
+                    'ANNt_Sharpe', 'ANNt_MAX', 'ANNt_PROB')
+      }
       load('~/Weights_MF_EQ_Horizon.rda')
   }}
 if (length(Portfolio)==1){
@@ -58,6 +64,16 @@ if (length(Portfolio)==1){
     load('~/Weights_ANNt_Sharpe_Horizon.rda')
     dados=Weights_ANNt_Sharpe_Horizon
     View(Weights_ANNt_Sharpe_Horizon)
+  }
+  if(Portfolio=='ANNt_MAX'){
+    load('~/Weights_ANNt_MAX_Horizon.rda')
+    dados=Weights_ANNt_MAX_Horizon
+    View(Weights_ANNt_MAX_Horizon)
+  }
+  if(Portfolio=='ANNt_PROB'){
+    load('~/Weights_ANNt_PROB_Horizon.rda')
+    dados=Weights_ANNt_PROB_Horizon
+    View(Weights_ANNt_PROB_Horizon)
   }
 
   Linhas_CV=(nrow(dados)-2)
@@ -198,7 +214,16 @@ for (m in 1:length(Port)){
     dados=Weights_ANNt_Sharpe_Horizon
     View(Weights_ANNt_Sharpe_Horizon)
   }
-
+  if(Portfolio=='ANNt_MAX'){
+    load('~/Weights_ANNt_MAX_Horizon.rda')
+    dados=Weights_ANNt_MAX_Horizon
+    View(Weights_ANNt_MAX_Horizon)
+  }
+  if(Portfolio=='ANNt_PROB'){
+    load('~/Weights_ANNt_PROB_Horizon.rda')
+    dados=Weights_ANNt_PROB_Horizon
+    View(Weights_ANNt_PROB_Horizon)
+  }
 
   Linhas_CV=(nrow(dados)-2)
   Linhas=seq(from=3, to=nrow(dados)-1, by=2)
