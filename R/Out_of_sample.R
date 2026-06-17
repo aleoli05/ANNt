@@ -259,7 +259,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
   rownames(Weight_ANNt_PROB)='Weight'
   C_ANNt_PROB = as.data.frame(scenario.set) %>%
     dplyr::select(which((colnames(scenario.set) %in% Carteira_ANNt_PROB)))
-  C_ANNt_PROB = C_ANNt_PROB[Datas1Predict,]
+  C_ANNt_PROB = as.matrix(C_ANNt_PROB[Datas1Predict,])
   Retornos_Asset_Prob=colMeans(C_ANNt_PROB)
   Return_ANNt_Max_Prob= as.matrix(C_ANNt_PROB)%*% as.numeric(Weight_ANNt_PROB[1,])
   print(paste('[10] weights of the ANNt_PROB Portfolio:'))
