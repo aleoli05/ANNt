@@ -303,6 +303,13 @@ matriz_quadrada <- matrix(0, nrow = N_Assets, ncol = N_Assets-3)
 # 3. Inserir a matriz original nas 3 primeiras linhas da nova matriz
 P2<- cbind(P,matriz_quadrada)
 Dmat <- -as.matrix(P2)
+#######
+eig <- eigen(Dmat)
+# Substitui autovalores negativos por 1e-8
+eig$values <- pmax(eig$values, 1e-8)
+Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+
+##########
 retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
 
 pesosCarteira <- function(retornosAtivos, retornoAlvo) {
