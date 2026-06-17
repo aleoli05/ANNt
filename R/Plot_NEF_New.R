@@ -320,7 +320,7 @@ pesosCarteira <- function(retornosAtivos, retornoAlvo) {
 nAtivos  <-  N_Assets
 
 portfolio <- solve.QP(
-  Dmat <- 2*Lambda*nearPD(as.matrix(Dmat))$mat,
+  Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat,
   #Dmat <- cov(retornosAtivos),                        # matriz D
   #dvec <- rep(0, times = nAtivos)/Lambda,                    # vetor  d
   dvec <- colMeans(R),
