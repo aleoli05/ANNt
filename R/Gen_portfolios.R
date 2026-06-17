@@ -1580,7 +1580,7 @@ tryCatch({
 
   Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(ANNt_weights_Max_Prob)
   mean_R_Asset_Prob=colMeans(R_Asset_Prob)
-  sd_R_Asset_Prob=sapply(R_Asset_Prob, sd, na.rm = TRUE)
+  sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
 
     }
   ############################################################################

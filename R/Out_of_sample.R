@@ -265,7 +265,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
   print(paste('[10] weights of the ANNt_PROB Portfolio:'))
   print(Weight_ANNt_PROB)
   mean_R_Asset_Prob=colMeans(C_ANNt_PROB)
-  sd_R_Asset_Prob=sapply(C_ANNt_PROB, sd, na.rm = TRUE)
+  sd_R_Asset_Prob=sapply(as.data.frame(C_ANNt_PROB), sd, na.rm = TRUE)
   #####
   #############################################################################
   #############################################################################
