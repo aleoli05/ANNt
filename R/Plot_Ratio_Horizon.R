@@ -64,6 +64,8 @@ Plot_Annualized_Returns_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_RETORNOS_Horizon_Anual[is.na(Comparativo_RETORNOS_Horizon_Anual)] = 0
   options(warn=-1)
@@ -169,6 +171,10 @@ Plot_Annualized_Returns_Horizon <-function(){
   w = TestComparativo_RETORNOS_Horizon_Anual$ANNt_EQ
   t = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MKW
   q = TestComparativo_RETORNOS_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -185,6 +191,10 @@ Plot_Annualized_Returns_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -214,6 +224,7 @@ Plot_Annualized_Returns_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -228,7 +239,22 @@ Plot_Annualized_Returns_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
-
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
   dev.off()
   ################################################################################
@@ -270,6 +296,10 @@ Plot_Annualized_Returns_Horizon <-function(){
   w = TestComparativo_RETORNOS_Horizon_Anual$ANNt_EQ
   t = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MKW
   q = TestComparativo_RETORNOS_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -287,6 +317,10 @@ Plot_Annualized_Returns_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -316,6 +350,7 @@ Plot_Annualized_Returns_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -331,6 +366,22 @@ Plot_Annualized_Returns_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -452,6 +503,10 @@ Plot_Annualized_Volatility_Horizon <-function(){
   w = TestComparativo_Volatility_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Volatility_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Volatility_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -468,6 +523,10 @@ Plot_Annualized_Volatility_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -498,6 +557,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -512,7 +572,22 @@ Plot_Annualized_Volatility_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
-
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
   dev.off()
   ################################################################################
@@ -571,6 +646,10 @@ Plot_Annualized_Volatility_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -600,6 +679,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -615,6 +695,22 @@ Plot_Annualized_Volatility_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -735,6 +831,10 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   w = TestComparativo_Sharpe_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Sharpe_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sharpe_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -751,6 +851,10 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -780,6 +884,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -794,6 +899,22 @@ Plot_Annualized_Sharpe_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -836,6 +957,10 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   w = TestComparativo_Sharpe_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Sharpe_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sharpe_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -853,6 +978,10 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -882,6 +1011,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -897,6 +1027,22 @@ Plot_Annualized_Sharpe_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -1019,6 +1165,10 @@ Plot_Annualized_Alpha_Horizon <-function(){
   w = TestComparativo_Alpha_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Alpha_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Alpha_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1035,6 +1185,10 @@ Plot_Annualized_Alpha_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -1064,6 +1218,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -1078,6 +1233,22 @@ Plot_Annualized_Alpha_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -1120,6 +1291,10 @@ Plot_Annualized_Alpha_Horizon <-function(){
   w = TestComparativo_Alpha_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Alpha_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Alpha_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1137,6 +1312,10 @@ Plot_Annualized_Alpha_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -1166,6 +1345,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -1181,6 +1361,22 @@ Plot_Annualized_Alpha_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -1303,6 +1499,10 @@ Plot_Annualized_Beta_Horizon <-function(){
   w = TestComparativo_Beta_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Beta_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Beta_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1319,6 +1519,10 @@ Plot_Annualized_Beta_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -1348,6 +1552,7 @@ Plot_Annualized_Beta_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -1362,6 +1567,22 @@ Plot_Annualized_Beta_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -1404,6 +1625,10 @@ Plot_Annualized_Beta_Horizon <-function(){
   w = TestComparativo_Beta_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Beta_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Beta_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1421,6 +1646,10 @@ Plot_Annualized_Beta_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -1450,6 +1679,7 @@ Plot_Annualized_Beta_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -1465,6 +1695,22 @@ Plot_Annualized_Beta_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -1588,6 +1834,10 @@ Plot_Annualized_Sortino_Horizon <-function(){
   w = TestComparativo_Sortino_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Sortino_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sortino_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1604,6 +1854,10 @@ Plot_Annualized_Sortino_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -1633,6 +1887,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -1647,6 +1902,22 @@ Plot_Annualized_Sortino_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -1689,6 +1960,10 @@ Plot_Annualized_Sortino_Horizon <-function(){
   w = TestComparativo_Sortino_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Sortino_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sortino_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1706,6 +1981,10 @@ Plot_Annualized_Sortino_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -1735,6 +2014,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -1750,6 +2030,22 @@ Plot_Annualized_Sortino_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -1873,6 +2169,10 @@ Plot_Annualized_Treynor_Horizon <-function(){
   w = TestComparativo_Treynor_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Treynor_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Treynor_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1889,6 +2189,10 @@ Plot_Annualized_Treynor_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -1918,6 +2222,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -1932,6 +2237,22 @@ Plot_Annualized_Treynor_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -1974,6 +2295,10 @@ Plot_Annualized_Treynor_Horizon <-function(){
   w = TestComparativo_Treynor_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Treynor_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Treynor_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -1991,6 +2316,10 @@ Plot_Annualized_Treynor_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -2020,6 +2349,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -2035,6 +2365,22 @@ Plot_Annualized_Treynor_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -2157,6 +2503,10 @@ Plot_Annualized_Var_Horizon <-function(){
   w = TestComparativo_Var_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Var_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Var_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -2173,6 +2523,10 @@ Plot_Annualized_Var_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -2202,6 +2556,7 @@ Plot_Annualized_Var_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -2216,6 +2571,22 @@ Plot_Annualized_Var_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -2258,6 +2629,10 @@ Plot_Annualized_Var_Horizon <-function(){
   w = TestComparativo_Var_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Var_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Var_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -2275,6 +2650,10 @@ Plot_Annualized_Var_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -2304,6 +2683,7 @@ Plot_Annualized_Var_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -2319,6 +2699,22 @@ Plot_Annualized_Var_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -2441,6 +2837,10 @@ Plot_Annualized_CVar_Horizon <-function(){
   w = TestComparativo_CVar_Horizon_Anual$ANNt_EQ
   t = TestComparativo_CVar_Horizon_Anual$ANNt_MKW
   q = TestComparativo_CVar_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -2457,6 +2857,10 @@ Plot_Annualized_CVar_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -2486,6 +2890,7 @@ Plot_Annualized_CVar_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -2500,6 +2905,22 @@ Plot_Annualized_CVar_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -2542,6 +2963,10 @@ Plot_Annualized_CVar_Horizon <-function(){
   w = TestComparativo_CVar_Horizon_Anual$ANNt_EQ
   t = TestComparativo_CVar_Horizon_Anual$ANNt_MKW
   q = TestComparativo_CVar_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -2559,6 +2984,10 @@ Plot_Annualized_CVar_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -2588,6 +3017,7 @@ Plot_Annualized_CVar_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -2603,6 +3033,22 @@ Plot_Annualized_CVar_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -2729,6 +3175,10 @@ Plot_Annualized_RCum_Horizon <-function(){
   w = TestComparativo_RCum_Horizon_Anual$ANNt_EQ
   t = TestComparativo_RCum_Horizon_Anual$ANNt_MKW
   q = TestComparativo_RCum_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -2745,6 +3195,10 @@ Plot_Annualized_RCum_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -2774,6 +3228,7 @@ Plot_Annualized_RCum_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -2788,6 +3243,22 @@ Plot_Annualized_RCum_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -2830,6 +3301,10 @@ Plot_Annualized_RCum_Horizon <-function(){
   w = TestComparativo_RCum_Horizon_Anual$ANNt_EQ
   t = TestComparativo_RCum_Horizon_Anual$ANNt_MKW
   q = TestComparativo_RCum_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -2847,6 +3322,10 @@ Plot_Annualized_RCum_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -2876,6 +3355,7 @@ Plot_Annualized_RCum_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -2891,6 +3371,22 @@ Plot_Annualized_RCum_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################
@@ -3022,6 +3518,10 @@ Plot_Annualized_Rm_Horizon <-function(){
   w = TestComparativo_Rm_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Rm_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Rm_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -3038,6 +3538,10 @@ Plot_Annualized_Rm_Horizon <-function(){
   lines(w, col = c("blue"))
   lines(t, col = c("green"))
   lines(q, col = c("darkgreen"))
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -3067,6 +3571,7 @@ Plot_Annualized_Rm_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -3081,6 +3586,22 @@ Plot_Annualized_Rm_Horizon <-function(){
                  "purple","blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
 
 
   dev.off()
@@ -3123,6 +3644,10 @@ Plot_Annualized_Rm_Horizon <-function(){
   w = TestComparativo_Rm_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Rm_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Rm_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -3140,6 +3665,10 @@ Plot_Annualized_Rm_Horizon <-function(){
   lines(w, col = c("blue"), lwd=2)
   lines(t, col = c("green"), lwd=2)
   lines(q, col = c("darkgreen"), lwd=2)
+  if (nr==12){
+    lines(b, col = c("black"), lty=3, lwd=2)
+    lines(c, col = c("black"), lty=5, lwd=2)
+  }
   axis(1, at=(Eixo_X2), label = Eixo_X3)
   axis(4, las=1)
   #abline(h=-0.4, lty=3)
@@ -3169,6 +3698,7 @@ Plot_Annualized_Rm_Horizon <-function(){
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
+  if (nr==10){
   legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE","MF_EQ", "MF_MKW", "MF_SHARPE",
@@ -3184,6 +3714,22 @@ Plot_Annualized_Rm_Horizon <-function(){
                  "blue",
                  "green",
                  "darkgreen"))
+  }else{
+    legend(paste(Legend_position),
+           #"bottomright",
+           legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                      ANN_EQ,
+                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+           cex = 0.8,
+           lty = c(1,1,1,1,1,1,1,1,1,3,5),
+           #bty = "o",
+           bty = "n",
+           lwd = 3,
+           col = c("black", "brown", "gray", "yellow", "red",
+                   "purple","blue",
+                   "green",
+                   "darkgreen", "black", 'black'))
+  }
   save(Until_Date, file="~/Until_Date.rda")
 }
 ################################################################################

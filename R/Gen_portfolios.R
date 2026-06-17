@@ -1440,7 +1440,7 @@ tryCatch({
   if (ANNt_Prob[1]=='Yes') {
       Lambda = as.numeric(ANNt_Prob[2])
       Num_Assets= as.numeric(ANNt_Prob[3])
-      nOptions= as.numeric(ANNt_Prob[4])
+      nPOints= as.numeric(ANNt_Prob[4])
   # 1. Carregar o pacote para otimização quadrática
   if(!require(quadprog)) install.packages("quadprog")
   library(quadprog)

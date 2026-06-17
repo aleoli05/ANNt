@@ -9,7 +9,7 @@ Weights_Investment_Horizon(Portfolio = "Sharpe", Until_Date = "")
 \arguments{
 \item{Until_Date}{Period´s length to plot.}
 
-\item{Portfolio:}{MF_EQ; MF_MKW; MKW; ANNt_EQ; ANNt_MKW; Sharpe; MF_Sharpe or ANNt_Sharpe}
+\item{Portfolio:}{MF_EQ; MF_MKW; MKW; ANNt_EQ; ANNt_MKW; Sharpe; MF_Sharpe, ANNt_Sharpe, ANNt_MAX, or ANNt_PROB}
 }
 \description{
 Return with weights of the portfolio selected. It is necessary to run the Investiment_Horizon command before.

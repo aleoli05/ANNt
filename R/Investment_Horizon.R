@@ -185,17 +185,17 @@ Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
 
 # Geração da Matriz de comparação dos Retornos
 if(ANNt_Prob[1]=='Yes'){
-Comparativo_Rm_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_RETORNOS_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_RCum_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_Volatility_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_Var_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_CVar_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_Sharpe_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_Sortino_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_Beta_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_Alpha_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
-Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=9)
+Comparativo_Rm_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_RETORNOS_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_RCum_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_Volatility_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_Var_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_CVar_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_Sharpe_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_Sortino_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_Beta_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_Alpha_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
+Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
 }
 
 #### Matrix of weights
@@ -263,6 +263,26 @@ Weights_ANNt_Sharpe_Horizon [1,2] <- 'ASSETS'
 Weights_ANNt_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
+
+if (ANNt[1]=='Yes'){
+  Weights_ANNt_MAX_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+  Weights_ANNt_MAX_Horizon <- as.data.frame((Weights_ANNt_MAX_Horizon))
+  Weights_ANNt_MAX_Horizon [1,1] <- 'ANNt_MAX PORTFOLIOS'
+  Weights_ANNt_MAX_Horizon [1,2] <- 'ASSETS'
+  Weights_ANNt_MAX_Horizon [2,1] <- 'Initial_Date_Testing'
+  Weights_ANNt_MAX_Horizon [2,2] <- 'Final_Date_Testing'
+  Weights_ANNt_MAX_Horizon [3,2] <- 'Days'
+
+  Weights_ANNt_PROB_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+  Weights_ANNt_PROB_Horizon <- as.data.frame((Weights_ANNt_PROB_Horizon))
+  Weights_ANNt_PROB_Horizon [1,1] <- 'ANNt_PROB PORTFOLIOS'
+  Weights_ANNt_PROB_Horizon [1,2] <- 'ASSETS'
+  Weights_ANNt_PROB_Horizon [2,1] <- 'Initial_Date_Testing'
+  Weights_ANNt_PROB_Horizon [2,2] <- 'Final_Date_Testing'
+  Weights_ANNt_PROB_Horizon [3,2] <- 'Days'
+}
+
+
 }else{
   C_from=which(Specific_Dates==Continue_from)
   load('~/Weights_MF_EQ_Horizon.rda')
@@ -273,6 +293,10 @@ Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
   load('~/Weights_Sharpe_Horizon.rda')
   load('~/Weights_MF_Sharpe_Horizon.rda')
   load('~/Weights_ANNt_Sharpe_Horizon.rda')
+  if (ANNt_Prob[1]=='Yes'){
+    load('~/Weights_ANNt_MAX_Horizon.rda')
+    load('~/Weights_ANNt_PROB_Horizon.rda')
+  }
   load('~/Comparativo_Rm_Horizon_Anual.rda')
   load('~/Comparativo_RETORNOS_Horizon_Anual.rda')
   load('~/Comparativo_RCum_Horizon_Anual.rda')
@@ -415,6 +439,12 @@ if(Fun=='Out'){
     Weights_MF_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
     Weights_ANNt_Sharpe_Horizon [2,1] <- 'Initial_Date_Out'
     Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Out'
+    if(ANNt_Prob[1]=='Yes'){
+      Weights_ANNt_MAX_Horizon [2,1] <- 'Initial_Date_Out'
+      Weights_ANNt_MAX_Horizon [2,2] <- 'Final_Date_Out'
+      Weights_ANNt_PROB_Horizon [2,1] <- 'Initial_Date_Out'
+      Weights_ANNt_PROB_Horizon [2,2] <- 'Final_Date_Out'
+    }
   }
 }
 if(Fun=='S'){
@@ -459,6 +489,10 @@ load('~/Pesos_ANNt_Mkv2.rda')
 load('~/Weight_Sharpe_1.rda')
 load('~/Weight_Sharpe_MF.rda')
 load('~/Weight_ANNt_Sharpe.rda')
+if(ANNt_Prob[1]=='Yes'){
+  load('~/Weight_ANNt_MAX.rda')
+  load('~/Weight_ANNt_PROB.rda')
+}
 load('~/Summary_Backtest.rda')
 
 Comparativo_Rm_Horizon_Anual[i,] = Summary_Backtest[,1]
@@ -553,6 +587,26 @@ for(k in (1:ncol(Weight_ANNt_Sharpe))){
   Weights_ANNt_Sharpe_Horizon[x+i,k+2]=data.frame(colnames(Weight_ANNt_Sharpe))[k,]
   Weights_ANNt_Sharpe_Horizon[1+x+i,k+2]=round(data.frame(Weight_ANNt_Sharpe)[k],2)
 }
+if (ANNt_Prob[1]=='Yes'){
+  for(k in (1:ncol(Weight_ANNt_MAX))){
+    Weights_ANNt_MAX_Horizon[x+i,1]=Initial_Date_Testing
+    Weights_ANNt_MAX_Horizon[x+i,2]=Final_Date_Testing
+    Weights_ANNt_MAX_Horizon[1+x+i,1]=teste_dias
+    Weights_ANNt_MAX_Horizon[1+x+i,2]='Days'
+    Weights_ANNt_MAX_Horizon[x+i,k+2]=data.frame(colnames(Weight_ANNt_MAX))[k,]
+    Weights_ANNt_MAX_Horizon[1+x+i,k+2]=round(data.frame(Weight_ANNt_MAX)[k],2)
+  }
+  for(k in (1:ncol(Weight_ANNt_PROB))){
+    Weights_ANNt_PROB_Horizon[x+i,1]=Initial_Date_Testing
+    Weights_ANNt_PROB_Horizon[x+i,2]=Final_Date_Testing
+    Weights_ANNt_PROB_Horizon[1+x+i,1]=teste_dias
+    Weights_ANNt_PROB_Horizon[1+x+i,2]='Days'
+    Weights_ANNt_PROB_Horizon[x+i,k+2]=data.frame(colnames(Weight_ANNt_PROB))[k,]
+    Weights_ANNt_PROB_Horizon[1+x+i,k+2]=round(data.frame(Weight_ANNt_PROB)[k],2)
+  }
+}
+
+
 x=x+1
 
 
@@ -579,6 +633,14 @@ write_xlsx(as.data.frame(Weights_MF_Sharpe_Horizon), "~/Weights_MF_Sharpe_Horizo
 
 save(Weights_ANNt_Sharpe_Horizon,file='~/Weights_ANNt_Sharpe_Horizon.rda')
 write_xlsx(as.data.frame(Weights_ANNt_Sharpe_Horizon), "~/Weights_ANNt_Sharpe_Horizon.xlsx")
+
+if (ANNt_Prob[1]=='Yes'){
+  save(Weights_ANNt_MAX_Horizon,file='~/Weights_ANNt_MAX_Horizon.rda')
+  write_xlsx(as.data.frame(Weights_ANNt_MAX_Horizon), "~/Weights_ANNt_MAX_Horizon.xlsx")
+
+  save(Weights_ANNt_PROB_Horizon,file='~/Weights_ANNt_PROB_Horizon.rda')
+  write_xlsx(as.data.frame(Weights_ANNt_PROB_Horizon), "~/Weights_ANNt_PROB_Horizon.xlsx")
+}
 #############################################
 Tempo = gsub('X.','',Tempo)
 Inicio_Teste_Datas = Tempo
@@ -678,6 +740,10 @@ Weights_Investment_Horizon(Portfolio='ANNt_MKW')
 Weights_Investment_Horizon(Portfolio='MF_Sharpe')
 Weights_Investment_Horizon(Portfolio='ANNt_Sharpe')
 Weights_Investment_Horizon(Portfolio='Sharpe')
+if(ANNt_Prob[1]=='Yes'){
+  Weights_Investment_Horizon(Portfolio='ANNt_MAX')
+  Weights_Investment_Horizon(Portfolio='ANNt_PROB')
+}
 t_Test_Diff_Mean_Portfolios(Ratio="Sortino", Ratio2="Var", Model=1)
 t_Test_Diff_Mean_Portfolios(Ratio="RCum", Ratio2="Annualized_Volatility", Model=1)
 t_Test_Diff_Mean_Portfolios(Ratio="Annualized_Returns", Ratio2="Var", Model=1)
