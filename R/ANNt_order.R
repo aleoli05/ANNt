@@ -1588,9 +1588,6 @@ ___________________________________________________________________
 
 
 
-  Summary_ANNt_Training[is.na(Summary_ANNt_Training)| sapply(Summary_ANNt_Training, is.nan)] <- 0
-  Summary_ANNt_Testing[is.na(Summary_ANNt_Testing)| sapply(Summary_ANNt_Testing, is.nan)] <- 0
-
 
   ResProbPosNNet   #Resultado Probabilidade Sinal Positivo - NeuralNet Train
   ResProbPos       #Resultado Probabilidade Sinal Positivo - RNA Particular Train
@@ -1782,6 +1779,10 @@ nome_Summary_ANNt_Testing=paste("~/Summary_ANNt_Testing_",nome_asset,".xlsx", se
   save(Stepmax, file='~/Stepmax.rda')
   save(I_dataPredict,file='~/I_dataPredict.rda')
   save(F_dataPredict,file='~/F_dataPredict.rda')
+
+  Summary_ANNt_Training[is.na(Summary_ANNt_Training)| sapply(Summary_ANNt_Training, is.nan)] <- 0
+  Summary_ANNt_Testing[is.na(Summary_ANNt_Testing)| sapply(Summary_ANNt_Testing, is.nan)] <- 0
+
   save(Summary_ANNt_Training,file='~/Summary_ANNt_Training.rda')
   save(Summary_ANNt_Testing,file='~/Summary_ANNt_Testing.rda')
   save(ResProbTPosPredict,file='~/ResProbTPosPredict.rda')
