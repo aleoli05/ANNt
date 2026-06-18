@@ -433,7 +433,7 @@ plot(points,
   xlab = "Return Probability > Return Benchmark",
   las =1,
   col="gray",
-  xlim = c(min(P[,2]), (max(P[,2])-min(P[,2]))*0.28),
+  xlim = c(min(P[,2]), (max(P[,2])-min(P[,2]))*1.39),
   main = "NEF with Budget Constraint (Sum w = 1)")
 #points(x=P[,2],y=colMeans(R), #,main="Fronteira Eficiente por Desvio",
 #       #ylab="Retorno", xlab="Desvio-Padr?o",

@@ -1489,10 +1489,8 @@ tryCatch({
   P2<- cbind(P,matriz_quadrada)
   Dmat <- -as.matrix(P2)
   #######
-  eig <- eigen(Dmat)
-  # Substitui autovalores negativos por 1e-8
-  eig$values <- pmax(as.numeric(eig$values), 1e-8)
-  Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+
+  Dmat_fixed = Dmat
 
   ##########
   retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
@@ -1544,8 +1542,15 @@ tryCatch({
     pesos
   }
   retornosAtivos = R
+  tryCatch({
   pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
-
+  }, error=function(e){
+    eig <- eigen(Dmat)
+    # Substitui autovalores negativos por 1e-8
+    eig$values <- pmax(as.numeric(eig$values), 1e-8)
+    Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+  pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+  })
   Retornos_Carteiras= as.matrix(pesos_front) %*%colMeans(R)
   Prob_Carteiras=as.matrix(pesos_front) %*%P[,2]
 
