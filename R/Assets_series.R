@@ -321,7 +321,7 @@ if (x==1) {
 
      colnames(portfolioPrices) <- str_replace(tickers,".Close","")
      colnames(portfolioPrices) <- str_replace(tickers,".Adjusted","")
-     tickers <- str_replace(tickers,".SA","")
+     tickers <- str_replace(tickers,"\\.SA","")
      tickers <- str_replace_all(tickers,"^","")
      tickers= as.data.frame(tickers)
      tickers= tickers %>% mutate(tickers =

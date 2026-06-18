@@ -1460,17 +1460,24 @@ tryCatch({
   if (type_ANNt=="T4"){
     Ativos=rownames(Summary_ANNt_Training)
     P=Summary_ANNt_Training[1:Num_Assets,c(17,1,18)]
+    save(P,file='~/P.rda')
   }
   if (type_ANNt=="T8"){
     Ativos=rownames(Summary_ANNt_Testing)
     P=Summary_ANNt_Testing[1:Num_Assets,c(17,1,18)]
+    save(P,file='~/P.rda')
   }
   Ativos=Ativos[1:Num_Assets]
   R = as.data.frame(all.returns) %>%
     dplyr::select(which((colnames(all.returns) %in% Ativos)))
   #R=R1[6:which(rownames(R1)=='2022-12-29'),]
   #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+  save(R,file='~/R.rda')
 
+################################################################################
+## Verificacao de Stringrs diferentes
+
+################################################################################
   Nomes_ordem = rownames(P)
   R=R[,Nomes_ordem]
   #P=1-P
@@ -1484,7 +1491,7 @@ tryCatch({
   #######
   eig <- eigen(Dmat)
   # Substitui autovalores negativos por 1e-8
-  eig$values <- pmax(eig$values, 1e-8)
+  eig$values <- pmax(as.numeric(eig$values), 1e-8)
   Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
 
   ##########
