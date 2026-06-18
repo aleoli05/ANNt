@@ -1588,8 +1588,8 @@ ___________________________________________________________________
 
 
 
-  Summary_ANNt_Training[is.na(Summary_ANNt_Training)] <- 0
-  Summary_ANNt_Testing[is.na(Summary_ANNt_Testing)] <- 0
+  Summary_ANNt_Training[is.na(Summary_ANNt_Training)| sapply(Summary_ANNt_Training, is.nan)] <- 0
+  Summary_ANNt_Testing[is.na(Summary_ANNt_Testing)| sapply(Summary_ANNt_Testing, is.nan)] <- 0
 
 
   ResProbPosNNet   #Resultado Probabilidade Sinal Positivo - NeuralNet Train
