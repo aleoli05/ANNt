@@ -50,7 +50,7 @@ No" is default. If  "Yes" is necessary inform the lambda or rate of regularizati
 \item{Asymmetry}{"Negative" or "Positive". Shifts the Probability of the return being greater than the proxy to the right or left, "Negative" or "Positive". Default is to the right, "Negative"}
 
 \item{Skew_t}{Incorporate skew parameter in the Probability: "Yes" or "No". Default is "No".
-Second instruction: If central parameter is "Median" or "xi". Default is "Median".
+Second instruction: If central parameter is "Median" or "xi" for location parameter (ξ). Default is "Median".
 Third instruction: Number of deviation consider in matrix Probability. Default is 1.}
 
 \item{Prediction}{Model of prediction: "Predict" or "Forecast". "Predict" is the standard.}

@@ -44,6 +44,7 @@ if (ANNt_Prob[1]=='Yes'){
 ydev=dev.list()
 if(class(ydev)!="NULL"){
   dev.off()
+  print('Starting Plot__New_efficient_frontier Command')
 }else{print('Starting Plot__New_efficient_frontier Command')}
 dev.capabilities()
 

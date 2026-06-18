@@ -5,12 +5,18 @@
 \title{Portfolio_backtesting_Inv
 Calculate the mean portfolio backtest to the investment perod.}
 \usage{
-Portfolio_backtesting_Inv(Date_Initial_Backtesting, Date_Final_Backtesting)
+Portfolio_backtesting_Inv(
+  Date_Initial_Backtesting,
+  Date_Final_Backtesting,
+  ANNt_Prob
+)
 }
 \arguments{
 \item{Date_Initial_Backtesting}{Date initial of the backtest}
 
 \item{Date_Final_Backtesting}{Date final of the backtest}
+
+\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
 }
 \description{
 Portfolio_backtesting_Inv

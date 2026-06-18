@@ -3,13 +3,14 @@
 #'
 #' @param Date_Initial_Backtesting Date initial of the backtest
 #' @param Date_Final_Backtesting Date final of the backtest
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
 #' @examples
 #' Date_Initial_Backtesting =''
 #' Date_Final_Backtesting =''
 #' Portfolio_backtesting_Inv('', '')
 #'
 #' @export
-Portfolio_backtesting_Inv <- function(Date_Initial_Backtesting,Date_Final_Backtesting) {
+Portfolio_backtesting_Inv <- function(Date_Initial_Backtesting,Date_Final_Backtesting, ANNt_Prob) {
 
   library(dplyr)
   library(writexl)
@@ -33,9 +34,15 @@ Portfolio_backtesting_Inv <- function(Date_Initial_Backtesting,Date_Final_Backte
   load('~/RM.rda')
   load('~/Rf.rda')
 
+  if(ANNt_Prob[1]=='No'){
   sumbacktest_Inv <- matrix(nrow=11, ncol=9)
   colnames(sumbacktest_Inv)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                             "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE")
+  }else{
+    sumbacktest_Inv <- matrix(nrow=11, ncol=11)
+    colnames(sumbacktest_Inv)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
+                                  "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE", "ANNt_MAX", "ANNt_PROB")
+  }
   rownames(sumbacktest_Inv) = c("Average Return (% p.d.)","Annualized Return (% p.a.)",
                             "Cumulative Return (% p.p.)", "Jensen´s Alpha (% p.d.)",
                             "Sharpe Ratio (Dimensionless)", "Sortino Ratio",

@@ -67,7 +67,7 @@ Plot_NEF_New <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf,
   library(DEoptim)
   library(IntroCompFinR)
   library(Matrix)
-
+  print('Generating Plot__New_efficient_frontier Command')
   #load('~/Rf.rda')
   if(class(N_Assets)=='character'){
     N_Assets=as.numeric(N_Assets)
@@ -310,7 +310,7 @@ eig$values <- pmax(eig$values, 1e-8)
 Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
 
 ##########
-retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
+#retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
 
 pesosCarteira <- function(retornosAtivos, retornoAlvo) {
 
@@ -339,7 +339,7 @@ fronteiraCarteira <- function(retornosAtivos, nPontos = nPoints) {
   # Quantidade de ativos
   nAtivos <- ncol(retornosAtivos)
   # Retornos-alvo
-  mu <- colMeans(R)
+  mu <- colMeans(retornosAtivos)
   retornoAlvo <- seq(min(mu), max(mu), length = nPontos)
   # Pesos ?timos
   pesos <- rep(0, nAtivos)
@@ -386,7 +386,13 @@ Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
 Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
 
 ############################################################################
-dev.off()
+ydev=dev.list()
+if(class(ydev)!="NULL"){
+  dev.off()
+  print('Starting Plot__New_efficient_frontier Command')
+}else{print('Starting Plot__New_efficient_frontier Command')}
+dev.capabilities()
+#############################################################################
 op <- par(new = TRUE)
 windowsFonts(A=windowsFont("Times New Roman"))
 par(family="A")

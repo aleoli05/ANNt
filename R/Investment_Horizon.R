@@ -751,7 +751,7 @@ Plot_Ratio_Horizon(Ratio="Alpha")
 Plot_Ratio_Horizon(Ratio="Sharpe")
 Plot_Ratio_Horizon(Ratio="Sortino")
 Plot_Ratio_Horizon(Ratio="Treynor")
-Turnovers('Alls')
+Turnovers('Alls', ANNt_Prob=ANNt_Prob)
 
 
 
@@ -1222,9 +1222,9 @@ legend("topleft",
 save(Until_Date, file="~/Until_Date.rda")
 }
 
-Plot_Returns_Annualized_Horizon()
-Plot_Cumulative_Returns_Horizon('')
-Portfolio_backtesting_Inv('', '')
+Plot_Returns_Annualized_Horizon(ANNt_Prob=ANNt_Prob)
+Plot_Cumulative_Returns_Horizon('', ANNt_Prob=ANNt_Prob)
+Portfolio_backtesting_Inv('', '', ANNt_Prob=ANNt_Prob)
 ################################################################################
 Backup_ANNt(Investment='Yes')
 
