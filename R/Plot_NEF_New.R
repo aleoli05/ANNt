@@ -304,10 +304,8 @@ matriz_quadrada <- matrix(0, nrow = N_Assets, ncol = N_Assets-3)
 P2<- cbind(P,matriz_quadrada)
 Dmat <- -as.matrix(P2)
 #######
-eig <- eigen(Dmat)
-# Substitui autovalores negativos por 1e-8
-eig$values <- pmax(eig$values, 1e-8)
-Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+
+Dmat_fixed=Dmat
 
 ##########
 #retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
@@ -358,7 +356,17 @@ fronteiraCarteira <- function(retornosAtivos, nPontos = nPoints) {
   pesos
 }
 retornosAtivos = R
-pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+
+tryCatch({
+  pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+}, error=function(e){
+  eig <- eigen(Dmat)
+  # Substitui autovalores negativos por 1e-8
+  eig$values <- pmax(as.numeric(eig$values), 1e-8)
+  Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+  pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+})
+
 
 Retornos_Carteiras= as.matrix(pesos_front) %*%colMeans(R)
 Prob_Carteiras=as.matrix(pesos_front) %*%P[,2]
@@ -433,7 +441,7 @@ plot(points,
   xlab = "Return Probability > Return Benchmark",
   las =1,
   col="gray",
-  xlim = c(min(P[,2]), (max(P[,2])-min(P[,2]))*1.39),
+  xlim = c(min(P[,2]), max(P[,2])+(max(P[,2])-min(P[,2]))*0.55),
   main = "NEF with Budget Constraint (Sum w = 1)")
 #points(x=P[,2],y=colMeans(R), #,main="Fronteira Eficiente por Desvio",
 #       #ylab="Retorno", xlab="Desvio-Padr?o",
@@ -490,7 +498,7 @@ plot(points,
      xlab = "Return Probability > Return Benchmark",
      las =1,
      col="gray",
-     xlim = c(min(P[,2]), (max(P[,2])-min(P[,2]))*1.39),
+     xlim = c(min(P[,2]), max(P[,2])+(max(P[,2])-min(P[,2]))*0.55),
      main = "NEF with Budget Constraint (Sum w = 1)")
 #points(x=P[,2],y=colMeans(R), #,main="Fronteira Eficiente por Desvio",
 #       #ylab="Retorno", xlab="Desvio-Padr?o",
