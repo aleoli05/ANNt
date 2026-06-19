@@ -758,7 +758,7 @@ Turnovers('Alls', ANNt_Prob=ANNt_Prob)
 #########################
 ###Gráfico Comparativo dos Retornos Acumulados das Carteiras
 
-Plot_Returns_Annualized_Horizon <-function(){
+Plot_Returns_Annualized_Horizon <-function(ANNt_Prob){
   load('~/Comparativo_RETORNOS_Horizon_Anual.rda')
   Comparativo_RETORNOS_Horizon_Anual=as.data.frame(Comparativo_RETORNOS_Horizon_Anual)
 
