@@ -32,12 +32,14 @@ Select_Architecture(
   Order = "Yes",
   Continue_from = "1900-01-01",
   Download = "Yes",
-  Skew_t = c("No", "Yes", "Yes", "Yes", "Yes"),
+  Skew_t = c("No", c("Yes", "xi", 1), c("Yes", "Median", 1), "Yes", "Yes"),
   Initial_Arch = 1,
   Bias = c("No", "No", "No", "No", "No"),
   Return_Cumulative = "Total",
   Order_Only = c("No", "No", "No", "No", "No"),
-  Convolution = c("Neutral", "Neutral", "Neutral", "Neutral", "Neutral")
+  Convolution = c("Neutral", "Neutral", "Neutral", "Neutral", "Neutral"),
+  ANNt_Prob = c(c("Yes", 0.5, 70, 200), c("Yes", 0.5, 70, 200), c("Yes", 0.5, 70, 200),
+    c("Yes", 0.5, 70, 200), c("Yes", 0.5, 70, 200))
 )
 }
 \arguments{
@@ -110,6 +112,8 @@ or "No". "No" is the standard.}
 
 \item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 
+\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
+
 \item{Initial_Date_Training}{Training series start Date.}
 
 \item{Specific_Date}{Specific dates for the end of training. Used to define
@@ -160,6 +164,7 @@ Initial_Arch=1,
 Bias=c('No','No','No','No','No'),
 Return_Cumulative ='Total',
 Order_Only=c('No', 'No', 'No', 'No', 'No'),
-Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral')
+Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral'),
+ANNt_Prob =c(('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200))
 )
 }

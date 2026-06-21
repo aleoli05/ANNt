@@ -43,6 +43,7 @@
 #' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -85,7 +86,8 @@
 #' Bias=c('No','No','No','No','No'),
 #' Return_Cumulative ='Total',
 #' Order_Only=c('No', 'No', 'No', 'No', 'No'),
-#' Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral')
+#' Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral'),
+#' ANNt_Prob =c(('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200))
 #' )
 
 
@@ -119,12 +121,13 @@ Select_Architecture<-function(
   Order='Yes',
   Continue_from='1900-01-01',
   Download='Yes',
-  Skew_t=c('No','Yes', 'Yes', 'Yes', 'Yes'),
+  Skew_t=c('No',c('Yes','xi',1), c('Yes','Median',1), 'Yes', 'Yes'),
   Initial_Arch=1,
   Bias=c('No', 'No', 'No', 'No', 'No'),
   Return_Cumulative ='Total',
   Order_Only=c('No', 'No', 'No', 'No', 'No'),
-  Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral')
+  Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral'),
+  ANNt_Prob =c(c('Yes',0.5,70,200),c('Yes',0.5,70,200),c('Yes',0.5,70,200),c('Yes',0.5,70,200),c('Yes',0.5,70,200))
 )
 
 {
@@ -186,7 +189,8 @@ Select_Architecture<-function(
       Bias=Bias[i_arch],
       Return_Cumulative =Return_Cumulative,
       Order_Only=Order_Only[i_arch],
-      Convolution=Convolution[i_arch]
+      Convolution=Convolution[i_arch],
+      ANNt_Prob=ANNt_Prob[i_arch]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')
     load('~/Comparativo_Volatility_Horizon_Anual.rda')
