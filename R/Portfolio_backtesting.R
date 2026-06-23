@@ -234,7 +234,7 @@ Portfolio_backtesting <- function(Date_Initial_Backtesting,Date_Final_Backtestin
   if (ANNt_Prob[1]=='Yes'){
     sumbacktest <- matrix(nrow=11, ncol=11)
     rownames(sumbacktest)= c( RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
-                              "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE", 'ANNt_MAR','ANNt_PROB')
+                              "ANNt_EQ", "ANNt_MKW","ANNt_SHARPE", 'ANNt_MAX','ANNt_PROB')
     sumbacktest[10,1]= round(Media_ANNt_Max_Ret,4)*100
     sumbacktest[11,1]= round(Media_ANNt_Max_Prob,4)*100
   }
