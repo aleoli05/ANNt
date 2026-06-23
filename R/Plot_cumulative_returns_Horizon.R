@@ -32,6 +32,8 @@ library(stringr)
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_inverso=Comparativo_RCum_Horizon_Anual[nrow(Comparativo_RCum_Horizon_Anual):1,]
   Comparativo=Comparativo_inverso

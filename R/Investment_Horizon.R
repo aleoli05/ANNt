@@ -1005,43 +1005,37 @@ legend("topleft",
   windowsFonts(A=windowsFont("Times New Roman"))
   par(family="A", cex=0.8)
 
-  Eixo = c(1:nrow(Comparativo))
-  Eixo_X = rownames(as.data.frame(Comparativo))
-  Comparativo2 = as.data.frame(Comparativo)
+  Eixo = c(1:nrow(Comparativo_RETORNOS_Horizon_Anual))
+  Eixo_X = rownames(as.data.frame(Comparativo_RETORNOS_Horizon_Anual))
+  Comparativo_RETORNOS_Horizon_Anual2 = as.data.frame(Comparativo_RETORNOS_Horizon_Anual)
   #Eixo_X2 = c(1,
-  #            round(nrow(Comparativo)/4,0),
-  #            round(nrow(Comparativo)/2,0),
-  #            round(nrow(Comparativo)*3/4,0),
-  #            nrow(Comparativo))
-  if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
+  #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)/4,0),
+  #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)/2,0),
+  #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)*3/4,0),
+  #            nrow(Comparativo_RETORNOS_Horizon_Anual))
+  if(nrow(Comparativo_RETORNOS_Horizon_Anual)>12) {Eixo_X2 = c(1, 5, 10, 15, 20, 25, 30)
   #} else{Eixo_X2 = c(1, 50, 100, 149)}
-  }else{
-    if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
-    }else{
-      if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
-      }else{
-        if(nrow(Comparativo)<100 & nrow(Comparativo)>=50) {Eixo_X2 = c(1, 20, 40, 60, 80, 100)
-        }else{
-          Eixo_X2 = c(1,10,20,30,40,50)
-        }}}}
-  Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
-  Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
-  Inicio_data = rownames(Comparativo2[1,])
-  Fim_data = rownames(Comparativo2[nrow(Comparativo2),])
+  } else{
+    if(nrow(Comparativo_RETORNOS_Horizon_Anual)>6) {Eixo_X2 = c(1, 3, 5, 7, 9, 11, 13)
+    }else{Eixo_X2 = c(1:nrow(Comparativo_RETORNOS_Horizon_Anual))}}
+  Eixo_X3 = rownames(Comparativo_RETORNOS_Horizon_Anual2[Eixo_X2,])
+  Eixo_X3 = str_replace(Eixo_X3,"NA","")
+  Inicio_data = rownames(Comparativo_RETORNOS_Horizon_Anual2[1,])
+  Fim_data = rownames(Comparativo_RETORNOS_Horizon_Anual2[nrow(Comparativo_RETORNOS_Horizon_Anual2),])
   #Fim_data = "2023-03-16"
-  TestComparativo = cbind(as.data.frame(Comparativo), Eixo)
-  Retornos=TestComparativo[,1]
-  Periodos=TestComparativo$Eixo
-  s = TestComparativo$MARKOWITZ
-  u = TestComparativo$SHARPE
-  v = TestComparativo$MF_EQ
-  z = TestComparativo$MF_MKW
-  p = TestComparativo$MF_SHARPE
-  w = TestComparativo$ANNt_EQ
-  t = TestComparativo$ANNt_MKW
-  q = TestComparativo$ANNt_SHARPE
-  b = TestComparativo$ANNt_MAX
-  c = TestComparativo$ANNt_PROB
+  TestComparativo_RETORNOS_Horizon_Anual = cbind(as.data.frame(Comparativo_RETORNOS_Horizon_Anual), Eixo)
+  Retornos=TestComparativo_RETORNOS_Horizon_Anual[,1]
+  Periodos=TestComparativo_RETORNOS_Horizon_Anual$Eixo
+  s = TestComparativo_RETORNOS_Horizon_Anual$MARKOWITZ
+  u = TestComparativo_RETORNOS_Horizon_Anual$SHARPE
+  h = TestComparativo_RETORNOS_Horizon_Anual$MF_EQ
+  z = TestComparativo_RETORNOS_Horizon_Anual$MF_MKW
+  p = TestComparativo_RETORNOS_Horizon_Anual$MF_SHARPE
+  w = TestComparativo_RETORNOS_Horizon_Anual$ANNt_EQ
+  t = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MKW
+  q = TestComparativo_RETORNOS_Horizon_Anual$ANNt_SHARPE
+  b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+  c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
   plot(Periodos, Retornos,
        family="A",
        type ="l",
@@ -1117,41 +1111,37 @@ legend("topleft",
   windowsFonts(A=windowsFont("Times New Roman"))
   par(family="A", cex=0.8)
 
-  Eixo = c(1:nrow(Comparativo))
-  Eixo_X = rownames(as.data.frame(Comparativo))
-  Comparativo2 = as.data.frame(Comparativo)
+  Eixo = c(1:nrow(Comparativo_RETORNOS_Horizon_Anual))
+  Eixo_X = rownames(as.data.frame(Comparativo_RETORNOS_Horizon_Anual))
+  Comparativo_RETORNOS_Horizon_Anual2 = as.data.frame(Comparativo_RETORNOS_Horizon_Anual)
   #Eixo_X2 = c(1,
-  #            round(nrow(Comparativo)/4,0),
-  #            round(nrow(Comparativo)/2,0),
-  #            round(nrow(Comparativo)*3/4,0),
-  #            nrow(Comparativo))
-  if(nrow(Comparativo)>=600) {Eixo_X2 = c(1, 200, 400, 600, 800, 1000, 1200)
+  #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)/4,0),
+  #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)/2,0),
+  #            round(nrow(Comparativo_RETORNOS_Horizon_Anual)*3/4,0),
+  #            nrow(Comparativo_RETORNOS_Horizon_Anual))
+  if(nrow(Comparativo_RETORNOS_Horizon_Anual)>12) {Eixo_X2 = c(1, 5, 10, 15, 20, 25, 30)
   #} else{Eixo_X2 = c(1, 50, 100, 149)}
-  }else{
-    if(nrow(Comparativo)<600 & nrow(Comparativo)>=300) {Eixo_X2 = c(1, 100, 200, 300, 400, 500, 600)
-    }else{
-      if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
-      }else{
-        Eixo_X2 = c(1,25,50,75,100)
-      }}}
-  Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
-  Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
-  Inicio_data = rownames(Comparativo2[1,])
-  Fim_data = rownames(Comparativo2[nrow(Comparativo2),])
+  } else{
+    if(nrow(Comparativo_RETORNOS_Horizon_Anual)>6) {Eixo_X2 = c(1, 3, 5, 7, 9, 11, 13)
+    }else{Eixo_X2 = c(1:nrow(Comparativo_RETORNOS_Horizon_Anual))}}
+  Eixo_X3 = rownames(Comparativo_RETORNOS_Horizon_Anual2[Eixo_X2,])
+  Eixo_X3 = str_replace(Eixo_X3,"NA","")
+  Inicio_data = rownames(Comparativo_RETORNOS_Horizon_Anual2[1,])
+  Fim_data = rownames(Comparativo_RETORNOS_Horizon_Anual2[nrow(Comparativo_RETORNOS_Horizon_Anual2),])
   #Fim_data = "2023-03-16"
-  TestComparativo = cbind(as.data.frame(Comparativo), Eixo)
-  Retornos=TestComparativo[,1]
-  Periodos=TestComparativo$Eixo
-  s = TestComparativo$MARKOWITZ
-  u = TestComparativo$SHARPE
-  v = TestComparativo$MF_EQ
-  z = TestComparativo$MF_MKW
-  p = TestComparativo$MF_SHARPE
-  w = TestComparativo$ANNt_EQ
-  t = TestComparativo$ANNt_MKW
-  q = TestComparativo$ANNt_SHARPE
-  b = TestComparativo$ANNt_MAX
-  c = TestComparativo$ANNt_PROB
+  TestComparativo_RETORNOS_Horizon_Anual = cbind(as.data.frame(Comparativo_RETORNOS_Horizon_Anual), Eixo)
+  Retornos=TestComparativo_RETORNOS_Horizon_Anual[,1]
+  Periodos=TestComparativo_RETORNOS_Horizon_Anual$Eixo
+  s = TestComparativo_RETORNOS_Horizon_Anual$MARKOWITZ
+  u = TestComparativo_RETORNOS_Horizon_Anual$SHARPE
+  h = TestComparativo_RETORNOS_Horizon_Anual$MF_EQ
+  z = TestComparativo_RETORNOS_Horizon_Anual$MF_MKW
+  p = TestComparativo_RETORNOS_Horizon_Anual$MF_SHARPE
+  w = TestComparativo_RETORNOS_Horizon_Anual$ANNt_EQ
+  t = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MKW
+  q = TestComparativo_RETORNOS_Horizon_Anual$ANNt_SHARPE
+  b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
+  c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
   plot(Periodos, Retornos,
        family="A",
        type ="l",
