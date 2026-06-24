@@ -244,7 +244,7 @@ Plot_Annualized_Returns_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -371,7 +371,7 @@ Plot_Annualized_Returns_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -504,8 +504,8 @@ Plot_Annualized_Volatility_Horizon <-function(){
   t = TestComparativo_Volatility_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Volatility_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Volatility_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Volatility_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -577,7 +577,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -629,6 +629,10 @@ Plot_Annualized_Volatility_Horizon <-function(){
   w = TestComparativo_Volatility_Horizon_Anual$ANNt_EQ
   t = TestComparativo_Volatility_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Volatility_Horizon_Anual$ANNt_SHARPE
+  if (nr==12){
+    b = TestComparativo_Volatility_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Volatility_Horizon_Anual$ANNt_PROB
+  }
   plot(Periodos, Retornos,
        type ="l",
        xaxt = "n",
@@ -700,7 +704,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -832,8 +836,8 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   t = TestComparativo_Sharpe_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sharpe_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Sharpe_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Sharpe_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -904,7 +908,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -958,8 +962,8 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   t = TestComparativo_Sharpe_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sharpe_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Sharpe_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Sharpe_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -1032,7 +1036,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -1166,8 +1170,8 @@ Plot_Annualized_Alpha_Horizon <-function(){
   t = TestComparativo_Alpha_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Alpha_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Alpha_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Alpha_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -1238,7 +1242,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -1292,8 +1296,8 @@ Plot_Annualized_Alpha_Horizon <-function(){
   t = TestComparativo_Alpha_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Alpha_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Alpha_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Alpha_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -1366,7 +1370,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -1500,8 +1504,8 @@ Plot_Annualized_Beta_Horizon <-function(){
   t = TestComparativo_Beta_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Beta_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Beta_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Beta_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -1572,7 +1576,7 @@ Plot_Annualized_Beta_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -1626,8 +1630,8 @@ Plot_Annualized_Beta_Horizon <-function(){
   t = TestComparativo_Beta_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Beta_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Beta_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Beta_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -1700,7 +1704,7 @@ Plot_Annualized_Beta_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -1835,8 +1839,8 @@ Plot_Annualized_Sortino_Horizon <-function(){
   t = TestComparativo_Sortino_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sortino_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Sortino_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Sortino_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -1907,7 +1911,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -1961,8 +1965,8 @@ Plot_Annualized_Sortino_Horizon <-function(){
   t = TestComparativo_Sortino_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Sortino_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Sortino_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Sortino_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -2035,7 +2039,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -2170,8 +2174,8 @@ Plot_Annualized_Treynor_Horizon <-function(){
   t = TestComparativo_Treynor_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Treynor_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Treynor_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Treynor_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -2242,7 +2246,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -2296,8 +2300,8 @@ Plot_Annualized_Treynor_Horizon <-function(){
   t = TestComparativo_Treynor_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Treynor_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Treynor_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Treynor_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -2370,7 +2374,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -2504,8 +2508,8 @@ Plot_Annualized_Var_Horizon <-function(){
   t = TestComparativo_Var_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Var_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Var_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Var_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -2576,7 +2580,7 @@ Plot_Annualized_Var_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -2630,8 +2634,8 @@ Plot_Annualized_Var_Horizon <-function(){
   t = TestComparativo_Var_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Var_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Var_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Var_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -2704,7 +2708,7 @@ Plot_Annualized_Var_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -2838,8 +2842,8 @@ Plot_Annualized_CVar_Horizon <-function(){
   t = TestComparativo_CVar_Horizon_Anual$ANNt_MKW
   q = TestComparativo_CVar_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_CVar_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_CVar_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -2910,7 +2914,7 @@ Plot_Annualized_CVar_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -2964,8 +2968,8 @@ Plot_Annualized_CVar_Horizon <-function(){
   t = TestComparativo_CVar_Horizon_Anual$ANNt_MKW
   q = TestComparativo_CVar_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_CVar_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_CVar_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -3038,7 +3042,7 @@ Plot_Annualized_CVar_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -3176,8 +3180,8 @@ Plot_Annualized_RCum_Horizon <-function(){
   t = TestComparativo_RCum_Horizon_Anual$ANNt_MKW
   q = TestComparativo_RCum_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_RCum_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RCum_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -3248,7 +3252,7 @@ Plot_Annualized_RCum_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -3302,8 +3306,8 @@ Plot_Annualized_RCum_Horizon <-function(){
   t = TestComparativo_RCum_Horizon_Anual$ANNt_MKW
   q = TestComparativo_RCum_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_RCum_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_RCum_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -3376,7 +3380,7 @@ Plot_Annualized_RCum_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -3519,8 +3523,8 @@ Plot_Annualized_Rm_Horizon <-function(){
   t = TestComparativo_Rm_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Rm_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Rm_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Rm_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -3591,7 +3595,7 @@ Plot_Annualized_Rm_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",
@@ -3645,8 +3649,8 @@ Plot_Annualized_Rm_Horizon <-function(){
   t = TestComparativo_Rm_Horizon_Anual$ANNt_MKW
   q = TestComparativo_Rm_Horizon_Anual$ANNt_SHARPE
   if (nr==12){
-    b = TestComparativo_RETORNOS_Horizon_Anual$ANNt_MAX
-    c = TestComparativo_RETORNOS_Horizon_Anual$ANNt_PROB
+    b = TestComparativo_Rm_Horizon_Anual$ANNt_MAX
+    c = TestComparativo_Rm_Horizon_Anual$ANNt_PROB
   }
   plot(Periodos, Retornos,
        type ="l",
@@ -3719,7 +3723,7 @@ Plot_Annualized_Rm_Horizon <-function(){
            #"bottomright",
            legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                       ANN_EQ,
-                      ANN_MKW, ANN_SHARPE, ANNt_MAX, ANNt_PROB),
+                      ANN_MKW, ANN_SHARPE, ANN_MAX, ANN_PROB),
            cex = 0.8,
            lty = c(1,1,1,1,1,1,1,1,1,3,5),
            #bty = "o",

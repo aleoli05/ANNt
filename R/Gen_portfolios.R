@@ -1491,6 +1491,7 @@ tryCatch({
   #######
 
   Dmat_fixed = Dmat
+  Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat
 
   ##########
   retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
@@ -1503,8 +1504,8 @@ tryCatch({
     nAtivos  <-  Num_Assets
 
     portfolio <- solve.QP(
-
-      Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat,
+      Dmat=Dmat,
+      #Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat,
       #Dmat <- cov(retornosAtivos),                        # matriz D
       #dvec <- rep(0, times = nAtivos)/Lambda,                    # vetor  d
       dvec <- colMeans(R),
@@ -1550,6 +1551,14 @@ tryCatch({
     eig$values <- pmax(as.numeric(eig$values), 1e-8)
     Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
   pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+#################
+  tryCatch({
+    Dmat_sim =forceSymmetric(as.matrix(Dmat_fixed))
+    Dmat <- 2*Lambda*nearPD(Dmat_sim,corr=FALSE, keepDiag=TRUE)$mat
+    pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+  })
+################
+
   })
   Retornos_Carteiras= as.matrix(pesos_front) %*%colMeans(R)
   Prob_Carteiras=as.matrix(pesos_front) %*%P[,2]
