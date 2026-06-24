@@ -43,6 +43,7 @@
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
 #' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
+#' @param Delay in portfolio formation or rebalancing. Considers the number of days lag between portfolio creation and investment execution.The default is Delay="No", alternative example: Delay=c('Yes', 5)
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -101,7 +102,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                 Order='Yes', Continue_from='1900-01-01', Skew_t='No',
                                 Bias='No', Return_Cumulative='Total',
                                 Order_Only='No', Convolution='Neutral',
-                               ANNt_Prob=ANNt_Prob){
+                               ANNt_Prob=ANNt_Prob, Delay='No'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -116,6 +117,7 @@ Exclude = Exclude_ticket
 RM_Nome_Backup=paste(RM,Loss,Type_ANNt,Fun,Type_ANN,sep='_')
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 save(Return_Cumulative,file='~/Return_Cumulative.rda')
+save(ANNt_Prob, file='~/ANNt_Prob.rda')
 #load('~/Horizon.rda')
 if(Download=='Yes'){
 if (Import =='No'){
@@ -376,7 +378,7 @@ if(Fun=='S_Out'){
                               N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                               Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                               Order_Only='No', Convolution=Convolution,
-                              ANNt_Prob=ANNt_Prob)
+                              ANNt_Prob=ANNt_Prob, Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -413,7 +415,7 @@ if(Fun=='Out'){
                             N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                             Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                             Order_Only='No', Convolution=Convolution,
-                            ANNt_Prob=ANNt_Prob)
+                            ANNt_Prob=ANNt_Prob, Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -456,7 +458,7 @@ if(Fun=='S'){
                           N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                           Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                           Order_Only='No', Convolution=Convolution,
-                          ANNt_Prob=ANNt_Prob)
+                          ANNt_Prob=ANNt_Prob, Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -472,7 +474,7 @@ if(Fun=='Original'){
                         N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                         Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                         Order_Only='No', Convolutio=Convolution,
-                        ANNt_Prob=ANNt_Prob)
+                        ANNt_Prob=ANNt_Prob, Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -793,7 +795,7 @@ Comparativo_RETORNOS_Horizon_Anual=Comparativo_RETORNOS_Horizon_Anual[1:Corte,]
 
 load('~/RM.rda')
 if (ANNt_Prob[1]=='No'){
-png(file="~/Graphic_Annualized_Returns_Horizon.png", width=1920, height=1920, res=296, family = "A")
+png(file="~/Graphic_Cumuative_Returns_Inv.png", width=1920, height=1920, res=296, family = "A")
 par(#mfrow=c(2,2),
   #mar=c(2,2,2,2),
   oma=c(1,2,1,1))
@@ -996,7 +998,7 @@ legend("topleft",
   ##########################################################################
   ### With ANNt_Prob
   ##########################################################################
-  png(file="~/Graphic_Cumulative_Returns.png", width=1920, height=1920, res=296, family = "A")
+  png(file="~/Graphic_Cumulative_Returns_Inv.png", width=1920, height=1920, res=296, family = "A")
   par(#mfrow=c(2,2),
     #mar=c(2,2,2,2),
     oma=c(1,2,1,1))
@@ -1211,7 +1213,7 @@ legend("topleft",
 
 save(Until_Date, file="~/Until_Date.rda")
 }
-
+load('~/ANNt_Prob.rda')
 Plot_Returns_Annualized_Horizon(ANNt_Prob=ANNt_Prob)
 Plot_Cumulative_Returns_Horizon('', ANNt_Prob=ANNt_Prob)
 Portfolio_backtesting_Inv('', '', ANNt_Prob=ANNt_Prob)

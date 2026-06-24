@@ -317,7 +317,7 @@ legend(paste(Legend_position),
   ##########################################################################
   ### With ANNt_Prob
   ##########################################################################
-  png(file="~/Graphic_Cumulative_Returns.png", width=1920, height=1920, res=296, family = "A")
+  png(file="~/Graphic_Cumulative_Returns_Horizon.png", width=1920, height=1920, res=296, family = "A")
   par(#mfrow=c(2,2),
     #mar=c(2,2,2,2),
     oma=c(1,2,1,1))

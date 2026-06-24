@@ -32,7 +32,8 @@ ANNt_Oliveira_Ceretta_S_Out(
   Bias = "No",
   Order_Only = "No",
   Convolution = "Neutral",
-  ANNt_Prob = ANNt_Prob
+  ANNt_Prob = ANNt_Prob,
+  Delay = "No"
 )
 }
 \arguments{
@@ -90,6 +91,8 @@ or "No". "Yes" is the standard.}
 \item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 
 \item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
+
+\item{Delay}{in portfolio formation or rebalancing. Considers the number of days lag between portfolio creation and investment execution.The default is Delay="No", alternative example: Delay=c('Yes', 5)}
 
 \item{Initial_Date_Training}{Training series start Date}
 }

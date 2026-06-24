@@ -32,6 +32,7 @@
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
 #' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
+#' @param Delay in portfolio formation or rebalancing. Considers the number of days lag between portfolio creation and investment execution.The default is Delay="No", alternative example: Delay=c('Yes', 5)
 #'@examples
 #'Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #'RM <-c('^GSPC') #RM the S&P500
@@ -55,7 +56,7 @@ ANNt_Oliveira_Ceretta_S_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Dat
                                         N_Assets,Base='yahoo', Import='Yes', Exclude_ticket='',
                                         Type_ANN='ANNt', Order='Yes', Skew_t='No',
                                         Bias='No', Order_Only='No',Convolution='Neutral',
-                                        ANNt_Prob=ANNt_Prob){
+                                        ANNt_Prob=ANNt_Prob, Delay='No'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
@@ -462,7 +463,21 @@ Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D_Out+1,])
 save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')
 print(paste("Initial_Date_Testing: ", Initial_Date_Testing, sep=''))
 load('~/Initial_Date_Testing.rda')
-
+#######################
+# Delay
+if(Delay[1]=='Yes'){
+  load('~/scenario.set.rda')
+  Atual_data_Inicial=which(rownames(scenario.set)==Initial_Date_Testing)
+  Atual_data_Final=which(rownames(scenario.set)==Final_Date)
+  Nova_data_Inicial=Atual_data_Inicial+as.numeric(Delay[2])
+  Nova_data_Final=Atual_data_Final+as.numeric(Delay[2])
+  if(Nova_data_Final>nrow(scenario.set)){
+    Nova_data_Final=nrow(scenario.set)
+  }
+  Initial_Date_Testing=rownames(scenario.set)[Nova_data_Inicial]
+  Final_Date=rownames(scenario.set)[Nova_data_Final]
+}
+######################
 Out_of_sample(Initial_Date_Out=Initial_Date_Testing,Final_Date, ANNt_Prob=ANNt_Prob)
 Portfolio_backtesting('',Final_Date, ANNt_Prob=ANNt_Prob)
 Plot_Cumulative_Returns('',ANNt_Prob=ANNt_Prob)
