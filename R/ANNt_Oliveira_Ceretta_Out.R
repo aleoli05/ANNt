@@ -138,7 +138,8 @@ Initial_Date_Testing= rownames(as.data.frame(scenario.set)[D_Out+1,])
 save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')
 print('***********************************************')
 print(paste("Initial_Date_Testing out of sample: ", Initial_Date_Testing, sep=''))
-load('~/Initial_Date_Testing.rda')
+print(paste("Final_Date_Testing out of sample: ", Final_Date, sep=''))
+#load('~/Initial_Date_Testing.rda')
 
 #######################
 # Delay
@@ -154,6 +155,8 @@ if(Delay[1]=='Yes'){
     Nova_data_Final=Atual_data_Final+as.numeric(Delay[2])
     Final_Date=rownames(scenario.set)[Nova_data_Final]
   }
+  print(paste("Initial_Date_Testing out of sample with Delay: ", Initial_Date_Testing, sep=''))
+  print(paste("Final_Date_Testing out of sample with Delay: ", Final_Date, sep=''))
 }
 ######################
 Out_of_sample(Initial_Date_Testing,Final_Date, ANNt_Prob=ANNt_Prob) # Modificada dada final de ''

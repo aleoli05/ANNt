@@ -42,11 +42,11 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
   }
 
   scenario.set = as.data.frame(scenario.set)
-  if(Initial_Date_Out==('')){
+  if(Initial_Date_Out==c('')){
     Initial_Date_Out=as.Date(Final_Date_Testing)+1
   }
 
-  if(Final_Date_Out==('')){
+  if(Final_Date_Out==c('')){
     Final_Date_Out=rownames(scenario.set[nrow(scenario.set),])
     #Final_Date_Testing=Sys.Date()
   }
