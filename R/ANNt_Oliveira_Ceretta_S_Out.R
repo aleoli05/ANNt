@@ -470,12 +470,12 @@ if(Delay[1]=='Yes'){
   Atual_data_Inicial=which(rownames(scenario.set)==Initial_Date_Testing)
   Nova_data_Inicial=Atual_data_Inicial+as.numeric(Delay[2])
   Initial_Date_Testing=rownames(scenario.set)[Nova_data_Inicial]
-  if(Final_Date!=c('') | Final_Date!=rownames(scenario.set)[nrow(scenario.set)]){
+  if(Final_Date==c('') | Final_Date==rownames(scenario.set)[nrow(scenario.set)]){
+    Final_Date=rownames(scenario.set)[nrow(scenario.set)]
+  } else {
     Atual_data_Final=which(rownames(scenario.set)==Final_Date)
     Nova_data_Final=Atual_data_Final+as.numeric(Delay[2])
     Final_Date=rownames(scenario.set)[Nova_data_Final]
-  } else {
-    Final_Date=rownames(scenario.set)[nrow(scenario.set)]
   }
 }
 ######################
