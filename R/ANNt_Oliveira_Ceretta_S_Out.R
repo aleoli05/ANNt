@@ -467,9 +467,25 @@ load('~/Initial_Date_Testing.rda')
 # Delay
 if(Delay[1]=='Yes'){
   load('~/scenario.set.rda')
+
+  if(length(which(rownames(as.data.frame(scenario.set))==Initial_Date_Testing))==0){
+    while(length(which(rownames(as.data.frame(scenario.set))==Initial_Date_Testing))==0){
+      dia=as.Date(Initial_Date_Testing)
+      new_day=dia+1
+      Initial_Date_Testing = as.character(new_day)
+    }
+  }
   Atual_data_Inicial=which(rownames(scenario.set)==Initial_Date_Testing)
   Nova_data_Inicial=Atual_data_Inicial+as.numeric(Delay[2])
   Initial_Date_Testing=rownames(scenario.set)[Nova_data_Inicial]
+
+  if(length(which(rownames(as.data.frame(scenario.set))==Final_Date))==0){
+    while(length(which(rownames(as.data.frame(scenario.set))==Final_Date))==0){
+      dia=as.Date(Final_Date)
+      new_day=dia-1
+      Final_Date = as.character(new_day)
+    }
+  }
   if(Final_Date==c('') | Final_Date==rownames(scenario.set)[nrow(scenario.set)]){
     Final_Date=rownames(scenario.set)[nrow(scenario.set)]
   } else {
@@ -477,6 +493,8 @@ if(Delay[1]=='Yes'){
     Nova_data_Final=Atual_data_Final+as.numeric(Delay[2])
     Final_Date=rownames(scenario.set)[Nova_data_Final]
   }
+  print(paste("Initial_Date_Testing out of sample with Delay: ", Initial_Date_Testing, sep=''))
+  print(paste("Final_Date_Testing out of sample with Delay: ", Final_Date, sep=''))
 }
 ######################
 Out_of_sample(Initial_Date_Out=Initial_Date_Testing,Final_Date, ANNt_Prob=ANNt_Prob)
