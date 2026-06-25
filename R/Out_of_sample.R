@@ -41,7 +41,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
     load('~/Weight_ANNt_PROB.rda')
   }
 
-  scenario.set = data.frame(scenario.set)
+  scenario.set = as.data.frame(scenario.set)
   if(Initial_Date_Out==('')){
     Initial_Date_Out=as.Date(Final_Date_Testing)+1
   }
