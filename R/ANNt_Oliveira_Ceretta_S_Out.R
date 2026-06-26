@@ -477,8 +477,12 @@ if(Delay[1]=='Yes'){
   }
   Atual_data_Inicial=which(rownames(scenario.set)==Initial_Date_Testing)
   Nova_data_Inicial=Atual_data_Inicial+as.numeric(Delay[2])
-  Initial_Date_Testing=rownames(scenario.set)[Nova_data_Inicial]
-
+  if(Nova_data_Inicial>nrow(scenario.set)){
+    Nova_data_Inicial=nrow(scenario.set)-1
+    Initial_Date_Testing=rownames(scenario.set)[Nova_data_Inicial]
+  }else{
+    Initial_Date_Testing=rownames(scenario.set)[Nova_data_Inicial]
+  }
   if(length(which(rownames(as.data.frame(scenario.set))==Final_Date))==0){
     while(length(which(rownames(as.data.frame(scenario.set))==Final_Date))==0){
       dia=as.Date(Final_Date)

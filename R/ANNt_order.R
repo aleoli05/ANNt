@@ -1151,7 +1151,18 @@ ___________________________________________________________________
     nome = colnames(entradasPredict)[1]
     KS_test = ks.test(prevPredict,'pnorm')
     KS_pvalue=KS_test$p.value
+    if (length(prevPredict) <= 7) {
+      tryCatch(
+        expr = {
+      AD_test =shapiro.test(prevPredict)
+        },
+      error = function(e) {
+      AD_test = 0
+      }
+      )
+    }else{
     AD_test = ad.test(prevPredict)
+    }
     AD_pvalue=AD_test$p.value
 
     plot(as.vector(entradasPredict[,1]), type="l", col = "red",
@@ -1245,7 +1256,18 @@ ___________________________________________________________________
           Desvio=stdev(prevPredict)
           KS_test = ks.test(prevPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          AD_test = ad.test(prevPredict)
+          if (length(prevPredict) <= 7) {
+            tryCatch(
+              expr = {
+                AD_test =shapiro.test(prevPredict)
+              },
+              error = function(e) {
+                AD_test = 0
+              }
+            )
+          }else{
+            AD_test = ad.test(prevPredict)
+          }
           AD_pvalue=AD_test$p.value
           if (Skew_t[2]=='Median'){
           Median = median(prevPredict)
@@ -1271,7 +1293,18 @@ ___________________________________________________________________
           nu=0.0
           KS_test = ks.test(prevPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          AD_test = ad.test(prevPredict)
+          if (length(prevPredict) <= 7) {
+            tryCatch(
+              expr = {
+                AD_test =shapiro.test(prevPredict)
+              },
+              error = function(e) {
+                AD_test = 0
+              }
+            )
+          }else{
+            AD_test = ad.test(prevPredict)
+          }
           AD_pvalue=AD_test$p.value
           ativos_fora[length(ativos_fora)+1]=ativo
           Dev_Left=0
@@ -1312,7 +1345,18 @@ ___________________________________________________________________
     }
     KS_test = ks.test(camadaSaidaPredict,'pnorm')
     KS_pvalue=KS_test$p.value
-    AD_test = ad.test(camadaSaidaPredict)
+    if (length(camadaSaidaPredict) <= 7) {
+      tryCatch(
+        expr = {
+          AD_test =shapiro.test(camadaSaidaPredict)
+        },
+        error = function(e) {
+          AD_test = 0
+        }
+      )
+    }else{
+      AD_test = ad.test(camadaSaidaPredict)
+    }
     AD_pvalue=AD_test$p.value
 
 
@@ -1392,7 +1436,18 @@ ___________________________________________________________________
           Desvio=stdev(camadaSaidaPredict)
           KS_test = ks.test(camadaSaidaPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          AD_test = ad.test(camadaSaidaPredict)
+          if (length(camadaSaidaPredict) <= 7) {
+            tryCatch(
+              expr = {
+                AD_test =shapiro.test(camadaSaidaPredict)
+              },
+              error = function(e) {
+                AD_test = 0
+              }
+            )
+          }else{
+            AD_test = ad.test(camadaSaidaPredict)
+          }
           AD_pvalue=AD_test$p.value
           if(Skew_t[2]=='Median'){
           Median = median(CamadaSaidaPredict)
@@ -1445,7 +1500,18 @@ ___________________________________________________________________
           Prob_Right=0
           KS_test = ks.test(camadaSaidaPredict,'pnorm')
           KS_pvalue=KS_test$p.value
-          AD_test = ad.test(camadaSaidaPredict)
+          if (length(camadaSaidaPredict) <= 7) {
+            tryCatch(
+              expr = {
+                AD_test =shapiro.test(camadaSaidaPredict)
+              },
+              error = function(e) {
+                AD_test = 0
+              }
+            )
+          }else{
+            AD_test = ad.test(camadaSaidaPredict)
+          }
           AD_pvalue=AD_test$p.value
           ativos_fora[length(ativos_fora)+1]=ativo
 
