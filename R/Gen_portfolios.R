@@ -28,7 +28,7 @@
 Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing,
                           Rf, type_ANNt, ANNt_Prob='No'){
 
-
+  suppressPackageStartupMessages({
   library(quantmod)
   library(PortfolioAnalytics)
   library(PerformanceAnalytics)
@@ -66,7 +66,7 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing,
   library(DEoptim)
   library(IntroCompFinR)
   library(Matrix)
-
+  })
   #load('~/Rf.rda')
 
 
@@ -1568,9 +1568,11 @@ tryCatch({
   Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
   ANNt_weights_Max_Ret <- ANNt_weights_Max_Ret[ANNt_weights_Max_Ret>0]
   Weight_ANNt_MAX=as.data.frame(t(as.data.frame(ANNt_weights_Max_Ret)))
+  rownames(Weight_ANNt_MAX)='Weight'
   #ANNt_weights_Max_Ret
   print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
-  print(ANNt_weights_Max_Ret)
+  #print(ANNt_weights_Max_Ret)
+  print(Weight_ANNt_MAX)
 
   Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
   R_Asset_Max=as.data.frame(R[,Nomes_Ret])
@@ -1586,9 +1588,10 @@ tryCatch({
   Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
   Prob_ANNt_Max_Prob = P[Nomes_Prob,2]
   Weight_ANNt_PROB=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+  rownames(Weight_ANNt_PROB)='Weight'
   print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
-  print(ANNt_weights_Max_Prob)
-
+  #print(ANNt_weights_Max_Prob)
+  print(Weight_ANNt_PROB)
 
   Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
   #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))

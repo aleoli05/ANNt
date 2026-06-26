@@ -80,6 +80,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
   rownames(PosCovidSP500)=Datas1Predict
   TodosAtivosPredict = as.matrix(rbind(scenario.set[Datas1Predict,-1]))
 
+  suppressPackageStartupMessages({
   library(quantmod)
   library(PortfolioAnalytics)
   library(PerformanceAnalytics)
@@ -117,6 +118,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
   library(DEoptim)
   library(IntroCompFinR)
   library(Matrix)
+  })
   options(warn=-1)
 
   ##############################################################################
