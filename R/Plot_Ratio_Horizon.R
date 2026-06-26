@@ -68,6 +68,7 @@ Plot_Annualized_Returns_Horizon <-function(){
   ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_RETORNOS_Horizon_Anual[is.na(Comparativo_RETORNOS_Horizon_Anual)] = 0
+  Comparativo_RETORNOS_Horizon_Anual[is.infinite(Comparativo_RETORNOS_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_RETORNOS_Horizon_Anual[,1])
   nline = nrow(Comparativo_RETORNOS_Horizon_Anual)
@@ -398,6 +399,7 @@ Plot_Annualized_Volatility_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_Volatility_Horizon_Anual[is.na(Comparativo_Volatility_Horizon_Anual)] = 0
+  Comparativo_Volatility_Horizon_Anual[is.infinite(Comparativo_Volatility_Horizon_Anual)] = 0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Volatility_Horizon_Anual[,1])
   nline = nrow(Comparativo_Volatility_Horizon_Anual)
@@ -731,6 +733,7 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_Sharpe_Horizon_Anual[is.na(Comparativo_Sharpe_Horizon_Anual)]=0
+  Comparativo_Sharpe_Horizon_Anual[is.infinite(Comparativo_Sharpe_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Sharpe_Horizon_Anual[,1])
   nline = nrow(Comparativo_Sharpe_Horizon_Anual)
@@ -1063,6 +1066,7 @@ Plot_Annualized_Alpha_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_Alpha_Horizon_Anual[is.na(Comparativo_Alpha_Horizon_Anual)]=0
+  Comparativo_Alpha_Horizon_Anual[is.infinite(Comparativo_Alpha_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Alpha_Horizon_Anual[,1])
   nline = nrow(Comparativo_Alpha_Horizon_Anual)
@@ -1397,6 +1401,7 @@ Plot_Annualized_Beta_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_Beta_Horizon_Anual[is.na(Comparativo_Beta_Horizon_Anual)]=0
+  Comparativo_Beta_Horizon_Anual[is.infinite(Comparativo_Beta_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Beta_Horizon_Anual[,1])
   nline = nrow(Comparativo_Beta_Horizon_Anual)
@@ -1731,6 +1736,7 @@ Plot_Annualized_Sortino_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_Sortino_Horizon_Anual[is.na(Comparativo_Sortino_Horizon_Anual)]=0
+  Comparativo_Sortino_Horizon_Anual[is.infinite(Comparativo_Sortino_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Sortino_Horizon_Anual[,1])
   nline = nrow(Comparativo_Sortino_Horizon_Anual)
@@ -2066,6 +2072,7 @@ Plot_Annualized_Treynor_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_Treynor_Horizon_Anual[is.na(Comparativo_Treynor_Horizon_Anual)]=0
+  Comparativo_Treynor_Horizon_Anual[is.infinite(Comparativo_Treynor_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Treynor_Horizon_Anual[,1])
   nline = nrow(Comparativo_Treynor_Horizon_Anual)
@@ -2401,6 +2408,7 @@ Plot_Annualized_Var_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_Var_Horizon_Anual[is.na(Comparativo_Var_Horizon_Anual)]=0
+  Comparativo_Var_Horizon_Anual[is.infinite(Comparativo_Var_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Var_Horizon_Anual[,1])
   nline = nrow(Comparativo_Var_Horizon_Anual)
@@ -2735,6 +2743,7 @@ Plot_Annualized_CVar_Horizon <-function(){
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
   Comparativo_CVar_Horizon_Anual[is.na(Comparativo_CVar_Horizon_Anual)]=0
+  Comparativo_CVar_Horizon_Anual[is.infinite(Comparativo_CVar_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_CVar_Horizon_Anual[,1])
   nline = nrow(Comparativo_CVar_Horizon_Anual)
@@ -3413,6 +3422,7 @@ Plot_Annualized_Rm_Horizon <-function(){
   dev.capabilities()
 
   Comparativo_Rm_Horizon_Anual[is.na(Comparativo_Rm_Horizon_Anual)]=0
+  Comparativo_Rm_Horizon_Anual[is.infinite(Comparativo_Rm_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_Rm_Horizon_Anual[,1])
   nline = nrow(Comparativo_Rm_Horizon_Anual)
