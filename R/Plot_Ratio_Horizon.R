@@ -3077,6 +3077,8 @@ Plot_Annualized_RCum_Horizon <-function(){
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
 
+  Comparativo_RCum_Horizon_Anual[is.na(Comparativo_RCum_Horizon_Anual)]=0
+  Comparativo_RCum_Horizon_Anual[is.infinite(Comparativo_RCum_Horizon_Anual)]=0
   options(warn=-1)
   Eixo_X = rownames(Comparativo_RCum_Horizon_Anual[,1])
   nline = nrow(Comparativo_RCum_Horizon_Anual)

@@ -670,48 +670,71 @@ colnames(Comparativo_Alpha_Horizon_Anual)= rownames(Summary_Backtest)
 rownames(Comparativo_Treynor_Horizon_Anual)=Inicio_Teste_Datas
 colnames(Comparativo_Treynor_Horizon_Anual)= rownames(Summary_Backtest)
 
+Comparativo_Rm_Horizon_Anual[is.na(Comparativo_Rm_Horizon_Anual)]=0
+Comparativo_Rm_Horizon_Anual[is.infinite(Comparativo_Rm_Horizon_Anual)]=0
 save(Comparativo_Rm_Horizon_Anual, file='~/Comparativo_Rm_Horizon_Anual.rda')
 Comparativo_Rm_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Rm_Horizon_Anual)),as.data.frame(Comparativo_Rm_Horizon_Anual))
 write_xlsx(as.data.frame(Comparativo_Rm_Horizon_Anual2), "~/Comparativo_Rm_Horizon_Anual.xlsx")
 
+Comparativo_RETORNOS_Horizon_Anual[is.na(Comparativo_RETORNOS_Horizon_Anual)] = 0
+Comparativo_RETORNOS_Horizon_Anual[is.infinite(Comparativo_RETORNOS_Horizon_Anual)]=0
 save(Comparativo_RETORNOS_Horizon_Anual, file='~/Comparativo_RETORNOS_Horizon_Anual.rda')
 Comparativo_RETORNOS_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_RETORNOS_Horizon_Anual)),as.data.frame(Comparativo_RETORNOS_Horizon_Anual))
 write_xlsx(as.data.frame(Comparativo_RETORNOS_Horizon_Anual2), "~/Comparativo_RETORNOS_Horizon_Anual.xlsx")
 
+Comparativo_RCum_Horizon_Anual[is.na(Comparativo_RCum_Horizon_Anual)]=0
+Comparativo_RCum_Horizon_Anual[is.infinite(Comparativo_RCum_Horizon_Anual)]=0
 save(Comparativo_RCum_Horizon_Anual, file='~/Comparativo_RCum_Horizon_Anual.rda')
 Comparativo_RCum_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_RCum_Horizon_Anual)),as.data.frame(Comparativo_RCum_Horizon_Anual))
 write_xlsx(as.data.frame(Comparativo_RCum_Horizon_Anual2), "~/Comparativo_RCum_Horizon_Anual.xlsx")
 
+Comparativo_Volatility_Horizon_Anual[is.na(Comparativo_Volatility_Horizon_Anual)] = 0
+Comparativo_Volatility_Horizon_Anual[is.infinite(Comparativo_Volatility_Horizon_Anual)] = 0
 save(Comparativo_Volatility_Horizon_Anual, file='~/Comparativo_Volatility_Horizon_Anual.rda')
 Comparativo_Volatility_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Volatility_Horizon_Anual)),as.data.frame(Comparativo_Volatility_Horizon_Anual))
-write_xlsx(as.data.frame(Comparativo_Volatility_Horizon_Anual), "~/Comparativo_Volatility_Horizon_Anual.xlsx")
+write_xlsx(as.data.frame(Comparativo_Volatility_Horizon_Anual2), "~/Comparativo_Volatility_Horizon_Anual.xlsx")
 
+Comparativo_Var_Horizon_Anual[is.na(Comparativo_Var_Horizon_Anual)]=0
+Comparativo_Var_Horizon_Anual[is.infinite(Comparativo_Var_Horizon_Anual)]=0
 save(Comparativo_Var_Horizon_Anual, file='~/Comparativo_Var_Horizon_Anual.rda')
 Comparativo_Var_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Var_Horizon_Anual)),as.data.frame(Comparativo_Var_Horizon_Anual))
-write_xlsx(as.data.frame(Comparativo_Var_Horizon_Anual), "~/Comparativo_Var_Horizon_Anual.xlsx")
+write_xlsx(as.data.frame(Comparativo_Var_Horizon_Anual2), "~/Comparativo_Var_Horizon_Anual.xlsx")
 
+Comparativo_CVar_Horizon_Anual[is.na(Comparativo_CVar_Horizon_Anual)]=0
+Comparativo_CVar_Horizon_Anual[is.infinite(Comparativo_CVar_Horizon_Anual)]=0
 save(Comparativo_CVar_Horizon_Anual, file='~/Comparativo_CVar_Horizon_Anual.rda')
 Comparativo_CVar_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_CVar_Horizon_Anual)),as.data.frame(Comparativo_CVar_Horizon_Anual))
-write_xlsx(as.data.frame(Comparativo_CVar_Horizon_Anual), "~/Comparativo_CVar_Horizon_Anual.xlsx")
+write_xlsx(as.data.frame(Comparativo_CVar_Horizon_Anual2), "~/Comparativo_CVar_Horizon_Anual.xlsx")
 
+Comparativo_Sharpe_Horizon_Anual[is.na(Comparativo_Sharpe_Horizon_Anual)]=0
+Comparativo_Sharpe_Horizon_Anual[is.infinite(Comparativo_Sharpe_Horizon_Anual)]=0
 save(Comparativo_Sharpe_Horizon_Anual, file='~/Comparativo_Sharpe_Horizon_Anual.rda')
 Comparativo_Sharpe_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Sharpe_Horizon_Anual)),as.data.frame(Comparativo_Sharpe_Horizon_Anual))
-write_xlsx(as.data.frame(Comparativo_Sharpe_Horizon_Anual), "~/Comparativo_Sharpe_Horizon_Anual.xlsx")
+write_xlsx(as.data.frame(Comparativo_Sharpe_Horizon_Anual2), "~/Comparativo_Sharpe_Horizon_Anual.xlsx")
 
+Comparativo_Sortino_Horizon_Anual[is.na(Comparativo_Sortino_Horizon_Anual)]=0
+Comparativo_Sortino_Horizon_Anual[is.infinite(Comparativo_Sortino_Horizon_Anual)]=0
 save(Comparativo_Sortino_Horizon_Anual, file='~/Comparativo_Sortino_Horizon_Anual.rda')
-write_xlsx(as.data.frame(Comparativo_Sortino_Horizon_Anual), "~/Comparativo_Sortino_Horizon_Anual.xlsx")
+Comparativo_Sortino_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Sortino_Horizon_Anual)),as.data.frame(Comparativo_Sortino_Horizon_Anual))
+write_xlsx(as.data.frame(Comparativo_Sortino_Horizon_Anual2), "~/Comparativo_Sortino_Horizon_Anual.xlsx")
 
+Comparativo_Beta_Horizon_Anual[is.na(Comparativo_Beta_Horizon_Anual)]=0
+Comparativo_Beta_Horizon_Anual[is.infinite(Comparativo_Beta_Horizon_Anual)]=0
 save(Comparativo_Beta_Horizon_Anual, file='~/Comparativo_Beta_Horizon_Anual.rda')
 Comparativo_Beta_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Beta_Horizon_Anual)),as.data.frame(Comparativo_Beta_Horizon_Anual))
-write_xlsx(as.data.frame(Comparativo_Beta_Horizon_Anual), "~/Comparativo_Beta_Horizon_Anual.xlsx")
+write_xlsx(as.data.frame(Comparativo_Beta_Horizon_Anual2), "~/Comparativo_Beta_Horizon_Anual.xlsx")
 
+Comparativo_Alpha_Horizon_Anual[is.na(Comparativo_Alpha_Horizon_Anual)]=0
+Comparativo_Alpha_Horizon_Anual[is.infinite(Comparativo_Alpha_Horizon_Anual)]=0
 save(Comparativo_Alpha_Horizon_Anual, file='~/Comparativo_Alpha_Horizon_Anual.rda')
 Comparativo_Alpha_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Alpha_Horizon_Anual)),as.data.frame(Comparativo_Alpha_Horizon_Anual))
-write_xlsx(as.data.frame(Comparativo_Alpha_Horizon_Anual), "~/Comparativo_Alpha_Horizon_Anual.xlsx")
+write_xlsx(as.data.frame(Comparativo_Alpha_Horizon_Anual2), "~/Comparativo_Alpha_Horizon_Anual.xlsx")
 
+Comparativo_Treynor_Horizon_Anual[is.na(Comparativo_Treynor_Horizon_Anual)]=0
+Comparativo_Treynor_Horizon_Anual[is.infinite(Comparativo_Treynor_Horizon_Anual)]=0
 save(Comparativo_Treynor_Horizon_Anual, file='~/Comparativo_Treynor_Horizon_Anual.rda')
 Comparativo_Treynor_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Treynor_Horizon_Anual)),as.data.frame(Comparativo_Treynor_Horizon_Anual))
-write_xlsx(as.data.frame(Comparativo_Treynor_Horizon_Anual), "~/Comparativo_Treynor_Horizon_Anual.xlsx")
+write_xlsx(as.data.frame(Comparativo_Treynor_Horizon_Anual2), "~/Comparativo_Treynor_Horizon_Anual.xlsx")
 
 save(i,file='~/i.rda')
 Continue_from=Specific_Dates[i+1]
