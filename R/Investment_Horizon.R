@@ -118,6 +118,7 @@ RM_Nome_Backup=paste(RM,Loss,Type_ANNt,Fun,Type_ANN,sep='_')
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 save(Return_Cumulative,file='~/Return_Cumulative.rda')
 save(ANNt_Prob, file='~/ANNt_Prob.rda')
+save(Rf, file='~/Rf.rda')
 #load('~/Horizon.rda')
 if(Download=='Yes'){
 if (Import =='No'){

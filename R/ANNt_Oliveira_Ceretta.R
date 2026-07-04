@@ -58,7 +58,7 @@ ANNt_Oliveira_Ceretta <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trai
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
 
-
+  save(Rf, file='~/Rf.rda')
   Exclude=Exclude_ticket
   Periodo= c('daily','monthly','weekly')
   if(length(which(Periodo==Periodicity))==0){

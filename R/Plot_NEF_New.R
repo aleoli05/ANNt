@@ -65,6 +65,9 @@ Plot_NEF_New <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf,
   library(CVXR)
   library(MFDFA)
   library(DEoptim)
+  if (!requireNamespace("IntroCompFinR", quietly = TRUE)) {
+    install.packages("IntroCompFinR", repos="http://R-Forge.R-project.org")
+  }
   library(IntroCompFinR)
   library(Matrix)
   print('Generating Plot__New_efficient_frontier Command')
@@ -463,11 +466,23 @@ points(x=Prob_ANNt_weights_Max_Prob,y=Ret_ANNt_weights_Max_Prob, #,main="Frontei
        pch=19
        #xlim = c(0.01, 0.07))
 )
+text(x=Prob_ANNt_weights_Max_Prob,y=Ret_ANNt_weights_Max_Prob,
+     labels = colnames(Prob_ANNt_weights_Max_Prob),
+     col="red",
+     cex = 0.6,
+     adj = -0.2
+)
 points(x=Prob_ANNt_weights_Max_Ret,y=Ret_ANNt_weights_Max_Ret, #,main="Fronteira Eficiente por Desvio",
        #ylab="Retorno", xlab="Desvio-Padr?o",
        col="blue",
        pch=19
        #xlim = c(0.01, 0.07))
+)
+text(x=Prob_ANNt_weights_Max_Ret,y=Ret_ANNt_weights_Max_Ret,
+     labels = colnames(Prob_ANNt_weights_Max_Ret),
+     col="blue",
+     cex = 0.6,
+     adj = -0.2
 )
 lines(x = Prob_Carteiras,
 y = Retornos_Carteiras,

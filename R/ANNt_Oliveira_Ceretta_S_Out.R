@@ -98,7 +98,7 @@ ANNt_Oliveira_Ceretta_S_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Dat
   library(IntroCompFinR)
   library(quadprog)
 
-
+  save(Rf, file='~/Rf.rda')
   Exclude=Exclude_ticket
 
   Periodo= c('daily','monthly','weekly')
@@ -512,8 +512,8 @@ Plot_New_efficient_frontier(ANNt_Prob=ANNt_Prob)
 }
 Sys.sleep((15))
 if(ANNt_Prob[1]=='Yes'){
-  Plot_NEF_New(N_Assets=ANNt_Prob[3],Initial_Date_Testing=Initial_Date_Testing,
-               Final_Date_Testing=Final_Date,type_ANNt=Type_ANNt, Rf=Rf,
+  Plot_NEF_New(N_Assets=ANNt_Prob[3],Initial_Date_Testing=Initial_Date,
+               Final_Date_Testing=Final_Date_Training,type_ANNt=Type_ANNt, Rf=Rf,
                Lambda=ANNt_Prob[2],nPoints=ANNt_Prob[4])
 }
 Plot_CUSUM('','')

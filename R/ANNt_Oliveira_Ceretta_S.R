@@ -99,7 +99,7 @@ ANNt_Oliveira_Ceretta_S <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Tr
   library(IntroCompFinR)
   library(quadprog)
 
-
+  save(Rf, file='~/Rf.rda')
   Exclude=Exclude_ticket
 
   Periodo= c('daily','monthly','weekly')

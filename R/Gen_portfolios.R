@@ -64,6 +64,9 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing,
   library(CVXR)
   library(MFDFA)
   library(DEoptim)
+    if (!requireNamespace("IntroCompFinR", quietly = TRUE)) {
+      install.packages("IntroCompFinR", repos="http://R-Forge.R-project.org")
+    }
   library(IntroCompFinR)
   library(Matrix)
   })

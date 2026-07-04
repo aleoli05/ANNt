@@ -86,6 +86,7 @@ save(x4, file='~/x4.rda')
 save(Type_ANN, file='~/Type_ANN.rda')
 Initial_Date_Testing <- c('')
 Final_Date_Testing <- c('')
+save(Rf, file='~/Rf.rda')
 
 Rf <- Rf
 save(Rf, file='~/Rf.rda')
@@ -190,8 +191,8 @@ Plot_New_efficient_frontier(ANNt_Prob=ANNt_Prob)
 }
 Sys.sleep((15))
 if(ANNt_Prob[1]=='Yes'){
-  Plot_NEF_New(N_Assets=ANNt_Prob[3],Initial_Date_Testing=Initial_Date_Testing,
-               Final_Date_Testing=Final_Date,type_ANNt=Type_ANNt, Rf=Rf,
+  Plot_NEF_New(N_Assets=ANNt_Prob[3],Initial_Date_Testing=Initial_Date,
+               Final_Date_Testing=Final_Date_Training,type_ANNt=Type_ANNt, Rf=Rf,
                Lambda=ANNt_Prob[2],nPoints=ANNt_Prob[4])
 }
 
