@@ -1494,8 +1494,9 @@ tryCatch({
   #######
 
   Dmat_fixed = Dmat
-  Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat
-
+  tryCatch({
+    Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat
+  })
   ##########
   retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
 
