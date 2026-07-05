@@ -1496,7 +1496,22 @@ tryCatch({
   Dmat_fixed = Dmat
   tryCatch({
     Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat
+  }, error=function(e){
+    eig <- eigen(Dmat)
+    # Substitui autovalores negativos por 1e-8
+    eig$values <- pmax(as.numeric(eig$values), 1e-8)
+    Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+    pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+    #################
+    tryCatch({
+      Dmat_sim =forceSymmetric(as.matrix(Dmat_fixed))
+      Dmat <- 2*Lambda*nearPD(Dmat_sim,corr=FALSE, keepDiag=TRUE)$mat
+
+    })
+    ################
+
   })
+
   ##########
   retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
 
