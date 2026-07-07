@@ -6,12 +6,15 @@
 Present Cumulative Returns Graph for all investment horizon}
 \usage{
 Plot_Cumulative_Returns_Horizon(
+  From_Date,
   Until_Date,
   Legend_position = "topleft",
   ANNt_Prob = "Yes"
 )
 }
 \arguments{
+\item{From_Date}{if '' is the Initial_Date}
+
 \item{Until_Date}{if '' is the sys.Date()}
 
 \item{ANNt_Prob}{Estimate the ANNt_Prob portfolios. "Yes" or "No". Default is "No".}

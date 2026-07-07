@@ -1239,7 +1239,7 @@ save(Until_Date, file="~/Until_Date.rda")
 }
 load('~/ANNt_Prob.rda')
 Plot_Returns_Annualized_Horizon(ANNt_Prob=ANNt_Prob)
-Plot_Cumulative_Returns_Horizon('', ANNt_Prob=ANNt_Prob)
+Plot_Cumulative_Returns_Horizon(From_Date='',Until_Date='', ANNt_Prob=ANNt_Prob)
 Portfolio_backtesting_Inv('', '', ANNt_Prob=ANNt_Prob)
 ################################################################################
 Backup_ANNt(Investment='Yes')

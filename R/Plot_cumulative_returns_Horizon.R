@@ -1,6 +1,7 @@
 #' Plot_Cumulative_Returns_Horizon
 #' Present Cumulative Returns Graph for all investment horizon
 #'@param Until_Date if '' is the sys.Date()
+#'@param From_Date if '' is the Initial_Date
 #'@param Legend_position:
 #'topleft;
 #'topright;
@@ -17,7 +18,7 @@
 
 
 #'@export
-Plot_Cumulative_Returns_Horizon <- function(Until_Date, Legend_position="topleft", ANNt_Prob='Yes') {
+Plot_Cumulative_Returns_Horizon <- function(From_Date, Until_Date, Legend_position="topleft", ANNt_Prob='Yes') {
 
 ##############################################################################
 library (readxl)
@@ -41,21 +42,35 @@ library(stringr)
   if(Until_Date ==('')){
     #Until_Date = Final_Date_Testing
     Comparativo = as.data.frame(Comparativo)
-    Until_Date = as.character(rownames(Comparativo[1,]))
+    Until_Date = as.character(rownames(Comparativo[nrow(Comparativo),]))
   }
 
   if(length(which(rownames(Comparativo)==Until_Date))==0){
     while(length(which(rownames(Comparativo)==Until_Date))==0){
       dia=as.Date(Until_Date)
+      new_day=dia-1
+      Until_Date = as.character(new_day)
+    }
+  }
+  if(From_Date ==('')){
+    #Until_Date = Final_Date_Testing
+    Comparativo = as.data.frame(Comparativo)
+    From_Date = as.character(rownames(Comparativo[1,]))
+  }
+
+  if(length(which(rownames(Comparativo)==From_Date))==0){
+    while(length(which(rownames(Comparativo)==From_Date))==0){
+      dia=as.Date(From_Date)
       new_day=dia+1
       Until_Date = as.character(new_day)
     }
   }
 
-  Corte= which(rownames(as.data.frame(Comparativo))==as.Date(Until_Date))
+  Corte= which(rownames(as.data.frame(Comparativo))==as.Date(From_Date))
+  Corte2= which(rownames(as.data.frame(Comparativo))==as.Date(Until_Date))
   Coparativo_Backup = Comparativo
-  Comparativo_inverso=Comparativo_inverso[Corte:nrow(Comparativo),]
-  Comparativo=Comparativo[Corte:nrow(Comparativo),]
+  Comparativo_inverso=Comparativo_inverso[Corte:Corte2,]
+  Comparativo=Comparativo[Corte:Corte2,]
 #View(Comparativo)
   for (i in (2:nrow(Comparativo))){
     if (Return_Cumulative=='Rebalanced'){

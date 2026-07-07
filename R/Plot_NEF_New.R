@@ -376,6 +376,7 @@ Prob_Carteiras=as.matrix(pesos_front) %*%P[,2]
 
 ANNt_weights_Max_Ret =pesos_front[which.max(Retornos_Carteiras),]
 Prob_ANNt_weights_Max_Ret = P[,2] %*% ANNt_weights_Max_Ret
+
 Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
 ANNt_weights_Max_Ret <- ANNt_weights_Max_Ret[ANNt_weights_Max_Ret>0]
 ANNt_weights_Max_Ret
@@ -383,6 +384,8 @@ ANNt_weights_Max_Ret
 
 ANNt_weights_Max_Prob =pesos_front[which.max(Prob_Carteiras),]
 Prob_ANNt_weights_Max_Prob = P[,2] %*% ANNt_weights_Max_Prob
+Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+
 Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
 ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[ANNt_weights_Max_Prob>0]
 ANNt_weights_Max_Prob
@@ -466,11 +469,11 @@ points(x=Prob_ANNt_weights_Max_Prob,y=Ret_ANNt_weights_Max_Prob, #,main="Frontei
        pch=19
        #xlim = c(0.01, 0.07))
 )
-text(x=Prob_ANNt_weights_Max_Prob,y=Ret_ANNt_weights_Max_Prob,
-     labels = colnames(Prob_ANNt_weights_Max_Prob),
+text(Points_Prob,
+     labels = rownames(Points_Prob),
      col="red",
      cex = 0.6,
-     adj = -0.2
+     adj = -0.3
 )
 points(x=Prob_ANNt_weights_Max_Ret,y=Ret_ANNt_weights_Max_Ret, #,main="Fronteira Eficiente por Desvio",
        #ylab="Retorno", xlab="Desvio-Padr?o",
@@ -479,10 +482,10 @@ points(x=Prob_ANNt_weights_Max_Ret,y=Ret_ANNt_weights_Max_Ret, #,main="Fronteira
        #xlim = c(0.01, 0.07))
 )
 text(x=Prob_ANNt_weights_Max_Ret,y=Ret_ANNt_weights_Max_Ret,
-     labels = colnames(Prob_ANNt_weights_Max_Ret),
+     labels = rownames(as.data.frame(ANNt_weights_Max_Ret)),
      col="blue",
      cex = 0.6,
-     adj = -0.2
+     adj = -0.3
 )
 lines(x = Prob_Carteiras,
 y = Retornos_Carteiras,
@@ -535,11 +538,23 @@ points(x=Prob_ANNt_weights_Max_Prob,y=Ret_ANNt_weights_Max_Prob, #,main="Frontei
        pch=19
        #xlim = c(0.01, 0.07))
 )
+text(Points_Prob,
+     labels = rownames(Points_Prob),
+     col="red",
+     cex = 0.6,
+     adj = -0.3
+)
 points(x=Prob_ANNt_weights_Max_Ret,y=Ret_ANNt_weights_Max_Ret, #,main="Fronteira Eficiente por Desvio",
        #ylab="Retorno", xlab="Desvio-Padr?o",
        col="blue",
        pch=19
        #xlim = c(0.01, 0.07))
+)
+text(x=Prob_ANNt_weights_Max_Ret,y=Ret_ANNt_weights_Max_Ret,
+     labels = rownames(as.data.frame(ANNt_weights_Max_Ret)),
+     col="blue",
+     cex = 0.6,
+     adj = -0.3
 )
 lines(x = Prob_Carteiras,
       y = Retornos_Carteiras,
