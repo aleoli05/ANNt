@@ -847,6 +847,7 @@ Inicio_data = rownames(Comparativo_RETORNOS_Horizon_Anual2[1,])
 Fim_data = rownames(Comparativo_RETORNOS_Horizon_Anual2[nrow(Comparativo_RETORNOS_Horizon_Anual2),])
 #Fim_data = "2023-03-16"
 TestComparativo_RETORNOS_Horizon_Anual = cbind(as.data.frame(Comparativo_RETORNOS_Horizon_Anual), Eixo)
+
 Retornos=TestComparativo_RETORNOS_Horizon_Anual[,1]
 Periodos=TestComparativo_RETORNOS_Horizon_Anual$Eixo
 s = TestComparativo_RETORNOS_Horizon_Anual$MARKOWITZ
@@ -1070,7 +1071,7 @@ legend("topleft",
        xlab = "Period",
        las =1,
        #xaxp = c(1,nline, 5),
-       ylim = c(min(Comparativo), max(Comparativo)))
+       ylim = c(min(Comparativo_RETORNOS_Horizon_Anual), max(Comparativo_RETORNOS_Horizon_Anual)))
   lines(s, col = c("brown"))
   lines(u, col = c("gray"))
   lines(h, col = c("yellow"))
@@ -1176,7 +1177,7 @@ legend("topleft",
        xlab = "Period",
        las =1,
        #xaxp = c(1,nline, 5),
-       ylim = c(min(Comparativo), max(Comparativo)))
+       ylim = c(min(Comparativo_RETORNOS_Horizon_Anual), max(Comparativo_RETORNOS_Horizon_Anual)))
   lines(s, col = c("brown"))
   lines(u, col = c("gray"))
   lines(h, col = c("yellow"))
