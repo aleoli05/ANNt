@@ -62,7 +62,7 @@ library(stringr)
     while(length(which(rownames(Comparativo)==From_Date))==0){
       dia=as.Date(From_Date)
       new_day=dia+1
-      Until_Date = as.character(new_day)
+      From_Date = as.character(new_day)
     }
   }
 
