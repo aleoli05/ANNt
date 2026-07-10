@@ -103,7 +103,8 @@ Backup_ANNt <- function(Investment='No'){
 
 View(Readme_ANNt)
 
-  Data = Sys.time()
+  #Data = Sys.time()
+  Data=format(Sys.Date(), "%Y-%m-%d")
 
 if(Investment=='No'){
   nome_dir= str_replace(Data,"-","_")
