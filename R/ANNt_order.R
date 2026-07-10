@@ -689,8 +689,12 @@ ___________________________________________________________________
 
     # Gerando pesos iniciais aleat?rios
     options(warn=-1)
+    # Fixa a seed para gerar sempre os mesmos números
+    set.seed(42)
     pesos0 = matrix(runif(ncolunas*nlinhas, min = 0, max = 1), nrow = ncolunas,
                     ncol = Hidden, byrow = T)
+    # Fixa a seed para gerar sempre os mesmos números
+    set.seed(42)
     pesos1 = matrix(runif(ncolunas*(nlinhas), min = 0, max = 1), nrow = Hidden,
                     ncol = 1, byrow = T)
 
