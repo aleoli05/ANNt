@@ -651,6 +651,7 @@ ___________________________________________________________________
 
 
     }
+    #print(paste("Excess Return Probability:", ProbabilidadeTmedia, sep=' '))
     #ProbabilidadeTmedia =pt(mean(prev),
     #                    df=length(prev)-1,lower.tail=TRUE)
 
@@ -690,11 +691,11 @@ ___________________________________________________________________
     # Gerando pesos iniciais aleat?rios
     options(warn=-1)
     # Fixa a seed para gerar sempre os mesmos números
-    set.seed(42)
+    set.seed(05)
     pesos0 = matrix(runif(ncolunas*nlinhas, min = 0, max = 1), nrow = ncolunas,
                     ncol = Hidden, byrow = T)
     # Fixa a seed para gerar sempre os mesmos números
-    set.seed(42)
+    set.seed(05)
     pesos1 = matrix(runif(ncolunas*(nlinhas), min = 0, max = 1), nrow = Hidden,
                     ncol = 1, byrow = T)
 
@@ -933,97 +934,127 @@ ___________________________________________________________________
       tryCatch(
         expr = {
           # Código principal a ser executado
-      modelo_ajustado<- selm(camadaSaida ~1, family='ST')
+          #print('Test TryCatch')
+      #modelo_ajustado<- selm(camadaSaida ~1, family='ST')
+          modelo_ajustado <- withCallingHandlers(
+            {
+              sn::selm(camadaSaida ~ 1, family = 'ST', method = "MPLE")
+            },
+            warning = function(w) {
+              invokeRestart("muffleWarning") # Abafa o aviso e impede o pulo para o erro
+            },
+            message = function(m) {
+              invokeRestart("muffleMessage") # Abafa mensagens de texto secundárias se houverem
+            })
+      #print('Test 2 TryCatch')
       dist_sec <- extractSECdistr(modelo_ajustado)
-      xi=dist_sec@dp[1]
-      omega=dist_sec@dp[2]
-      alpha=dist_sec@dp[3]
-      nu=dist_sec@dp[4]
-      Resultados_Curtose=kurtosis(camadaSaida)
-      Resultados_Assim=skewness(camadaSaida)
-      Media=mean(camadaSaida)
-      Desvio=stdev(camadaSaida)
-      KS_test = ks.test(camadaSaida,'pnorm')
-      KS_pvalue=KS_test$p.value
-      AD_test = ad.test(camadaSaida)
-      AD_pvalue=AD_test$p.value
+      xi<-dist_sec@dp[1]
+      omega<-dist_sec@dp[2]
+      alpha<-dist_sec@dp[3]
+      nu<-dist_sec@dp[4]
+      Resultados_Curtose<-kurtosis(camadaSaida)
+      Resultados_Assim<-skewness(camadaSaida)
+      Media<-mean(camadaSaida)
+      Desvio<-stdev(camadaSaida)
+      CamadaSaida_KS<-jitter(camadaSaida)
+      KS_test <- ks.test(CamadaSaida_KS,'pnorm')
+      KS_pvalue<-KS_test$p.value
+      AD_test <- ad.test(camadaSaida)
+      AD_pvalue<-AD_test$p.value
+      #print('Test 1 TryCatch')
       if (Skew_t[2]=='Median'){
-      Median = median(camadaSaida)
-      Side_Left = camadaSaida[camadaSaida < Median]
-      Side_Right = camadaSaida[camadaSaida >= Median]
-      Dev_Left_1 = sd(Side_Left)
-      Dev_Right_1 = sd(Side_Right)
-      Return_Dev_Left_1 = Median-as.numeric(Skew_t[3])*Dev_Left_1
-      Return_Dev_Right_1 = Median + as.numeric(Skew_t[3])*Dev_Right_1
-      ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-      Prob_Left_1 = pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-      Prob_Right_1 = pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      Median <- median(camadaSaida)
+      Side_Left <- camadaSaida[camadaSaida < Median]
+      Side_Right <- camadaSaida[camadaSaida >= Median]
+      Dev_Left_1 <- sd(Side_Left)
+      Dev_Right_1 <- sd(Side_Right)
+      Return_Dev_Left_1 <- Median-as.numeric(Skew_t[3])*Dev_Left_1
+      Return_Dev_Right_1 <- Median + as.numeric(Skew_t[3])*Dev_Right_1
+      ProbabilidadeTmedia <- pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+      Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
       }
       #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
       #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
       if(Skew_t[2]=='xi'){
-        Prob_esquerda = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu)
-        Prob_direita = pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail=FALSE)
-        integral = function(x){
-          meu_dp = c(xi, omega, alpha)
+        Prob_esquerda <- pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu)
+        Prob_direita <- pst(xi, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail=FALSE)
+        integral <- function(x){
+          meu_dp <- c(xi, omega, alpha)
           (x-xi)^2*sn::dst(x, xi=xi, omega=omega, alpha=alpha,nu=nu)
         }
-        integral_LE=integrate(integral, lower=-Inf, upper=xi)$value
-        integral_LD=integrate(integral, lower=xi, upper=Inf)$value
-        variancia_esquerda = integral_LE/Prob_esquerda
-        variancia_direita = integral_LD/Prob_direita
-        Dev_Left_1 = sqrt(variancia_esquerda)
-        Dev_Right_1 = sqrt(variancia_direita)
-        Return_Dev_Left_1 = xi-as.numeric(Skew_t[3])*Dev_Left_1
-        Return_Dev_Right_1 = xi+as.numeric(Skew_t[3])*Dev_Right_1
+        #print('Test 3 TryCatch')
+        #integral_LE <- integrate(integral, lower=-Inf, upper=xi)$value
+        integral_LE <- tryCatch({
+        integrate(integral, lower=-Inf, upper=xi)$value
+        }, error = function(e) {
+        limite_inferior <- xi - (15 * omega)
+        integrate(integral, lower=limite_inferior, upper=xi)$value
+        })
+        #integral_LD<-integrate(integral, lower=xi, upper=Inf)$value
+        integral_LD <- tryCatch({
+          integrate(integral, lower=xi, upper=Inf)$value
+        }, error = function(e) {
+          limite_superior <- xi + (15 * omega)
+          integrate(integral, lower=xi, upper=limite_superior)$value
+        })
+        variancia_esquerda <- integral_LE/Prob_esquerda
+        variancia_direita <- integral_LD/Prob_direita
+        Dev_Left_1 <- sqrt(variancia_esquerda)
+        Dev_Right_1 <- sqrt(variancia_direita)
+        Return_Dev_Left_1 <- xi-as.numeric(Skew_t[3])*Dev_Left_1
+        Return_Dev_Right_1 <- xi+as.numeric(Skew_t[3])*Dev_Right_1
         #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
         #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-        ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-        Prob_Left_1 = pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-        Prob_Right_1 = pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        #print('Test 4 TryCatch')
+        ProbabilidadeTmedia <- pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+        Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
       }
 
+      #print('Test 3 TryCatch')
+      TEste_P <-ProbabilidadeTmedia
+      ProbabilidadeTmedia_1 <-ProbabilidadeTmedia
+      xi_1<-xi
+      omega_1<-omega
+      alpha_1<-alpha
+      nu_1<-nu
+      KS_test_1 <- KS_test
+      KS_pvalue_1<-KS_pvalue
+      AD_test_1 <- AD_test
+      AD_pvalue_1<-AD_pvalue
 
-
-      ProbabilidadeTmedia_1 =ProbabilidadeTmedia
-      xi_1=xi
-      omega_1=omega
-      alpha_1=alpha
-      nu_1=nu
-      KS_test_1 = KS_test
-      KS_pvalue_1=KS_pvalue
-      AD_test_1 = AD_test
-      AD_pvalue_1=AD_pvalue
-
+              },  warning = function(w) {
+                message("Notice captured: ", w$message)
+                #invokeRestart("muffleWarning") # Se quiser silenciar o aviso completamente
               },
       error = function(e) {
         # Código a ser executado se ocorrer um erro
-        ProbabilidadeTmedia =0.0
-        xi=0.0
-        omega=0.0
-        alpha=0.0
-        nu=0.0
-        KS_test = ks.test(camadaSaida,'pnorm')
-        KS_pvalue=KS_test$p.value
-        AD_test = ad.test(camadaSaida)
-        AD_pvalue=AD_test$p.value
-        ativos_fora[length(ativos_fora)+1]=ativo
-        ProbabilidadeTmedia_1 =0.0
-        xi_1=0.0
-        omega_1=0.0
-        alpha_1=0.0
-        nu_1=0.0
-        KS_test_1 = KS_test
-        KS_pvalue_1=KS_pvalue
-        AD_test_1 = AD_test
-        AD_pvalue_1=AD_pvalue
-        Dev_Left_1=0.0
-        Dev_Right_1=0.0
-        Prob_Left_1=0.0
-        Prob_Right_1=0.0
-      },
-      warning = function(w) {
-        # (Opcional) Código a ser executado se ocorrer um aviso (warning)
+        ProbabilidadeTmedia <-0.0
+        xi<-0.0
+        omega<-0.0
+        alpha<-0.0
+        nu<-0.0
+        KS_test <- ks.test(camadaSaida,'pnorm')
+        KS_pvalue<-KS_test$p.value
+        AD_test <- ad.test(camadaSaida)
+        AD_pvalue<-AD_test$p.value
+        ativos_fora[length(ativos_fora)+1]<-ativo
+        ProbabilidadeTmedia_1 <-0.0
+        xi_1<-0.0
+        omega_1<-0.0
+        alpha_1<-0.0
+        nu_1<-0.0
+        KS_test_1 <- KS_test
+        KS_pvalue_1<-KS_pvalue
+        AD_test_1 <- AD_test
+        AD_pvalue_1<-AD_pvalue
+        Dev_Left_1<-0.0
+        Dev_Right_1<-0.0
+        Prob_Left_1<-0.0
+        Prob_Right_1<-0.0
+        print("Details of the error generated:")
+        print(e)
       },
       finally = {
         # (Opcional) Código a ser executado sempre, independentemente de erro ou aviso
@@ -1383,7 +1414,7 @@ ___________________________________________________________________
     ## Probabilidade com curtorese (Lambda > 3) = Probabilidade t Student
     library(moments)
     #png(file = "leptokurtic.png")
-      ku=kurtosis(camadaSaidaPredict)
+      ku=kurtosis(camadaSaidaPredict, na.rm = TRUE)
     #if ((ku>3)==TRUE) {
       ku1=round(ku,2)
       print(paste("Kurtosis:", ku1))
@@ -1533,7 +1564,7 @@ ___________________________________________________________________
     }
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                 df=length(camadaSaida)-1, lower.tail = TRUE)
-
+    print(paste("Excess Return Probability:", ProbabilidadeTmedia_1, sep=' '))
     # Processing monitoring
 
     if (ativo<(ncol(dados2))){
