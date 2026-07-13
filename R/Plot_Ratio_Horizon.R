@@ -397,6 +397,8 @@ Plot_Annualized_Volatility_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_Volatility_Horizon_Anual[is.na(Comparativo_Volatility_Horizon_Anual)] = 0
   Comparativo_Volatility_Horizon_Anual[is.infinite(Comparativo_Volatility_Horizon_Anual)] = 0
@@ -731,6 +733,8 @@ Plot_Annualized_Sharpe_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_Sharpe_Horizon_Anual[is.na(Comparativo_Sharpe_Horizon_Anual)]=0
   Comparativo_Sharpe_Horizon_Anual[is.infinite(Comparativo_Sharpe_Horizon_Anual)]=0
@@ -1064,6 +1068,8 @@ Plot_Annualized_Alpha_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_Alpha_Horizon_Anual[is.na(Comparativo_Alpha_Horizon_Anual)]=0
   Comparativo_Alpha_Horizon_Anual[is.infinite(Comparativo_Alpha_Horizon_Anual)]=0
@@ -1399,6 +1405,8 @@ Plot_Annualized_Beta_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_Beta_Horizon_Anual[is.na(Comparativo_Beta_Horizon_Anual)]=0
   Comparativo_Beta_Horizon_Anual[is.infinite(Comparativo_Beta_Horizon_Anual)]=0
@@ -1734,6 +1742,8 @@ Plot_Annualized_Sortino_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_Sortino_Horizon_Anual[is.na(Comparativo_Sortino_Horizon_Anual)]=0
   Comparativo_Sortino_Horizon_Anual[is.infinite(Comparativo_Sortino_Horizon_Anual)]=0
@@ -2070,6 +2080,8 @@ Plot_Annualized_Treynor_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_Treynor_Horizon_Anual[is.na(Comparativo_Treynor_Horizon_Anual)]=0
   Comparativo_Treynor_Horizon_Anual[is.infinite(Comparativo_Treynor_Horizon_Anual)]=0
@@ -2406,6 +2418,8 @@ Plot_Annualized_Var_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_Var_Horizon_Anual[is.na(Comparativo_Var_Horizon_Anual)]=0
   Comparativo_Var_Horizon_Anual[is.infinite(Comparativo_Var_Horizon_Anual)]=0
@@ -2741,6 +2755,8 @@ Plot_Annualized_CVar_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_CVar_Horizon_Anual[is.na(Comparativo_CVar_Horizon_Anual)]=0
   Comparativo_CVar_Horizon_Anual[is.infinite(Comparativo_CVar_Horizon_Anual)]=0
@@ -3076,6 +3092,8 @@ Plot_Annualized_RCum_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   Comparativo_RCum_Horizon_Anual[is.na(Comparativo_RCum_Horizon_Anual)]=0
   Comparativo_RCum_Horizon_Anual[is.infinite(Comparativo_RCum_Horizon_Anual)]=0
@@ -3416,6 +3434,8 @@ Plot_Annualized_Rm_Horizon <-function(){
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
 
   ydev=dev.list()
   if(class(ydev)!="NULL"){
