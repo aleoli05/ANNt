@@ -679,7 +679,11 @@ Comparativo_Rm_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_Rm_H
 write_xlsx(as.data.frame(Comparativo_Rm_Horizon_Anual2), "~/Comparativo_Rm_Horizon_Anual.xlsx")
 
 Comparativo_RETORNOS_Horizon_Anual[is.na(Comparativo_RETORNOS_Horizon_Anual)] = 0
-Comparativo_RETORNOS_Horizon_Anual[is.infinite(as.matrix(Comparativo_RETORNOS_Horizon_Anual))]=0
+tryCatch(
+  expr = {
+  Comparativo_RETORNOS_Horizon_Anual=as.matrix(Comparativo_RETORNOS_Horizon_Anual)
+  Comparativo_RETORNOS_Horizon_Anual[is.infinite(Comparativo_RETORNOS_Horizon_Anual)]=0
+})
 save(Comparativo_RETORNOS_Horizon_Anual, file='~/Comparativo_RETORNOS_Horizon_Anual.rda')
 Comparativo_RETORNOS_Horizon_Anual2=data.frame(rownames(as.data.frame(Comparativo_RETORNOS_Horizon_Anual)),as.data.frame(Comparativo_RETORNOS_Horizon_Anual))
 write_xlsx(as.data.frame(Comparativo_RETORNOS_Horizon_Anual2), "~/Comparativo_RETORNOS_Horizon_Anual.xlsx")

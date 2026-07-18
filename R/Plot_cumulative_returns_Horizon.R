@@ -66,8 +66,8 @@ library(stringr)
     }
   }
 
-  Corte= which(rownames(as.data.frame(Comparativo))==as.Date(From_Date))
-  Corte2= which(rownames(as.data.frame(Comparativo))==as.Date(Until_Date))
+  Corte= which(rownames(as.data.frame(Comparativo))==From_Date)
+  Corte2= which(rownames(as.data.frame(Comparativo))==Until_Date)
   Coparativo_Backup = Comparativo
   Comparativo_inverso=Comparativo_inverso[Corte:Corte2,]
   Comparativo=Comparativo[Corte:Corte2,]
