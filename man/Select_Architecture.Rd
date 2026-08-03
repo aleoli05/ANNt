@@ -38,6 +38,10 @@ Select_Architecture(
   Return_Cumulative = "Total",
   Order_Only = c("No", "No", "No", "No", "No"),
   Convolution = c("Neutral", "Neutral", "Neutral", "Neutral", "Neutral"),
+  Initialization = c("Original", "Original", "Original", "Original", "Original"),
+  Activation_Function = c("Tangent", "Tangent", "Tangent", "Tangent", "Tangent"),
+  Activation_F_Out = c("Original", "Original", "Original", "Original", "Original"),
+  Batch_Size = "",
   ANNt_Prob = c(c("Yes", 0.5, 70, 200), c("Yes", 0.5, 70, 200), c("Yes", 0.5, 70, 200),
     c("Yes", 0.5, 70, 200), c("Yes", 0.5, 70, 200))
 )
@@ -112,6 +116,27 @@ or "No". "No" is the standard.}
 
 \item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 
+\item{Initialization}{define the parameters of weights initialization:
+1) Original: Define the first configuration. Uniform distribution and weights from 0 to 1;
+2) Xavier_N: Define the Normal distribution with variance of Xavier;
+3) Xavier_U: Define the Uniform distribution with limit's Xavier;
+4) Xavier_H: Define HeLu limit's Xavier;
+5) Xavier_Leaky: Define Leaky HeLU limit's Xavier
+6) Normal_D: Define the Normal distribution with mean=0 and Variance=1;
+7) Uniform_D: Define the Uniform distribution with minimum=-0.5 and maximum=0.5 for stability.}
+
+\item{Activation_Function}{Define the Activation Function
+1) Tangent: Define the Tangent Function Activation
+2) Sigmoid: Define the Sigmoid Function Activation
+3) Leaky_ReLU: Define the Leaky ReLU Function Activation}
+
+\item{Activation_F_Out}{Define the Activation Function:
+1) Original: Define the Tangent function activation and Sigmoid Derivate Backpropagation
+2) Linear: Define the linear function activation in the output layer
+3) Activation: Define the Activation function in the output layer specified in the hidden layers}
+
+\item{Batch_Size}{Define the length of Batch. Standard is full batch size (Batch gradient descent)}
+
 \item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
 
 \item{Initial_Date_Training}{Training series start Date.}
@@ -167,4 +192,7 @@ Order_Only=c('No', 'No', 'No', 'No', 'No'),
 Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral'),
 ANNt_Prob =c(('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200),('Yes',0.5,70,200))
 )
+}
+\author{
+Alexandre Silva de Oliveira
 }

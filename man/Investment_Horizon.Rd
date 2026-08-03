@@ -37,6 +37,10 @@ Investment_Horizon(
   Return_Cumulative = "Total",
   Order_Only = "No",
   Convolution = "Neutral",
+  Initialization = "Original",
+  Activation_Function = "Tangent",
+  Activation_F_Out = "Original",
+  Batch_Size = "",
   ANNt_Prob = ANNt_Prob,
   Delay = "No"
 )
@@ -109,6 +113,27 @@ or "No". "No" is the standard.}
 
 \item{Convolution}{addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)}
 
+\item{Initialization}{define the parameters of weights initialization:
+1) Original: Define the first configuration. Uniform distribution and weights from 0 to 1;
+2) Xavier_N: Define the Normal distribution with variance of Xavier;
+3) Xavier_U: Define the Uniform distribution with limit's Xavier;
+4) Xavier_H: Define HeLu limit's Xavier;
+5) Xavier_Leaky: Define Leaky HeLU limit's Xavier
+6) Normal_D: Define the Normal distribution with mean=0 and Variance=1;
+7) Uniform_D: Define the Uniform distribution with minimum=-0.5 and maximum=0.5 for stability.}
+
+\item{Activation_Function}{Define the Activation Function
+1) Tangent: Define the Tangent Function Activation
+2) Sigmoid: Define the Sigmoid Function Activation
+3) Leaky_ReLU: Define the Leaky ReLU Function Activation}
+
+\item{Activation_F_Out}{Define the Activation Function:
+1) Original: Define the Tangent function activation and Sigmoid Derivate Backpropagation
+2) Linear: Define the linear function activation in the output layer
+3) Activation: Define the Activation function in the output layer specified in the hidden layers}
+
+\item{Batch_Size}{Define the length of Batch. Standard is full batch size (Batch gradient descent)}
+
 \item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
 
 \item{Delay}{in portfolio formation or rebalancing. Considers the number of days lag between portfolio creation and investment execution.The default is Delay="No", alternative example: Delay=c('Yes', 5)}
@@ -165,4 +190,7 @@ Order_Only='No'
 ####### Example 2 #######
 Investment_Horizon (c('AAPL','XOM','TSLA','KO', 'F'), '^GSPC', Rf, '2024-01-03', '2024-06-03', '', 2,'daily', Hidden= 5, Stepmax = 7500, Type_ANNt='T8', N_Assets = 3)
 
+}
+\author{
+Alexandre Silva de Oliveira
 }

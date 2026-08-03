@@ -44,6 +44,26 @@
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
 #' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
+#' @param Initialization define the parameters of weights initialization:
+#' 1) Original: Define the first configuration. Uniform distribution and weights from 0 to 1;
+#' 2) Xavier_N: Define the Normal distribution with variance of Xavier;
+#' 3) Xavier_U: Define the Uniform distribution with limit's Xavier;
+#' 4) Xavier_H: Define HeLu limit's Xavier;
+#' 5) Xavier_Leaky: Define Leaky HeLU limit's Xavier
+#' 6) Normal_D: Define the Normal distribution with mean=0 and Variance=1;
+#' 7) Uniform_D: Define the Uniform distribution with minimum=-0.5 and maximum=0.5 for stability.
+#'
+#' @param Activation_Function Define the Activation Function
+#' 1) Tangent: Define the Tangent Function Activation
+#' 2) Sigmoid: Define the Sigmoid Function Activation
+#' 3) Leaky_ReLU: Define the Leaky ReLU Function Activation
+#'
+#' @param Activation_F_Out Define the Activation Function:
+#' 1) Original: Define the Tangent function activation and Sigmoid Derivate Backpropagation
+#' 2) Linear: Define the linear function activation in the output layer
+#' 3) Activation: Define the Activation function in the output layer specified in the hidden layers
+#' @param Batch_Size Define the length of Batch. Standard is full batch size (Batch gradient descent)
+#' @author Alexandre Silva de Oliveira
 #' @examples
 #' # Specify the assets or "Current_SP500_Tickers" for all S&P 500 assets
 #' ####### Example 1 #######
@@ -127,6 +147,10 @@ Select_Architecture<-function(
   Return_Cumulative ='Total',
   Order_Only=c('No', 'No', 'No', 'No', 'No'),
   Convolution=c('Neutral','Neutral','Neutral','Neutral','Neutral'),
+  Initialization = c('Original','Original','Original','Original','Original'),
+  Activation_Function=c('Tangent', 'Tangent', 'Tangent', 'Tangent','Tangent'),
+  Activation_F_Out=c('Original','Original','Original','Original','Original'),
+  Batch_Size='',
   ANNt_Prob =c(c('Yes',0.5,70,200),c('Yes',0.5,70,200),c('Yes',0.5,70,200),c('Yes',0.5,70,200),c('Yes',0.5,70,200))
 )
 
@@ -190,6 +214,9 @@ Select_Architecture<-function(
       Return_Cumulative =Return_Cumulative,
       Order_Only=Order_Only[i_arch],
       Convolution=Convolution[i_arch],
+      Initialization = Initialization[i_arch],
+      Activation_Function=Activation_Function[i_arch],
+      Activation_F_Out=Activation_F_Out[i_arch],
       ANNt_Prob=ANNt_Prob[i_arch]
     )
     load('~/Comparativo_RCum_Horizon_Anual.rda')

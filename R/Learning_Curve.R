@@ -21,6 +21,25 @@
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
+#' @param Initialization define the parameters of weights initialization:
+#' 1) Original: Define the first configuration. Uniform distribution and weights from 0 to 1;
+#' 2) Xavier_N: Define the Normal distribution with variance of Xavier;
+#' 3) Xavier_U: Define the Uniform distribution with limit's Xavier;
+#' 4) Xavier_H: Define HeLu limit's Xavier;
+#' 5) Xavier_Leaky: Define Leaky HeLU limit's Xavier
+#' 6) Normal_D: Define the Normal distribution with mean=0 and Variance=1;
+#' 7) Uniform_D: Define the Uniform distribution with minimum=-0.5 and maximum=0.5 for stability.
+#'
+#' @param Activation_Function Define the Activation Function
+#' 1) Tangent: Define the Tangent Function Activation
+#' 2) Sigmoid: Define the Sigmoid Function Activation
+#' 3) Leaky_ReLU: Define the Leaky ReLU Function Activation
+#'
+#' @param Activation_F_Out Define the Activation Function:
+#' 1) Original: Define the Tangent function activation and Sigmoid Derivate Backpropagation
+#' 2) Linear: Define the linear function activation in the output layer
+#' 3) Activation: Define the Activation function in the output layer specified in the hidden layers
+#' @param Batch_Size Define the length of Batch. Standard is full batch size (Batch gradient descent)
 #'
 #' @author Alexandre Silva de Oliveira
 #'
@@ -52,10 +71,13 @@
 
 #' @export
 Learning_Curve <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Testing,
-                       N_Lags=5,
-                       Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
-                       Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No', Prediction='Predict',
-                       Bias="No", Order_Only='No', Convolution='Neutral') {
+                           N_Lags=5,
+                           Hidden, Stepmax, Loss="MSE", Learning_Rate=0.3, Decay='No',
+                           Early_Stopping = 'No', Asymmetry='Negative', Skew_t='No',
+                           Prediction='Predict', Bias="No", Order_Only='No',
+                           Convolution='Neutral', Initialization='Original',
+                           Activation_Function='Tangent', Activation_F_Out='Original',
+                           Batch_Size='') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
 
@@ -129,7 +151,7 @@ Learning_Curve <- function(Initial_Date_Training, Final_Date_Training, Final_Dat
   }
 
   # y1 is the number of hidden, case the ANNt_Oliveira_Ceretta went used
-  if(Hidden=='hidden'){
+  if(Hidden[1]=='hidden'){
     load('~/x2.rda')
     Hidden=x2
   }
@@ -138,10 +160,11 @@ Learning_Curve <- function(Initial_Date_Training, Final_Date_Training, Final_Dat
     load('~/x3.rda')
     Stepmax=x3
   }
-  if (Hidden==''){
+
+  if (Hidden[1]==''){
     Cont1=which(rownames(scenario.set)==Final_Date_Training)-5
   } else{
-    Cont1=Hidden
+    Cont1=Hidden[1]
   }
 
   if (Asymmetry=='asymmetry'){
@@ -231,13 +254,22 @@ ___________________________________________________________________
   ########################
   #### Cria??o da vari?vel de armazenamento dos resultados de assimetria e curtose
   #### Particular por Probabilidade t de Student
-  Resultados_Assim_Curtose = matrix(ncol=nAtivos-1,nrow=14)
-  Resultados_Assim_Curtose = data.frame(Resultados_Assim_Curtose)
-  colnames(Resultados_Assim_Curtose)=tickers[-1]
-  rownames(Resultados_Assim_Curtose) = c('Probability','Mean','Median','Stand. Dev.',
-                                         'Kurtosis','Skewness','Minimum','Maximum',
-                                         'xi', 'omega', 'alpha', 'nu', 'KS','AD')
-  Resultados_Assim_Curtose
+  Resultados_Assim_Curtose_Training = matrix(ncol=nAtivos-1,nrow=18)
+  Resultados_Assim_Curtose_Training = data.frame(Resultados_Assim_Curtose_Training)
+  colnames(Resultados_Assim_Curtose_Training)=tickers[-1]
+  rownames(Resultados_Assim_Curtose_Training) = c('Probability','Mean','Median','Stand. Dev.',
+                                                  'Kurtosis','Skewness','Minimum','Maximum',
+                                                  'xi', 'omega', 'alpha', 'nu', 'KS','AD',
+                                                  'Dev_Left', 'Dev_Right','Prob_Left','Prob_Right')
+  Resultados_Assim_Curtose_Testing = matrix(ncol=nAtivos-1,nrow=18)
+  Resultados_Assim_Curtose_Testing = data.frame(Resultados_Assim_Curtose_Testing)
+  colnames(Resultados_Assim_Curtose_Testing)=tickers[-1]
+  rownames(Resultados_Assim_Curtose_Testing) = c('Probability','Mean','Median','Stand. Dev.',
+                                                 'Kurtosis','Skewness','Minimum','Maximum',
+                                                 'xi', 'omega', 'alpha', 'nu', 'KS','AD',
+                                                 'Dev_Left', 'Dev_Right','Prob_Left','Prob_Right')
+  Resultados_Assim_Curtose_Testing
+
 
   Training_Error = matrix(ncol=Stepmax, nrow=ncol(scenario.set)-1)
   NOMES_ERROR=colnames(scenario.set)
@@ -360,10 +392,12 @@ ___________________________________________________________________
     bias_saida=0
     bias_hidden=0
 
-    if (Hidden==''){
-      Hidden=nlinhas
+    for (N_Hidden in (1:length(Hidden))){
+      if (Hidden[N_Hidden]==''){
+        Hidden[N_Hidden]=nlinhas
+      }
     }
-
+    Hidden=as.numeric(Hidden)
     epocas = 10*Stepmax
     # Fun??o Sigmoide
     sigmoide = function(soma) {
@@ -380,12 +414,12 @@ ___________________________________________________________________
     if(Early_Stopping[1]=='Yes'){
       Stop2=as.numeric(Early_Stopping[2])
       nn= neuralnet( formula, data=entradas,
-                     hidden = Hidden, act.fct = "tanh",
+                     hidden = Hidden[1], act.fct = "tanh",
                      threshold = 0.1,
                      stepmax=epocas)
     }else{
       nn= neuralnet( formula, data=entradas,
-                     hidden = Hidden, act.fct = "tanh",
+                     hidden = Hidden[1], act.fct = "tanh",
                      threshold = 0.1,
                      stepmax=epocas)
     }
@@ -393,13 +427,15 @@ ___________________________________________________________________
 
     # Plotagem da RNA
     #nn=as.matrix(sapply(nn, as.numeric))
-    if(Hidden %% 2 == 0) {
+    if(Hidden[1] %% 2 == 0) {
       escondida = Hidden
     } else {if(Hidden >15){
-      escondida =Hidden+1
+      Hidden_2=Hidden
+      Hidden_2[1]=Hidden[1]+1
+      escondida =Hidden_2
     } else {escondida = Hidden}}
     nnplot= neuralnet( formula, data=entradas,
-                       hidden = escondida, act.fct = "tanh", threshold = 0.1,
+                       hidden = escondida, act.fct = "tanh", threshold = 0.01,
                        stepmax=epocas)
 
 
@@ -540,7 +576,7 @@ ___________________________________________________________________
         #print(paste("Left asymmetric density (Positive)"))
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
@@ -608,7 +644,6 @@ ___________________________________________________________________
     ## REDE NEURAL PARTICULAR
 
     #############################################################################
-
     # Acrescentando o Bias ao Banco de dados
 
     #BIAS da camada de entrada
@@ -622,49 +657,188 @@ ___________________________________________________________________
 
     # Gerando pesos iniciais aleat?rios
     options(warn=-1)
-    pesos0 = matrix(runif(ncolunas*nlinhas, min = 0, max = 1), nrow = ncolunas,
-                    ncol = Hidden, byrow = T)
-    pesos1 = matrix(runif(ncolunas*(nlinhas), min = 0, max = 1), nrow = Hidden,
-                    ncol = 1, byrow = T)
+    # Fixa a seed para gerar sempre os mesmos números
+    set.seed(05)
+    # 2. Definição da Arquitetura Manual (Neurônios Decrescentes)
+    input_size  <- ncolunas-1
+    #hidden_neurons <- c(6, 4, 2)        # Camadas ocultas e neurônios decrescentes
+    hidden_neurons <- Hidden
+    output_size <- 1
 
-    options(warn=-1)
-    ### pesos1 com Bias na camada oculta
-    #pesos1 = matrix(runif(ncolunas*(nlinhas+1), min = 0, max = 1),
-    #nrow = nlinhas+1, ncol = 1, byrow = T)
-    #View(pesos0)
+    layer_sizes <- c(input_size, hidden_neurons, output_size)
+    num_layers  <- length(layer_sizes)
 
-    # Gerando pesos iniciais aleat?rios PARAMETRIZADOS (Revisar)
-    #repeat {
-    #pesos0 = matrix(runif(ncolunas, min = 0, max = 1, sum(ncolunas)=1),
-    #nrow = ncolunas+1, ncol = 1, byrow = T)
-    #until
-    #sum(pesos0)=1
-    #}
+    save(layer_sizes, file = '~/layer_sizes.rda')
+    save(num_layers, file='~/num_layers.rda')
+    # Fixa a seed para gerar sempre os mesmos números
+    # 3. Inicialização de Pesos e Biases (Xavier/Glorot Uniforme Oficial)
+    W <- list(); B <- list()
+    #load('~/num_layers.rda')
+    #load('~/layer_sizes.rda')
+    #print(paste("num_layers :",num_layers))
+    #print(paste("layer_sizes :",layer_sizes))
+    if (Initialization=='Original'){
+      for (i in 1:(num_layers - 1)) {
+        # n_in: número de entradas da camada atual
+        # n_out: número de saídas para a próxima camada
+        n_in  <- as.numeric(layer_sizes[i])
+        n_out <- as.numeric(layer_sizes[i+1])
+        #print(paste("n_in :",n_in))
+        #print(paste("n_out :",n_out))
+        set.seed(05)
+        W[[i]] <- matrix(runif(n_in * n_out, min = 0.0, max = 1.0), nrow = n_in, ncol = n_out)
+        #print(paste("W :",W))
+        B[[i]] <- matrix(0, nrow = 1, ncol = n_out)
+      }
+    }else{
+      if (Initialization=='Xavier_N'){
+        for (i in 1:(num_layers - 1)) {
+          # n_in: número de entradas da camada atual
+          # n_out: número de saídas para a próxima camada
+          n_in  <- as.numeric(layer_sizes[i])
+          n_out <- as.numeric(layer_sizes[i+1])
+          limite_xavier <- sqrt(2 / (n_in + n_out)) # Ideal para distribuição normal
+          set.seed(05)
+          W[[i]] <- matrix(rnorm(n_in * n_out, mean = 0, sd = limite_xavier),
+                           nrow = n_in, ncol = n_out)
+          B[[i]] <- matrix(0, nrow = 1, ncol = n_out)
+        }
+      }else{
+        if (Initialization=='Xavier_U'){
+          for (i in 1:(num_layers - 1)) {
+            # n_in: número de entradas da camada atual
+            # n_out: número de saídas para a próxima camada
+            n_in  <- as.numeric(layer_sizes[i])
+            n_out <- as.numeric(layer_sizes[i+1])
+            # Fórmula de Xavier/Glorot Uniforme para o limite do intervalo
+            limite_xavier <- sqrt(6 / (n_in + n_out)) # Ideal para distribuição uniforme
+            set.seed(05)
+            W[[i]] <- matrix(runif(n_in * n_out, min = -limite_xavier, max = limite_xavier),
+                             nrow = n_in, ncol = n_out)
+            B[[i]] <- matrix(0, nrow = 1, ncol = n_out)
+          }
+        }else{
+          if (Initialization=='Xavier_H'){
+            for (i in 1:(num_layers - 1)) {
+              # n_in: número de entradas da camada atual
+              # n_out: número de saídas para a próxima camada
+              n_in  <- as.numeric(layer_sizes[i])
+              n_out <- as.numeric(layer_sizes[i+1])
+              limite_xavier <- sqrt(2 / n_in) # Ideal para função de ativação ReLU
+              set.seed(05)
+              W[[i]] <- matrix(runif(n_in * n_out, min = -limite_xavier, max = limite_xavier),
+                               nrow = n_in, ncol = n_out)
+              B[[i]] <- matrix(0, nrow = 1, ncol = n_out)
+            }
+          }else{
+            if (Initialization=='Xavier_Leaky'){
+              for (i in 1:(num_layers - 1)) {
+                # n_in: número de entradas da camada atual
+                # n_out: número de saídas para a próxima camada
+                n_in  <- as.numeric(layer_sizes[i])
+                n_out <- as.numeric(layer_sizes[i+1])
+                # LAÇO DE INICIALIZAÇÃO XAVIER UNIFORME MODIFICADA
+                alpha_leaky <- 0.01
+                # Cálculo do limite d para a Distribuição Uniforme [-d, d]
+                limite_d <- sqrt(6 / ((1 + alpha_leaky^2) * n_in))
+                limite_xavier <- sqrt(2 / n_in) # Ideal para função de ativação ReLU
+                set.seed(05)
+                W[[i]] <- matrix(runif(n_in * n_out, min = -limite_xavier, max = limite_xavier),
+                                 nrow = n_in, ncol = n_out)
+                B[[i]] <- matrix(0, nrow = 1, ncol = n_out)
+                #print(paste("W: ",W))
+              }
+            }else{
+              if (Initialization=='Normal_D'){
+                for (i in 1:(num_layers - 1)) {
+                  # n_in: número de entradas da camada atual
+                  # n_out: número de saídas para a próxima camada
+                  n_in  <- as.numeric(layer_sizes[i])
+                  n_out <- as.numeric(layer_sizes[i+1])
+                  # rnorm gera valores em uma distribuição normal
+                  # rnorm sem Xavier padrao
+                  set.seed(05)
+                  W[[i]] <- matrix(rnorm(n_in * n_out, mean = 0, sd = 1),
+                                   nrow = n_in, ncol = n_out)
+                  B[[i]] <- matrix(0, nrow = 1, ncol = n_out)
+                }
+              }else{
+                if (Initialization=='Uniform_D'){
+                  for (i in 1:(num_layers - 1)) {
+                    # n_in: número de entradas da camada atual
+                    # n_out: número de saídas para a próxima camada
+                    n_in  <- as.numeric(layer_sizes[i])
+                    n_out <- as.numeric(layer_sizes[i+1])
+                    # rnorm sem Xavier padrao
+                    # runif gera valores entre o mínimo (-limite) e o máximo (+limite)
+                    # runif sem Xavier definido um intervalo padrão de -0.05 a 0.05 para estabilidade inicial
+                    set.seed(05)
+                    W[[i]] <- matrix(runif(n_in * n_out, min = -0.05, max = 0.05), nrow = n_in, ncol = n_out)
+                    B[[i]] <- matrix(0, nrow = 1, ncol = n_out)
+                  }
+                }}}}}}}
 
-    # Gerando pesos iniciais carteira ing?nua (pesos iguais)
-    #pesos0 = matrix(1/ncol(entradas), nrow = ncolunas, ncol = nlinhas, byrow = T)
-    #pesos1 = matrix(runif(ncolunas*nlinhas, min = -1, max = 1), nrow = nlinhas+1,
-    #ncol = 1, byrow = T)
-    #View(pesos0)
 
+    #print(paste('W: ', W))
+    save (W, file='~/W.rda')
+    save (B, file='~/B.rda')
 
-    # Fun??o Sigmoide
-    sigmoide = function(soma) {
-      #return (1/ (1+exp(-soma)))
-      #Fun??o Tangente Hiperb?lica
-      #return (1-tanh(soma))
-      return (tanh(soma))
+    my_list=function(){
+      lista_fun=list(
+        # Funcao de Ativacao
+        Tangente = function(soma) {
+          #Funcao Tangente Hiperbolica
+          #return (1-tanh(soma))
+          return (tanh(soma))
+        },
+        Sigmoide = function(soma) {
+          return (1/ (1+exp(-soma)))
+        },
+        # Derivada da funcao Sigmoide
+        SigmoideDerivada = function(sig) {
+          return (sig * (1-sig))
+        },
+        # Derivada da funcao Tangente
+        TangenteDerivada = function(tanh_out) {
+          return (1 - (tanh_out ^ 2))
+        },
+        leaky_relu = function(x, alpha = 0.01) {
+          ifelse(x > 0, x, alpha * x)
+        },
+
+        leaky_relu_derivative = function(x, alpha = 0.01) {
+          ifelse(x > 0, 1, alpha)
+        }
+      )
+      return(lista_fun)
     }
-
-    # Derivada da fun??o Sigmoide
-    sigmoideDerivada = function(sig) {
-      return (sig * (1-sig))
-    }
-
+    functions=my_list()
     # Estimando o n?mero de ?pocas e a taxa de aprendizagem
     epocas = Stepmax
+    epochs = Stepmax
     momento = 1
     taxaAprendizagem = Learning_Rate
+    lr = Learning_Rate
+    # Certifique-se de que a variável de texto bate exatamente com os testes abaixo
+    # Exemplo: Activation_Function <- "Tangent"
+
+    if (Activation_Function == 'Tangent') {
+      Activation_Fun = functions$Tangente
+      derivada = functions$TangenteDerivada
+
+    } else if (Activation_Function == 'Sigmoid') {
+      Activation_Fun = functions$Sigmoide
+      derivada = functions$SigmoideDerivada
+
+    } else if (Activation_Function == 'Leaky_ReLU') {
+      Activation_Fun = functions$leaky_relu
+      derivada = functions$leaky_relu_derivative
+
+    } else {
+      stop("Função de ativação desconhecida! Verifique a ortografia.")
+    }
+
+
     bias_saida=0
     bias_hidden=0
 
@@ -672,196 +846,379 @@ ___________________________________________________________________
     F_dataPredict = nrow(dat_r)-1
     entradasPredict = as.matrix(dat_r[I_dataPredict:F_dataPredict,])
     saidasPredict = as.matrix(dat_r[(I_dataPredict+1):(F_dataPredict+1),1])
-    #########################################
-    for(j in 1:epocas) {
-      # fed forward
-      camadaEntrada = as.matrix(entradas)
-      somaSinapse0 = camadaEntrada %*% pesos0 + bias_hidden
-      camadaOculta = sigmoide(somaSinapse0)
-
-      ### Introduzindo Bias na segunda camada
-      #BIAS2 = NULL
-      # for (i in 1:  nlinhas){
-      #   BIAS2[i] <- 1
-      #}
-      #BIAS2 <- data.frame(BIAS2)
-      #camadaOculta <- cbind(camadaOculta,BIAS2)
-      #camadaOculta = as.matrix(camadaOculta)
-
-
-      somaSinapse1 = camadaOculta %*% pesos1 + bias_saida
-      camadaSaida = sigmoide(somaSinapse1)
-      KS_test = ks.test(prev,'pnorm')
-      KS_pvalue=KS_test$p.value
-      AD_test = ad.test(prev)
-      AD_pvalue=AD_test$p.value
-      ##################################### Loss Function #############################
-      # back forward
-      R_predicted = camadaSaida
-      R_observed = saidas
-      if (Loss=="MSE"){
-        #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
-        erroCamadaSaida = mean((saidas - camadaSaida)^2) # M?nima diferen?a
-      } else{if(Loss=="MAE"){
-        erroCamadaSaida = saidas - camadaSaida
-        mediaAbsoluta = mean(abs(erroCamadaSaida))
-        erroCamadaSaida = mediaAbsoluta
-      } else {if(Loss=="MADL"){
-        ## Implementação do MADL/GMADL
-        # MADL Function
-        madl_loss <- function(R_observed, R_predicted) {
-          N <- length(R_observed)
-          # Formula: MADL = (1/N) * sum((-1) * sign(R_i * R_hat_i) * abs(R_i))
-          # This penalizes incorrect direction regardless of magnitude
-          loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
-          return(loss)
-        }
-        erroCamadaSaida = madl_loss(saidas , camadaSaida)
-      } else {if(Loss=="GMADL"){
-        # GMADL Function (differentiable version, requires parameters a and b)
-        # Assuming 'a' and 'b' are predefined parameters
-        gmadl_loss <- function(R_observed, R_predicted, a = 1, b = 1) {
-          N <- length(R_observed)
-          # Sigmoid function for smoothness
-          sigmoid <- function(x) {
-            1 / (1 + exp(-x))
-          }
-          # Formula: GMADL = (1/N) * sum(- (sigmoid(a * R_i * R_hat_i) - 0.5) * |R_i|^b)
-          loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
-          return(loss)
-        }
-        erroCamadaSaida=gmadl_loss(saidas , camadaSaida, a = 1, b = 1)
-      }
-      }}}
-
-      ########### Implementação da Regularização
-      if(Decay[1]=='Yes'){
-        # Example for L2 regularization
-        # lambda is the regularization parameter
-        weights=pesos0
-        if(length(Decay)==1){ Decay=c(Decay, 0.1)}
-        lambda=as.numeric(Decay[2])
-        l2_regularization <- function(weights, lambda) {
-          return(lambda * sum(weights^2))
-        }
-
-        reg_term <- l2_regularization(weights, lambda)
-        erroCamadaSaida <-  erroCamadaSaida + reg_term
-
-      }
-      if (j==epocas){print(paste("Loss:",erroCamadaSaida))}
-      if(length(Early_Stopping)!=1){
-        Stop=as.numeric(Early_Stopping[2])
-        #View(erroCamadaSaida)
-        #print(paste("Loss:",erroCamadaSaida))
-        if (class(erroCamadaSaida)=="numeric" && (erroCamadaSaida<10 )) {
-          if((erroCamadaSaida < Stop)==TRUE){
-            j=epocas}
-        } else {
-          print(paste("Early stop with", j, " epochs"))
-          print(paste("Loss:",erroCamadaSaida))
-          break}
-      }
-
-
-      Training_Error[k,j]=erroCamadaSaida
-
-      camadaEntradaPredict = as.matrix(entradasPredict)
-      somaSinapse0Predict = camadaEntradaPredict %*% pesos0
-      camadaOcultaPredict = sigmoide(somaSinapse0Predict)
-
-
-      somaSinapse1Predict = camadaOcultaPredict %*% pesos1
-      camadaSaidaPredict = sigmoide(somaSinapse1Predict)
-
-
-      if (Loss=="MSE"){
-        #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
-        erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2) # M?nima diferen?a
-
-      }else{if(Loss=="MAE"){
-        erroCamadaSaidaPredict = saidasPredict - camadaSaidaPredict
-        mediaAbsoluta = mean(abs(erroCamadaSaidaPredict))
-        erroCamadaSaidaPredict = mediaAbsoluta
-      } else {if(Loss=="MADL"){
-        ## Implementação do MADL/GMADL
-        # MADL Function
-        madl_loss <- function(R_observed, R_predicted) {
-          N <- length(R_observed)
-          # Formula: MADL = (1/N) * sum((-1) * sign(R_i * R_hat_i) * abs(R_i))
-          # This penalizes incorrect direction regardless of magnitude
-          loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
-          return(loss)
-        }
-        erroCamadaSaidaPredict = madl_loss(saidasPredict , camadaSaidaPredict)
-      } else {if(Loss=="GMADL"){
-        # GMADL Function (differentiable version, requires parameters a and b)
-        # Assuming 'a' and 'b' are predefined parameters
-        gmadl_loss <- function(R_observed, R_predicted, a = 1, b = 1) {
-          N <- length(R_observed)
-          # Sigmoid function for smoothness
-          sigmoid <- function(x) {
-            1 / (1 + exp(-x))
-          }
-          # Formula: GMADL = (1/N) * sum(- (sigmoid(a * R_i * R_hat_i) - 0.5) * |R_i|^b)
-          loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
-          return(loss)
-        }
-        erroCamadaSaidaPredict=gmadl_loss(saidasPredict , camadaSaidaPredict, a = 1, b = 1)
-      }
-      }}}
-      Testing_Error[k,j]=erroCamadaSaidaPredict
-
-
-      ################################################################################
-
-
-
-
-
-
-
-
-
-
-      ################################################################################
-      if (ativo==ncol(dados)){
-        #print(paste('Error:', mediaAbsoluta))
-      }
-
-      derivadaSaida = sigmoideDerivada(camadaSaida)
-      deltaSaida = erroCamadaSaida * derivadaSaida
-
-      #deltaSaidaXPeso = deltaSaida %*% pesos1 # Matrizes com dimens?es diferentes,
-      #por isso da erro, ? preciso transpor a matriz pesos1
-      pesos1Transposta = t(pesos1)
-      deltaSaidaXPeso = deltaSaida %*% pesos1Transposta
-      deltaCamadaOculta = deltaSaidaXPeso * sigmoideDerivada(camadaOculta)
-
-      if (Bias=='Yes'){
-        bias_saída = bias_saida + sum(deltaSaida)* taxaAprendizagem
-        bias_hidden = bias_hidden + sum(deltaCamadaOculta) * taxaAprendizagem
-      }
-      # (backpropagation)
-      # Atualiza??o dos pesos da camada de sa?da at? a oculta
-      camadaOcultaTransposta = t(camadaOculta)
-      pesosNovo1 = camadaOcultaTransposta %*% deltaSaida
-      pesos1 = (pesos1 * momento) + (pesosNovo1 * taxaAprendizagem)
-
-      # Atualiza??o dos pesos da camada oculta at? a de entrada
-      camadaEntradaTransposta = t(camadaEntrada)
-      pesosNovo0 = camadaEntradaTransposta %*% deltaCamadaOculta
-      pesos0 = (pesos0 * momento) + (pesosNovo0[,-(nlinhas+1)] * taxaAprendizagem)
-
+    ################################################################################
+    # Training Loop - N-Layers
+    ############################################ New ###############################
+    #print(paste('Length W: ', length(W)))
+    #print(paste('Length B: ', length(B)))
+    #print(paste('Activation_Fun: ', Activation_Fun))
+    X_train = entradas[, 2:ncol(entradas)]
+    y_train = saidas
+    n_amostras   <- nrow(X_train)
+    if(Batch_Size==''){
+      Batch_Size=n_amostras
     }
+    num_batches  <- ceiling(n_amostras / Batch_Size)
+    for (ep in 1:epochs) {
+      # Ordem estritamente cronológica para séries temporais (SEM EMBARALHAMENTO)
+      for (b in 1:num_batches) {
+        start_idx <- ((b - 1) * Batch_Size) + 1
+        end_idx   <- min(b * Batch_Size, n_amostras)
+        X_batch <- X_train[start_idx:end_idx, , drop = FALSE]
+        y_batch <- y_train[start_idx:end_idx, drop = FALSE]
+        n_B     <- nrow(X_batch)
+        #N <- nrow(entradas)
+        N = n_B
+        # Forward Pass
+        A <- vector("list", num_layers) # Aloca o tamanho exato da lista na memória
+        A[[1]] <- X_batch
+
+        # Loop controlado estritamente por num_layers (vai de 1 até 2)
+        for (i in 1:(num_layers - 1)) {
+
+          # Realiza o cálculo da combinação linear
+          net <- sweep(A[[i]] %*% W[[i]], 2, B[[i]], "+")
+
+          # Verifica se é a última iteração (camada de saída)
+          if (i == (num_layers - 1)) {
+            if (Activation_F_Out == 'Linear') {
+              A[[i+1]] <- net # Saída linear (regressão)
+            } else if (Activation_F_Out == 'Original' || Activation_F_Out == 'Activation') {
+              A[[i+1]] <- Activation_Fun(net) # Aplica a Ativacao na camada de Saída
+            } else {
+              A[[i+1]] <- Activation_Fun(net) # Fallback padrão
+            }
+          } else {
+            # Camadas ocultas intermediárias
+            A[[i+1]] <- Activation_Fun(net)
+          }
+        }
+
+        save (A, file='~/A.rda')
+        #print(paste('Length A: ', length(A)))
+        # Cálculo do Erro
+        camadaSaida_batch <- A[[num_layers]]
+        save(camadaSaida_batch, file='~/camadaSaida_batch.rda')
+
+        ##################################### Loss Function #############################
+        # back forward
+        R_predicted = camadaSaida_batch
+        R_observed = y_batch
+
+        # CORREÇÃO CRÍTICA: Inicializa a lista delta com o tamanho total de camadas antes do bloco condicional
+        delta <- vector("list", num_layers)
+
+
+        if (Loss == "MSE") {
+          errocamadaSaida_batch = mean((y_batch - camadaSaida_batch)^2)
+          grad_perda <- A[[num_layers]] - y_batch
+
+          if (Activation_F_Out == 'Original') {
+            delta[[num_layers]] = as.matrix(rep(errocamadaSaida_batch, times=nlinhas), ncol=1) * (camadaSaida_batch - (1 - camadaSaida_batch))
+          } else if (Activation_F_Out == 'Tangent') {
+            delta[[num_layers]] <- grad_perda * (1 - (A[[num_layers]] ^ 2))
+          } else if (Activation_F_Out == 'Linear') {
+            delta[[num_layers]] <- grad_perda
+          } else {
+            # SEGURANÇA: Se o texto não bater com nenhum acima, assume Linear por padrão para não quebrar
+            warning(paste("Aviso: Activation_F_Out inválido ('", Activation_F_Out, "'). Usando 'Linear' por padrão.", sep=""))
+            delta[[num_layers]] <- grad_perda
+          }
+
+        } else if (Loss == "MAE") {
+          errocamadaSaida_batch = y_batch - camadaSaida_batch
+          mediaAbsoluta = mean(abs(errocamadaSaida_batch))
+          errocamadaSaida_batch = mediaAbsoluta
+          grad_perda <- sign(A[[num_layers]] - Y_real)
+
+          if (Activation_F_Out == 'Original') {
+            delta[[num_layers]] = as.matrix(rep(errocamadaSaida_batch, times=nlinhas), ncol=1) * (camadaSaida_batch - (1 - camadaSaida_batch))
+          } else if (Activation_F_Out == 'Tangent') {
+            delta[[num_layers]] <- grad_perda * (1 - (A[[num_layers]] ^ 2))
+          } else if (Activation_F_Out == 'Linear') {
+            delta[[num_layers]] <- grad_perda
+          } else {
+            # SEGURANÇA: Se o texto não bater com nenhum acima, assume Linear por padrão para não quebrar
+            warning(paste("Aviso: Activation_F_Out inválido ('", Activation_F_Out, "'). Usando 'Linear' por padrão.", sep=""))
+            delta[[num_layers]] <- grad_perda
+          }
+
+        } else if (Loss == "MADL") {
+          madl_loss <- function(R_observed, R_predicted) {
+            N <- length(R_observed)
+            loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
+            return(loss)
+          }
+          errocamadaSaida_batch = madl_loss(y_batch, camadaSaida_batch)
+          R_real <- Y_real
+          R_pred <- A[[num_layers]]
+
+          direcao_errada <- sign(R_real) != sign(R_pred)
+          grad_perda <- matrix(0, nrow = nrow(R_real), ncol = ncol(R_real))
+          grad_perda[direcao_errada] <- sign(R_pred[direcao_errada] - R_real[direcao_errada])
+
+          if (Activation_F_Out == 'Original') {
+            delta[[num_layers]] = as.matrix(rep(errocamadaSaida_batch, times=nlinhas), ncol=1) * (camadaSaida_batch - (1 - camadaSaida_batch))
+          } else if (Activation_F_Out == 'Tangent') {
+            delta[[num_layers]] <- grad_perda * (1 - (A[[num_layers]] ^ 2))
+          } else if (Activation_F_Out == 'Linear') {
+            delta[[num_layers]] <- grad_perda
+          } else {
+            # SEGURANÇA: Se o texto não bater com nenhum acima, assume Linear por padrão para não quebrar
+            warning(paste("Aviso: Activation_F_Out inválido ('", Activation_F_Out, "'). Usando 'Linear' por padrão.", sep=""))
+            delta[[num_layers]] <- grad_perda
+          }
+
+        } else if (Loss == "GMADL") {
+          gmadl_loss <- function(R_observed, R_predicted, a = 1, b = 1) {
+            N <- length(R_observed)
+            sigmoid <- function(x) { 1 / (1 + exp(-x)) }
+            loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
+            return(loss)
+          }
+          errocamadaSaida_batch = gmadl_loss(y_batch, camadaSaida_batch, a = 1, b = 1)
+          a_param <- 1.0
+          b_param <- 1.0
+          R_real <- y_batch
+          R_pred <- A[[num_layers]]
+
+          argumento <- a_param * R_real * R_pred
+          sigm_dir <- 1 / (1 + exp(-argumento))
+          grad_perda <- -a_param * R_real * sigm_dir * (1 - sigm_dir) * (abs(R_real) ^ b_param)
+
+          if (Activation_F_Out == 'Original') {
+            delta[[num_layers]] = as.matrix(rep(errocamadaSaida_batch, times=nlinhas), ncol=1) * (camadaSaida_batch - (1 - camadaSaida_batch))
+          } else if (Activation_F_Out == 'Tangent') {
+            delta[[num_layers]] <- grad_perda * (1 - (A[[num_layers]] ^ 2))
+          } else if (Activation_F_Out == 'Linear') {
+            delta[[num_layers]] <- grad_perda
+          } else {
+            # SEGURANÇA: Se o texto não bater com nenhum acima, assume Linear por padrão para não quebrar
+            warning(paste("Aviso: Activation_F_Out inválido ('", Activation_F_Out, "'). Usando 'Linear' por padrão.", sep=""))
+            delta[[num_layers]] <- grad_perda
+          }
+        }
+
+        ########### Implementação da Regularização
+        if (Decay[1] == 'Yes') {
+          # CORREÇÃO: Pega os pesos da última camada de transição (num_layers - 1) pois 'i' não está no escopo aqui
+          weights = W[[num_layers - 1]]
+          if (length(Decay) == 1) { Decay = c(Decay, 0.1) }
+          lambda = as.numeric(Decay[2])
+
+          l2_regularization <- function(weights, lambda) {
+            return(lambda * sum(weights^2))
+          }
+
+          reg_term <- l2_regularization(weights, lambda)
+          errocamadaSaida_batch <- errocamadaSaida_batch + reg_term
+          if (Activation_F_Out == 'Original') {
+            delta[[num_layers]] = as.matrix(rep(errocamadaSaida_batch, times=nlinhas), ncol=1) * (camadaSaida_batch - (1 - camadaSaida_batch))
+          }
+        } else {
+          lambda = 0 # Valor padrão caso Decay seja 'No' para não quebrar a atualização dos pesos
+        }
+
+
+        ################################################################################
+        ################################################################################
+
+        #error <- as.matrix(rep(erroCamadaSaida, nlinhas))
+
+        # CORREÇÃO CRÍTICA: Garante que o delta da camada de saída seja uma matriz antes de multiplicar
+        delta[[num_layers]] <- as.matrix(delta[[num_layers]])
+
+        # Backward Pass
+        for (i in (num_layers - 1):2) {
+          # Transforma o delta posterior em matriz por segurança em redes profundas
+          delta[[i+1]] <- as.matrix(delta[[i+1]])
+
+          # Realiza a multiplicação de matrizes sem quebrar
+          delta[[i]] <- (delta[[i+1]] %*% t(W[[i]])) * derivada(A[[i]])
+        }
+
+        # Atualização de Pesos e Biases divididos por N (Média do Gradiente)
+        for (i in 1:(num_layers - 1)) {
+
+          # Garante que o delta usado na atualização também seja tratado como matriz
+          delta_atual <- as.matrix(delta[[i+1]])
+          gradiente_W <- (t(A[[i]]) %*% delta_atual) / N
+
+          if (Activation_F_Out == 'Original') {
+            W[[i]] <- W[[i]] - (lr * gradiente_W)
+          } else {
+            W[[i]] <- W[[i]] * (1 - lr * lambda) - (lr * gradiente_W)
+          }
+
+          if (Bias == 'Yes') {
+            B[[i]] <- B[[i]] - (lr * matrix(colSums(delta_atual), nrow = 1) / N)
+          }
+        }
+
+
+      } # Chave de fechamento do loop principal de épocas (for (ep in 1:epochs))
+      ################################################################################
+      # End Loop Training - N-Layers - With Batch-Size
+      ######################################################################## New MLP
+      # Epoch Evaluation - Training vs Testing
+      ################################################################################
+
+      ###### ---- Bloco de Treinamento
+      ####### --- Bloco de Predição (Garantido que o R vai ler agora) --- ############
+      camadaEntrada_Train = as.matrix(entradas)
+
+      # Forward Pass da Predição
+      A_train <- vector("list", num_layers) # Usando nome limpo para não misturar com o 'A' do treino
+      A_train[[1]] <- camadaEntrada_Train[, 2:ncol(camadaEntrada_Train)]
+
+      for (i in 1:(num_layers - 1)) {
+        net_train <- sweep(A_train[[i]] %*% W[[i]], 2, B[[i]], "+")
+
+        if (i == (num_layers - 1)) {
+          if (Activation_F_Out == 'Linear') {
+            A_train[[i+1]] <- net_train
+          } else {
+            A_train[[i+1]] <- Activation_Fun(net_train)
+          }
+        } else {
+          A_train[[i+1]] <- Activation_Fun(net_train)
+        }
+      }
+
+      # Cálculo do Erro de Treinamento
+      camadaSaida_Train <- A_train[[num_layers]]
+
+      # Verificação da Função de Perda no Treinamento (Estrutura Segura else if)
+      if (Loss == "MSE") {
+        erroCamadaSaida_Train = mean((saidas - camadaSaida_Train)^2)
+
+      } else if (Loss == "MAE") {
+        erroCamadaSaida_Train = mean(abs(saidas - camadaSaida_Train))
+
+      } else if (Loss == "MADL") {
+        madl_loss <- function(R_observed, R_predicted) {
+          N <- length(R_observed)
+          loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
+          return(loss)
+        }
+        erroCamadaSaida_Train = madl_loss(saidas, camadaSaida_Train)
+
+      } else if (Loss == "GMADL") {
+        gmadl_loss <- function(R_observed, R_predicted, a = 1, b = 1) {
+          N <- length(R_observed)
+          sigmoid <- function(x) { 1 / (1 + exp(-x)) }
+          loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
+          return(loss)
+        }
+        erroCamadaSaida_Train = gmadl_loss(saidas, camadaSaida_Train, a = 1, b = 1)
+
+      } else {
+        # Fallback de segurança para não deixar a variável vazia
+        erroCamadaSaida_Train = mean((saidas - camadaSaida_Train)^2)
+      }
+
+
+      Training_Error[k,ep]=erroCamadaSaida_Train
+      erroCamadaSaida=erroCamadaSaida_Train
+      camadaSaida=camadaSaida_Train
+      ################################################################################
+      if (ep == epocas) { print(paste("Loss:", erroCamadaSaida_Train)) }
+
+      if (length(Early_Stopping) != 1) {
+        Stop = as.numeric(Early_Stopping[2])
+        if (class(erroCamadaSaida_Train) == "numeric" && (erroCamadaSaida_Train < 10)) {
+          if ((erroCamadaSaida_Train < Stop) == TRUE) { j = epocas }
+        } else {
+          print(paste("Early stop with", ep, " epochs"))
+          print(paste("Loss:", erroCamadaSaida_Train))
+          break
+        }
+      }
+      ####### --- Bloco de Predição (Garantido que o R vai ler agora) --- ############
+      camadaEntradaPredict = as.matrix(entradasPredict)
+
+      # Forward Pass da Predição
+      A_pred <- vector("list", num_layers) # Usando nome limpo para não misturar com o 'A' do treino
+      A_pred[[1]] <- camadaEntradaPredict[, 2:ncol(camadaEntradaPredict)]
+
+      for (i in 1:(num_layers - 1)) {
+        net_pred <- sweep(A_pred[[i]] %*% W[[i]], 2, B[[i]], "+")
+
+        if (i == (num_layers - 1)) {
+          if (Activation_F_Out == 'Linear') {
+            A_pred[[i+1]] <- net_pred
+          } else {
+            A_pred[[i+1]] <- Activation_Fun(net_pred)
+          }
+        } else {
+          A_pred[[i+1]] <- Activation_Fun(net_pred)
+        }
+      }
+
+      # Cálculo do Erro de Predição
+      camadaSaidaPredict <- A_pred[[num_layers]]
+
+      # Verificação da Função de Perda na Predição (Estrutura Segura else if)
+      if (Loss == "MSE") {
+        erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2)
+
+      } else if (Loss == "MAE") {
+        erroCamadaSaidaPredict = mean(abs(saidasPredict - camadaSaidaPredict))
+
+      } else if (Loss == "MADL") {
+        madl_loss <- function(R_observed, R_predicted) {
+          N <- length(R_observed)
+          loss <- (1/N) * sum((-1) * sign(R_observed * R_predicted) * abs(R_observed))
+          return(loss)
+        }
+        erroCamadaSaidaPredict = madl_loss(saidasPredict, camadaSaidaPredict)
+
+      } else if (Loss == "GMADL") {
+        gmadl_loss <- function(R_observed, R_predicted, a = 1, b = 1) {
+          N <- length(R_observed)
+          sigmoid <- function(x) { 1 / (1 + exp(-x)) }
+          loss <- (1/N) * sum(- (sigmoid(a * R_observed * R_predicted) - 0.5) * abs(R_observed)^b)
+          return(loss)
+        }
+        erroCamadaSaidaPredict = gmadl_loss(saidasPredict, camadaSaidaPredict, a = 1, b = 1)
+
+      } else {
+        # Fallback de segurança para não deixar a variável vazia
+        erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2)
+      }
+
+      # Salva o erro na sua matriz de histórico
+      Testing_Error[k, ep] = erroCamadaSaidaPredict
+      #print(paste('Testing_Error: ', Testing_Error[k,ep]))
+
+    } # Chave de fechamento do loop principal de épocas (for (ep in 1:epochs))
+    ################################################################################
+    # End Epoch Evaluation - Training vs Testing ########################### New MLP
+    ################################################################################
+
+
+
+
+
+
+
+
+
+
+    ################################################################################
 
     #################################################################################
     ########################### Chart Learning Curve ###########################
-
+    Training_Erro=as.data.frame(Training_Error)
+    Testing_Erro=as.data.frame(Testing_Error)
+    save(Training_Erro,file='~/Training_Erro.rda')
+    save(Testing_Erro,file='~/Testing_Erro.rda')
     Comparativo2 = as.data.frame(Training_Error, Testing_Error)
+    save(Comparativo2,file='~/Comparativo2.rda')
     NomesATIVO=colnames(scenario.set)
     ATIVO=NomesATIVO[ativo]
     Learning_asset=paste('~/Graphic_Learning_',ATIVO,'.png', sep='')
+    dev.off()
     png(file=Learning_asset, width=1920, height=1920, res=296, family = "A")
     par(#mfrow=c(2,2),
       #mar=c(2,2,2,2),
@@ -872,7 +1229,7 @@ ___________________________________________________________________
     par(family="A", cex=0.8)
     minim=min(Training_Error[k,],Testing_Error[k,])-0.03
     if(is.infinite(minim)==TRUE){minim=-0.3}
-    maxim= max(Training_Error[k,]+0.03)
+    maxim= max(Training_Error[k,Testing_Error[k,]]+0.03)
     if(is.infinite(maxim)==TRUE){maxim=1}
 
     plot(Training_Error[k,], type='l', col='red',
@@ -960,7 +1317,7 @@ ___________________________________________________________________
         #cat("Left asymmetric density (Positive)")
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
@@ -1026,18 +1383,6 @@ ___________________________________________________________________
                          xname = nome))
     legend("topright", legend = c("RNA", nome), pch = 19, col = c("black", "red"))
     axis(1, 1:nlinhas, Data$rn)
-
-    ## Sinal Maior que a media
-    #sinal = NULL
-    #for (i in 1:nlinhas) {
-    #  if(camadaSaida[i] > mean(camadaSaida)){
-    #    sinal[i] = 1
-    #  }
-    #  else {
-    #    sinal[i] = -1
-    #  }
-    #}
-    #sinal
 
     ## Sinal POSITIVO
     sinal = NULL
@@ -1203,7 +1548,7 @@ ___________________________________________________________________
         #cat("Left asymmetric density (Positive)")
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
@@ -1254,22 +1599,7 @@ ___________________________________________________________________
     ResProbPosNNetPredict[1,k]= ProbPos
     ResProbTPosNNetPredict[1,k]= ProbabilidadeTmedia
 
-    ####### Carteira Particular#################
-    # fed forward
-    camadaEntradaPredict = as.matrix(entradasPredict)
-    somaSinapse0Predict = camadaEntradaPredict %*% pesos0
-    camadaOcultaPredict = sigmoide(somaSinapse0Predict)
 
-
-    somaSinapse1Predict = camadaOcultaPredict %*% pesos1
-    camadaSaidaPredict = sigmoide(somaSinapse1Predict)
-
-
-    #if (Loss=="MSE"){
-    #  #erroCamadaSaida = 1 - saidas - camadaSaida # M?xima diferen?a
-    #  erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2) # M?nima diferen?a
-    #  Testing_Error[k]=erroCamadaSaidaPredict
-    #}
 
     if ((Order_Only='Yes')==TRUE){
       camadaSaidaPredict=camadaEntradaPredict
@@ -1340,7 +1670,7 @@ ___________________________________________________________________
         print(paste("Left asymmetric density (Positive)"))
       }
     }}
-    if (Skew_t=='Yes'){
+    if (Skew_t[1]=='Yes'){
       tryCatch(
         expr = {
           # Código principal a ser executado
