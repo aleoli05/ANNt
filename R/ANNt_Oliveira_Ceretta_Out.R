@@ -140,6 +140,24 @@ save(X11,file='~/X11.rda')
 
 if(Order=='Yes'){
 if(Type_ANN=='ANNt'){
+  print("Starting ANNt_order Command")
+  print(paste('N_Lags: ',N_Lags))
+  print(paste('Hidden: ',Hidden))
+  print(paste('Stepmax: ',Stepmax))
+  print(paste('Loss: ', Loss))
+  print(paste('Learning_Rate: ',Learning_Rate))
+  print(paste('Decay: ', Decay))
+  print(paste('Early_Stopping: ',Early_Stopping))
+  print(paste('Asymmetry: ',Asymmetry))
+  print(paste('Skew_t: ', Skew_t))
+  print(paste('Bias: ', Bias))
+  print(paste('Order_Only: ', 'No'))
+  print(paste('Convolution: ',Convolution))
+  print(paste('Initialization: ', Initialization))
+  print(paste('Activation_Function: ',Activation_Function))
+  print(paste('Activation_F_Out: ',Activation_F_Out))
+  print(paste('Batch_Size: ', Batch_Size))
+
   ANNt_order ('', '', '', N_Lags=N_Lags, Hidden=Hidden, Stepmax=Stepmax,
               Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
               Early_Stopping = Early_Stopping,
@@ -147,7 +165,8 @@ if(Type_ANN=='ANNt'){
               Order_Only='No',Convolution=Convolution,
               Initialization = Initialization,
               Activation_Function=Activation_Function,
-              Activation_F_Out=Activation_F_Out)
+              Activation_F_Out=Activation_F_Out,
+              Batch_Size=Batch_Size)
 } else {
   if(Type_ANN=='LSTMt'){
     LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,

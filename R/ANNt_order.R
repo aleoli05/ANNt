@@ -153,7 +153,9 @@ ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Te
       Final_Date_Testing = as.character(new_day)
     }
   }
-
+ print(paste('Initial_Date_Training applied: ', Initial_Date_Training))
+ print(paste('Final_Date_Training applied: ', Final_Date_Training))
+ print(paste('Final_Date_Testing applied: ', Final_Date_Testing))
   # y1 is the number of hidden, case the ANNt_Oliveira_Ceretta went used
   if(Hidden[1]=='hidden'){
     load('~/x2.rda')
@@ -618,9 +620,9 @@ ___________________________________________________________________
             Return_Dev_Right = Median + as.numeric(Skew_t[3])*Dev_Right
             #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
             #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-            ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+            ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
 
           if(Skew_t[2]=='xi'){
@@ -640,9 +642,9 @@ ___________________________________________________________________
             Return_Dev_Right = xi+as.numeric(Skew_t[3])*Dev_Right
             #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
             #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-            ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+            ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
 
 
@@ -1357,9 +1359,9 @@ ___________________________________________________________________
             Dev_Right_1 <- sd(Side_Right)
             Return_Dev_Left_1 <- Median-as.numeric(Skew_t[3])*Dev_Left_1
             Return_Dev_Right_1 <- Median + as.numeric(Skew_t[3])*Dev_Right_1
-            ProbabilidadeTmedia <- pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+            ProbabilidadeTmedia <- pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
           #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaida)-1), family="ST")
           #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
@@ -1394,9 +1396,9 @@ ___________________________________________________________________
             #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
             #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
             #print('Test 4 TryCatch')
-            ProbabilidadeTmedia <- pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+            ProbabilidadeTmedia <- pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
 
           #print('Test 3 TryCatch')
@@ -1702,9 +1704,9 @@ ___________________________________________________________________
             Return_Dev_Right = Median+as.numeric(Skew_t[3])*Dev_Right
             #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prevPredict)-1), family="ST")
             #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
-            ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
-            Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE)
+            ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 1)
+            Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 1)
+            Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 1)
           }
         },
         error = function(e) {

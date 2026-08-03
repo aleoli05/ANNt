@@ -145,7 +145,8 @@ if(Type_ANN=='ANNt'){
               Order_Only='No', Convolution=Convolution,
               Initialization = Initialization,
               Activation_Function=Activation_Function,
-              Activation_F_Out=Activation_F_Out)
+              Activation_F_Out=Activation_F_Out,
+              Batch_Size=Batch_Size)
 } else {
   if(Type_ANN=='LSTMt'){
     LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,

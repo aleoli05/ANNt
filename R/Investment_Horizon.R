@@ -406,6 +406,7 @@ if(Fun=='S_Out'){
                               Initialization = Initialization,
                               Activation_Function=Activation_Function,
                               Activation_F_Out=Activation_F_Out,
+                              Batch_Size=Batch_Size,
                               ANNt_Prob=ANNt_Prob, Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
@@ -446,6 +447,7 @@ if(Fun=='Out'){
                             Initialization = Initialization,
                             Activation_Function=Activation_Function,
                             Activation_F_Out=Activation_F_Out,
+                            Batch_Size=Batch_Size,
                             ANNt_Prob=ANNt_Prob, Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
@@ -492,6 +494,7 @@ if(Fun=='S'){
                           Initialization = Initialization,
                           Activation_Function=Activation_Function,
                           Activation_F_Out=Activation_F_Out,
+                          Batch_Size=Batch_Size,
                           ANNt_Prob=ANNt_Prob, Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
@@ -511,6 +514,7 @@ if(Fun=='Original'){
                         Initialization = Initialization,
                         Activation_Function=Activation_Function,
                         Activation_F_Out=Activation_F_Out,
+                        Batch_Size=Batch_Size,
                         ANNt_Prob=ANNt_Prob, Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
