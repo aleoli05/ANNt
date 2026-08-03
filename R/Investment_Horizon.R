@@ -403,8 +403,9 @@ if(Fun=='S_Out'){
                               N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                               Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                               Order_Only='No', Convolution=Convolution,
-                              Initialization = 'Original',
-                              Activation_Function='Tangent', Activation_F_Out='Original',
+                              Initialization = Initialization,
+                              Activation_Function=Activation_Function,
+                              Activation_F_Out=Activation_F_Out,
                               ANNt_Prob=ANNt_Prob, Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
@@ -442,8 +443,9 @@ if(Fun=='Out'){
                             N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                             Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                             Order_Only='No', Convolution=Convolution,
-                            Initialization = 'Original',
-                            Activation_Function='Tangent', Activation_F_Out='Original',
+                            Initialization = Initialization,
+                            Activation_Function=Activation_Function,
+                            Activation_F_Out=Activation_F_Out,
                             ANNt_Prob=ANNt_Prob, Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
@@ -487,8 +489,9 @@ if(Fun=='S'){
                           N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                           Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                           Order_Only='No', Convolution=Convolution,
-                          Initialization = 'Original',
-                          Activation_Function='Tangent', Activation_F_Out='Original',
+                          Initialization = Initialization,
+                          Activation_Function=Activation_Function,
+                          Activation_F_Out=Activation_F_Out,
                           ANNt_Prob=ANNt_Prob, Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
@@ -505,8 +508,9 @@ if(Fun=='Original'){
                         N_Assets, Base=BS, Import=Horizon, Exclude_ticket=Exclude,
                         Type_ANN=Type_ANN, Order=Order, Skew_t=Skew_t, Bias=Bias,
                         Order_Only='No', Convolutio=Convolution,
-                        Initialization = 'Original',
-                        Activation_Function='Tangent', Activation_F_Out='Original',
+                        Initialization = Initialization,
+                        Activation_Function=Activation_Function,
+                        Activation_F_Out=Activation_F_Out,
                         ANNt_Prob=ANNt_Prob, Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
