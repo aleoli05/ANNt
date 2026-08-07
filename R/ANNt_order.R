@@ -575,21 +575,25 @@ ___________________________________________________________________
       if (mean(prev)>0) {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(prev)-1,ncp = se, lower.tail=FALSE)
+        #print(paste('1) This is the Probability NeuralNEt Prev (-)>0: ',ProbabilidadeTmedia))
         #print(paste("Right asymmetric density (Negative)"))
       } else {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(prev)-1,ncp = -se, lower.tail=FALSE)
         #print(paste("Left asymmetric density (Positive)"))
+        #print(paste('2) This is the Probability NeuralNet Prev (-)<0: ',ProbabilidadeTmedia))
       }
     }else {if(Asymmetry=='Positive'){
       if (mean(prev)>0) {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(prev)-1,ncp = -se, lower.tail=FALSE)
         #print(paste("Right asymmetric density (Negative)"))
+        #print(paste('3) This is the Probability NeuralNet Prev (+)>0: ',ProbabilidadeTmedia))
       } else {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(prev)-1,ncp = se, lower.tail=FALSE)
         #print(paste("Left asymmetric density (Positive)"))
+        #print(paste('4) This is the Probability NeuralNet Prev (+)<0: ',ProbabilidadeTmedia))
       }
     }}
     if (Skew_t[1]=='Yes'){
@@ -621,6 +625,7 @@ ___________________________________________________________________
             #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(prev)-1), family="ST")
             #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
             ProbabilidadeTmedia = pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            #print(paste('5) This is the Probability NeuralNEt Skew_t Median: ',ProbabilidadeTmedia))
             Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
             Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
@@ -643,6 +648,7 @@ ___________________________________________________________________
             #dpst1 <- cp2dp(c(Media, Desvio, Resultados_Assim, length(camadaSaidaPredict)-1), family="ST")
             #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
             ProbabilidadeTmedia = pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            #print(paste('6) This is the Probability NeuralNEt Skew_t xi: ',ProbabilidadeTmedia))
             Prob_Left = pst(0.0, xi=Return_Dev_Left, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
             Prob_Right = pst(0.0, xi=Return_Dev_Right, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
@@ -1303,20 +1309,24 @@ ___________________________________________________________________
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(camadaSaida)-1,ncp = se, lower.tail=FALSE)
         # cat("Right asymmetric density (Negative)")
+        #print(paste('7) This is the Probability Particular camadaSaida (-)>0: ',ProbabilidadeTmedia))
       } else {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(camadaSaida)-1,ncp = -se, lower.tail=FALSE)
         #cat("Left asymmetric density (Positive)")
+        #print(paste('8) This is the Probability Particular camadaSaida (-)<0: ',ProbabilidadeTmedia))
       }
     }else {if(Asymmetry=='Positive'){
       if ((mean(camadaSaida)>0)==TRUE) {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(camadaSaida)-1,ncp = -se, lower.tail=FALSE)
+        #print(paste('9) This is the Probability Particular camadaSaida (+)>0: ',ProbabilidadeTmedia))
         # cat("Right asymmetric density (Negative)")
       } else {
         ProbabilidadeTmedia =pt(0.0,
                                 df=length(camadaSaida)-1,ncp = se, lower.tail=FALSE)
         #cat("Left asymmetric density (Positive)")
+        #print(paste('10) This is the Probability Particular camadaSaida (+)<0: ',ProbabilidadeTmedia))
       }
     }}
     if (Skew_t[1]=='Yes'){
@@ -1360,6 +1370,7 @@ ___________________________________________________________________
             Return_Dev_Left_1 <- Median-as.numeric(Skew_t[3])*Dev_Left_1
             Return_Dev_Right_1 <- Median + as.numeric(Skew_t[3])*Dev_Right_1
             ProbabilidadeTmedia <- pst(0.0, xi=Median, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            #print(paste('11) This is the Probability Particular camadaSaida Skew_t Median: ',ProbabilidadeTmedia))
             Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
             Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
@@ -1397,6 +1408,7 @@ ___________________________________________________________________
             #ProbabilidadeTmedia = pst(0.0, dp=dpst1, lower.tail = FALSE)
             #print('Test 4 TryCatch')
             ProbabilidadeTmedia <- pst(0.0, xi=xi, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
+            #print(paste('12) This is the Probability Particular camadaSaida Skew_t xi: ',ProbabilidadeTmedia))
             Prob_Left_1 <- pst(0.0, xi=Return_Dev_Left_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
             Prob_Right_1 <- pst(0.0, xi=Return_Dev_Right_1, omega=omega, alpha=alpha, nu=nu, lower.tail = FALSE,method = 2)
           }
