@@ -37,7 +37,7 @@ ANNt_order(
 
 \item{N_Lags}{Number of lags used in the input layer}
 
-\item{Hidden}{Number of hidden neurons (If '' is the length series)}
+\item{Hidden}{Number of hidden neurons and hidden layers (If '', the neurons' number is the length series)}
 
 \item{Stepmax}{Number of replications per asset to train the ANN}
 

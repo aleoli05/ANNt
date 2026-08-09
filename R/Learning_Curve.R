@@ -1127,13 +1127,15 @@ ___________________________________________________________________
       if (length(Early_Stopping) != 1) {
         Stop = as.numeric(Early_Stopping[2])
         if (class(erroCamadaSaida_Train) == "numeric" && (erroCamadaSaida_Train < 10)) {
-          if ((erroCamadaSaida_Train < Stop) == TRUE) { j = epocas }
-        } else {
-          print(paste("Early stop with", ep, " epochs"))
-          print(paste("Loss:", erroCamadaSaida_Train))
-          break
+          if ((erroCamadaSaida_Train < Stop) == TRUE) {
+            print(paste("Early stop with", ep, " epochs"))
+            print(paste("Loss:", erroCamadaSaida_Train))
+            ep = epocas
+            break
+          }
         }
       }
+
       ####### --- Bloco de Predição (Garantido que o R vai ler agora) --- ############
       camadaEntradaPredict = as.matrix(entradasPredict)
 
@@ -1227,10 +1229,13 @@ ___________________________________________________________________
     library("ggplot2")
     windowsFonts(A=windowsFont("Times New Roman"))
     par(family="A", cex=0.8)
-    minim=min(Training_Error[k,],Testing_Error[k,])-0.03
+    minim=min(Training_Error[k, !is.na(Training_Error[k, ])],Testing_Error[k,!is.na(Testing_Error[k, ])])-0.03
     if(is.infinite(minim)==TRUE){minim=-0.3}
-    maxim= max(Training_Error[k,Testing_Error[k,]]+0.03)
+    if(is.na(minim)==TRUE){minim=-0.3}
+    maxim= max(Training_Error[k,!is.na(Training_Error[k, ])],Testing_Error[k,!is.na(Testing_Error[k, ])])+0.03
     if(is.infinite(maxim)==TRUE){maxim=1}
+    if(is.na(maxim)==TRUE){maxim=1}
+
 
     plot(Training_Error[k,], type='l', col='red',
          xlab ='Stepmax', ylab='Error',

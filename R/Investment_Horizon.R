@@ -227,7 +227,7 @@ Comparativo_Treynor_Horizon_Anual = matrix(nrow=Frequency, ncol=11)
 
 #### Matrix of weights
 
-Weights_MF_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MF_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_MF_EQ_Horizon <- as.data.frame((Weights_MF_EQ_Horizon))
 Weights_MF_EQ_Horizon [1,1] <- 'MF_EQ PORTFOLIOS'
 Weights_MF_EQ_Horizon [1,2] <- 'ASSETS'
@@ -235,7 +235,7 @@ Weights_MF_EQ_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_MF_EQ_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_MF_EQ_Horizon [3,2] <- 'Days'
 
-Weights_MF_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MF_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_MF_MKW_Horizon <- as.data.frame((Weights_MF_MKW_Horizon))
 Weights_MF_MKW_Horizon [1,1] <- 'MF_MKW PORTFOLIOS'
 Weights_MF_MKW_Horizon [1,2] <- 'ASSETS'
@@ -243,7 +243,7 @@ Weights_MF_MKW_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_MF_MKW_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_MF_MKW_Horizon [3,2] <- 'Days'
 
-Weights_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_MKW_Horizon <- as.data.frame((Weights_MKW_Horizon))
 Weights_MKW_Horizon [1,1] <- 'MARKOWITZ PORTFOLIOS'
 Weights_MKW_Horizon [1,2] <- 'ASSETS'
@@ -251,7 +251,7 @@ Weights_MKW_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_MKW_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_MKW_Horizon [3,2] <- 'Days'
 
-Weights_ANNt_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_ANNt_EQ_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_ANNt_EQ_Horizon <- as.data.frame((Weights_ANNt_EQ_Horizon))
 Weights_ANNt_EQ_Horizon [1,1] <- 'ANNt_EQ PORTFOLIOS'
 Weights_ANNt_EQ_Horizon [1,2] <- 'ASSETS'
@@ -259,7 +259,7 @@ Weights_ANNt_EQ_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_ANNt_EQ_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_ANNt_EQ_Horizon [3,2] <- 'Days'
 
-Weights_ANNt_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_ANNt_MKW_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_ANNt_MKW_Horizon <- as.data.frame((Weights_ANNt_MKW_Horizon))
 Weights_ANNt_MKW_Horizon [1,1] <- 'ANNt_MKW PORTFOLIOS'
 Weights_ANNt_MKW_Horizon [1,2] <- 'ASSETS'
@@ -267,7 +267,7 @@ Weights_ANNt_MKW_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_ANNt_MKW_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_ANNt_MKW_Horizon [3,2] <- 'Days'
 
-Weights_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_Sharpe_Horizon <- as.data.frame((Weights_Sharpe_Horizon))
 Weights_Sharpe_Horizon [1,1] <- 'SHARPE PORTFOLIOS'
 Weights_Sharpe_Horizon [1,2] <- 'ASSETS'
@@ -275,7 +275,7 @@ Weights_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_Sharpe_Horizon [3,2] <- 'Days'
 
-Weights_MF_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_MF_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_MF_Sharpe_Horizon <- as.data.frame((Weights_MF_Sharpe_Horizon))
 Weights_MF_Sharpe_Horizon [1,1] <- 'MF_SHARPE PORTFOLIOS'
 Weights_MF_Sharpe_Horizon [1,2] <- 'ASSETS'
@@ -283,7 +283,7 @@ Weights_MF_Sharpe_Horizon [2,1] <- 'Initial_Date_Testing'
 Weights_MF_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_MF_Sharpe_Horizon [3,2] <- 'Days'
 
-Weights_ANNt_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+Weights_ANNt_Sharpe_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
 Weights_ANNt_Sharpe_Horizon <- as.data.frame((Weights_ANNt_Sharpe_Horizon))
 Weights_ANNt_Sharpe_Horizon [1,1] <- 'ANNt_SHARPE PORTFOLIOS'
 Weights_ANNt_Sharpe_Horizon [1,2] <- 'ASSETS'
@@ -292,7 +292,7 @@ Weights_ANNt_Sharpe_Horizon [2,2] <- 'Final_Date_Testing'
 Weights_ANNt_Sharpe_Horizon [3,2] <- 'Days'
 
 if (ANNt_Prob[1]=='Yes'){
-  Weights_ANNt_MAX_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+  Weights_ANNt_MAX_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
   Weights_ANNt_MAX_Horizon <- as.data.frame((Weights_ANNt_MAX_Horizon))
   Weights_ANNt_MAX_Horizon [1,1] <- 'ANNt_MAX PORTFOLIOS'
   Weights_ANNt_MAX_Horizon [1,2] <- 'ASSETS'
@@ -300,7 +300,7 @@ if (ANNt_Prob[1]=='Yes'){
   Weights_ANNt_MAX_Horizon [2,2] <- 'Final_Date_Testing'
   Weights_ANNt_MAX_Horizon [3,2] <- 'Days'
 
-  Weights_ANNt_PROB_Horizon <- matrix(ncol=60, nrow=(Frequency*2+1))
+  Weights_ANNt_PROB_Horizon <- matrix(ncol=60, nrow=(Frequency*2+2))
   Weights_ANNt_PROB_Horizon <- as.data.frame((Weights_ANNt_PROB_Horizon))
   Weights_ANNt_PROB_Horizon [1,1] <- 'ANNt_PROB PORTFOLIOS'
   Weights_ANNt_PROB_Horizon [1,2] <- 'ASSETS'

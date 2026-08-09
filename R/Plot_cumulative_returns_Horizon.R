@@ -359,7 +359,10 @@ legend(paste(Legend_position),
         if(nrow(Comparativo)<100 & nrow(Comparativo)>=50) {Eixo_X2 = c(1, 20, 40, 60, 80, 100)
         }else{
           Eixo_X2 = c(1,10,20,30,40,50)
-        }}}}
+          if(nrow(Comparativo)<50 & nrow(Comparativo)>=25) {Eixo_X2 = c(1, 10, 20, 30, 40, 50)
+          }else{
+            Eixo_X2 = c(1,5,10,15,20,25)
+          }}}}}
   Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
   Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
   Inicio_data = rownames(Comparativo2[1,])
@@ -468,8 +471,13 @@ legend(paste(Legend_position),
     }else{
       if(nrow(Comparativo)<300 & nrow(Comparativo)>=100) {Eixo_X2 = c(1, 50, 100, 150, 200, 250, 300)
       }else{
-        Eixo_X2 = c(1,25,50,75,100)
-      }}}
+        if(nrow(Comparativo)<100 & nrow(Comparativo)>=50) {Eixo_X2 = c(1, 20, 40, 60, 80, 100)
+        }else{
+          Eixo_X2 = c(1,10,20,30,40,50)
+          if(nrow(Comparativo)<50 & nrow(Comparativo)>=25) {Eixo_X2 = c(1, 10, 20, 30, 40, 50)
+          }else{
+            Eixo_X2 = c(1,5,10,15,20,25)
+          }}}}}
   Eixo_X3 = rownames(Comparativo2[Eixo_X2,])
   Eixo_X3 = str_replace(Eixo_X3,"NA",rownames(Comparativo2[nrow(Comparativo2),]))
   Inicio_data = rownames(Comparativo2[1,])

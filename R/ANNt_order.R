@@ -6,7 +6,7 @@
 #' @param Final_Date_Training Series finish training date
 #' @param Final_Date_Testing Series end Date (If '' is the System Date)
 #' @param N_Lags Number of lags used in the input layer
-#' @param Hidden Number of hidden neurons (If '' is the length series)
+#' @param Hidden Number of hidden neurons and hidden layers (If '', the neurons' number is the length series)
 #' @param Stepmax Number of replications per asset to train the ANN
 #' @param Loss Function: "MSE" for Mean Square Error, "MAE" for Mean Absolute Error,
 #' "MADL" for Mean Absolute Directional Loss, and "GMADL" for Generalized Mean Absolute Directional Loss
@@ -431,12 +431,12 @@ ___________________________________________________________________
       Stop2=as.numeric(Early_Stopping[2])
       nn= neuralnet( formula, data=entradas,
                      hidden = Hidden[1], act.fct = "tanh",
-                     threshold = 0.1,
+                     threshold = 0.01,
                      stepmax=epocas)
     }else{
       nn= neuralnet( formula, data=entradas,
                      hidden = Hidden[1], act.fct = "tanh",
-                     threshold = 0.1,
+                     threshold = 0.01,
                      stepmax=epocas)
     }
 
@@ -1194,11 +1194,12 @@ ___________________________________________________________________
       if (length(Early_Stopping) != 1) {
         Stop = as.numeric(Early_Stopping[2])
         if (class(erroCamadaSaida_Train) == "numeric" && (erroCamadaSaida_Train < 10)) {
-          if ((erroCamadaSaida_Train < Stop) == TRUE) { j = epocas }
-        } else {
-          print(paste("Early stop with", ep, " epochs"))
-          print(paste("Loss:", erroCamadaSaida_Train))
-          break
+          if ((erroCamadaSaida_Train < Stop) == TRUE) {
+            print(paste("Early stop with", ep, " epochs"))
+            print(paste("Loss:", erroCamadaSaida_Train))
+            ep = epocas
+            break
+          }
         }
       }
       ####### --- Bloco de Predição (Garantido que o R vai ler agora) --- ############
