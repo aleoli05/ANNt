@@ -138,7 +138,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
 Horizon=Import
 Exclude = Exclude_ticket
 unico_caractere <- paste(ANNt_Prob, collapse = ",")
-RM_Nome_Backup=paste(RM,Loss,Type_ANNt,Fun,Type_ANN,Hidden,Stepmax,unico_caractere,sep='_')
+unico_caractere2 <- paste(Decay, collapse=",")
+RM_Nome_Backup=paste(RM,Loss,Type_ANNt,Fun,Type_ANN,Hidden,Learning_Rate,unico_caractere,Stepmax,unico_caractere,sep='_')
 save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 save(Return_Cumulative,file='~/Return_Cumulative.rda')
 save(ANNt_Prob, file='~/ANNt_Prob.rda')

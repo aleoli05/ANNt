@@ -445,11 +445,11 @@ ___________________________________________________________________
     #nn=as.matrix(sapply(nn, as.numeric))
     if(Hidden[1] %% 2 == 0) {
       escondida = Hidden
-    } else {if(Hidden[1] >15){
-      Hidden_2=Hidden
-      Hidden_2[1]=Hidden[1]+1
-      escondida =Hidden_2
-    } else {escondida = Hidden}}
+    #} else {if(Hidden[1] >15){
+    #  Hidden_2=Hidden
+    #  Hidden_2[1]=Hidden[1]+1
+    #  escondida =Hidden_2
+    } else {escondida = Hidden}
     nnplot= neuralnet( formula, data=entradas,
                        hidden = escondida, act.fct = "tanh", threshold = 0.01,
                        stepmax=epocas)
@@ -482,8 +482,11 @@ ___________________________________________________________________
       #op <- par(new = TRUE)
       #windowsFonts(A=windowsFont("Times New Roman"))
       #par(family="A")
-      plot(nnplot, main ="Artificial Neural Network")
-
+      if (Hidden[1]>15){
+        plot(nnplot, main ="Artificial Neural Network",show.weights = FALSE)
+      } else{
+        plot(nnplot, main ="Artificial Neural Network")
+      }
     }
     #dev.off()
     #p1 <- plot(nnplot)
@@ -1189,19 +1192,13 @@ ___________________________________________________________________
       erroCamadaSaida=erroCamadaSaida_Train
       camadaSaida=camadaSaida_Train
       ################################################################################
-      if (ep == epocas) { print(paste("Loss:", erroCamadaSaida_Train)) }
-
-      if (length(Early_Stopping) != 1) {
-        Stop = as.numeric(Early_Stopping[2])
-        if (class(erroCamadaSaida_Train) == "numeric" && (erroCamadaSaida_Train < 10)) {
-          if ((erroCamadaSaida_Train < Stop) == TRUE) {
-            print(paste("Early stop with", ep, " epochs"))
-            print(paste("Loss:", erroCamadaSaida_Train))
-            ep = epocas
-            break
-          }
+      if (ep == epocas) {
+        print(paste("Train Loss:", erroCamadaSaida_Train))
+        print(paste("Predict Train Sd:", sd(Saida)))
+        print(paste("Real Train Sd:", erroCamadaSaida_Train^0.5*100,"%"))
         }
-      }
+
+
       ####### --- Bloco de Predição (Garantido que o R vai ler agora) --- ############
       camadaEntradaPredict = as.matrix(entradasPredict)
 
@@ -1254,8 +1251,36 @@ ___________________________________________________________________
         # Fallback de segurança para não deixar a variável vazia
         erroCamadaSaidaPredict = mean((saidasPredict - camadaSaidaPredict)^2)
       }
+      if (ep == epocas) {
+        print(paste("Test Loss:", erroCamadaSaidaPredict))
+        print(paste("Predict Test Sd:", sd(SaidaPredict)*100,"%"))
+        print(paste("Real Test Sd:", erroCamadaSaidaPredict^0.5*100,'%'))
+        print(paste("Loss Precision:",(erroCamadaSaida_Train^0.5-erroCamadaSaidaPredict^0.5)*100,"%"))
+        }
 
+      # Early_Stopping
+      if (length(Early_Stopping) != 1) {
+        if (ep==1) {Anterior_Loss=0}
+        Stop = as.numeric(Early_Stopping[2])
+        if (class(erroCamadaSaidaPredict) == "numeric" && (erroCamadaSaidaPredict < 10)) {
 
+          Delta_Loss= abs(erroCamadaSaidaPredict - Anterior_Loss)
+          if ((Delta_Loss < Stop) == TRUE) {
+            print(paste("Early stop with", ep, " epochs"))
+            print(paste("Train_Loss:", erroCamadaSaida_Train))
+            print(paste("Predict Train Sd:", sd(Saida)*100, "%"))
+            print(paste("Real Train Sd:", erroCamadaSaida_Train^0.5*100,"%"))
+            print(paste("Test_Loss:", erroCamadaSaidaPredict))
+            print(paste("Predict Test Sd:", sd(SaidaPredict)*100,"%"))
+            print(paste("Real Test Sd:", erroCamadaSaidaPredict^0.5*100,"%"))
+            print(paste("Loss Precision",(erroCamadaSaida_Train^0.5-erroCamadaSaidaPredict^0.5)*100,"%"))
+            print(paste("Delta_Loss:", Delta_Loss))
+            ep = epocas
+            break
+          }
+          Anterior_Loss=erroCamadaSaidaPredict
+        }
+      }
     } # Chave de fechamento do loop principal de épocas (for (ep in 1:epochs))
     ################################################################################
     # End Epoch Evaluation - Training ########################### New MLP
