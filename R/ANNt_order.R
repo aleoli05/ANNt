@@ -1194,8 +1194,8 @@ ___________________________________________________________________
       ################################################################################
       if (ep == epocas) {
         print(paste("Train Loss:", erroCamadaSaida_Train))
-        print(paste("Predict Train Sd:", sd(saidas)))
-        print(paste("Real Train Sd:", erroCamadaSaida_Train^0.5*100,"%"))
+        print(paste("Real Train Sd:", round(erroCamadaSaida_Train^0.5*100,2),"%"))
+        print(paste("Predict Train Sd:", round(sd(saidas)*100),2),"%")
         }
 
 
@@ -1253,9 +1253,9 @@ ___________________________________________________________________
       }
       if (ep == epocas) {
         print(paste("Test Loss:", erroCamadaSaidaPredict))
-        print(paste("Predict Test Sd:", sd(saidasPredict)*100,"%"))
-        print(paste("Real Test Sd:", erroCamadaSaidaPredict^0.5*100,'%'))
-        print(paste("Loss Precision:",(erroCamadaSaida_Train^0.5-erroCamadaSaidaPredict^0.5)*100,"%"))
+        print(paste("Real Test Sd:", round(erroCamadaSaidaPredict^0.5*100,2),'%'))
+        print(paste("Predict Test Sd:", round(sd(saidasPredict)*100,2),"%"))
+        print(paste("Loss Precision:",round((erroCamadaSaida_Train^0.5-erroCamadaSaidaPredict^0.5)*100,2),"%"))
         }
 
       # Early_Stopping
@@ -1268,12 +1268,12 @@ ___________________________________________________________________
           if ((Delta_Loss < Stop) == TRUE) {
             print(paste("Early stop with", ep, " epochs"))
             print(paste("Train_Loss:", erroCamadaSaida_Train))
-            print(paste("Predict Train Sd:", sd(saidas)*100, "%"))
-            print(paste("Real Train Sd:", erroCamadaSaida_Train^0.5*100,"%"))
+            print(paste("Real Train Sd:", round(erroCamadaSaida_Train^0.5*100,2),"%"))
+            print(paste("Predict Train Sd:", round(sd(saidas)*100,2), "%"))
+            print(paste("Real Test Sd:", round(erroCamadaSaidaPredict^0.5*100,2),"%"))
             print(paste("Test_Loss:", erroCamadaSaidaPredict))
-            print(paste("Predict Test Sd:", sd(saidasPredict)*100,"%"))
-            print(paste("Real Test Sd:", erroCamadaSaidaPredict^0.5*100,"%"))
-            print(paste("Loss Precision",(erroCamadaSaida_Train^0.5-erroCamadaSaidaPredict^0.5)*100,"%"))
+            print(paste("Predict Test Sd:", round(sd(saidasPredict)*100,2),"%"))
+            print(paste("Loss Precision",round((erroCamadaSaida_Train^0.5-erroCamadaSaidaPredict^0.5)*100,2),"%"))
             print(paste("Delta_Loss:", Delta_Loss))
             ep = epocas
             break
