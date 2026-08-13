@@ -1195,7 +1195,7 @@ ___________________________________________________________________
       if (ep == epocas) {
         print(paste("Train Loss:", erroCamadaSaida_Train))
         print(paste("Real Train Sd:", round(erroCamadaSaida_Train^0.5*100,2),"%"))
-        print(paste("Predict Train Sd:", round(sd(saidas)*100),2),"%")
+        print(paste("Predict Train Sd:", round(sd(saidas)*100,2),"%"))
         }
 
 
