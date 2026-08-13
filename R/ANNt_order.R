@@ -431,12 +431,12 @@ ___________________________________________________________________
       Stop2=as.numeric(Early_Stopping[2])
       nn= neuralnet( formula, data=entradas,
                      hidden = Hidden[1], act.fct = "tanh",
-                     threshold = 0.01,
+                     threshold = 0.05,
                      stepmax=epocas)
     }else{
       nn= neuralnet( formula, data=entradas,
                      hidden = Hidden[1], act.fct = "tanh",
-                     threshold = 0.01,
+                     threshold = 0.05,
                      stepmax=epocas)
     }
 
@@ -451,7 +451,7 @@ ___________________________________________________________________
     #  escondida =Hidden_2
     } else {escondida = Hidden}
     nnplot= neuralnet( formula, data=entradas,
-                       hidden = escondida, act.fct = "tanh", threshold = 0.01,
+                       hidden = escondida, act.fct = "tanh", threshold = 0.05,
                        stepmax=epocas)
 
 
