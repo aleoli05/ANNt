@@ -144,6 +144,8 @@ save(RM_Nome_Backup,file='~/RM_Nome_Backup.rda')
 save(Return_Cumulative,file='~/Return_Cumulative.rda')
 save(ANNt_Prob, file='~/ANNt_Prob.rda')
 save(Rf, file='~/Rf.rda')
+save(Learning_Rate,file='~/Learning_Rate.rda')
+save(Decay, file='~/Decay.rda')
 #load('~/Horizon.rda')
 if(Download=='Yes'){
 if (Import =='No'){

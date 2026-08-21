@@ -59,7 +59,11 @@
 #' Skew_t=c('Yes','Median',1),
 #' Bias="No",
 #' Order_Only='No',
-#' Convolution = 'Neutral'
+#' Convolution = 'Neutral',
+#' Initialization = 'Original',
+#' Activation_Function='Tangent',
+#' Activation_F_Out='Original',
+#' Batch_Size=''
 #' )
 
 #' # Estimated processing time 2 hours.
@@ -81,6 +85,27 @@ ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Te
                        Batch_Size='') {
   ## Convers?o das variaveis
   # Excesso do retorno em relacao ao RM
+
+  save(N_Lags, file='~/N_Lags.rda')
+  save(Loss, file='~/Loss.rda')
+  save(Learning_Rate, file='~/Learning_Rate.rda')
+  save(Decay, file='~/Decay.rda')
+  save(Early_Stopping, file='~/Early_Stopping.rda')
+  save(Asymmetry, file='~/Asymmetry.rda')
+  save(Type_ANNt, file='~/Type_ANNt.rda')
+  save(N_Assets, file='~/N_Assets.rda')
+  save(Order, file='~/Order.rda')
+  save(Skew_t, file='~/Skew_t.rda')
+  save(Bias, file='~/Bias.rda')
+  save(Order_Only, file='~/Order_Only.rda')
+  save(Convolution, file='~/Convolution.rda')
+  save(Initialization, file='~/Initialization.rda')
+  save(Activtion_Function, file='~/Activation_Function.rda')
+  save(Activation_F_Out, file='~/Activation_F_Out.rda')
+  save(Batch_Size, file='~/Batch_Size.rda')
+
+
+
   if ((length(Skew_t)==1) & (Skew_t[1]=='Yes')){
     Skew_t=c('Yes',"Median",1)
   }
@@ -965,7 +990,7 @@ ___________________________________________________________________
           }
         }
 
-        save (A, file='~/A.rda')
+        #save (A, file='~/A.rda')
         #print(paste('Length A: ', length(A)))
         # Cálculo do Erro
         camadaSaida_batch <- A[[num_layers]]
@@ -2018,8 +2043,12 @@ ___________________________________________________________________
     }
     #ProbabilidadeTmedia =pt(mean(camadaSaida),
     #                 df=length(camadaSaida)-1, lower.tail = TRUE)
-    print(paste("Excess Return Probability:", ProbabilidadeTmedia_1, sep=' '))
-    # Processing monitoring
+    if (Skew_t[1]=='Yes'){
+      print(paste("Excess Return Probability:", round(ProbabilidadeTmedia_1,2),"%", sep=' '))
+    } else  {
+      print(paste("Excess Return Probability:", round(ProbabilidadeTmedia,2),"%", sep=' '))
+    }
+      # Processing monitoring
 
     if (ativo<(ncol(dados2))){
       cat(paste("___________________________________________________________________

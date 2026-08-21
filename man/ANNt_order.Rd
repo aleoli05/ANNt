@@ -106,7 +106,11 @@ Asymmetry='Negative',
 Skew_t=c('Yes','Median',1),
 Bias="No",
 Order_Only='No',
-Convolution = 'Neutral'
+Convolution = 'Neutral',
+Initialization = 'Original',
+Activation_Function='Tangent',
+Activation_F_Out='Original',
+Batch_Size=''
 )
 # Estimated processing time 2 hours.
 

@@ -15,17 +15,33 @@ Backup_ANNt <- function(Investment='No'){
   colnames(Readme_ANNt[1:length(nomes)])=nomes
   Inputs = c('Tickers',
              'RM',
+             'Rf',
              'Initial_Date',
              'Final_Date',
              'Initial_Date_Training',
              'Final_Date_Training',
              'Initial_Date_Testing',
              'Final_Date_Testing',
+             'N_Lags',
              'Hidden',
              'Stepmax',
-             'Rf',
-             'Until_Date',
+             'Loss',
+             'Learning_Rate',
+             'Decay',
+             'Early_Stopping',
+             'Asymmetry',
+             'Type_ANNt',
              'N_Assets',
+             'Order',
+             'kew_t',
+             'Bias',
+             'Order_Only',
+             'Convolution',
+             'Initialization',
+             'Activation_Function',
+             'Activation_F_Out',
+             'Batch_Size',
+             'Until_Date',
              'Total_N_Assets',
              'Total_length_series',
              'Total_training_length',
@@ -46,6 +62,23 @@ Backup_ANNt <- function(Investment='No'){
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   load('~/Hidden.rda')
+  load('~/N_Lags.rda')
+  load('~/Loss.rda')
+  load('~/Learning_Rate.rda')
+  load('~/Decay.rda')
+  load('~/Early_Stopping.rda')
+  load('~/Asymmetry.rda')
+  load('~/Type_ANNt.rda')
+  load('~/N_Assets.rda')
+  load('~/Order.rda')
+  load('~/Skew_t.rda')
+  load('~/Bias.rda')
+  load('~/Order_Only.rda')
+  load('~/Convolution.rda')
+  load('~/Initialization.rda')
+  load('~/Activation_Function.rda')
+  load('~/Activation_F_Out.rda')
+  load('~/Batch_Size.rda')
   load('~/Stepmax.rda')
   load('~/Rf.rda')
   load('~/Until_Date.rda')
@@ -83,9 +116,25 @@ Backup_ANNt <- function(Investment='No'){
                   Final_Date_Training,
                   Initial_Date_Testing,
                   Final_Date_Testing,
+                  N_Lags,
                   Hidden,
                   Stepmax,
-                  Rf,
+                  Loss,
+                  Learning_Rate,
+                  Decay,
+                  Early_Stopping,
+                  Asymmetry,
+                  Type_ANNt,
+                  N_Assets,
+                  Order,
+                  Skew_t,
+                  Bias,
+                  Order_Only,
+                  Convolution,
+                  Initialization,
+                  Activation_Function,
+                  Activation_F_Out,
+                  Batch_Size,
                   Until_Date,
                   N_Assets,
                   Total_N_Assets,
@@ -115,6 +164,7 @@ if(Investment=='No'){
   nome_dir= str_replace(nome_dir,"/","_")
 } else{
   if(Investment=='Yes'){
+
     load('~/RM_Nome_Backup.rda')
     nome_dir= str_replace(Data,"-","_")
     nome_dir= str_replace(nome_dir,"-","_")
