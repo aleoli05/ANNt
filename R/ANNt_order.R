@@ -100,7 +100,7 @@ ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Te
   save(Order_Only, file='~/Order_Only.rda')
   save(Convolution, file='~/Convolution.rda')
   save(Initialization, file='~/Initialization.rda')
-  save(Activtion_Function, file='~/Activation_Function.rda')
+  save(Activation_Function, file='~/Activation_Function.rda')
   save(Activation_F_Out, file='~/Activation_F_Out.rda')
   save(Batch_Size, file='~/Batch_Size.rda')
 

@@ -2053,7 +2053,9 @@ ___________________________________________________________________
   save(Training_Error,file='~/Training_Error.rda')
   save(Testing_Error,file='~/Testing_Error.rda')
   ###############################
-  dev.off()
+  if (dev.cur() > 1) {
+    dev.off()
+  }
 
   plot(Training_Error[k,], type='l', col='red',
        xlab ='Stepmax', ylab='Error',
