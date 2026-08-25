@@ -136,7 +136,7 @@ Backup_ANNt <- function(Investment='No'){
                      Activation_F_Out,
                      Batch_Size,
                      Until_Date,
-                     N_Assets,
+                     Total_N_Assets,
                      Total_length_series,
                      Total_training_length,
                      Total_testing_length,
