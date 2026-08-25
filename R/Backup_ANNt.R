@@ -170,14 +170,14 @@ Backup_ANNt <- function(Investment='No'){
       load("~/Import.rda")
       load("~/Exclude_ticket.rda")
       load("~/Type_ANN.rda")
-      load("~/ANNt_PROB.rda")
+      load("~/ANNt_Prob.rda")
 
       Readme_ANNt[length(Values_inputs)+1,1] = "Specific_Dates"
       Readme_ANNt[length(Values_inputs)+2,1] = "Download"
       Readme_ANNt[length(Values_inputs)+3,1] = "Import"
       Readme_ANNt[length(Values_inputs)+4,1] = "Exclude_ticket"
       Readme_ANNt[length(Values_inputs)+5,1] = "Type_ANN"
-      Readme_ANNt[length(Values_inputs)+6,1] = "ANNt_PROB"
+      Readme_ANNt[length(Values_inputs)+6,1] = "ANNt_Prob"
 
       for (i in (1:length(Specific_Dates))){
         Readme_ANNt[length(Values_inputs)+1,i] = Specific_Dates[i]
@@ -188,8 +188,8 @@ Backup_ANNt <- function(Investment='No'){
         Readme_ANNt[length(Values_inputs)+4,i] = Exclude_ticket[i]
       }
       Readme_ANNt[length(Values_inputs)+5,2] = Type_ANN
-      for (i in (1:length(ANNt_PROB))){
-        Readme_ANNt[length(Values_inputs)+6,i] = ANNt_PROB[i]
+      for (i in (1:length(ANNt_Prob))){
+        Readme_ANNt[length(Values_inputs)+6,i] = ANNt_Prob[i]
       }
       Data=format(Sys.Date(), "%Y-%m-%d")
       load('~/RM_Nome_Backup.rda')

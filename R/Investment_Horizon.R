@@ -140,7 +140,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
   save(Import, file="~/Import.rda")
   save(Exclude_ticket, file="~/Exclude_ticket.rda")
   save(Type_ANN, file="~/Type_ANN.rda")
-  save(ANNt_PROB, file="~/ANNt_PROB.rda")
+  save(ANNt_Prob, file="~/ANNt_Prob.rda")
 
 Horizon=Import
 Exclude = Exclude_ticket
