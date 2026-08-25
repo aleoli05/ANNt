@@ -70,7 +70,6 @@ Backup_ANNt <- function(Investment='No'){
   load('~/Asymmetry.rda')
   load('~/type_ANNt.rda')
   load('~/N_Assets.rda')
-  load('~/Order.rda')
   load('~/Skew_t.rda')
   load('~/Bias.rda')
   load('~/Order_Only.rda')
@@ -126,7 +125,6 @@ Backup_ANNt <- function(Investment='No'){
                      Asymmetry,
                      type_ANNt,
                      N_Assets,
-                     Order,
                      Skew_t,
                      Bias,
                      Order_Only,
@@ -171,25 +169,28 @@ Backup_ANNt <- function(Investment='No'){
       load("~/Exclude_ticket.rda")
       load("~/Type_ANN.rda")
       load("~/ANNt_Prob.rda")
+      load("~/Order.rda")
 
       Readme_ANNt[length(Values_inputs)+1,1] = "Specific_Dates"
-      Readme_ANNt[length(Values_inputs)+2,1] = "Download"
-      Readme_ANNt[length(Values_inputs)+3,1] = "Import"
-      Readme_ANNt[length(Values_inputs)+4,1] = "Exclude_ticket"
-      Readme_ANNt[length(Values_inputs)+5,1] = "Type_ANN"
-      Readme_ANNt[length(Values_inputs)+6,1] = "ANNt_Prob"
+      Readme_ANNt[length(Values_inputs)+2,1] = "Order"
+      Readme_ANNt[length(Values_inputs)+3,1] = "Download"
+      Readme_ANNt[length(Values_inputs)+4,1] = "Import"
+      Readme_ANNt[length(Values_inputs)+5,1] = "Exclude_ticket"
+      Readme_ANNt[length(Values_inputs)+6,1] = "Type_ANN"
+      Readme_ANNt[length(Values_inputs)+7,1] = "ANNt_Prob"
 
       for (i in (1:length(Specific_Dates))){
         Readme_ANNt[length(Values_inputs)+1,i] = Specific_Dates[i]
       }
-      Readme_ANNt[length(Values_inputs)+2,2] = Download
-      Readme_ANNt[length(Values_inputs)+3,2] = Import
+      Readme_ANNt[length(Values_inputs)+2,2] = Order
+      Readme_ANNt[length(Values_inputs)+3,2] = Download
+      Readme_ANNt[length(Values_inputs)+4,2] = Import
       for (i in (1:length(Exclude_ticket))){
-        Readme_ANNt[length(Values_inputs)+4,i] = Exclude_ticket[i]
+        Readme_ANNt[length(Values_inputs)+5,i] = Exclude_ticket[i]
       }
-      Readme_ANNt[length(Values_inputs)+5,2] = Type_ANN
+      Readme_ANNt[length(Values_inputs)+6,2] = Type_ANN
       for (i in (1:length(ANNt_Prob))){
-        Readme_ANNt[length(Values_inputs)+6,i] = ANNt_Prob[i]
+        Readme_ANNt[length(Values_inputs)+7,i] = ANNt_Prob[i]
       }
       Data=format(Sys.Date(), "%Y-%m-%d")
       load('~/RM_Nome_Backup.rda')

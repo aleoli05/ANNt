@@ -94,7 +94,6 @@ ANNt_order <- function(Initial_Date_Training, Final_Date_Training, Final_Date_Te
   save(Asymmetry, file='~/Asymmetry.rda')
   save(Type_ANNt, file='~/Type_ANNt.rda')
   save(N_Assets, file='~/N_Assets.rda')
-  save(Order, file='~/Order.rda')
   save(Skew_t, file='~/Skew_t.rda')
   save(Bias, file='~/Bias.rda')
   save(Order_Only, file='~/Order_Only.rda')
