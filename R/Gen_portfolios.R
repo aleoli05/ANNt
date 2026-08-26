@@ -115,7 +115,7 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing,
                 }}}}}}}}
 
   save(Type_ANNt, file='~/Type_ANNt.rda')
-
+  save(type_ANNt, file='~/type_ANNt.rda')
 
   # Duração do processamento 1720/length(dados)=1.2 min)
   if (file.exists("~/x5.rda")==TRUE){

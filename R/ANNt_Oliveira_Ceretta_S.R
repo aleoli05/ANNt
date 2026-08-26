@@ -84,6 +84,12 @@ ANNt_Oliveira_Ceretta_S <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Tr
                                     Delay='No'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
+  save(Type_ANNt, file='~/Type_ANNt.rda')
+  save(N_Assets, file='~/N_Assets.rda')
+  save(Import, file="~/Import.rda")
+  save(Exclude_ticket, file="~/Exclude_ticket.rda")
+  save(ANNt_Prob, file="~/ANNt_Prob.rda")
+  save(Order, file="~/Order.rda")
 
   library(quantmod)
   library(PortfolioAnalytics)

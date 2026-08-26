@@ -136,6 +136,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
   library(writexl)
 
   save(Specific_Dates, file="~/Specific_Dates.rda")
+  save(Type_ANNt, file='~/Type_ANNt.rda')
+  save(N_Assets, file='~/N_Assets.rda')
   save(Download, file="~/Download.rda")
   save(Import, file="~/Import.rda")
   save(Exclude_ticket, file="~/Exclude_ticket.rda")

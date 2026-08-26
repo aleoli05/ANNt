@@ -81,7 +81,12 @@ ANNt_Oliveira_Ceretta_Out <- function(Tickers, RM, Rf, Initial_Date, Final_Date_
                                       Delay='No'){
 #Tickers <-c('AAPL','XOM','TSLA','KO', 'F')
 #RM <-c('^GSPC') #RM the S&P500
-
+  save(Type_ANNt, file='~/Type_ANNt.rda')
+  save(N_Assets, file='~/N_Assets.rda')
+  save(Import, file="~/Import.rda")
+  save(Exclude_ticket, file="~/Exclude_ticket.rda")
+  save(ANNt_Prob, file="~/ANNt_Prob.rda")
+  save(Order, file="~/Order.rda")
 
   Periodo= c('daily','monthly','weekly')
   if(length(which(Periodo==Periodicity))==0){
@@ -111,6 +116,8 @@ save(Type_ANN, file='~/Type_ANN.rda')
 Initial_Date_Testing <- c('')
 Final_Date_Testing <- c('')
 save(Rf, file='~/Rf.rda')
+
+
 
 Rf <- Rf
 save(Rf, file='~/Rf.rda')
