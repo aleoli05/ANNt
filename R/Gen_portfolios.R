@@ -114,8 +114,8 @@ Gen_portfolios <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing,
                   message("T8= Type_ANNt: MC_t_Test - Assets with the highest probability obtained with the manually programmed ANN and Student's t probability distribution  in the test sample is implemented")
                 }}}}}}}}
 
-  save(Type_ANNt, file='~/Type_ANNt.rda')
-  save(type_ANNt, file='~/type_ANNt.rda')
+  save(Type_ANNt, type_ANNt, file='~/Type_ANNt.rda')
+  #save(type_ANNt, file='~/type_ANNt.rda')
 
   # Duração do processamento 1720/length(dados)=1.2 min)
   if (file.exists("~/x5.rda")==TRUE){

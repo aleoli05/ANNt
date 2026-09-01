@@ -18,6 +18,7 @@ Out_of_sample <-function(Initial_Date_Out, Final_Date_Out, ANNt_Prob='No'){
 
   # Duração do processamento 1720/length(dados)=1.2 min)
   load("~/scenario.set.rda") # Carrega objeto scenario.set
+  load("~/Rf.rda") # Carrega objeto scenario.set
   load("~/T8.rda") # Carrega objeto scenario.set
   load("~/I_dataPredict.rda") # Carrega objeto scenario.set
   load("~/F_dataPredict.rda") # Carrega objeto scenario.set
