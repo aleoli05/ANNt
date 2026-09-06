@@ -142,11 +142,30 @@ Backup_ANNt <- function(Investment='No'){
                      Relation_Row_Col_Training,
                      Relation_length_Training_Testing)
 
-  for(i in (1:length(Values_inputs))){
-    for (j in (1:length(Values_inputs[[i]]))){
-      Readme_ANNt[i+1,j+1] = Values_inputs[[i]][j]
+  #for(i in (1:length(Values_inputs))){
+  #  for (j in (1:length(Values_inputs[[i]]))){
+  #    if(length(Values_inputs[[i]][j])==0){
+  #      Values_inputs[[i]][j]<-NA
+  #    }
+  #    Readme_ANNt[i+1,j+1] = Values_inputs[[i]][j]
+  #  }
+  #}
+  for (i in 1:length(Values_inputs)) {
+    for (j in 1:length(Values_inputs[[i]])) {
+
+      # 1. Copia o valor para uma variável temporária (sem mexer na lista)
+      valor_temporario <- Values_inputs[[i]][j]
+
+      # 2. Se a variável estiver vazia (comprimento 0), ela vira NA
+      if (length(valor_temporario) == 0) {
+        valor_temporario <- NA
+      }
+
+      # 3. Salva no data frame de forma segura
+      Readme_ANNt[i + 1, j + 1] <- valor_temporario
     }
   }
+
 
 
   View(Readme_ANNt)
