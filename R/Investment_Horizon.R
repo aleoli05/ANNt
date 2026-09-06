@@ -125,7 +125,7 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                Initialization = 'Original',
                                Activation_Function='Tangent', Activation_F_Out='Original',
                                Batch_Size='',
-                               ANNt_Prob=ANNt_Prob, Delay='No'){
+                               ANNt_Prob='No', Delay='No'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()

@@ -41,7 +41,7 @@ Investment_Horizon(
   Activation_Function = "Tangent",
   Activation_F_Out = "Original",
   Batch_Size = "",
-  ANNt_Prob = ANNt_Prob,
+  ANNt_Prob = "No",
   Delay = "No"
 )
 }
