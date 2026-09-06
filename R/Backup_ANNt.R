@@ -32,7 +32,6 @@ Backup_ANNt <- function(Investment='No'){
              'Asymmetry',
              'Type_ANNt',
              'N_Assets',
-             'Order',
              'kew_t',
              'Bias',
              'Order_Only',
@@ -205,11 +204,11 @@ Backup_ANNt <- function(Investment='No'){
       Readme_ANNt[length(Values_inputs)+3,2] = Download
       Readme_ANNt[length(Values_inputs)+4,2] = Import
       for (i in (1:length(Exclude_ticket))){
-        Readme_ANNt[length(Values_inputs)+5,i] = Exclude_ticket[i]
+        Readme_ANNt[length(Values_inputs)+5,i+1] = Exclude_ticket[i]
       }
       Readme_ANNt[length(Values_inputs)+6,2] = Type_ANN
       for (i in (1:length(ANNt_Prob))){
-        Readme_ANNt[length(Values_inputs)+7,i] = ANNt_Prob[i]
+        Readme_ANNt[length(Values_inputs)+7,i+1] = ANNt_Prob[i]
       }
       Data=format(Sys.Date(), "%Y-%m-%d")
       load('~/RM_Nome_Backup.rda')

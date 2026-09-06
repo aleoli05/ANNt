@@ -139,6 +139,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
   save(Type_ANNt, file='~/Type_ANNt.rda')
   save(N_Assets, file='~/N_Assets.rda')
   save(Download, file="~/Download.rda")
+  save(Skew_t, file='~/Skew_t.rda')
+  save(Bias, file='~/Bias.rda')
   save(Import, file="~/Import.rda")
   save(Exclude_ticket, file="~/Exclude_ticket.rda")
   save(Type_ANN, file="~/Type_ANN.rda")
