@@ -1081,6 +1081,12 @@ legend("topleft",
   ##########################################################################
   ### With ANNt_Prob
   ##########################################################################
+  load('~/Type_ANN.rda')
+  ANN_EQ = paste(Type_ANN,'_EQ', sep='')
+  ANN_MKW = paste(Type_ANN,'_MKW', sep='')
+  ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
+  ANN_MAX = paste(Type_ANN,'_MAX', sep='')
+  ANN_PROB = paste(Type_ANN,'_PROB', sep='')
   png(file="~/Graphic_Cumulative_Returns_Inv.png", width=1920, height=1920, res=296, family = "A")
   par(#mfrow=c(2,2),
     #mar=c(2,2,2,2),
