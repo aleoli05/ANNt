@@ -1174,7 +1174,7 @@ legend("topleft",
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend(paste(Legend_position),
+  legend("topleft",
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     ANN_EQ,
@@ -1280,7 +1280,7 @@ legend("topleft",
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend(paste(Legend_position),
+  legend("topleft",
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     ANN_EQ,
