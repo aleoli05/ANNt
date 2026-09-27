@@ -346,6 +346,12 @@ legend(x="topleft",
          #xlim = c(0.01, 0.07),
          pch=19
   )
+  text(x=Prob_ANNt_weights_Max_Ret,y=Media_ANNt_MAX,
+       labels = "Media_ANNt_MAX",
+       col="lightblue",
+       cex = 0.6,
+       adj = -0.2
+  )
   points(x=Prob_ANNt_Max_Prob_Portfolio,y=Media_ANNt_PROB,
          #,main="Fronteira Eficiente por Desvio",
          #ylab="Retorno", xlab="Desvio-Padr?o",
@@ -353,10 +359,22 @@ legend(x="topleft",
          #xlim = c(0.01, 0.07),
          pch=19
   )
+  text(x=Prob_ANNt_Max_Prob_Portfolio,y=Media_ANNt_PROB,
+       labels = "Media_ANNt_PROB",
+       col="gold",
+       cex = 0.6,
+       adj = -0.2
+  )
   points(x=unlist(Prob_ANNt_Max_Prob),y=unlist(Retornos_Asset_Prob),
          #,main="Fronteira Eficiente por Desvio",
          #ylab="Retorno", xlab="Desvio-Padr?o",
-         col="gold"
+         col="yellow"
+  )
+  text(x=unlist(Prob_ANNt_Max_Prob),y=unlist(Retornos_Asset_Prob),
+       labels = rownames(Retornos_Asset_Prob),
+       col="gold",
+       cex = 0.6,
+       adj = -0.2
   )
 
   text(x=(max(Base_Palomar[4,])+0.02), y=mean(Base_Palomar[1,])+0.0002,
@@ -463,6 +481,12 @@ legend(x="topleft",
          #xlim = c(0.01, 0.07),
          pch=19
   )
+  text(x=Prob_ANNt_weights_Max_Ret,y=Media_ANNt_MAX,
+       labels = "Media_ANNt_MAX",
+       col="lightblue",
+       cex = 0.6,
+       adj = -0.2
+  )
   points(x=Prob_ANNt_Max_Prob_Portfolio,y=Media_ANNt_PROB,
          #,main="Fronteira Eficiente por Desvio",
          #ylab="Retorno", xlab="Desvio-Padr?o",
@@ -470,10 +494,22 @@ legend(x="topleft",
          #xlim = c(0.01, 0.07),
          pch=19
   )
+  text(x=Prob_ANNt_Max_Prob_Portfolio,y=Media_ANNt_PROB,
+       labels = "Media_ANNt_PROB",
+       col="gold",
+       cex = 0.6,
+       adj = -0.2
+  )
   points(x=unlist(Prob_ANNt_Max_Prob),y=unlist(Retornos_Asset_Prob),
          #,main="Fronteira Eficiente por Desvio",
          #ylab="Retorno", xlab="Desvio-Padr?o",
-         col="gold"
+         col="yellow"
+  )
+  text(x=unlist(Prob_ANNt_Max_Prob),y=unlist(Retornos_Asset_Prob),
+       labels = rownames(Retornos_Asset_Prob),
+       col="gold",
+       cex = 0.6,
+       adj = -0.2
   )
 
   text(x=(max(Base_Palomar[4,])+0.02), y=mean(Base_Palomar[1,])+0.0002,

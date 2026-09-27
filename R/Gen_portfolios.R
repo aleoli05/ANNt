@@ -13,7 +13,17 @@
 #' "T6"= NNet_t_Test;
 #' "T7"= MC_Signal_Test;
 #' "T8"= Type_ANNt: MC_t_Test
-#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No".
+#' Alternative inform: "Yes, Num_Assets, nd nPoints,
+#' Type_ANNt_Prob Technique utilized to solve the Probability:
+#' "Cov" Covariance is standard.
+#' "Cov2" Covariance 2 use two lambdas.
+#' "BETA" (Binary Excedance & Tail Assessment Matrix) use parameters of skewness and kurtosis;
+#' "CATS" (Convexity & Asymmetric Tail Scoring) use parameters of skewness and kurtosis with higher moments;
+#' "DSR" (Downside Semi-Variance Risk): Directly identifies the strict focus on downside semi-variance (downside risk) relative to the reference point \[\mu _{p}\].
+#' "Omega": Use the Omega ratio;
+#' "VaR" use the Value at Risk; "Semi-Var" use semi-variance, and
+#' Lambda (only one Lambda or two Lambdas).
 #' @author Alexandre Silva de Oliveira
 #' @examples
 #' N_Assets <- 3
@@ -21,7 +31,7 @@
 #' Final_Date_Testing <- c('')
 #' Rf <- 0
 #' type_ANNt <- 'T8'
-#' ANNt_Prob <- c('Yes', 0.5, 170, 500)
+#' ANNt_Prob <- c('Yes', 170, 500, 'Cov', 0.01, 0.8)
 #' # Generate assets portfolio (maximum N assets specified)
 #' Gen_portfolios(3,'2023-01-03','',0,'T8')
 #'
@@ -1437,13 +1447,16 @@ tryCatch({
 
   ################################################################################
   if(ANNt_Prob[1]=='Yes' & length(ANNt_Prob)==1){
-    ANNt_Prob <- c('Yes', 0.5, N_Assets, 500)
+    ANNt_Prob <- c('Yes', N_Assets, 500, 'Cov', 0.5)
     }
 
   if (ANNt_Prob[1]=='Yes') {
-      Lambda = as.numeric(ANNt_Prob[2])
-      Num_Assets= as.numeric(ANNt_Prob[3])
-      nPoints= as.numeric(ANNt_Prob[4])
+      Num_Assets= as.numeric(ANNt_Prob[2])
+      nPoints= as.numeric(ANNt_Prob[3])
+      Lambda1 = as.numeric(ANNt_Prob[5])
+      if (lenght(ANNt_Prob)==6){
+      Lambda2 = as.numeric(ANNt_Prob[6])
+      }
   # 1. Carregar o pacote para otimização quadrática
   if(!require(quadprog)) install.packages("quadprog")
   library(quadprog)
@@ -1459,7 +1472,8 @@ tryCatch({
   # Na notação matricial da solve.QP: min 0.5 * w' Dmat w - dvec' w
   #Dmat <- 2 * lambda * matriz_cov
   #dvec <- retornos
-
+  ########################### Type_ANNt_Prob = Cov #############################
+  if (ANNt_Prob[4]=="Cov"){
   if (type_ANNt=="T4"){
     Ativos=rownames(Summary_ANNt_Training)
     P=Summary_ANNt_Training[1:Num_Assets,c(17,1,18)]
@@ -1475,7 +1489,7 @@ tryCatch({
     dplyr::select(which((colnames(all.returns) %in% Ativos)))
   #R=R1[6:which(rownames(R1)=='2022-12-29'),]
   #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
-  save(R,file='~/R.rda')
+  #save(R,file='~/R.rda')
 
 ################################################################################
 ## Verificacao de Stringrs diferentes
@@ -1484,7 +1498,7 @@ tryCatch({
   Nomes_ordem = rownames(P)
   R=R[,Nomes_ordem]
   #P=1-P
-
+  save(R,file='~/R.rda')
 
   matriz_quadrada <- matrix(0, nrow = Num_Assets, ncol = Num_Assets-3)
 
@@ -1495,7 +1509,7 @@ tryCatch({
 
   Dmat_fixed = Dmat
   #tryCatch({
-    Dmat <- 2*Lambda*nearPD(as.matrix(Dmat_fixed))$mat
+    Dmat <- 2*Lambda1*nearPD(as.matrix(Dmat_fixed))$mat
   #}, error=function(e){
    # eig <- eigen(Dmat)
     # Substitui autovalores negativos por 1e-8
@@ -1573,7 +1587,7 @@ tryCatch({
 #################
   tryCatch({
     Dmat_sim =forceSymmetric(as.matrix(Dmat_fixed))
-    Dmat <- 2*Lambda*nearPD(Dmat_sim,corr=FALSE, keepDiag=TRUE)$mat
+    Dmat <- 2*Lambda1*nearPD(Dmat_sim,corr=FALSE, keepDiag=TRUE)$mat
     pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
   })
 ################
@@ -1612,7 +1626,7 @@ tryCatch({
   #print(ANNt_weights_Max_Prob)
   print(Weight_ANNt_PROB)
 
-  Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+  Asset_Prob = colnames(as.data.frame(Weight_ANNt_PROB))
   #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
   #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
   R_Asset_Prob = as.data.frame(R[, Asset_Prob])
@@ -1624,8 +1638,945 @@ tryCatch({
   Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(ANNt_weights_Max_Prob)
   mean_R_Asset_Prob=colMeans(R_Asset_Prob)
   sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
+  }
 
+  ########################### Type_ANNt_Prob = Cov2 #############################
+  if (ANNt_Prob[4]=="Cov2"){
+    if (type_ANNt=="T4"){
+      Ativos=rownames(Summary_ANNt_Training)
+      P=Summary_ANNt_Training[1:Num_Assets,c(17,1,18)]
+      save(P,file='~/P.rda')
     }
+    if (type_ANNt=="T8"){
+      Ativos=rownames(Summary_ANNt_Testing)
+      P=Summary_ANNt_Testing[1:Num_Assets,c(17,1,18)]
+      save(P,file='~/P.rda')
+    }
+    Ativos=Ativos[1:Num_Assets]
+    R = as.data.frame(all.returns) %>%
+      dplyr::select(which((colnames(all.returns) %in% Ativos)))
+    #R=R1[6:which(rownames(R1)=='2022-12-29'),]
+    #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+    #save(R,file='~/R.rda')
+
+    ################################################################################
+    ## Verificacao de Stringrs diferentes
+
+    ################################################################################
+    Nomes_ordem = rownames(P)
+    R=R[,Nomes_ordem]
+    #P=1-P
+    save(R,file='~/R.rda')
+
+    matriz_quadrada <- matrix(0, nrow = Num_Assets, ncol = Num_Assets-3)
+
+    # 3. Inserir a matriz original nas 3 primeiras linhas da nova matriz
+    P2<- cbind(P,matriz_quadrada)
+    Dmat <- -as.matrix(P2)
+    #######
+
+    Dmat_fixed = Dmat
+    #tryCatch({
+    Dmat <- 2*Lambda1*nearPD(as.matrix(Dmat_fixed))$mat
+    #}, error=function(e){
+    # eig <- eigen(Dmat)
+    # Substitui autovalores negativos por 1e-8
+    #eig$values <- pmax(as.numeric(eig$values), 1e-8)
+    #Dmat_fixed <- eig$vectors %*% diag(eig$values) %*% t(eig$vectors)
+    #pesos_front <- fronteiraCarteira(retornosAtivos, nPontos=nPoints)
+    #################
+    #tryCatch({
+    # Dmat_sim =forceSymmetric(as.matrix(Dmat_fixed))
+    #Dmat <- 2*Lambda*nearPD(Dmat_sim,corr=FALSE, keepDiag=TRUE)$mat
+
+    #})
+    ################
+
+    #})
+
+    ##########
+    retornoAlvo <- seq(min(mu), max(mu), length = nPoints)
+
+    pesosCarteira_Por_Lambda <- function(retornosAtivos, Lambda_Entrada) {
+
+      if(!require("quadprog")) install.packages("quadprog")
+      library(quadprog)
+
+      nAtivos <- Num_Assets
+      mu <- colMeans(retornosAtivos)
+
+      # 1. Configurando a Função Objetivo usando o Lambda de Entrada
+      # Função: Min( 0.5 * x' * Dmat * x - dvec' * x )
+      # Que se traduz em: Min( Lambda * Var(x) - Retorno(x) )
+      Dmat <- 2 * Lambda_Entrada * Sigma_ajustada
+      dvec <- mu   # Importante: dvec precisa ser o vetor de retornos médios puro!
+
+      # 2. Configurando APENAS a restrição de Orçamento e Posição Comprada
+      # Tiramos completamente qualquer menção ao retornoAlvo daqui.
+      Amat <- t(rbind(orcamento = rep(1, nAtivos),
+                      longa = diag(nAtivos)))
+
+      bvec <- c(orcamento = 1,
+                longa = rep(0, times = nAtivos))
+
+      # meq = 1 significa que APENAS o orçamento (1ª linha) é uma igualdade absoluta
+      meq <- 1
+
+      # 3. Execução da Otimização
+      portfolio <- solve.QP(
+        Dmat = Dmat,
+        dvec = dvec,
+        Amat = Amat,
+        bvec = bvec,
+        meq  = meq
+      )
+
+      return(portfolio$solution)
+    }
+
+    # Teste com baixíssima aversão ao risco (Vai concentrar tudo na ação de maior retorno) Ex. Lambda=0.000005
+    pesos_agressivo <- pesosCarteira_Por_Lambda(R, Lambda_Entrada = Lambda1)
+
+    # Teste com alta aversão ao risco (Vai espalhar os pesos buscando o menor risco)Ex. Lambda=10
+    pesos_conservador <- pesosCarteira_Por_Lambda(R, Lambda_Entrada = Lambda2)
+
+      ################
+
+
+    Retornos_Carteiras= as.matrix(pesos_agressivo) %*%colMeans(R)
+    Prob_Carteiras=as.matrix(pesos_agressivo) %*%P[,2]
+
+    ANNt_weights_Max_Ret =pesos_agressivo
+    Prob_ANNt_weights_Max_Ret = P[,2] %*% ANNt_weights_Max_Ret
+    Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
+    ANNt_weights_Max_Ret <- ANNt_weights_Max_Ret[ANNt_weights_Max_Ret>0]
+    Weight_ANNt_MAX=as.data.frame(t(as.data.frame(ANNt_weights_Max_Ret)))
+    rownames(Weight_ANNt_MAX)='Weight'
+    #ANNt_weights_Max_Ret
+    print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
+    #print(ANNt_weights_Max_Ret)
+    print(Weight_ANNt_MAX)
+
+    Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+    R_Asset_Max=as.data.frame(R[,Nomes_Ret])
+    Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
+
+    ANNt_weights_Max_Prob =pesos_conservador
+    Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+    Prob_ANNt_weights_Max_Prob = as.matrix(P[,2]) %*% as.vector(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob,2]
+    Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
+    Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
+    ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[ANNt_weights_Max_Prob>0]
+    Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+    Prob_ANNt_Max_Prob = P[Nomes_Prob,2]
+    Weight_ANNt_PROB=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+    rownames(Weight_ANNt_PROB)='Weight'
+    print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
+    #print(ANNt_weights_Max_Prob)
+    print(Weight_ANNt_PROB)
+
+    Asset_Prob = colnames(as.data.frame(Weight_ANNt_PROB))
+    #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
+    #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
+    R_Asset_Prob = as.data.frame(R[, Asset_Prob])
+    Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
+    Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 2]
+    Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
+    Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
+
+    Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(ANNt_weights_Max_Prob)
+    mean_R_Asset_Prob=colMeans(R_Asset_Prob)
+    sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
+  }
+
+
+
+  ########################## Type_ANNt_Prob = "BETA" ##########################
+  if (ANNt_Prob[4]=="BETA"){
+    if (type_ANNt=="T4"){
+      Ativos=rownames(Summary_ANNt_Training)
+      P=Summary_ANNt_Training[1:Num_Assets,]
+    }
+    if (type_ANNt=="T8"){
+      Ativos=rownames(Summary_ANNt_Testing)
+      P=Summary_ANNt_Testing[1:Num_Assets,]
+    }
+    #save(R,file='~/R.rda')
+    Ativos=Ativos[1:Num_Assets]
+    R = as.data.frame(all.returns) %>%
+      dplyr::select(which((colnames(all.returns) %in% Ativos)))
+    #R=R1[6:which(rownames(R1)=='2022-12-29'),]
+    #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+    Nomes_ordem = rownames(P)
+    R=R[,Nomes_ordem]
+    save(R,file='~/R.rda')
+
+    # 1. Instalar e carregar pacotes necessários
+    if(!require(sn)) install.packages("sn")
+    if(!require(ggplot2)) install.packages("ggplot2")
+
+    library(sn)
+    library(ggplot2)
+
+    # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
+    set.seed(05)
+    n_ativos <- as.numeric(ANNt_Prob[3])
+    n_cenarios <- as.numeric(ANNt_Prob[4])
+    ID = 1:n_ativos
+    dados_ativos <- data.frame(
+      ID = 1:n_ativos,
+      Retorno_Esperado=P[ID,2],
+      Prob_T_Media=P[ID,1],
+      xi=P[ID,9],
+      omega=P[ID,10],
+      alpha=P[ID,11],
+      nu=P[ID,12],
+      Dev_Left=P[ID,15],
+      Dev_Right=P[ID,16],
+      Prob_Left=P[ID,17],
+      Prob_Right=P[ID,18]
+    )
+
+    # ---- PASSO 2: GERAÇÃO DA MATRIZ DE CENÁRIOS SKEW-T ----
+    # Aqui preservamos integralmente a assimetria e a curtose originais
+    matriz_cenarios <- matrix(NA, nrow = n_cenarios, ncol = n_ativos)
+    for(i in 1:n_ativos) {
+      matriz_cenarios[, i] <- rst(n_cenarios,
+                                  xi = dados_ativos$xi[i],
+                                  omega = dados_ativos$omega[i],
+                                  alpha = dados_ativos$alpha[i],
+                                  nu = dados_ativos$nu[i])
+    }
+
+    # ---- PASSO 3: OTIMIZAÇÃO POR CENÁRIOS COM RESTRIÇÃO DE ESPARSIDADE ----
+    otimizar_fronteira_prob <- function(matriz_ret, ret_esperados, lambda_prob, threshold = 0.005, meta_retorno=0.0025) {
+      n <- ncol(matriz_ret)
+
+      objetivo <- function(pesos) {
+        pesos[pesos < 0] <- 0
+        if(sum(pesos) == 0) pesos <- rep(1/n, n)
+        pesos <- pesos / sum(pesos)
+
+        ret_port_cenarios <- matriz_ret %*% pesos
+
+        # Probabilidade de o portfólio superar uma meta mínima (Target bicaudal zero)
+        prob_sucesso <- mean(ret_port_cenarios > meta_retorno)
+
+        # Retorno esperado do portfólio
+        ret_medio <- sum(pesos * ret_esperados)
+
+        # Minimização: Queremos ALTO retorno e ALTA probabilidade
+        # Controlamos a curvatura penalizando o retorno em função do ganho de probabilidade
+        return(-ret_medio - lambda_prob * prob_sucesso)
+      }
+
+      pesos_iniciais <- rep(1/n, n)
+      otim <- optim(pesos_iniciais, objetivo, method = "L-BFGS-B", lower = rep(0, n), upper = rep(1, n))
+
+      pesos_finais <- otim$par
+      pesos_finais[pesos_finais < threshold] <- 0 # Esparsidade natural aplicada
+      pesos_finais <- pesos_finais / sum(pesos_finais)
+
+      ret_final <- sum(pesos_finais * ret_esperados)
+      ret_port_cen <- matriz_ret %*% pesos_finais
+      prob_final <- mean(ret_port_cen > 0)
+
+      return(list(pesos = pesos_finais, retorno = ret_final, probabilidade = prob_final, n_ativos = sum(pesos_finais > 0)))
+    }
+
+    # ---- PASSO 4: MAPEANDO AS DUAS CARTEIRAS DA FRONTEIRA -BETA---
+    # Carteira 1: Máximo Retorno Esperado (Buscando o upside extremo da Skew-t) Ex. Lambda=0.01
+    carteira_1 <- otimizar_fronteira_prob(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_prob = Lambda1)
+
+    # Carteira 2: Máxima Probabilidade de Sucesso (Foco na cauda e consistência bicaudal) Ex.Lambda=0.8
+    carteira_2 <- otimizar_fronteira_prob(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_prob = Lambda2)
+
+
+    ANNt_weights_Max_Ret =carteira_1$pesos
+    Prob_ANNt_weights_Max_Ret = P[ID,1] %*% ANNt_weights_Max_Ret
+    Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
+    ANNt_weights_Max_Ret=t(as.data.frame(ANNt_weights_Max_Ret))
+    colnames(ANNt_weights_Max_Ret)=Ativos
+    Weight_ANNt_MAX <- ANNt_weights_Max_Ret[, as.logical(ANNt_weights_Max_Ret[1, ] > 0), drop = FALSE]
+    rownames(Weight_ANNt_MAX)='Weight'
+    #ANNt_weights_Max_Ret
+    print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
+    #print(ANNt_weights_Max_Ret)
+    print(Weight_ANNt_MAX)
+
+    Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+    R_Asset_Max=as.data.frame(R)
+    Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
+
+    ANNt_weights_Max_Prob =carteira_2$pesos
+    Nomes_Prob = Ativos
+    Prob_ANNt_weights_Max_Prob = as.matrix(P[ID,1]) %*% as.vector(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob,1]
+    Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
+    Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
+    ANNt_weights_Max_Prob=as.data.frame(ANNt_weights_Max_Prob)
+    ANNt_weights_Max_Prob=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+    colnames(ANNt_weights_Max_Prob)=colnames(R)
+    ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[, as.logical(ANNt_weights_Max_Prob[1, ] > 0), drop = FALSE]
+    Nomes_Prob2= colnames(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob2,1,drop = FALSE]
+    Weight_ANNt_PROB=as.data.frame(ANNt_weights_Max_Prob)
+    rownames(Weight_ANNt_PROB)='Weight'
+    print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
+    #print(ANNt_weights_Max_Prob)
+    print(Weight_ANNt_PROB)
+
+    Asset_Prob = colnames(as.data.frame(Weight_ANNt_PROB))
+    #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
+    #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
+    R_Asset_Prob = as.data.frame(R[, Asset_Prob])
+    Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
+    Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 1]
+    Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 1]
+    Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
+
+    Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(t(ANNt_weights_Max_Prob))
+    mean_R_Asset_Prob=colMeans(R_Asset_Prob)
+    sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
+
+
+
+  }
+  ########################## Type_ANNt_Prob = "CATS" ##########################
+  if (ANNt_Prob[4]=="CATS"){
+    if (type_ANNt=="T4"){
+      Ativos=rownames(Summary_ANNt_Training)
+      P=Summary_ANNt_Training[1:Num_Assets,]
+    }
+    if (type_ANNt=="T8"){
+      Ativos=rownames(Summary_ANNt_Testing)
+      P=Summary_ANNt_Testing[1:Num_Assets,]
+    }
+    save(R,file='~/R.rda')
+    Ativos=Ativos[1:Num_Assets]
+    R = as.data.frame(all.returns) %>%
+      dplyr::select(which((colnames(all.returns) %in% Ativos)))
+    #R=R1[6:which(rownames(R1)=='2022-12-29'),]
+    #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+    Nomes_ordem = rownames(P)
+    R=R[,Nomes_ordem]
+    save(R,file='~/R.rda')
+
+    # 1. Instalar e carregar pacotes necessários
+    if(!require(sn)) install.packages("sn")
+    if(!require(ggplot2)) install.packages("ggplot2")
+
+    library(sn)
+    library(ggplot2)
+
+    # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
+    set.seed(05)
+    n_ativos <- as.numeric(ANNt_Prob[3])
+    n_cenarios <- as.numeric(ANNt_Prob[4])
+    ID = 1:n_ativos
+    dados_ativos <- data.frame(
+      ID = 1:n_ativos,
+      Retorno_Esperado=P[ID,2],
+      Prob_T_Media=P[ID,1],
+      xi=P[ID,9],
+      omega=P[ID,10],
+      alpha=P[ID,11],
+      nu=P[ID,12],
+      Dev_Left=P[ID,15],
+      Dev_Right=P[ID,16],
+      Prob_Left=P[ID,17],
+      Prob_Right=P[ID,18]
+    )
+
+    # ---- PASSO 2: GERAÇÃO DA MATRIZ DE CENÁRIOS SKEW-T ----
+    # Aqui preservamos integralmente a assimetria e a curtose originais
+    matriz_cenarios <- matrix(NA, nrow = n_cenarios, ncol = n_ativos)
+    for(i in 1:n_ativos) {
+      matriz_cenarios[, i] <- rst(n_cenarios,
+                                  xi = dados_ativos$xi[i],
+                                  omega = dados_ativos$omega[i],
+                                  alpha = dados_ativos$alpha[i],
+                                  nu = dados_ativos$nu[i])
+    }
+
+    # ---- PASSO 3: OTIMIZAÇÃO COM SEMI-VARIÂNCIA, CURTOSE E ESPARSIDADE ----
+    otimizar_momentos_superiores <- function(matriz_ret, ret_esperados, lambda_prob, threshold = 0.005) {
+      n <- ncol(matriz_ret)
+
+      objetivo <- function(pesos) {
+        pesos[pesos < 0] <- 0
+        if(sum(pesos) == 0) pesos <- rep(1/n, n)
+        pesos <- pesos / sum(pesos)
+
+        # Retornos do portfólio no cenário
+        ret_port <- matriz_ret %*% pesos
+        mu_p <- mean(ret_port)
+
+        # 1. SEMI-VARIÂNCIA ASSIMÉTRICA
+        # Desvios negativos (Downside) vs Desvios positivos (Upside)
+        desvios_neg <- ret_port[ret_port < mu_p] - mu_p
+        desvios_pos <- ret_port[ret_port > mu_p] - mu_p
+
+        semivar_down <- if(length(desvios_neg) > 0) mean(desvios_neg^2) else 0
+        semivar_up   <- if(length(desvios_pos) > 0) mean(desvios_pos^2) else 0
+
+        # Risco ajustado por assimetria: penaliza a cauda de perda e pondera a cauda de ganho
+        semivar_assimetrica <- (2.0 * semivar_down) + (0.5 * semivar_up)
+
+        # 2. CURTOSE (Quarto Momento Central - Medida de Caudas Grossas/Eventos Extremos)
+        curtose_p <- mean((ret_port - mu_p)^4) / (mean((ret_port - mu_p)^2)^2)
+
+        # 3. PROBABILIDADE DE GANHO E RETORNO
+        prob_sucesso <- mean(ret_port > 0)
+        ret_medio <- sum(pesos * ret_esperados)
+
+        # Função Objetivo: Minimizar Riscos (Semi-variância + Curtose) e Maximizar Ganhos
+        # O lambda_prob pondera a transição na fronteira eficiente
+        return(semivar_assimetrica + 0.01 * curtose_p - ret_medio - lambda_prob * prob_sucesso)
+      }
+
+      pesos_iniciais <- rep(1/n, n)
+      otim <- optim(pesos_iniciais, objetivo, method = "L-BFGS-B", lower = rep(0, n), upper = rep(1, n))
+
+      pesos_finais <- otim$par
+      pesos_finais[pesos_finais < threshold] <- 0 # Esparsidade natural LASSO
+      pesos_finais <- pesos_finais / sum(pesos_finais)
+
+      # Métricas Finais
+      ret_final <- sum(pesos_finais * ret_esperados)
+      ret_port_cen <- matriz_ret %*% pesos_finais
+      prob_final <- mean(ret_port_cen > 0)
+
+      return(list(pesos = pesos_finais, retorno = ret_final, probabilidade = prob_final, n_ativos = sum(pesos_finais > 0)))
+    }
+
+    # ---- PASSO 4: GERAR AS DUAS CARTEIRAS E A FRONTEIRA CONVEXA À DIREITA -CATS---
+    # ANNt_MAX -  Máximo Retorno (Aproveitando distorções positivas de assimetria/curtose) Ex. Lambda1=0.01
+    carteira_1 <- otimizar_momentos_superiores(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_prob = Lambda1)
+    # ANNt_PROB -  Máxima Probabilidade (Foco na modelagem de cauda e controle de perdas) Lambda2=1.5
+    carteira_2 <- otimizar_momentos_superiores(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_prob = Lambda2)
+
+    ANNt_weights_Max_Ret =carteira_1$pesos
+    Prob_ANNt_weights_Max_Ret = P[ID,1] %*% ANNt_weights_Max_Ret
+    Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
+    ANNt_weights_Max_Ret=t(as.data.frame(ANNt_weights_Max_Ret))
+    colnames(ANNt_weights_Max_Ret)=Ativos
+    Weight_ANNt_MAX <- ANNt_weights_Max_Ret[, as.logical(ANNt_weights_Max_Ret[1, ] > 0), drop = FALSE]
+    rownames(Weight_ANNt_MAX)='Weight'
+    #ANNt_weights_Max_Ret
+    print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
+    #print(ANNt_weights_Max_Ret)
+    print(Weight_ANNt_MAX)
+
+    Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+    R_Asset_Max=as.data.frame(R)
+    Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
+
+    ANNt_weights_Max_Prob =carteira_2$pesos
+    Nomes_Prob = Ativos
+    Prob_ANNt_weights_Max_Prob = as.matrix(P[ID,1]) %*% as.vector(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob,1]
+    Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
+    Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
+    ANNt_weights_Max_Prob=as.data.frame(ANNt_weights_Max_Prob)
+    ANNt_weights_Max_Prob=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+    colnames(ANNt_weights_Max_Prob)=colnames(R)
+    ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[, as.logical(ANNt_weights_Max_Prob[1, ] > 0), drop = FALSE]
+    Nomes_Prob2= colnames(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob2,1,drop = FALSE]
+    Weight_ANNt_PROB=as.data.frame(ANNt_weights_Max_Prob)
+    rownames(Weight_ANNt_PROB)='Weight'
+    print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
+    #print(ANNt_weights_Max_Prob)
+    print(Weight_ANNt_PROB)
+
+    Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+    #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
+    #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
+    R_Asset_Prob = as.data.frame(R[, Asset_Prob])
+    Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
+    Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 2]
+    Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
+    Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
+
+    Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(t(ANNt_weights_Max_Prob))
+    mean_R_Asset_Prob=colMeans(R_Asset_Prob)
+    sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
+
+
+  }
+
+
+  ########################## Type_ANNt_Prob = "DSR" ##########################
+  if (ANNt_Prob[4]=="DSR"){
+    if (type_ANNt=="T4"){
+      Ativos=rownames(Summary_ANNt_Training)
+      P=Summary_ANNt_Training[1:Num_Assets,]
+    }
+    if (type_ANNt=="T8"){
+      Ativos=rownames(Summary_ANNt_Testing)
+      P=Summary_ANNt_Testing[1:Num_Assets,]
+    }
+    save(R,file='~/R.rda')
+    Ativos=Ativos[1:Num_Assets]
+    R = as.data.frame(all.returns) %>%
+      dplyr::select(which((colnames(all.returns) %in% Ativos)))
+    #R=R1[6:which(rownames(R1)=='2022-12-29'),]
+    #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+    Nomes_ordem = rownames(P)
+    R=R[,Nomes_ordem]
+    save(R,file='~/R.rda')
+
+    # 1. Instalar e carregar pacotes necessários
+    if(!require(sn)) install.packages("sn")
+    if(!require(ggplot2)) install.packages("ggplot2")
+
+    library(sn)
+    library(ggplot2)
+
+    # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
+    set.seed(05)
+    n_ativos <- as.numeric(ANNt_Prob[3])
+    n_cenarios <- as.numeric(ANNt_Prob[4])
+    ID = 1:n_ativos
+    dados_ativos <- data.frame(
+      ID = 1:n_ativos,
+      Retorno_Esperado=P[ID,2],
+      Prob_T_Media=P[ID,1],
+      xi=P[ID,9],
+      omega=P[ID,10],
+      alpha=P[ID,11],
+      nu=P[ID,12],
+      Dev_Left=P[ID,15],
+      Dev_Right=P[ID,16],
+      Prob_Left=P[ID,17],
+      Prob_Right=P[ID,18]
+    )
+
+    # ---- PASSO 2: GERAÇÃO DA MATRIZ DE CENÁRIOS SKEW-T ----
+    # Aqui preservamos integralmente a assimetria e a curtose originais
+    matriz_cenarios <- matrix(NA, nrow = n_cenarios, ncol = n_ativos)
+    for(i in 1:n_ativos) {
+      matriz_cenarios[, i] <- rst(n_cenarios,
+                                  xi = dados_ativos$xi[i],
+                                  omega = dados_ativos$omega[i],
+                                  alpha = dados_ativos$alpha[i],
+                                  nu = dados_ativos$nu[i])
+    }
+
+
+    # ---- PASSO 3: OTIMIZAÇÃO DE SEMI-VARIÂNCIA À ESQUERDA PURA E ESPARSIDADE ----
+    otimizar_semivariancia_esquerda <- function(matriz_ret, ret_esperados, lambda_prob, threshold = 0.005) {
+      n <- ncol(matriz_ret)
+
+      objetivo <- function(pesos) {
+        pesos[pesos < 0] <- 0
+        if(sum(pesos) == 0) pesos <- rep(1/n, n)
+        pesos <- pesos / sum(pesos)
+
+        # Retornos simulados do portfólio
+        ret_port <- matriz_ret %*% pesos
+        mu_p <- mean(ret_port)
+
+        # SEMI-VARIÂNCIA À ESQUERDA PURA (Downside Risk)
+        # Considera apenas desvios estritamente negativos em relação à média do portfólio
+        desvios_neg <- ret_port[ret_port < mu_p] - mu_p
+        semivar_down <- if(length(desvios_neg) > 0) mean(desvios_neg^2) else 0
+
+        # Probabilidade de Ganho e Retorno Esperado
+        prob_sucesso <- mean(ret_port > 0)
+        ret_medio <- sum(pesos * ret_esperados)
+
+        # Função Objetivo: Minimizar a Semi-Variância à Esquerda e Maximizar os retornos/probabilidades
+        return(semivar_down - ret_medio - lambda_prob * prob_sucesso)
+      }
+
+      pesos_iniciais <- rep(1/n, n)
+      otim <- optim(pesos_iniciais, objetivo, method = "L-BFGS-B", lower = rep(0, n), upper = rep(1, n))
+
+      pesos_finais <- otim$par
+      pesos_finais[pesos_finais < threshold] <- 0 # Indução da esparsidade natural L1
+      pesos_finais <- pesos_finais / sum(pesos_finais)
+
+      # Métricas Finais
+      ret_final <- sum(pesos_finais * ret_esperados)
+      ret_port_cen <- matriz_ret %*% pesos_finais
+      prob_final <- mean(ret_port_cen > 0)
+
+      return(list(pesos = pesos_finais, retorno = ret_final, probabilidade = prob_final, n_ativos = sum(pesos_finais > 0)))
+    }
+
+    # ---- PASSO 4: GERAR AS DUAS CARTEIRAS E A FRONTEIRA CONVEXA À DIREITA --DSR--
+    # ANNt_MAX - Máximo Retorno (Aceitando maior volatilidade na cauda inferior) Ex. Lambda=0.01
+    carteira_1 <- otimizar_semivariancia_esquerda(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_prob = Lambda1)
+    # ANNt_PROB - Máxima Probabilidade (Foco estrito em blindar o Downside da Skew-t) Ex. Lambda=1.2
+    carteira_2 <- otimizar_semivariancia_esquerda(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_prob = Lambda2)
+
+    ANNt_weights_Max_Ret =carteira_1$pesos
+    Prob_ANNt_weights_Max_Ret = P[ID,1] %*% ANNt_weights_Max_Ret
+    Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
+    ANNt_weights_Max_Ret=t(as.data.frame(ANNt_weights_Max_Ret))
+    colnames(ANNt_weights_Max_Ret)=Ativos
+    Weight_ANNt_MAX <- ANNt_weights_Max_Ret[, as.logical(ANNt_weights_Max_Ret[1, ] > 0), drop = FALSE]
+    rownames(Weight_ANNt_MAX)='Weight'
+    #ANNt_weights_Max_Ret
+    print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
+    #print(ANNt_weights_Max_Ret)
+    print(Weight_ANNt_MAX)
+
+    Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+    R_Asset_Max=as.data.frame(R)
+    Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
+
+    ANNt_weights_Max_Prob =carteira_2$pesos
+    Nomes_Prob = Ativos
+    Prob_ANNt_weights_Max_Prob = as.matrix(P[ID,1]) %*% as.vector(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob,1]
+    Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
+    Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
+    ANNt_weights_Max_Prob=as.data.frame(ANNt_weights_Max_Prob)
+    ANNt_weights_Max_Prob=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+    colnames(ANNt_weights_Max_Prob)=colnames(R)
+    ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[, as.logical(ANNt_weights_Max_Prob[1, ] > 0), drop = FALSE]
+    Nomes_Prob2= colnames(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob2,1,drop = FALSE]
+    Weight_ANNt_PROB=as.data.frame(ANNt_weights_Max_Prob)
+    rownames(Weight_ANNt_PROB)='Weight'
+    print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
+    #print(ANNt_weights_Max_Prob)
+    print(Weight_ANNt_PROB)
+
+    Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+    #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
+    #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
+    R_Asset_Prob = as.data.frame(R[, Asset_Prob])
+    Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
+    Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 2]
+    Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
+    Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
+
+    Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(t(ANNt_weights_Max_Prob))
+    mean_R_Asset_Prob=colMeans(R_Asset_Prob)
+    sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
+
+  }
+  ########################## Type_ANNt_Prob = "Omega" ##########################
+    if (ANNt_Prob[4]=="Omega"){
+      if (type_ANNt=="T4"){
+        Ativos=rownames(Summary_ANNt_Training)
+        P=Summary_ANNt_Training[1:Num_Assets,]
+      }
+      if (type_ANNt=="T8"){
+        Ativos=rownames(Summary_ANNt_Testing)
+        P=Summary_ANNt_Testing[1:Num_Assets,]
+      }
+      save(R,file='~/R.rda')
+      Ativos=Ativos[1:Num_Assets]
+      R = as.data.frame(all.returns) %>%
+        dplyr::select(which((colnames(all.returns) %in% Ativos)))
+      #R=R1[6:which(rownames(R1)=='2022-12-29'),]
+      #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+      Nomes_ordem = rownames(P)
+      R=R[,Nomes_ordem]
+      save(R,file='~/R.rda')
+
+      # 1. Instalar e carregar pacotes necessários
+      if(!require(sn)) install.packages("sn")
+      if(!require(ggplot2)) install.packages("ggplot2")
+
+      library(sn)
+      library(ggplot2)
+
+      # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
+      set.seed(05)
+      n_ativos <- as.numeric(ANNt_Prob[3])
+      n_cenarios <- as.numeric(ANNt_Prob[4])
+      ID = 1:n_ativos
+      dados_ativos <- data.frame(
+        ID = 1:n_ativos,
+        Retorno_Esperado=P[ID,2],
+        Prob_T_Media=P[ID,1],
+        xi=P[ID,9],
+        omega=P[ID,10],
+        alpha=P[ID,11],
+        nu=P[ID,12],
+        Dev_Left=P[ID,15],
+        Dev_Right=P[ID,16],
+        Prob_Left=P[ID,17],
+        Prob_Right=P[ID,18]
+      )
+
+      # ---- PASSO 2: GERAÇÃO DA MATRIZ DE CENÁRIOS SKEW-T ----
+      # Aqui preservamos integralmente a assimetria e a curtose originais
+      matriz_cenarios <- matrix(NA, nrow = n_cenarios, ncol = n_ativos)
+      for(i in 1:n_ativos) {
+        matriz_cenarios[, i] <- rst(n_cenarios,
+                                    xi = dados_ativos$xi[i],
+                                    omega = dados_ativos$omega[i],
+                                    alpha = dados_ativos$alpha[i],
+                                    nu = dados_ativos$nu[i])
+      }
+
+
+      # ---- PASSO 3: FUNÇÃO OBJETIVO - MAXIMIZAÇÃO DE ÔMEGA COM ESPARSIDADE LASSO ----
+      otimizar_omega_lasso <- function(matriz_ret, ret_esperados, lambda_retorno, threshold = 0.005) {
+        n <- ncol(matriz_ret)
+        tau <- 0.01  # Retorno mínimo aceitável (Target)
+
+        objetivo <- function(pesos) {
+          # Restrição de Não-Negatividade (w >= 0)
+          pesos[pesos < 0] <- 0
+          if(sum(pesos) == 0) pesos <- rep(1/n, n)
+          pesos <- pesos / sum(pesos) # Restrição de Capital (Soma pesos = 1)
+
+          # Retornos simulados da carteira neste cenário
+          ret_port_cenarios <- matriz_ret %*% pesos
+
+          # Cálculo do Upside (Ganhos acima de tau) e Downside (Perdas abaixo de tau)
+          upside <- mean(pmax(ret_port_cenarios - tau, 0))
+          downside <- mean(pmax(tau - ret_port_cenarios, 0))
+
+          # Evitar divisão por zero na cauda
+          if(downside == 0) downside <- 1e-6
+
+          # Razão Ômega
+          omega_ratio <- upside / downside
+
+          # Retorno Esperado da Carteira
+          ret_medio <- sum(pesos * ret_esperados)
+
+          # Minimizamos o inverso de Omega menos o prêmio por retorno (controlado por lambda)
+          return(-omega_ratio - lambda_retorno * ret_medio)
+        }
+
+        pesos_iniciais <- rep(1/n, n)
+        otim <- optim(pesos_iniciais, objetivo, method = "L-BFGS-B", lower = rep(0, n), upper = rep(1, n))
+
+        pesos_finais <- otim$par
+        pesos_finais[pesos_finais < threshold] <- 0 # Esparsidade natural aplicada aqui
+        pesos_finais <- pesos_finais / sum(pesos_finais)
+
+        # Métricas Finais
+        ret_final <- sum(pesos_finais * ret_esperados)
+        ret_port_cen <- matriz_ret %*% pesos_finais
+
+        # Medida global de risco bicaudal (Volatilidade total integrada da Skew-t)
+        risco_final <- sd(ret_port_cen)
+
+        return(list(pesos = pesos_finais, retorno = ret_final, risco = risco_final, n_ativos = sum(pesos_finais > 0)))
+      }
+
+
+      # ---- PASSO 4: GERAR AS DUAS CARTEIRAS E A FRONTEIRA CONVEXA À DIREITA ----
+      # ANNt_MAX - Maximização de Ganho de Cauda Direita Exponencial Ex. Lambda=4.5
+      carteira_1 <- otimizar_omega_lasso(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_retorno = Lambda2)
+      # ANNt_PROB - Maximização Pura do Balanço de Cauda (Ômega sem viés de ganho extremo) Ex. Lambda=0.1
+      carteira_2 <- otimizar_omega_lasso(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda_retorno = Lambda1)
+
+      ANNt_weights_Max_Ret =carteira_1$pesos
+      Prob_ANNt_weights_Max_Ret = P[ID,1] %*% ANNt_weights_Max_Ret
+      Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
+      ANNt_weights_Max_Ret=t(as.data.frame(ANNt_weights_Max_Ret))
+      colnames(ANNt_weights_Max_Ret)=Ativos
+      Weight_ANNt_MAX <- ANNt_weights_Max_Ret[, as.logical(ANNt_weights_Max_Ret[1, ] > 0), drop = FALSE]
+      rownames(Weight_ANNt_MAX)='Weight'
+      #ANNt_weights_Max_Ret
+      print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
+      #print(ANNt_weights_Max_Ret)
+      print(Weight_ANNt_MAX)
+
+      Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+      R_Asset_Max=as.data.frame(R)
+      Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
+
+      ANNt_weights_Max_Prob =carteira_2$pesos
+      Nomes_Prob = Ativos
+      Prob_ANNt_weights_Max_Prob = as.matrix(P[ID,1]) %*% as.vector(ANNt_weights_Max_Prob)
+      Prob_ANNt_Max_Prob = P[Nomes_Prob,1]
+      Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
+      Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
+      ANNt_weights_Max_Prob=as.data.frame(ANNt_weights_Max_Prob)
+      ANNt_weights_Max_Prob=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+      colnames(ANNt_weights_Max_Prob)=colnames(R)
+      ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[, as.logical(ANNt_weights_Max_Prob[1, ] > 0), drop = FALSE]
+      Nomes_Prob2= colnames(ANNt_weights_Max_Prob)
+      Prob_ANNt_Max_Prob = P[Nomes_Prob2,1,drop = FALSE]
+      Weight_ANNt_PROB=as.data.frame(ANNt_weights_Max_Prob)
+      rownames(Weight_ANNt_PROB)='Weight'
+      print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
+      #print(ANNt_weights_Max_Prob)
+      print(Weight_ANNt_PROB)
+
+      Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+      #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
+      #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
+      R_Asset_Prob = as.data.frame(R[, Asset_Prob])
+      Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
+      Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 2]
+      Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
+      Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
+
+      Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(t(ANNt_weights_Max_Prob))
+      mean_R_Asset_Prob=colMeans(R_Asset_Prob)
+      sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
+
+
+  }
+  ########################## Type_ANNt_Prob = "VaR" ##########################
+  if (ANNt_Prob[4]=="VaR"){
+      if (type_ANNt=="T4"){
+        Ativos=rownames(Summary_ANNt_Training)
+        P=Summary_ANNt_Training[1:Num_Assets,]
+      }
+      if (type_ANNt=="T8"){
+        Ativos=rownames(Summary_ANNt_Testing)
+        P=Summary_ANNt_Testing[1:Num_Assets,]
+      }
+      save(R,file='~/R.rda')
+      Ativos=Ativos[1:Num_Assets]
+      R = as.data.frame(all.returns) %>%
+        dplyr::select(which((colnames(all.returns) %in% Ativos)))
+      #R=R1[6:which(rownames(R1)=='2022-12-29'),]
+      #R=R1[which(rownames(R1)=='2022-12-29'):nrow(R1),]
+      Nomes_ordem = rownames(P)
+      R=R[,Nomes_ordem]
+      save(R,file='~/R.rda')
+
+      # 1. Instalar e carregar pacotes necessários
+      if(!require(sn)) install.packages("sn")
+      if(!require(ggplot2)) install.packages("ggplot2")
+
+      library(sn)
+      library(ggplot2)
+
+      # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
+      set.seed(05)
+      n_ativos <- as.numeric(ANNt_Prob[3])
+      n_cenarios <- as.numeric(ANNt_Prob[4])
+      ID = 1:n_ativos
+      dados_ativos <- data.frame(
+        ID = 1:n_ativos,
+        Retorno_Esperado=P[ID,2],
+        Prob_T_Media=P[ID,1],
+        xi=P[ID,9],
+        omega=P[ID,10],
+        alpha=P[ID,11],
+        nu=P[ID,12],
+        Dev_Left=P[ID,15],
+        Dev_Right=P[ID,16],
+        Prob_Left=P[ID,17],
+        Prob_Right=P[ID,18]
+      )
+
+      # ---- PASSO 2: GERAÇÃO DA MATRIZ DE CENÁRIOS SKEW-T ----
+      # Aqui preservamos integralmente a assimetria e a curtose originais
+      matriz_cenarios <- matrix(NA, nrow = n_cenarios, ncol = n_ativos)
+      for(i in 1:n_ativos) {
+        matriz_cenarios[, i] <- rst(n_cenarios,
+                                    xi = dados_ativos$xi[i],
+                                    omega = dados_ativos$omega[i],
+                                    alpha = dados_ativos$alpha[i],
+                                    nu = dados_ativos$nu[i])
+      }
+
+    # ---- PASSO 3: OTIMIZAÇÃO BASEADA EM VALUE AT RISK (VaR) ----
+        otimizar_mean_var_portfolio <- function(matriz_ret, ret_esperados, lambda, confianca = 0.95, threshold = 0.005) {
+          n <- ncol(matriz_ret)
+
+          objetivo <- function(pesos) {
+            # Restrições de caixa: não-negatividade
+            pesos[pesos < 0] <- 0
+            if(sum(pesos) == 0) pesos <- rep(1/n, n)
+            pesos <- pesos / sum(pesos) # Soma = 1
+
+            # Retornos simulados do portfólio nos cenários
+            ret_port_cenarios <- matriz_ret %*% pesos
+
+            # Cálculo do Value at Risk (VaR): O quantil negativo da distribuição empírica Skew-t
+            # O VaR representa a perda (valor positivo) que não deve ser superada com 95% de confiança
+            var_portfolio <- -quantile(ret_port_cenarios, probs = 1 - confianca)
+
+            # Retorno esperado do portfólio
+            ret_medio <- sum(pesos * ret_esperados)
+
+            # Função Objetivo: Minimizar o VaR e Maximizar o Retorno Esperado
+            return(var_portfolio - lambda * ret_medio)
+          }
+
+          pesos_iniciais <- rep(1/n, n)
+          otim <- optim(pesos_iniciais, objetivo, method = "L-BFGS-B", lower = rep(0, n), upper = rep(1, n))
+
+          # Aplicação da esparsidade natural (Filtro LASSO-like por threshold)
+          pesos_finais <- otim$par
+          pesos_finais[pesos_finais < threshold] <- 0
+          pesos_finais <- pesos_finais / sum(pesos_finais)
+
+          # Estatísticas finais da carteira otimizada
+          ret_final <- sum(pesos_finais * ret_esperados)
+          ret_port_cen <- matriz_ret %*% pesos_finais
+          var_final <- -quantile(ret_port_cen, probs = 1 - confianca)
+
+          return(list(pesos = pesos_finais, retorno = ret_final, risco_var = as.numeric(var_final), n_ativos = sum(pesos_finais > 0)))
+        }
+        # ---- PASSO 4: GERAR AS DUAS CARTEIRAS E A FRONTEIRA CONVEXA À DIREITA ----
+        # ANNt_MAX - Agressiva, Maximizacao do retorno sob restricao do VaR Ex. Lambda=2.5
+        carteira_1 <- otimizar_mean_var_portfolio(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda = Lambda2)
+        # ANNt_PROB - Foco estrito em Segurança / Minimização do Limiar de Perda (VaR) Ex. Lambda=0.05
+        carteira_2 <- otimizar_mean_var_portfolio(matriz_cenarios, dados_ativos$Retorno_Esperado, lambda = Lambda1)
+
+        ANNt_weights_Max_Ret =carteira_1$pesos
+        Prob_ANNt_weights_Max_Ret = P[ID,1] %*% ANNt_weights_Max_Ret
+        Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
+        ANNt_weights_Max_Ret=t(as.data.frame(ANNt_weights_Max_Ret))
+        colnames(ANNt_weights_Max_Ret)=Ativos
+        Weight_ANNt_MAX <- ANNt_weights_Max_Ret[, as.logical(ANNt_weights_Max_Ret[1, ] > 0), drop = FALSE]
+        rownames(Weight_ANNt_MAX)='Weight'
+        #ANNt_weights_Max_Ret
+        print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
+        #print(ANNt_weights_Max_Ret)
+        print(Weight_ANNt_MAX)
+
+        Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+        R_Asset_Max=as.data.frame(R)
+        Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
+
+        ANNt_weights_Max_Prob =carteira_2$pesos
+        Nomes_Prob = Ativos
+        Prob_ANNt_weights_Max_Prob = as.matrix(P[ID,1]) %*% as.vector(ANNt_weights_Max_Prob)
+        Prob_ANNt_Max_Prob = P[Nomes_Prob,1]
+        Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
+        Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
+        ANNt_weights_Max_Prob=as.data.frame(ANNt_weights_Max_Prob)
+        ANNt_weights_Max_Prob=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+        colnames(ANNt_weights_Max_Prob)=colnames(R)
+        ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[, as.logical(ANNt_weights_Max_Prob[1, ] > 0), drop = FALSE]
+        Nomes_Prob2= colnames(ANNt_weights_Max_Prob)
+        Prob_ANNt_Max_Prob = P[Nomes_Prob2,1,drop = FALSE]
+        Weight_ANNt_PROB=as.data.frame(ANNt_weights_Max_Prob)
+        rownames(Weight_ANNt_PROB)='Weight'
+        print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
+        #print(ANNt_weights_Max_Prob)
+        print(Weight_ANNt_PROB)
+
+        Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+        #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
+        #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
+        R_Asset_Prob = as.data.frame(R[, Asset_Prob])
+        Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
+        Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 2]
+        Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
+        Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
+
+        Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(t(ANNt_weights_Max_Prob))
+        mean_R_Asset_Prob=colMeans(R_Asset_Prob)
+        sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
+
+      }
+
+
+
+  }
   ############################################################################
 
 

@@ -1,3 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 scenario.set
+^\.positai$
+^\.claude$

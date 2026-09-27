@@ -36,7 +36,7 @@ ANNt_Oliveira_Ceretta_S(
   Activation_Function = "Tangent",
   Activation_F_Out = "Original",
   Batch_Size = "",
-  ANNt_Prob = ANNt_Prob,
+  ANNt_Prob = "No",
   Delay = "No"
 )
 }
@@ -115,7 +115,8 @@ or "No". "Yes" is the standard.}
 
 \item{Batch_Size}{Define the length of Batch. Standard is full batch size (Batch gradient descent)}
 
-\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
+\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints, and Type_ANNt_Prob Technique utilized to solve the Probability: "Cov" is standard; 'Skew-t" use parameters of skewness and kurtose; "Omega": Use the Omega ratio;
+"VaR" use the Value at Risk; "Semi-Var" use semi-variance.}
 
 \item{Delay}{in portfolio formation or rebalancing. Considers the number of days lag between portfolio creation and investment execution.The default is Delay="No", alternative example: Delay=c('Yes', 5)}
 

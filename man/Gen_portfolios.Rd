@@ -32,7 +32,17 @@ Gen_portfolios(
 "T7"= MC_Signal_Test;
 "T8"= Type_ANNt: MC_t_Test}
 
-\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints}
+\item{ANNt_Prob}{generate the portfolios with ANNt probability only. Default is "No".
+Alternative inform: "Yes, Num_Assets, nd nPoints,
+Type_ANNt_Prob Technique utilized to solve the Probability:
+"Cov" Covariance is standard.
+"Cov2" Covariance 2 use two lambdas.
+"BETA" (Binary Excedance & Tail Assessment Matrix) use parameters of skewness and kurtosis;
+"CATS" (Convexity & Asymmetric Tail Scoring) use parameters of skewness and kurtosis with higher moments;
+"DSR" (Downside Semi-Variance Risk): Directly identifies the strict focus on downside semi-variance (downside risk) relative to the reference point \[\mu _{p}\].
+"Omega": Use the Omega ratio;
+"VaR" use the Value at Risk; "Semi-Var" use semi-variance, and
+Lambda (only one Lambda or two Lambdas).}
 }
 \description{
 Gen_portfolios
@@ -43,7 +53,7 @@ Initial_Date_Testing <- c('2023-01-03')
 Final_Date_Testing <- c('')
 Rf <- 0
 type_ANNt <- 'T8'
-ANNt_Prob <- c('Yes', 0.5, 170, 500)
+ANNt_Prob <- c('Yes', 170, 500, 'Cov', 0.01, 0.8)
 # Generate assets portfolio (maximum N assets specified)
 Gen_portfolios(3,'2023-01-03','',0,'T8')
 

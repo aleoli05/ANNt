@@ -42,7 +42,8 @@
 #' @param Return_Cumulative 'Total' for all period off investment or "Rebalanced" if estimated only within the rebalancing.
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
-#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints, and Type_ANNt_Prob Technique utilized to solve the Probability: "Cov" is standard; 'Skew-t" use parameters of skewness and kurtose; "Omega": Use the Omega ratio;
+#' "VaR" use the Value at Risk; "Semi-Var" use semi-variance.
 #' @param Delay in portfolio formation or rebalancing. Considers the number of days lag between portfolio creation and investment execution.The default is Delay="No", alternative example: Delay=c('Yes', 5)
 #' @param Initialization define the parameters of weights initialization:
 #' 1) Original: Define the first configuration. Uniform distribution and weights from 0 to 1;
@@ -125,7 +126,8 @@ Investment_Horizon <- function(Tickers, RM, Rf, Initial_Date, Final_Date_Trainin
                                Initialization = 'Original',
                                Activation_Function='Tangent', Activation_F_Out='Original',
                                Batch_Size='',
-                               ANNt_Prob='No', Delay='No'){
+                               ANNt_Prob='No',
+                               Delay='No'){
   ydev=dev.list()
   if(class(ydev)!="NULL"){
     dev.off()
@@ -421,7 +423,8 @@ if(Fun=='S_Out'){
                               Activation_Function=Activation_Function,
                               Activation_F_Out=Activation_F_Out,
                               Batch_Size=Batch_Size,
-                              ANNt_Prob=ANNt_Prob, Delay=Delay)
+                              ANNt_Prob=ANNt_Prob,
+                              Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -462,7 +465,8 @@ if(Fun=='Out'){
                             Activation_Function=Activation_Function,
                             Activation_F_Out=Activation_F_Out,
                             Batch_Size=Batch_Size,
-                            ANNt_Prob=ANNt_Prob, Delay=Delay)
+                            ANNt_Prob=ANNt_Prob,
+                            Delay=Delay)
   {
     load('~/Initial_Date_Out.rda')
     load('~/Final_Date_Out.rda')
@@ -509,7 +513,8 @@ if(Fun=='S'){
                           Activation_Function=Activation_Function,
                           Activation_F_Out=Activation_F_Out,
                           Batch_Size=Batch_Size,
-                          ANNt_Prob=ANNt_Prob, Delay=Delay)
+                          ANNt_Prob=ANNt_Prob,
+                          Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -529,7 +534,8 @@ if(Fun=='Original'){
                         Activation_Function=Activation_Function,
                         Activation_F_Out=Activation_F_Out,
                         Batch_Size=Batch_Size,
-                        ANNt_Prob=ANNt_Prob, Delay=Delay)
+                        ANNt_Prob=ANNt_Prob,
+                        Delay=Delay)
   load('~/Initial_Date_Testing.rda')
   load('~/Final_Date_Testing.rda')
   data3 = as.Date.character(Initial_Date_Testing)
@@ -1082,6 +1088,7 @@ legend("topleft",
   ### With ANNt_Prob
   ##########################################################################
   load('~/Type_ANN.rda')
+  Legend_position=c('topleft')
   ANN_EQ = paste(Type_ANN,'_EQ', sep='')
   ANN_MKW = paste(Type_ANN,'_MKW', sep='')
   ANN_SHARPE = paste(Type_ANN,'_SHARPE', sep='')
@@ -1174,7 +1181,7 @@ legend("topleft",
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     ANN_EQ,
@@ -1280,7 +1287,7 @@ legend("topleft",
 
   ## Contador de vit?rias Buffet
   Contador_MF_DFA = matrix(nrow=149)
-  legend("topleft",
+  legend(paste(Legend_position),
          #"bottomright",
          legend = c(RM, "MARKOWITZ", "SHARPE", "MF_EQ", "MF_MKW", "MF_SHARPE",
                     ANN_EQ,

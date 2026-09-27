@@ -29,7 +29,8 @@
 #' @param Bias include Bias, Yes or No, with auto learning
 #' @param Order_Only disability the ANN and only order the historic probability to outperformed the benchmark
 #' @param Convolution addresses the bearish/bullish tendency or inverse tendency in the neural input (Trend, Neutral, Reverse)
-#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints
+#' @param ANNt_Prob generate the portfolios with ANNt probability only. Default is "No". Alternative inform: "Yes, Lambda, Num_Assets, nd nPoints, and Type_ANNt_Prob Technique utilized to solve the Probability: "Cov" is standard; 'Skew-t" use parameters of skewness and kurtose; "Omega": Use the Omega ratio;
+#' "VaR" use the Value at Risk; "Semi-Var" use semi-variance.
 #' @param Delay in portfolio formation or rebalancing. Considers the number of days lag between portfolio creation and investment execution.The default is Delay="No", alternative example: Delay=c('Yes', 5)
 #' @param Initialization define the parameters of weights initialization:
 #' 1) Original: Define the first configuration. Uniform distribution and weights from 0 to 1;
