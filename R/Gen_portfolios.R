@@ -1454,7 +1454,7 @@ tryCatch({
       Num_Assets= as.numeric(ANNt_Prob[2])
       nPoints= as.numeric(ANNt_Prob[3])
       Lambda1 = as.numeric(ANNt_Prob[5])
-      if (lenght(ANNt_Prob)==6){
+      if (length(ANNt_Prob)==6){
       Lambda2 = as.numeric(ANNt_Prob[6])
       }
   # 1. Carregar o pacote para otimização quadrática
