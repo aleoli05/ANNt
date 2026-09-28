@@ -1821,8 +1821,8 @@ tryCatch({
 
     # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
     set.seed(05)
-    n_ativos <- as.numeric(ANNt_Prob[3])
-    n_cenarios <- as.numeric(ANNt_Prob[4])
+    n_ativos <- as.numeric(ANNt_Prob[2])
+    n_cenarios <- as.numeric(ANNt_Prob[3])
     ID = 1:n_ativos
     dados_ativos <- data.frame(
       ID = 1:n_ativos,
@@ -1972,8 +1972,8 @@ tryCatch({
 
     # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
     set.seed(05)
-    n_ativos <- as.numeric(ANNt_Prob[3])
-    n_cenarios <- as.numeric(ANNt_Prob[4])
+    n_ativos <- as.numeric(ANNt_Prob[2])
+    n_cenarios <- as.numeric(ANNt_Prob[3])
     ID = 1:n_ativos
     dados_ativos <- data.frame(
       ID = 1:n_ativos,
@@ -2137,8 +2137,8 @@ tryCatch({
 
     # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
     set.seed(05)
-    n_ativos <- as.numeric(ANNt_Prob[3])
-    n_cenarios <- as.numeric(ANNt_Prob[4])
+    n_ativos <- as.numeric(ANNt_Prob[2])
+    n_cenarios <- as.numeric(ANNt_Prob[3])
     ID = 1:n_ativos
     dados_ativos <- data.frame(
       ID = 1:n_ativos,
@@ -2290,8 +2290,8 @@ tryCatch({
 
       # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
       set.seed(05)
-      n_ativos <- as.numeric(ANNt_Prob[3])
-      n_cenarios <- as.numeric(ANNt_Prob[4])
+      n_ativos <- as.numeric(ANNt_Prob[2])
+      n_cenarios <- as.numeric(ANNt_Prob[3])
       ID = 1:n_ativos
       dados_ativos <- data.frame(
         ID = 1:n_ativos,
@@ -2452,8 +2452,8 @@ tryCatch({
 
       # ---- PASSO 1: DADOS DOS 470 ATIVOS ----
       set.seed(05)
-      n_ativos <- as.numeric(ANNt_Prob[3])
-      n_cenarios <- as.numeric(ANNt_Prob[4])
+      n_ativos <- as.numeric(ANNt_Prob[2])
+      n_cenarios <- as.numeric(ANNt_Prob[3])
       ID = 1:n_ativos
       dados_ativos <- data.frame(
         ID = 1:n_ativos,
