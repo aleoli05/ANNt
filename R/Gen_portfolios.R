@@ -2069,7 +2069,7 @@ tryCatch({
     #print(ANNt_weights_Max_Ret)
     print(Weight_ANNt_MAX)
 
-    Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
+    Nomes_Ret = colnames(as.data.frame(ANNt_weights_Max_Ret))
     R_Asset_Max=as.data.frame(R)
     Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
 
@@ -2091,7 +2091,7 @@ tryCatch({
     #print(ANNt_weights_Max_Prob)
     print(Weight_ANNt_PROB)
 
-    Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+    Asset_Prob = colnames(as.data.frame(Weight_ANNt_PROB))
     #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
     #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
     R_Asset_Prob = as.data.frame(R[, Asset_Prob])
@@ -2247,7 +2247,7 @@ tryCatch({
     #print(ANNt_weights_Max_Prob)
     print(Weight_ANNt_PROB)
 
-    Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+    Asset_Prob = colnames(as.data.frame(Weight_ANNt_PROB))
     #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
     #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
     R_Asset_Prob = as.data.frame(R[, Asset_Prob])
@@ -2408,7 +2408,7 @@ tryCatch({
       #print(ANNt_weights_Max_Prob)
       print(Weight_ANNt_PROB)
 
-      Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+      Asset_Prob = colnames(as.data.frame(Weight_ANNt_PROB))
       #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
       #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
       R_Asset_Prob = as.data.frame(R[, Asset_Prob])
@@ -2559,7 +2559,7 @@ tryCatch({
         #print(ANNt_weights_Max_Prob)
         print(Weight_ANNt_PROB)
 
-        Asset_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
+        Asset_Prob = colnames(as.data.frame(Weight_ANNt_PROB))
         #Retornos_Asset_Prob = colMeans(R %>% select(all_of(Asset_Prob)))
         #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
         R_Asset_Prob = as.data.frame(R[, Asset_Prob])
