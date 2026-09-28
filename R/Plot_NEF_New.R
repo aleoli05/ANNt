@@ -26,8 +26,8 @@
 #' Plot_NEF_New(3,'2023-01-03','',0,'T8')
 #'
 Plot_NEF_New <-function(N_Assets, Initial_Date_Testing, Final_Date_Testing, Rf,
-                        type_ANNt,Lambda=0.5,
-                        nPoints =200){
+                        type_ANNt, nPoints =200, Lambda=0.5
+                        ){
 
 
   library(quantmod)

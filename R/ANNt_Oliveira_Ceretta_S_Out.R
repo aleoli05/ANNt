@@ -547,9 +547,9 @@ Plot_New_efficient_frontier(ANNt_Prob=ANNt_Prob)
 }
 Sys.sleep((15))
 if(ANNt_Prob[1]=='Yes'){
-  Plot_NEF_New(N_Assets=ANNt_Prob[3],Initial_Date_Testing=Initial_Date,
+  Plot_NEF_New(N_Assets=ANNt_Prob[2],Initial_Date_Testing=Initial_Date,
                Final_Date_Testing=Final_Date_Training,type_ANNt=Type_ANNt, Rf=Rf,
-               Lambda=ANNt_Prob[2],nPoints=ANNt_Prob[4])
+               Lambda=ANNt_Prob[5],nPoints=ANNt_Prob[3])
 }
 Plot_CUSUM('','')
 save(Initial_Date_Testing, file='~/Initial_Date_Testing.rda')

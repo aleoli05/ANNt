@@ -10,8 +10,8 @@ Plot_NEF_New(
   Final_Date_Testing,
   Rf,
   type_ANNt,
-  Lambda = 0.5,
-  nPoints = 200
+  nPoints = 200,
+  Lambda = 0.5
 )
 }
 \arguments{
@@ -33,9 +33,9 @@ Plot_NEF_New(
 "T7"= MC_Signal_Test;
 "T8"= Type_ANNt: MC_t_Test}
 
-\item{Lambda}{Risk Aversion parameter. Default is 0.5}
-
 \item{nPoints}{number of simulation. Default is 200}
+
+\item{Lambda}{Risk Aversion parameter. Default is 0.5}
 }
 \description{
 Plot_NEF_New
