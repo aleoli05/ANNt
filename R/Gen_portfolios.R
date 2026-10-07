@@ -1708,7 +1708,8 @@ tryCatch({
       # 1. Configurando a Função Objetivo usando o Lambda de Entrada
       # Função: Min( 0.5 * x' * Dmat * x - dvec' * x )
       # Que se traduz em: Min( Lambda * Var(x) - Retorno(x) )
-      Dmat <- 2 * Lambda_Entrada * Sigma_ajustada
+      #Dmat <- 2 * Lambda_Entrada * Sigma_ajustada
+      Dmat <- 2*Lambda_Entrada*nearPD(as.matrix(Dmat_fixed))$mat
       dvec <- mu   # Importante: dvec precisa ser o vetor de retornos médios puro!
 
       # 2. Configurando APENAS a restrição de Orçamento e Posição Comprada
@@ -1747,10 +1748,11 @@ tryCatch({
     Prob_Carteiras=as.matrix(pesos_agressivo) %*%P[,2]
 
     ANNt_weights_Max_Ret =pesos_agressivo
-    Prob_ANNt_weights_Max_Ret = P[,2] %*% ANNt_weights_Max_Ret
+    Prob_ANNt_weights_Max_Ret = P[ID,1] %*% ANNt_weights_Max_Ret
     Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
-    ANNt_weights_Max_Ret <- ANNt_weights_Max_Ret[ANNt_weights_Max_Ret>0]
-    Weight_ANNt_MAX=as.data.frame(t(as.data.frame(ANNt_weights_Max_Ret)))
+    ANNt_weights_Max_Ret=t(as.data.frame(ANNt_weights_Max_Ret))
+    colnames(ANNt_weights_Max_Ret)=Ativos
+    Weight_ANNt_MAX <- ANNt_weights_Max_Ret[, as.logical(ANNt_weights_Max_Ret[1, ] > 0), drop = FALSE]
     rownames(Weight_ANNt_MAX)='Weight'
     #ANNt_weights_Max_Ret
     print(paste('[9] Weights of the ANNt_Max_Ret Portfolio:'))
@@ -1758,19 +1760,22 @@ tryCatch({
     print(Weight_ANNt_MAX)
 
     Nomes_Ret = rownames(as.data.frame(ANNt_weights_Max_Ret))
-    R_Asset_Max=as.data.frame(R[,Nomes_Ret])
+    R_Asset_Max=as.data.frame(R)
     Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
 
     ANNt_weights_Max_Prob =pesos_conservador
-    Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
-    Prob_ANNt_weights_Max_Prob = as.matrix(P[,2]) %*% as.vector(ANNt_weights_Max_Prob)
-    Prob_ANNt_Max_Prob = P[Nomes_Prob,2]
+    Nomes_Prob = Ativos
+    Prob_ANNt_weights_Max_Prob = as.matrix(P[ID,1]) %*% as.vector(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob,1]
     Prob_ANNt_Max_Prob_Portfolio = Prob_ANNt_Max_Prob%*% ANNt_weights_Max_Prob
     Ret_ANNt_weights_Max_Prob = colMeans(R) %*% ANNt_weights_Max_Prob
-    ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[ANNt_weights_Max_Prob>0]
-    Nomes_Prob = rownames(as.data.frame(ANNt_weights_Max_Prob))
-    Prob_ANNt_Max_Prob = P[Nomes_Prob,2]
-    Weight_ANNt_PROB=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+    ANNt_weights_Max_Prob=as.data.frame(ANNt_weights_Max_Prob)
+    ANNt_weights_Max_Prob=as.data.frame(t(as.data.frame(ANNt_weights_Max_Prob)))
+    colnames(ANNt_weights_Max_Prob)=colnames(R)
+    ANNt_weights_Max_Prob <- ANNt_weights_Max_Prob[, as.logical(ANNt_weights_Max_Prob[1, ] > 0), drop = FALSE]
+    Nomes_Prob2= colnames(ANNt_weights_Max_Prob)
+    Prob_ANNt_Max_Prob = P[Nomes_Prob2,1,drop = FALSE]
+    Weight_ANNt_PROB=as.data.frame(ANNt_weights_Max_Prob)
     rownames(Weight_ANNt_PROB)='Weight'
     print(paste('[10] Weights of the ANNt_Max_Prob Portfolio:'))
     #print(ANNt_weights_Max_Prob)
@@ -1781,11 +1786,11 @@ tryCatch({
     #Retornos_Asset_Prob = R %>% select(all_of(Asset_Prob)) %>% rowMeans(na.rm = TRUE)
     R_Asset_Prob = as.data.frame(R[, Asset_Prob])
     Retornos_Asset_Prob <- colMeans(R_Asset_Prob)
-    Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 2]
-    Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 2]
+    Prob_Asset_Prob = P[match(Asset_Prob, rownames(P)), 1]
+    Prob_Asset_Prob = P[rownames(P) %in% Asset_Prob, 1]
     Points_Prob = cbind(Prob_Asset_Prob,Retornos_Asset_Prob)
 
-    Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(ANNt_weights_Max_Prob)
+    Return_ANNt_Max_Prob =as.matrix(R_Asset_Prob)%*%as.vector(t(ANNt_weights_Max_Prob))
     mean_R_Asset_Prob=colMeans(R_Asset_Prob)
     sd_R_Asset_Prob=sapply(as.data.frame(R_Asset_Prob), sd, na.rm = TRUE)
   }
