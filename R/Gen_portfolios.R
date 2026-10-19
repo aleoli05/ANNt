@@ -1747,7 +1747,7 @@ tryCatch({
     Retornos_Carteiras= as.matrix(pesos_agressivo) %*%colMeans(R)
     Prob_Carteiras=as.matrix(pesos_agressivo) %*%P[,2]
 
-    ANNt_weights_Max_Ret =pesos_agressivo
+    ANNt_weights_Max_Ret =round(pesos_agressivo,4)
     Prob_ANNt_weights_Max_Ret = P[ID,1] %*% ANNt_weights_Max_Ret
     Ret_ANNt_weights_Max_Ret = colMeans(R) %*% ANNt_weights_Max_Ret
     ANNt_weights_Max_Ret=t(as.data.frame(ANNt_weights_Max_Ret))
@@ -1763,7 +1763,7 @@ tryCatch({
     R_Asset_Max=as.data.frame(R)
     Return_ANNt_Max_Ret = as.matrix(R_Asset_Max)%*%as.vector(ANNt_weights_Max_Ret)
 
-    ANNt_weights_Max_Prob =pesos_conservador
+    ANNt_weights_Max_Prob =round(pesos_conservador,4)
     Nomes_Prob = Ativos
     Prob_ANNt_weights_Max_Prob = as.matrix(P[ID,1]) %*% as.vector(ANNt_weights_Max_Prob)
     Prob_ANNt_Max_Prob = P[Nomes_Prob,1]

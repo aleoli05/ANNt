@@ -166,7 +166,8 @@ if(Type_ANN=='ANNt'){
   print(paste('Activation_F_Out: ',Activation_F_Out))
   print(paste('Batch_Size: ', Batch_Size))
 
-  ANNt_order ('', '', '', N_Lags=N_Lags, Hidden=Hidden, Stepmax=Stepmax,
+  ANNt_order (Initial_Date, Final_Date_Training,
+              Final_Date, N_Lags=N_Lags, Hidden=Hidden, Stepmax=Stepmax,
               Loss=Loss, Learning_Rate=Learning_Rate, Decay=Decay,
               Early_Stopping = Early_Stopping,
               Asymmetry=Asymmetry, Skew_t=Skew_t, Bias=Bias,
@@ -177,11 +178,13 @@ if(Type_ANN=='ANNt'){
               Batch_Size=Batch_Size)
 } else {
   if(Type_ANN=='LSTMt'){
-    LSTMt_order ('', '', '', Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,
+    LSTMt_order (Initial_Date, Final_Date_Training,
+                 Final_Date, Hidden=Hidden, Stepmax=Stepmax, Asymmetry=Asymmetry,
                  View_Metrics=FALSE, Verbose=0, Plot='No', Skew_t=Skew_t)
   } else {
     if(Type_ANN=='SKEWt'){
-      SKEWt_order ('', '', '', Asymmetry=Asymmetry,
+      SKEWt_order (Initial_Date, Final_Date_Training,
+                   Final_Date, Asymmetry=Asymmetry,
                    Plot='No', Skew_t=Skew_t)
     }}}}
 Gen_portfolios('n_Assets',Initial_Date,Final_Date_Training,Rf, Type_ANNt, ANNt_Prob=ANNt_Prob)
